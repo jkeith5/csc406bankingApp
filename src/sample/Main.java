@@ -7,8 +7,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
 
 public class Main extends Application {
+
+    private static String customerDataDir = "C:\\Users\\Owner\\IdeaProjects\\csc406bankingApp\\src\\sample\\customerData";
+    private static File customerFile = new File(customerDataDir);
+    private static DataEntry customerData = new DataEntry(customerFile);
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -20,6 +26,20 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+
         launch(args);
+    }
+
+    public static void dataEntry(String fName, String lName, String socialSec, String streetAddress, String city, String zipCode, String state) {
+        ArrayList<String> tempData = new ArrayList<>();
+        tempData.add(fName);
+        tempData.add(lName);
+        tempData.add(socialSec);
+        tempData.add(streetAddress);
+        tempData.add(city);
+        tempData.add(zipCode);
+        tempData.add(state);
+        customerData.printData(tempData);
+
     }
 }

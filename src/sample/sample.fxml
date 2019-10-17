@@ -31,6 +31,8 @@
       <TextField id="stateTextField" fx:id="stateTextField" promptText="Enter State Abbrev. (AL, MO, etc.)..." GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <Button id="enterButton" fx:id="enterButton" mnemonicParsing="false" onAction="#handleEnterButton" prefHeight="22.0" prefWidth="111.0" text="Enter All Data" GridPane.columnIndex="2" GridPane.rowIndex="9" />
       <Button id="backButtonInfoEnterPanel" mnemonicParsing="false" text="Previous" GridPane.rowIndex="9" />
+      <Label id="successfulEntry" fx:id="successfulEntryLabel" prefHeight="21.0" prefWidth="253.0" text="Label"
+             textAlignment="RIGHT" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
    </children>
    <rowConstraints>
       <RowConstraints />
