@@ -2,9 +2,15 @@ package BankingApp;
 
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class Controller {
     @FXML TextField fNameTextField;
@@ -17,6 +23,11 @@ public class Controller {
     @FXML
     Label successfulEntryLabel;
     @FXML Button enterButton;
+    @FXML Button TellerScreen;
+    @FXML Button BankManagerScreen;
+    @FXML Button TellerInterAddNew;
+    @FXML Button TellerInterManage;
+
 
     String fName, lName, socialSec, streetAddress, city, zipCode, state;
 
@@ -35,4 +46,38 @@ public class Controller {
         successfulEntryLabel.setText("Data storage for " + fName + " " + lName + " was successful!");
         successfulEntryLabel.visibleProperty().setValue(true);
     }
+
+    @FXML
+    public void mainInterfaceTellerButton(){
+        System.out.println("hi");
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("My New Stage Title");
+            stage.setScene(new Scene(root, 700, 500));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    public void tellerInterfaceAddNewButton(){
+        System.out.println("hi");
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("My New Stage Title");
+            stage.setScene(new Scene(root, 700, 500));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }
