@@ -13,7 +13,7 @@
          <children>
             <Text layoutX="78.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Banking Application Plese Select A User" wrappingWidth="330.13671875" />
             <Button fx:id="TellerScreen" layoutX="183.0" layoutY="86.0" mnemonicParsing="false" onAction="#mainInterfaceTellerButton" prefHeight="32.0" prefWidth="120.0" text="Bank Teller" />
-            <Button fx:id="BankManagerScreen" layoutX="183.0" layoutY="156.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" text="Bank Manager" />
+            <Button fx:id="BankManagerScreen" layoutX="183.0" layoutY="156.0" mnemonicParsing="false" onAction="#mainInterfaceManagerButton" prefHeight="32.0" prefWidth="120.0" text="Bank Manager" />
          </children>
       </Pane>
    </children>

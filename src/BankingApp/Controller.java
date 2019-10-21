@@ -27,6 +27,8 @@ public class Controller {
     @FXML Button BankManagerScreen;
     @FXML Button TellerInterAddNew;
     @FXML Button TellerInterManage;
+    @FXML TextField ManageUserSSNField;
+    @FXML Button ManageUserLookupButton;
 
 
     String fName, lName, socialSec, streetAddress, city, zipCode, state;
@@ -54,7 +56,22 @@ public class Controller {
         try {
             root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("My New Stage Title");
+            stage.setTitle("Teller Interface");
+            stage.setScene(new Scene(root, 700, 500));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    public void mainInterfaceManagerButton(){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Bank Manager Interface");
             stage.setScene(new Scene(root, 700, 500));
             stage.show();
         } catch (IOException e) {
@@ -70,7 +87,22 @@ public class Controller {
         try {
             root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("My New Stage Title");
+            stage.setTitle("Add a new user Account");
+            stage.setScene(new Scene(root, 700, 500));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    public void tellerInterfaceManageButton(){
+        System.out.println("hi");
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Manage existing user");
             stage.setScene(new Scene(root, 700, 500));
             stage.show();
         } catch (IOException e) {
