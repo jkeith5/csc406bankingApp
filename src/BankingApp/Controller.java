@@ -1,8 +1,6 @@
-package sample;
+package BankingApp;
 
 import javafx.fxml.FXML;
-
-import java.awt.*;
 
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;

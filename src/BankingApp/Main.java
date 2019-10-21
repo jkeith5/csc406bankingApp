@@ -1,4 +1,4 @@
-package sample;
+package BankingApp;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
         primaryStage.setTitle("Teller Bank Application(WIP)");
         primaryStage.setScene(new Scene(root, 700, 500));
         primaryStage.show();
