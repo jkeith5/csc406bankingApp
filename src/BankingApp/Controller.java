@@ -29,6 +29,7 @@ public class Controller {
     @FXML Button TellerInterManage;
     @FXML TextField ManageUserSSNField;
     @FXML Button ManageUserLookupButton;
+    @FXML Button AddNewUserPreviousButton;
 
 
     String fName, lName, socialSec, streetAddress, city, zipCode, state;
@@ -108,6 +109,14 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @FXML
+    public void closeWindow(){
+        Parent root = null;
+        Stage stage = (Stage) AddNewUserPreviousButton.getScene().getWindow();
+        stage.close();
 
     }
 
