@@ -37,6 +37,7 @@ public class Controller {
     @FXML Button ManageUserPrevButton;
     @FXML Button AddNewUserPreviousButton;
     @FXML Button BankManagerPrevButton;
+    @FXML Button ManageExistingDispDataPrevButton;
 
 
     String fName, lName, socialSec, streetAddress, city, zipCode, state;
@@ -108,6 +109,31 @@ public class Controller {
         }
 
     }
+
+    @FXML
+    public void tellerInterfaceManageLookupButton(){
+        System.out.println("001001001 found user launching interface");
+        // put code here to find user to display data on the screen that is about to be launched.
+
+        // put if statement if ssn did not match user display error on the ManageExistingUser.fxml screen
+        // else continue to launch window and display data
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
+            Main.primaryStage.setTitle("Customer Account Data Management Interface");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
     @FXML
     public void tellerInterfaceManageButton(){
         System.out.println("hi");
@@ -117,6 +143,29 @@ public class Controller {
             Main.primaryStage.setTitle("Manage existing user");
             Main.primaryStage.setScene(new Scene(root, 700, 500));
             Main.primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // will need this one because teller and bank manager can both see different items on user accounts
+    @FXML
+    public void bankManagerInterfaceManageLookupButton(){
+        System.out.println("001001001 found user launching interface");
+        // put code here to find user to display data on the screen that is about to be launched.
+
+        // put if statement if ssn did not match user display error on the ManageExistingUser.fxml screen
+        // else continue to launch window and display data
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
+            Main.primaryStage.setTitle("Customer Account Data Management Interface");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -154,6 +203,24 @@ public class Controller {
     }
 
     @FXML
+    public void goToManageLookupScene(){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
+            Main.primaryStage.setTitle("Lookup User");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    @FXML
     public void closeWindow(){
         Parent root = null;
         Stage stage = (Stage) AddNewUserPreviousButton.getScene().getWindow();
@@ -161,11 +228,5 @@ public class Controller {
 
     }
 
-
-
-
-    public void setStage(Stage stage){
-        this.primaryStage = stage;
-    }
 
 }
