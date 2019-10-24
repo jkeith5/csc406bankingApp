@@ -7,13 +7,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
    <children>
-      <Pane layoutX="41.0" layoutY="13.0" prefHeight="375.0" prefWidth="486.0">
+      <Pane layoutX="16.0" layoutY="16.0" prefHeight="468.0" prefWidth="669.0">
          <children>
-            <Text layoutX="78.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Banking Application Please Select A User" wrappingWidth="330.13671875" />
-            <Button fx:id="TellerScreen" layoutX="183.0" layoutY="86.0" mnemonicParsing="false" onAction="#mainInterfaceTellerButton" prefHeight="32.0" prefWidth="120.0" text="Bank Teller" />
-            <Button fx:id="BankManagerScreen" layoutX="183.0" layoutY="156.0" mnemonicParsing="false" onAction="#mainInterfaceManagerButton" prefHeight="32.0" prefWidth="120.0" text="Bank Manager" />
+            <Text layoutX="172.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Banking Application Please Select A User" wrappingWidth="330.13671875" />
+            <Button fx:id="TellerScreen" layoutX="277.0" layoutY="111.0" mnemonicParsing="false" onAction="#mainInterfaceTellerButton" prefHeight="32.0" prefWidth="120.0" text="Bank Teller" />
+            <Button fx:id="BankManagerScreen" layoutX="277.0" layoutY="179.0" mnemonicParsing="false" onAction="#mainInterfaceManagerButton" prefHeight="32.0" prefWidth="120.0" text="Bank Manager" />
          </children>
       </Pane>
    </children>

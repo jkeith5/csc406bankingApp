@@ -10,42 +10,30 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints minWidth="10.0" prefWidth="250.0" />
-      <ColumnConstraints minWidth="10.0" prefWidth="125.0" />
-   </columnConstraints>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
    <children>
-      <Label alignment="CENTER" prefHeight="21.0" prefWidth="254.0" text="Enter New Customer Detail" GridPane.columnIndex="1" GridPane.columnSpan="2" />
-      <Label text="Enter First Name:" GridPane.rowIndex="2" />
-      <Label text="Enter Last Name:" GridPane.rowIndex="3" />
-      <TextField id="fNameTextField" fx:id="fNameTextField" promptText="Enter First Name..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField id="lNameTextField" fx:id="lNameTextField" promptText="Enter Last Name..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Label text="Enter Social Sec. Num:" GridPane.rowIndex="4" />
-      <Label text="Enter Street Address:" GridPane.rowIndex="5" />
-      <Label text="Enter Zip Code:" GridPane.rowIndex="7" />
-      <Label text="Enter City:" GridPane.rowIndex="6" />
-      <Label text="Enter State:" GridPane.rowIndex="8" />
-      <TextField id="socialSecTextField" fx:id="socialSecTextField" promptText="Enter Social Sec. Number(SSN)..." GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <TextField id="streetAddressTextField" fx:id="streetAddressTextField" promptText="Enter Street Address..." GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <TextField id="cityTextfield" fx:id="cityTextField" promptText="Enter City..." GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField id="zipCodeTextField" fx:id="zipCodeTextField" promptText="Enter Zip Code..." GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <TextField id="stateTextField" fx:id="stateTextField" promptText="Enter State Abbrev. (AL, MO, etc.)..." GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <Button id="enterButton" fx:id="enterButton" mnemonicParsing="false" onAction="#handleEnterButton" prefHeight="22.0" prefWidth="111.0" text="Enter All Data" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-      <Button id="backButtonInfoEnterPanel" fx:id="AddNewUserPreviousButton" mnemonicParsing="false" onAction="#closeWindow" text="Previous" GridPane.rowIndex="9" />
-      <Label id="successfulEntry" fx:id="successfulEntryLabel" prefHeight="21.0" prefWidth="253.0" text="Label" textAlignment="RIGHT" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Pane layoutX="16.0" layoutY="16.0" prefHeight="468.0" prefWidth="669.0">
+         <children>
+            <Label alignment="CENTER" layoutX="208.0" layoutY="14.0" prefHeight="21.0" prefWidth="254.0" text="Enter New Customer Detail" />
+            <Label layoutX="132.0" layoutY="91.0" text="Enter Last Name:" />
+            <Label layoutX="132.0" layoutY="53.0" text="Enter First Name:" />
+            <Button id="backButtonInfoEnterPanel" fx:id="AddNewUserPreviousButton" layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#goToTellerScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button id="enterButton" fx:id="enterButton" layoutX="540.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleEnterButton" prefHeight="22.0" prefWidth="111.0" text="Enter All Data" />
+            <TextField id="fNameTextField" fx:id="fNameTextField" layoutX="261.0" layoutY="53.0" promptText="Enter First Name..." />
+            <TextField id="stateTextField" fx:id="stateTextField" layoutX="261.0" layoutY="243.0" promptText="Enter State Abbrev. (AL, MO, etc.)..." />
+            <TextField id="zipCodeTextField" fx:id="zipCodeTextField" layoutX="261.0" layoutY="281.0" promptText="Enter Zip Code..." />
+            <TextField id="cityTextfield" fx:id="cityTextField" layoutX="261.0" layoutY="205.0" promptText="Enter City..." />
+            <TextField id="streetAddressTextField" fx:id="streetAddressTextField" layoutX="261.0" layoutY="167.0" promptText="Enter Street Address..." />
+            <TextField id="socialSecTextField" fx:id="socialSecTextField" layoutX="261.0" layoutY="129.0" promptText="Enter Social Sec. Number(SSN)..." />
+            <Label layoutX="132.0" layoutY="281.0" text="Enter Zip Code:" />
+            <Label layoutX="132.0" layoutY="167.0" text="Enter Street Address:" />
+            <Label layoutX="132.0" layoutY="129.0" text="Enter Social Sec. Num:" />
+            <TextField id="lNameTextField" fx:id="lNameTextField" layoutX="261.0" layoutY="91.0" promptText="Enter Last Name..." />
+            <Label layoutX="132.0" layoutY="243.0" text="Enter State:" />
+            <Label id="successfulEntry" fx:id="successfulEntryLabel" prefHeight="21.0" prefWidth="253.0" text="Label" textAlignment="RIGHT" visible="false" />
+            <Label layoutX="132.0" layoutY="205.0" text="Enter City:" />
+         </children>
+      </Pane>
    </children>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="35.0" />
-   </rowConstraints>
-</GridPane>
+</AnchorPane>

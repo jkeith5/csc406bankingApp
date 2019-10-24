@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="BankingApp.Controller"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
+   <children>
+      <Pane layoutX="16.0" layoutY="16.0" prefHeight="468.0" prefWidth="669.0">
+         <children>
+            <Button fx:id="BankManagerPrevButton" layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#goToMainScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Text layoutX="262.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bank Manager Interface" wrappingWidth="145.13671875" />
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

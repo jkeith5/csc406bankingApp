@@ -12,7 +12,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static BankingApp.Main.primaryStage;
+
 public class Controller {
+    public static Stage primaryStage = Main.primaryStage;
+
     @FXML TextField fNameTextField;
     @FXML TextField lNameTextField;
     @FXML TextField socialSecTextField;
@@ -27,9 +31,12 @@ public class Controller {
     @FXML Button BankManagerScreen;
     @FXML Button TellerInterAddNew;
     @FXML Button TellerInterManage;
+    @FXML Button TellerInterPrev;
     @FXML TextField ManageUserSSNField;
     @FXML Button ManageUserLookupButton;
+    @FXML Button ManageUserPrevButton;
     @FXML Button AddNewUserPreviousButton;
+    @FXML Button BankManagerPrevButton;
 
 
     String fName, lName, socialSec, streetAddress, city, zipCode, state;
@@ -56,10 +63,16 @@ public class Controller {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Teller Interface");
-            stage.setScene(new Scene(root, 700, 500));
-            stage.show();
+            //stage.setTitle("Teller Interface");
+            //stage.setScene(new Scene(root, 700, 500));
+            //stage.show();
+
+            //this.primaryStage = Main.getPrimaryStage();
+            Main.primaryStage.setTitle("Teller Interface");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,10 +84,9 @@ public class Controller {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Bank Manager Interface");
-            stage.setScene(new Scene(root, 700, 500));
-            stage.show();
+            Main.primaryStage.setTitle("Bank Manager Interface");
+            Main.primaryStage.setScene(new Scene(root, 700, 500));
+            Main.primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,10 +99,10 @@ public class Controller {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Add a new user Account");
-            stage.setScene(new Scene(root, 700, 500));
-            stage.show();
+            //Stage stage = new Stage();
+            Main.primaryStage.setTitle("Add a new user Account");
+            Main.primaryStage.setScene(new Scene(root, 700, 500));
+            Main.primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,14 +114,43 @@ public class Controller {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Manage existing user");
-            stage.setScene(new Scene(root, 700, 500));
-            stage.show();
+            Main.primaryStage.setTitle("Manage existing user");
+            Main.primaryStage.setScene(new Scene(root, 700, 500));
+            Main.primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void goToMainScene(){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            Main.primaryStage.setTitle("Teller Bank Application(WIP)");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void goToTellerScene(){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
+            Main.primaryStage.setTitle("Teller Interface");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -120,5 +161,11 @@ public class Controller {
 
     }
 
+
+
+
+    public void setStage(Stage stage){
+        this.primaryStage = stage;
+    }
 
 }
