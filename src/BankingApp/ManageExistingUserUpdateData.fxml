@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
+   <children>
+      <Pane layoutX="16.0" layoutY="16.0" prefHeight="468.0" prefWidth="669.0">
+         <children>
+            <Text layoutX="271.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Customer Data" wrappingWidth="126.13671875" />
+            <Button layoutX="14.0" layoutY="429.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button layoutX="572.0" layoutY="429.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Save" />
+            <Label layoutX="42.0" layoutY="47.0" prefHeight="17.0" prefWidth="75.0" text="SSN:" />
+            <Label layoutX="42.0" layoutY="80.0" prefHeight="17.0" prefWidth="75.0" text="First Name:" />
+            <Label layoutX="42.0" layoutY="110.0" prefHeight="17.0" prefWidth="75.0" text="Last Name:" />
+            <Label layoutX="42.0" layoutY="150.0" prefHeight="17.0" prefWidth="107.0" text="Street Address:" />
+            <Label layoutX="42.0" layoutY="179.0" prefHeight="17.0" prefWidth="107.0" text="City:" />
+            <Label layoutX="42.0" layoutY="209.0" prefHeight="17.0" prefWidth="107.0" text="State:" />
+            <Label layoutX="42.0" layoutY="245.0" prefHeight="17.0" prefWidth="107.0" text="Zip:" />
+            <Label layoutX="42.0" layoutY="282.0" prefHeight="17.0" prefWidth="107.0" text="Temp:" />
+         </children></Pane>
+   </children>
+</AnchorPane>

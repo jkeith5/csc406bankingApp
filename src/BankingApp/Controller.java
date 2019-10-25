@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +20,7 @@ public class Controller {
     public boolean managerLogIn;
     public boolean tellerPendingLogin;
     public boolean managerPendingLogin;
+    public Scene tempScene;
 
     @FXML TextField fNameTextField;
     @FXML TextField lNameTextField;
@@ -45,6 +47,18 @@ public class Controller {
     @FXML Button AddNewUserPreviousButton;
     @FXML Button BankManagerPrevButton;
     @FXML Button ManageExistingDispDataPrevButton;
+
+
+    // Note when I say ManageExistingTeller I mean the ManageExistingUser interface for the Teller account
+    @FXML Button ManageExistingTellerUpdateDataButton;
+    @FXML Button ManageExistingTellerViewRecentActivityButton;
+    @FXML Button ManageExistingTellerDebitCreditAccountButton;
+    @FXML RadioButton ManageExistingTellerCheckingAccount;
+    @FXML RadioButton ManageExistingTellerSavingsAccount;
+    @FXML TextField ManageExistingTellerFundsTransferAmount;
+
+
+
 
 
     String fName, lName, socialSec, streetAddress, city, zipCode, state;
@@ -225,6 +239,22 @@ public class Controller {
 
     }
 
+
+    @FXML
+    public void tellerInterfaceManageButton(){
+        System.out.println("hi");
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
+            Main.primaryStage.setTitle("Manage existing user");
+            Main.primaryStage.setScene(new Scene(root, 700, 500));
+            Main.primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @FXML
     public void tellerInterfaceManageLookupButton(){
         System.out.println("001001001 found user launching interface");
@@ -248,16 +278,21 @@ public class Controller {
     }
 
 
-
     @FXML
-    public void tellerInterfaceManageButton(){
-        System.out.println("hi");
+    public void tellerInterfaceManageUpdateDataButton(){
+        //
         Parent root = null;
+
         try {
-            root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
-            Main.primaryStage.setTitle("Manage existing user");
-            Main.primaryStage.setScene(new Scene(root, 700, 500));
+
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserUpdateData.fxml"));
+            Scene primarySceneUserData = root.getScene();
+            tempScene = primarySceneUserData;
+
+            Main.primaryStage.setTitle("Update Customer Data");
+            Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
