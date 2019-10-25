@@ -12,10 +12,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static BankingApp.Main.primaryStage;
-
 public class Controller {
     public static Stage primaryStage = Main.primaryStage;
+
+    public boolean tellerLogIn;
+    public boolean managerLogIn;
+    public boolean tellerPendingLogin;
+    public boolean managerPendingLogin;
 
     @FXML TextField fNameTextField;
     @FXML TextField lNameTextField;
@@ -24,8 +27,12 @@ public class Controller {
     @FXML TextField cityTextField;
     @FXML TextField zipCodeTextField;
     @FXML TextField stateTextField;
-    @FXML
-    Label successfulEntryLabel;
+    @FXML Label successfulEntryLabel;
+
+    @FXML TextField LoginInterUser;
+    @FXML TextField LoginInterPass;
+    @FXML Button LoginInterLoginButton;
+    @FXML Button LoginInterExitButton;
     @FXML Button enterButton;
     @FXML Button TellerScreen;
     @FXML Button BankManagerScreen;
@@ -62,16 +69,27 @@ public class Controller {
     public void mainInterfaceTellerButton(){
         System.out.println("hi");
         Parent root = null;
+        Parent login = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
             //stage.setTitle("Teller Interface");
             //stage.setScene(new Scene(root, 700, 500));
             //stage.show();
-
             //this.primaryStage = Main.getPrimaryStage();
-            Main.primaryStage.setTitle("Teller Interface");
-            Main.primaryStage.setScene(new Scene(root,700,500));
-            Main.primaryStage.show();
+
+            if(tellerLogIn){// if teller is logged in after login window closes and it recalls this method
+                tellerPendingLogin=false;
+                root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
+
+                Main.primaryStage.setTitle("Teller Interface");
+                Main.primaryStage.setScene(new Scene(root,700,500));
+                Main.primaryStage.show();
+            }else{
+                login = FXMLLoader.load(getClass().getResource("TellerLogin.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Teller Login");
+                stage.setScene(new Scene(login,382,420));
+                stage.show();
+            }
 
 
         } catch (IOException e) {
@@ -81,13 +99,110 @@ public class Controller {
     }
 
     @FXML
+    public void tellerLoginButton(){
+        tellerPendingLogin = true;
+        loginInterfaceLoginButton();
+    }
+
+    @FXML
+    public void ManagerLoginButton(){
+        //
+        managerPendingLogin=true;
+        loginInterfaceLoginButton();
+    }
+
+    @FXML
+    public void loginInterfaceLoginButton(){
+        if(tellerPendingLogin){
+            tellerLogIn = validateLoginCreds("Teller");
+            if(tellerLogIn){
+                tellerPendingLogin=false;
+                closeWindow();
+                mainInterfaceTellerButton();
+            }
+        }
+
+        if(managerPendingLogin){
+            managerLogIn = validateLoginCreds("Manager");
+            if(managerLogIn){
+                managerPendingLogin=false;
+                closeWindow();
+                mainInterfaceManagerButton();
+            }
+
+        }
+
+
+        // now the tellerLogIn and managerLogIn booleans let us know if, and of what type, a user is logged in as.
+    }
+
+    @FXML
+    public void loginInterfaceExitButton(){
+        tellerLogIn=false;
+        managerLogIn=false;
+        Stage stage = (Stage) LoginInterExitButton.getScene().getWindow();
+        stage.close();
+        goToMainScene();
+    }
+
+    public boolean validateLoginCreds(String userType){// userType is either Teller or Manager
+        boolean returnVal = false;
+        if(userType == "Teller"){
+            if(LoginInterUser.getText() == "teller" || LoginInterUser.getText().length()>0){
+                // here we would validate the credintials but They're always good for now
+
+                if(LoginInterPass.getText().length()>0){
+                    // here we would validate the password for the user
+                    returnVal=true;
+                }else{
+                    returnVal=false;
+                }
+            }else{
+                System.out.println("not a valid username for a Teller Account");
+            }
+        }
+        if(userType == "Manager"){
+            // verify the credentials of the Manager account
+            if(LoginInterUser.getText() == "manager" || LoginInterUser.getText().length()>0){
+                if(LoginInterPass.getText().length()>0){
+                    returnVal=true;
+                }else{
+                    returnVal=false;
+                }
+            }
+        }
+
+        return returnVal;
+    }
+
+
+    @FXML
     public void mainInterfaceManagerButton(){
         Parent root = null;
+        Parent login = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
-            Main.primaryStage.setTitle("Bank Manager Interface");
-            Main.primaryStage.setScene(new Scene(root, 700, 500));
-            Main.primaryStage.show();
+//            root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
+//            Main.primaryStage.setTitle("Bank Manager Interface");
+//            Main.primaryStage.setScene(new Scene(root, 700, 500));
+//            Main.primaryStage.show();
+
+            if(managerLogIn){
+                managerPendingLogin = false;
+                root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
+                Main.primaryStage.setTitle("Bank Manager Interface");
+                Main.primaryStage.setScene(new Scene(root, 700, 500));
+                Main.primaryStage.show();
+            }else{
+                managerPendingLogin =true;
+                login = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Bank Manager Login");
+                stage.setScene(new Scene(login,382,420));
+                stage.show();
+            }
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -181,6 +296,8 @@ public class Controller {
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
 
+            tellerLogIn = false;
+            managerLogIn = false;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -223,10 +340,38 @@ public class Controller {
     @FXML
     public void closeWindow(){
         Parent root = null;
-        Stage stage = (Stage) AddNewUserPreviousButton.getScene().getWindow();
+        Stage stage = (Stage) LoginInterLoginButton.getScene().getWindow();
         stage.close();
 
     }
+
+
+
+
+
+
+
+
+
+
+
+    // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY
+
+    @FXML
+    public void test(){
+        System.out.println("TESTING");
+
+    }
+
+    @FXML
+    public void test2(){
+        System.out.println("test2");
+
+    }
+
+
+
+    // END COMMENT
 
 
 }
