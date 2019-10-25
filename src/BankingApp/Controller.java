@@ -235,7 +235,7 @@ public class Controller {
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
@@ -275,7 +275,7 @@ public class Controller {
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
