@@ -17,6 +17,23 @@ public class LoanAccount {
         //
     }
 
+    public LoanAccount(String loanAccountType, String custID, double initialLoanAmt, double currentBalance, double interestRate) {
+        this.loanAccountType = loanAccountType;
+        this.custID = custID;
+        this.initialLoanAmt = initialLoanAmt;
+        this.currentBalance = currentBalance;
+        this.interestRate = interestRate;
+    }
+
+    public LoanAccount(String loanAccountType, String custID, double initialLoanAmt, double currentBalance, double interestRate, boolean hasMissedPayment) {
+        this.loanAccountType = loanAccountType;
+        this.custID = custID;
+        this.initialLoanAmt = initialLoanAmt;
+        this.currentBalance = currentBalance;
+        this.interestRate = interestRate;
+        this.hasMissedPayment = hasMissedPayment;
+    }
+
     public LoanAccount(String loanAccountType, String custID, double initialLoanAmt, double currentBalance,
                        double interestRate, String paymentDueDate, String paymentNoticeDate, double amountDue,
                        String lastPaymentDate, boolean hasMissedPayment) {
@@ -111,4 +128,23 @@ public class LoanAccount {
     public void setHasMissedPayment(boolean hasMissedPayment) {
         this.hasMissedPayment = hasMissedPayment;
     }
+
+
+    @Override
+    public String toString() {
+        return "LoanAccount{" +
+                "loanAccountType='" + loanAccountType + '\'' +
+                ", custID='" + custID + '\'' +
+                ", initialLoanAmt=" + initialLoanAmt +
+                ", currentBalance=" + currentBalance +
+                ", interestRate=" + interestRate +
+                ", paymentDueDate='" + paymentDueDate + '\'' +
+                ", paymentNoticeDate='" + paymentNoticeDate + '\'' +
+                ", amountDue=" + amountDue +
+                ", lastPaymentDate='" + lastPaymentDate + '\'' +
+                ", hasMissedPayment=" + hasMissedPayment +
+                '}';
+    }
+
+
 }

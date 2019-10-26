@@ -50,4 +50,18 @@ public class Transaction {
     public void setTransactionAccount(String transactionAccount) {
         this.transactionAccount = transactionAccount;
     }
+
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionType='" + transactionType + '\'' +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", transactionAccount='" + transactionAccount + '\'' +
+                '}';
+    }
+
+
+
 }

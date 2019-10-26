@@ -59,4 +59,19 @@ public class Check {
     public void setCheckProcessed(boolean checkProcessed) {
         this.checkProcessed = checkProcessed;
     }
+
+
+    @Override
+    public String toString() {
+        return "Check{" +
+                "checkNumber='" + checkNumber + '\'' +
+                ", checkingAcctID='" + checkingAcctID + '\'' +
+                ", checkDate='" + checkDate + '\'' +
+                ", checkAmount=" + checkAmount +
+                ", checkProcessed=" + checkProcessed +
+                '}';
+    }
+
+
+
 }

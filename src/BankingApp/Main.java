@@ -70,16 +70,13 @@ public class Main extends Application {
         File resourceDir = new File(System.getProperty("user.dir")+"/Resources");
         if(!resourceDir.exists()){
             System.out.println("Resources did not exist");
-            String[] files = {"customerData","CheckingAccounts.csv","Checks.csv","CustomersBase.csv","SavingsAccounts.csv","LoanAccounts.csv"};
-
-            // here we can read in files to array list
-
-
-
-
         }else{
             // if resources exist do this
             // Call the DataEntry Class methods to read the data from csv into arrays
+
+            String[] files = {"customerData","CheckingAccounts.csv","Checks.csv","CustomersBase.csv","SavingsAccounts.csv","LoanAccounts.csv"};
+            // here we read the files into the arraylist of objects
+
 
 
 

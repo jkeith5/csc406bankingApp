@@ -16,6 +16,28 @@ public class CheckingAccount {
         //
     }
 
+    public CheckingAccount(String custID, String checkingAcctID, double accountBalance, String dateOpened, boolean isGoldAccount, boolean backupSavingsEnabled) {
+        this.custID = custID;
+        this.checkingAcctID = checkingAcctID;
+        this.accountBalance = accountBalance;
+        this.dateOpened = dateOpened;
+        this.isGoldAccount = isGoldAccount;
+        this.backupSavingsEnabled = backupSavingsEnabled;
+        this.overdraftsOnAcct=0;
+    }
+
+    public CheckingAccount(String custID, String checkingAcctID, double accountBalance, String dateOpened, boolean isGoldAccount, boolean backupSavingsEnabled, int overdraftsOnAcct) {
+        this.custID = custID;
+        this.checkingAcctID = checkingAcctID;
+        this.accountBalance = accountBalance;
+        this.dateOpened = dateOpened;
+        this.isGoldAccount = isGoldAccount;
+        this.backupSavingsEnabled = backupSavingsEnabled;
+        this.overdraftsOnAcct = overdraftsOnAcct;
+    }
+
+
+
     public String getCustID() {
         return custID;
     }
@@ -71,4 +93,20 @@ public class CheckingAccount {
     public void setOverdraftsOnAcct(int overdraftsOnAcct) {
         this.overdraftsOnAcct = overdraftsOnAcct;
     }
+
+
+    @Override
+    public String toString() {
+        return "CheckingAccount{" +
+                "custID='" + custID + '\'' +
+                ", checkingAcctID='" + checkingAcctID + '\'' +
+                ", accountBalance=" + accountBalance +
+                ", dateOpened='" + dateOpened + '\'' +
+                ", isGoldAccount=" + isGoldAccount +
+                ", backupSavingsEnabled=" + backupSavingsEnabled +
+                ", overdraftsOnAcct=" + overdraftsOnAcct +
+                '}';
+    }
+
+
 }

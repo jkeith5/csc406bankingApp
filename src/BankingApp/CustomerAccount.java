@@ -14,14 +14,15 @@ public class CustomerAccount {
     public String state;// 2 letter All Caps MO
     public String zip;
     public String atmCardNumber;
+    public String dateCreated;
 
-    public boolean hasSavingsAccount;
-    public boolean hasCheckingAccount;
-    public boolean hasShortTermLoan;
-    public boolean hasLongTermLoan;
-    public boolean hasCreditCardAcct;
+    public boolean hasSavingsAccount=false;
+    public boolean hasCheckingAccount=false;
+    public boolean hasShortTermLoan=false;
+    public boolean hasLongTermLoan=false;
+    public boolean hasCreditCardAcct=false;
 
-    public boolean hasLoanAccount;
+    public boolean hasLoanAccount=false;
 
     public SavingsAccount savingsAccount;
     public CheckingAccount checkingAccount;
@@ -35,7 +36,7 @@ public class CustomerAccount {
         // use setters and getters
     }
 
-    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip) {
+    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String dateCreated) {
         this.custID = custID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,9 +44,10 @@ public class CustomerAccount {
         this.city = city;
         this.state = state;
         this.zip = zip;
+        this.dateCreated=dateCreated;
     }
 
-    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip, String atmCardNumber) {
+    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String dateCreated, String atmCardNumber) {
         this.custID = custID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,6 +55,7 @@ public class CustomerAccount {
         this.city = city;
         this.state = state;
         this.zip = zip;
+        this.dateCreated=dateCreated;
         this.atmCardNumber = atmCardNumber;
     }
 
@@ -120,7 +123,15 @@ public class CustomerAccount {
         this.atmCardNumber = atmCardNumber;
     }
 
-    public boolean isHasSavingsAccount() {
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public boolean hasSavingsAccount() {
         return hasSavingsAccount;
     }
 
@@ -128,7 +139,7 @@ public class CustomerAccount {
         this.hasSavingsAccount = hasSavingsAccount;
     }
 
-    public boolean isHasCheckingAccount() {
+    public boolean hasCheckingAccount() {
         return hasCheckingAccount;
     }
 
@@ -136,7 +147,7 @@ public class CustomerAccount {
         this.hasCheckingAccount = hasCheckingAccount;
     }
 
-    public boolean isHasShortTermLoan() {
+    public boolean hasShortTermLoan() {
         return hasShortTermLoan;
     }
 
@@ -144,7 +155,7 @@ public class CustomerAccount {
         this.hasShortTermLoan = hasShortTermLoan;
     }
 
-    public boolean isHasLongTermLoan() {
+    public boolean hasLongTermLoan() {
         return hasLongTermLoan;
     }
 
@@ -152,7 +163,7 @@ public class CustomerAccount {
         this.hasLongTermLoan = hasLongTermLoan;
     }
 
-    public boolean isHasCreditCardAcct() {
+    public boolean hasCreditCardAcct() {
         return hasCreditCardAcct;
     }
 
@@ -160,7 +171,7 @@ public class CustomerAccount {
         this.hasCreditCardAcct = hasCreditCardAcct;
     }
 
-    public boolean isHasLoanAccount() {
+    public boolean hasLoanAccount() {
         return hasLoanAccount;
     }
 
@@ -172,16 +183,18 @@ public class CustomerAccount {
         return savingsAccount;
     }
 
-    public void setSavingsAccount(SavingsAccount savingsAccount) {
+    public void addSavingsAccount(SavingsAccount savingsAccount) {
         this.savingsAccount = savingsAccount;
+        setHasSavingsAccount(true);
     }
 
     public CheckingAccount getCheckingAccount() {
         return checkingAccount;
     }
 
-    public void setCheckingAccount(CheckingAccount checkingAccount) {
+    public void addCheckingAccount(CheckingAccount checkingAccount) {
         this.checkingAccount = checkingAccount;
+        setHasCheckingAccount(true);
     }
 
     public ArrayList<Transaction> getTransactions() {
@@ -203,7 +216,19 @@ public class CustomerAccount {
 
     public void addLoanAccountObject(LoanAccount loanAccountObj) {
         this.loanAccounts.add(loanAccountObj);
+        setHasLoanAccount(true);
+        if(loanAccountObj.loanAccountType.equals("STL")){
+            setHasShortTermLoan(true);
+        }
+        if(loanAccountObj.loanAccountType.equals("LTL")){
+            setHasLongTermLoan(true);
+        }
+        if(loanAccountObj.loanAccountType.equals("CCL")){
+            setHasCreditCardAcct(true);
+        }
     }
+
+
 
     public void addLoanAccount(String loanAccountType, String custID, double initialLoanAmt, double currentBalance,
                                double interestRate, String paymentDueDate, String paymentNoticeDate, double amountDue,
@@ -211,6 +236,17 @@ public class CustomerAccount {
         LoanAccount tempLoanAcct = new LoanAccount(loanAccountType,custID,initialLoanAmt,currentBalance,interestRate,paymentDueDate,
                 paymentNoticeDate,amountDue,lastPaymentDate,hasMissedPayment);
         this.loanAccounts.add(tempLoanAcct);
+
+        setHasLoanAccount(true);
+        if(tempLoanAcct.loanAccountType.equals("STL")){
+            setHasShortTermLoan(true);
+        }
+        if(tempLoanAcct.loanAccountType.equals("LTL")){
+            setHasLongTermLoan(true);
+        }
+        if(tempLoanAcct.loanAccountType.equals("CCL")){
+            setHasCreditCardAcct(true);
+        }
     }
 
 
@@ -227,6 +263,32 @@ public class CustomerAccount {
         this.checks.add(temp);
     }
 
+
+    @Override
+    public String toString() {
+        return "CustomerAccount{" +
+                "custID='" + custID + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", streetAddr='" + streetAddr + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                ", atmCardNumber='" + atmCardNumber + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", hasSavingsAccount=" + hasSavingsAccount +
+                ", hasCheckingAccount=" + hasCheckingAccount +
+                ", hasShortTermLoan=" + hasShortTermLoan +
+                ", hasLongTermLoan=" + hasLongTermLoan +
+                ", hasCreditCardAcct=" + hasCreditCardAcct +
+                ", hasLoanAccount=" + hasLoanAccount +
+                ", savingsAccount=" + savingsAccount.toString() +
+                ", checkingAccount=" + checkingAccount.toString() +
+                ", transactions=" + transactions.toString() +
+                ", loanAccounts=" + loanAccounts.toString() +
+                ", checks=" + checks.toString() +
+                '}';
+    }
 
 
 

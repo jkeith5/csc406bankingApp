@@ -15,6 +15,25 @@ public class SavingsAccount {
         //
     }
 
+    public SavingsAccount(String custID, String savingsAcctID, double accountBalance, double interestRate, String dateOpened, boolean isCdAccount) {
+        this.custID = custID;
+        this.savingsAcctID = savingsAcctID;
+        this.accountBalance = accountBalance;
+        this.interestRate = interestRate;
+        this.dateOpened = dateOpened;
+        this.isCdAccount = isCdAccount;
+    }
+
+    public SavingsAccount(String custID, String savingsAcctID, double accountBalance, double interestRate, String dateOpened, boolean isCdAccount, String cdCloseDate) {
+        this.custID = custID;
+        this.savingsAcctID = savingsAcctID;
+        this.accountBalance = accountBalance;
+        this.interestRate = interestRate;
+        this.dateOpened = dateOpened;
+        this.isCdAccount = isCdAccount;
+        this.cdCloseDate = cdCloseDate;
+    }
+
     public String getCustID() {
         return custID;
     }
@@ -70,4 +89,21 @@ public class SavingsAccount {
     public void setCdCloseDate(String cdCloseDate) {
         this.cdCloseDate = cdCloseDate;
     }
+
+
+    @Override
+    public String toString() {
+        return "SavingsAccount{" +
+                "custID='" + custID + '\'' +
+                ", savingsAcctID='" + savingsAcctID + '\'' +
+                ", accountBalance=" + accountBalance +
+                ", interestRate=" + interestRate +
+                ", dateOpened='" + dateOpened + '\'' +
+                ", isCdAccount=" + isCdAccount +
+                ", cdCloseDate='" + cdCloseDate + '\'' +
+                '}';
+    }
+
+
+
 }

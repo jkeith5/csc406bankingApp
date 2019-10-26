@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Controller {
     public static Stage primaryStage = Main.primaryStage;
@@ -21,6 +22,8 @@ public class Controller {
     public boolean tellerPendingLogin;
     public boolean managerPendingLogin;
     public Scene tempScene;
+
+    public ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.createCustomerAccountsArray();
 
     @FXML TextField fNameTextField;
     @FXML TextField lNameTextField;
@@ -84,6 +87,11 @@ public class Controller {
         System.out.println("hi");
         Parent root = null;
         Parent login = null;
+
+        for(CustomerAccount ca:customerAccounts){
+            System.out.println(ca.toString());
+        }
+
         try {
             //stage.setTitle("Teller Interface");
             //stage.setScene(new Scene(root, 700, 500));
@@ -236,6 +244,9 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
 
     }
 
