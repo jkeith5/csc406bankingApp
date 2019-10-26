@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -88,8 +89,10 @@ public class Controller {
         Parent root = null;
         Parent login = null;
 
+
         for(CustomerAccount ca:customerAccounts){
             System.out.println(ca.toString());
+            Main.out.println(ca.toString());
         }
 
         try {

@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 
@@ -18,6 +19,8 @@ public class Main extends Application {
     private static String customerDataDir = "src/Resources/customerData";
     private static File customerFile = new File(customerDataDir);
     private static DataEntryDriver customerData = new DataEntryDriver(customerFile);
+    public static File outputFile;
+    public static PrintWriter out;
 
     public static Stage primaryStage;
 
@@ -36,6 +39,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        System.out.println("end");
+
+        // here we will condense the arraylist of objects back into a text file
+        out.close();
 
     }
 
@@ -60,6 +67,9 @@ public class Main extends Application {
     public void initialize() throws IOException {
         // here we can initialize our database into the arrayList objects.
         System.out.println("initalizing");
+
+        outputFile = new File("src/Resources/outputLog.txt");
+        out = new PrintWriter(outputFile);
 
         String userDir = System.getProperty("user.dir");
         File f = new File(userDir+"/src");
