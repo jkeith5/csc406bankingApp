@@ -1,6 +1,8 @@
 package BankingApp;
 
-public class CheckingAccount {
+import java.io.Serializable;
+
+public class CheckingAccount implements Serializable {
 
     public String custID;
     public String checkingAcctID;

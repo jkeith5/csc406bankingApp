@@ -1,6 +1,8 @@
 package BankingApp;
 
-public class Transaction {
+import java.io.Serializable;
+
+public class Transaction implements Serializable {
 
     public String transactionType; // W=Withdrawal D=Deposit
     public double amount;
@@ -61,7 +63,6 @@ public class Transaction {
                 ", transactionAccount='" + transactionAccount + '\'' +
                 '}';
     }
-
 
 
 }

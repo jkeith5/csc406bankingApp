@@ -1,8 +1,9 @@
 package BankingApp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CustomerAccount {
+public class CustomerAccount implements Serializable {
     // This will hold all data for customer account in the ArrayList of CustomerAccouts Objects
     // will have info on all accounts savings cds Checking Credit Card all all relevant info
 
@@ -282,15 +283,13 @@ public class CustomerAccount {
                 ", hasLongTermLoan=" + hasLongTermLoan +
                 ", hasCreditCardAcct=" + hasCreditCardAcct +
                 ", hasLoanAccount=" + hasLoanAccount +
-                ", savingsAccount=" + savingsAccount.toString() +
-                ", checkingAccount=" + checkingAccount.toString() +
-                ", transactions=" + transactions.toString() +
-                ", loanAccounts=" + loanAccounts.toString() +
-                ", checks=" + checks.toString() +
+                ", savingsAccount=" + savingsAccount +
+                ", checkingAccount=" + checkingAccount +
+                ", transactions=" + transactions +
+                ", loanAccounts=" + loanAccounts +
+                ", checks=" + checks +
                 '}';
     }
-
-
 
 
 }

@@ -1,6 +1,8 @@
 package BankingApp;
 
-public class Check {
+import java.io.Serializable;
+
+public class Check implements Serializable {
 
     public String checkNumber;
     public String checkingAcctID;
@@ -71,6 +73,7 @@ public class Check {
                 ", checkProcessed=" + checkProcessed +
                 '}';
     }
+
 
 
 

@@ -1,6 +1,8 @@
 package BankingApp;
 
-public class LoanAccount {
+import java.io.Serializable;
+
+public class LoanAccount implements Serializable {
     public String loanAccountType; // STL= short term loan LTL= long term loan CCL= credit card loan
     public String custID;
     public double initialLoanAmt; // this is also the credit limit for credit card accounts
@@ -145,6 +147,7 @@ public class LoanAccount {
                 ", hasMissedPayment=" + hasMissedPayment +
                 '}';
     }
+
 
 
 }

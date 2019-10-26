@@ -24,7 +24,10 @@ public class Controller {
     public boolean managerPendingLogin;
     public Scene tempScene;
 
-    public ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.createCustomerAccountsArray();
+    public static ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
+    //public ArrayList<CustomerAccount> customerAccountsReadIn = DataEntryDriver.readFileToCustomerAccountsArrayList();
+
+
 
     @FXML TextField fNameTextField;
     @FXML TextField lNameTextField;
@@ -88,16 +91,6 @@ public class Controller {
         System.out.println("hi");
         Parent root = null;
         Parent login = null;
-
-
-        for(CustomerAccount ca:customerAccounts){
-            System.out.println(ca.toString());
-            Main.out.println(ca.toString());
-
-            String temp = ca.toString();
-
-            //String t2 = String.valueOf(temp);
-        }
 
         try {
             //stage.setTitle("Teller Interface");

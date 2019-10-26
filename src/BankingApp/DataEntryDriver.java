@@ -1,9 +1,6 @@
 package BankingApp;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +32,9 @@ public class DataEntryDriver {
     }
 
 
-    public static ArrayList<CustomerAccount> createCustomerAccountsArray(){
+    // this method will create and return an ArrayList of CustomerAccount objects from the csv files located
+    // in the Resources Directory and then save it as a file in the Resources folder
+    public static void createCustomerAccountsArray(){
         ArrayList<CustomerAccount> result = new ArrayList<CustomerAccount>();
         // just creating a few temp objects for now
 
@@ -87,12 +86,15 @@ public class DataEntryDriver {
         result.add(acc2);
         result.add(acc3);
 
+
+
         System.out.println("\n\n");
 
         System.out.println(acc1.toString());
+        System.out.println("\n\n");
         String acc1String = acc1.toString();
 
-        String acc1StringArr[] = acc1String.split(",");
+        String acc1StringArr[] = acc1String.split("~");
         List<String> acc1ArrList = new ArrayList<String>();
         acc1ArrList = Arrays.asList(acc1StringArr);
 
@@ -100,18 +102,79 @@ public class DataEntryDriver {
             System.out.println(s);
         }
 
+        serializeArrayListToFile(result);
+    }
 
+    public static void serializeArrayListToFile(ArrayList<CustomerAccount> customerAccounts){
+
+        try{
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/Resources/customerDatabase"));
+
+            for(CustomerAccount ca:customerAccounts){
+                objectOutputStream.writeObject(ca);
+            }
+            objectOutputStream.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static ArrayList<CustomerAccount> readFileToCustomerAccountsArrayList() {
+        ArrayList<CustomerAccount> result = new ArrayList<CustomerAccount>();
+
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/Resources/customerDatabase"))) {
+            while (true) {
+                Object read = objectInputStream.readObject();
+                if(read == null){
+                    break;
+                }
+                CustomerAccount customerAccountRead = (CustomerAccount) read;
+                result.add(customerAccountRead);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        System.out.println("READ IN FILE AS ARRAYLIST\n\n\n");
+
+        for(CustomerAccount ca: result){
+            System.out.println(ca.toString());
+        }
+
+        System.out.println("End of read in file\n\n\n");
+
+        System.out.println("Testing\n");
+
+        System.out.println(result.get(0).toString());
+
+        double test1 = result.get(0).getSavingsAccount().accountBalance;
+        double test2 = test1 - 457.00;
+
+        String idStrip = result.get(0).getCustID().replace("-","");
+        System.out.println(idStrip);
+
+        // should be equal to 0.58
+        System.out.println(Math.round(test2*100.0)/100.0);
 
 
 
         return result;
     }
 
-    public static ArrayList<CustomerAccount> readFileToCustomerAccountsArrayList(){
-        ArrayList<CustomerAccount> result = new ArrayList<CustomerAccount>();
 
+    public static CustomerAccount getCustomerAccountFromCustomerID(ArrayList<CustomerAccount> accountsList,String customerID){
+        CustomerAccount result = new CustomerAccount();
+        String searchIDStripped = customerID.replace("-","");
 
-
+        for(CustomerAccount ca:accountsList){
+            String custIDStripped = ca.getCustID().replace("-","");
+            if(custIDStripped.equals(searchIDStripped)){
+                result = ca;
+            }
+        }
 
         return result;
     }

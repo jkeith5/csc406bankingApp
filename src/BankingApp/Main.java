@@ -7,10 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import javax.xml.crypto.Data;
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -43,6 +41,7 @@ public class Main extends Application {
 
         // here we will condense the arraylist of objects back into a text file
         out.close();
+        DataEntryDriver.serializeArrayListToFile(Controller.customerAccounts);
 
     }
 
@@ -64,38 +63,29 @@ public class Main extends Application {
     }
 
 
-    public void initialize() throws IOException {
+    public void initialize() {
         // here we can initialize our database into the arrayList objects.
         System.out.println("initalizing");
 
         outputFile = new File("src/Resources/outputLog.txt");
-        out = new PrintWriter(outputFile);
 
-        String userDir = System.getProperty("user.dir");
-        File f = new File(userDir+"/src");
-        if(f.exists()){
-            return;
+        try {
+            File customerDatabase = new File("src/Resources/customerDatabase");
+            out = new PrintWriter(outputFile);
+
+            // if it does not exist we need to create it from the csv files. NOTE just delete the file to recreate it if needed
+            if(!customerDatabase.exists()){
+                DataEntryDriver.createCustomerAccountsArray();
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
-        File resourceDir = new File(System.getProperty("user.dir")+"/Resources");
-        if(!resourceDir.exists()){
-            System.out.println("Resources did not exist");
-        }else{
-            // if resources exist do this
-            // Call the DataEntry Class methods to read the data from csv into arrays
 
-            String[] files = {"customerData","CheckingAccounts.csv","Checks.csv","CustomersBase.csv","SavingsAccounts.csv","LoanAccounts.csv"};
-            // here we read the files into the arraylist of objects
-
-
-
-
-
-
-        }
     }
 
 
 }
 
-// test comment to see if i have to login every time i make a commit.

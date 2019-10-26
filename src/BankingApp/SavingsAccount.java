@@ -1,6 +1,8 @@
 package BankingApp;
 
-public class SavingsAccount {
+import java.io.Serializable;
+
+public class SavingsAccount implements Serializable {
 
     public String custID;
     public String savingsAcctID;
@@ -103,7 +105,4 @@ public class SavingsAccount {
                 ", cdCloseDate='" + cdCloseDate + '\'' +
                 '}';
     }
-
-
-
 }
