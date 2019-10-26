@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DataEntryDriver {
     File file;//this contains the file name of the related data file
@@ -85,10 +87,28 @@ public class DataEntryDriver {
         result.add(acc2);
         result.add(acc3);
 
+        System.out.println("\n\n");
+
+        System.out.println(acc1.toString());
+        String acc1String = acc1.toString();
+
+        String acc1StringArr[] = acc1String.split(",");
+        List<String> acc1ArrList = new ArrayList<String>();
+        acc1ArrList = Arrays.asList(acc1StringArr);
+
+        for(String s:acc1ArrList){
+            System.out.println(s);
+        }
 
 
 
 
+
+        return result;
+    }
+
+    public static ArrayList<CustomerAccount> readFileToCustomerAccountsArrayList(){
+        ArrayList<CustomerAccount> result = new ArrayList<CustomerAccount>();
 
 
 

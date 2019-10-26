@@ -93,6 +93,10 @@ public class Controller {
         for(CustomerAccount ca:customerAccounts){
             System.out.println(ca.toString());
             Main.out.println(ca.toString());
+
+            String temp = ca.toString();
+
+            //String t2 = String.valueOf(temp);
         }
 
         try {
