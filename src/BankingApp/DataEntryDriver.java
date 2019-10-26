@@ -6,11 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class DataEntry {
+public class DataEntryDriver {
     File file;//this contains the file name of the related data file
     BufferedWriter bufferedWriter;
 
-    public DataEntry(File file) {
+    public DataEntryDriver(File file) {
         this.file = file;
     }
 

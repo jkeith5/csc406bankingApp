@@ -8,19 +8,22 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
 public class Main extends Application {
 
-    private static String customerDataDir = "C:\\Users\\Owner\\IdeaProjects\\csc406bankingApp\\src\\sample\\customerData";
+    private static String customerDataDir = "src/Resources/customerData";
     private static File customerFile = new File(customerDataDir);
-    private static DataEntry customerData = new DataEntry(customerFile);
+    private static DataEntryDriver customerData = new DataEntryDriver(customerFile);
 
     public static Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        initialize();
         //Parent root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
         Main.primaryStage = new Stage();
@@ -52,6 +55,39 @@ public class Main extends Application {
     public static Stage getPrimaryStage(){
         return primaryStage;
     }
+
+
+    public void initialize() throws IOException {
+        // here we can initialize our database into the arrayList objects.
+        System.out.println("initalizing");
+
+        String userDir = System.getProperty("user.dir");
+        File f = new File(userDir+"/src");
+        if(f.exists()){
+            return;
+        }
+
+        File resourceDir = new File(System.getProperty("user.dir")+"/Resources");
+        if(!resourceDir.exists()){
+            System.out.println("Resources did not exist");
+            String[] files = {"customerData","CheckingAccounts.csv","Checks.csv","CustomersBase.csv","SavingsAccounts.csv","LoanAccounts.csv"};
+
+            // here we can read in files to array list
+
+
+
+
+        }else{
+            // if resources exist do this
+            // Call the DataEntry Class methods to read the data from csv into arrays
+
+
+
+
+
+        }
+    }
+
 
 }
 
