@@ -11,12 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Controller {
-    public static Stage primaryStage = Main.primaryStage;
+    //public static Stage primaryStage = Main.primaryStage;
     public static Placeholder placeholder = new Placeholder();
 
     public boolean tellerLogIn;
@@ -27,6 +29,14 @@ public class Controller {
 
     public static ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
     //public ArrayList<CustomerAccount> customerAccountsReadIn = DataEntryDriver.readFileToCustomerAccountsArrayList();
+
+
+    @FXML TextField mainScreenTest;
+    @FXML TextField tf1;
+    @FXML TextField tf2;
+    @FXML TextField tf3;
+
+    @FXML Button mainScreenTestButton;
 
 
 
@@ -49,7 +59,7 @@ public class Controller {
     @FXML Button TellerInterAddNew;
     @FXML Button TellerInterManage;
     @FXML Button TellerInterPrev;
-    @FXML TextField ManageUserSSNField;
+    @FXML public TextField ManageUserSSNField;
     @FXML Button ManageUserLookupButton;
     @FXML Button ManageUserPrevButton;
     @FXML Button AddNewUserPreviousButton;
@@ -67,7 +77,7 @@ public class Controller {
 
     @FXML Button TellerUpdateDataPreviousButton;
     @FXML Button TellerUpdateDataSaveButton;
-    @FXML TextField TellerUpdateDataSSN;
+    @FXML public TextField TellerUpdateDataSSN;
     @FXML TextField TellerUpdateDataFirstName;
     @FXML TextField TellerUpdateDataLastName;
     @FXML TextField TellerUpdateDataStreetAddress;
@@ -81,7 +91,29 @@ public class Controller {
 
 
 
+
+
     String fName, lName, socialSec, streetAddress, city, zipCode, state;
+
+
+
+    public void initialize() {
+        System.out.println("initializing controller");
+        tf1.setText("test1");
+    }
+
+
+    @FXML
+    public void mainScreenTestButton(){
+        System.out.println(mainScreenTest.toString());
+        System.out.println(mainScreenTest.getText());
+
+        String replaceText = "goodbye";
+
+        mainScreenTest.setText("goodbye");
+
+    }
+
 
     @FXML
     public void handleEnterButton(javafx.event.ActionEvent event) {
@@ -182,6 +214,9 @@ public class Controller {
 
     public boolean validateLoginCreds(String userType){// userType is either Teller or Manager
         boolean returnVal = false;
+
+        printAllData();//testing
+
         if(userType == "Teller"){
             if(LoginInterUser.getText() == "teller" || LoginInterUser.getText().length()>0){
                 // here we would validate the credintials but They're always good for now
@@ -216,11 +251,6 @@ public class Controller {
         Parent root = null;
         Parent login = null;
         try {
-//            root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
-//            Main.primaryStage.setTitle("Bank Manager Interface");
-//            Main.primaryStage.setScene(new Scene(root, 700, 500));
-//            Main.primaryStage.show();
-
             if(managerLogIn){
                 managerPendingLogin = false;
                 root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
@@ -236,8 +266,6 @@ public class Controller {
                 stage.show();
             }
 
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -246,12 +274,13 @@ public class Controller {
 
     @FXML
     public void tellerInterfaceAddNewButton(){
-        System.out.println("hi");
+        System.out.println("tellerInterfaceAddNewButton");
         Parent root = null;
-        System.out.println(toString());
+
+        printAllData();//testing
+
         try {
             root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
-            //Stage stage = new Stage();
             Main.primaryStage.setTitle("Add a new user Account");
             Main.primaryStage.setScene(new Scene(root, 700, 500));
             Main.primaryStage.show();
@@ -259,17 +288,16 @@ public class Controller {
             e.printStackTrace();
         }
 
-
-
-
     }
 
 
     @FXML
     public void tellerInterfaceManageButton(){
-        System.out.println("hi");
+        System.out.println("tellerInterfaceManageButton");
         Parent root = null;
-        System.out.println(toString());
+
+        printAllData();//testing
+
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
             Main.primaryStage.setTitle("Manage existing user");
@@ -283,14 +311,30 @@ public class Controller {
 
     @FXML
     public void tellerInterfaceManageLookupButton(){
+        System.out.println("tellerInterfaceManageLookupButton");
+
 
         String ssn = ManageUserSSNField.getText();
-        String ssnStripped = ssn.replace("-","");
+        String ssnStripped = DataEntryDriver.stripSSN(ssn);
+
+        if(!DataEntryDriver.ssnValid(ssnStripped)){
+            // could display a message telling user that ssn is not of valid format
+            // but for now I'll just make it valid
+            String validSSN = DataEntryDriver.makeSSNValid(ssnStripped);
+            ssnStripped = validSSN;
+
+        }
+
+
 
         placeholder.setSsn(ssnStripped);
-        System.out.println(toString());
+
+        ManageUserSSNField.setText(ssnStripped);
+
 
         System.out.println("001001001 found user "+ ssnStripped +" launching interface");
+
+        printAllData();//testing
 
         // put code here to find user to display data on the screen that is about to be launched.
 
@@ -301,11 +345,8 @@ public class Controller {
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
 
-            Stage stage = Main.getPrimaryStage();
-
-            stage.setTitle("Customer Account Data Management Interface");
-            stage.setScene(new Scene(root,700,500));
-            Main.setPrimaryStage(stage);
+            Main.primaryStage.setTitle("Customer Account Data Management Interface");
+            Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
 
 
@@ -319,7 +360,7 @@ public class Controller {
     @FXML
     public void tellerInterfaceManageUpdateDataButton(){
         //
-        //Parent root = null;
+        Parent root = null;
 
         try {
 
@@ -327,9 +368,6 @@ public class Controller {
 //            root.setLocation(getClass().getResource("ManageExistingUserUpdateData.fxml"));
 //            TellerUpdateDataSSN.setText("54321");
 //            root.load();
-
-
-            Parent root;
 
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserUpdateData.fxml"));
 
@@ -342,12 +380,12 @@ public class Controller {
             System.out.println(toString());
 
 
-            TellerUpdateDataSSN.setText("test");
-
-
             String ssn = TellerUpdateDataSSN.getText();
-            System.out.println(ssn);
-            //System.out.println(TellerUpdateDataSSN.getText());
+
+            if(ssn!=null){
+                System.out.println("ssn from field is: "+ssn);
+            }
+
 
 
 
@@ -517,6 +555,7 @@ public class Controller {
 
 
 
+
     // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY
 
     @FXML
@@ -529,6 +568,38 @@ public class Controller {
     public void test2(){
         System.out.println("test2");
 
+    }
+
+
+    public void printAllData(){
+        System.out.println("ToString:    "+toString());
+        System.out.println("ToStringVal: "+toStringValues());
+    }
+
+    public String isNullReturn(Object o){
+        if(o==null){
+            return "null";
+        }else{
+            return String.valueOf(o);
+        }
+    }
+
+    public String toStringValues(){
+        try {
+            return "Controller{" +
+                    "tellerLogIn=" + tellerLogIn +
+                    ", managerLogIn=" + managerLogIn +
+                    ", tellerPendingLogin=" + tellerPendingLogin +
+                    ", managerPendingLogin=" + managerPendingLogin +
+                    ", fName=" + fName + ", lName=" + lName + ", socialSec='" + socialSec + '\'' +
+                    ", streetAddress=" + streetAddress + ", city=" + city +
+                    ", zipCode=" + zipCode +
+                    ", state=" + state + " PlaceholderSSN: "+placeholder.getSsn()+
+                    "PlaceholderAccount={ "+ placeholder.getCustomerAccount().toString()+ " }" +
+                    '}';
+        } catch (NullPointerException e) {
+            return "null";
+        }
     }
 
     @Override
@@ -590,8 +661,6 @@ public class Controller {
 
 
     // END COMMENT
-
-
 
 
 }

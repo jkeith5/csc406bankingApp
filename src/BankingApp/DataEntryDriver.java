@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class DataEntryDriver {
     File file;//this contains the file name of the related data file
@@ -182,6 +183,67 @@ public class DataEntryDriver {
 
         return result;
     }
+
+
+    public static String stripSSN(String ssn){
+        String result = ssn.replace("-","");
+        return result;
+    }
+
+    public static String fixSSN(String ssnStripped){
+        String result = ssnStripped;
+        result = stripSSN(result);
+
+        if(!ssnValid(result)){
+            result = makeSSNValid(result);
+        }else{
+            String p1 = result.substring(0,3);
+            String p2 = result.substring(3,5);
+            String p3 = result.substring(p1.length()+p2.length());
+            result = p1+"-"+p2+"-"+p3;
+        }
+        return result;
+    }
+
+    public static boolean ssnValid(String ssn){
+        boolean returnval = false;
+        String ssnStripped = stripSSN(ssn);
+        if(ssnStripped.length()==9){
+            returnval = true;
+        }
+        return returnval;
+    }
+
+    public static String makeSSNValid(String ssn){
+        String result = ssn;
+
+        if(!ssnValid(result)){
+            result = stripSSN(result);
+            if(result.length()!=9){
+                if(result.length()<9){
+                    while(result.length()<9){
+                        String randomIntString = String.valueOf(getRandomInt());
+                        result = result+randomIntString;
+                    }
+                }
+                if(result.length()>9){
+                    while(result.length()>9){
+                        result = result.substring(0,result.length()-1);
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+
+    public static int getRandomInt(){
+        Random random = new Random();
+        int randomInt = random.nextInt(10);
+        return randomInt;
+    }
+
 
 
 }
