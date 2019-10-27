@@ -17,12 +17,13 @@ import java.util.ArrayList;
 
 public class Controller {
     public static Stage primaryStage = Main.primaryStage;
+    public static Placeholder placeholder = new Placeholder();
 
     public boolean tellerLogIn;
     public boolean managerLogIn;
     public boolean tellerPendingLogin;
     public boolean managerPendingLogin;
-    public Scene tempScene;
+    public String currentSSN;
 
     public static ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
     //public ArrayList<CustomerAccount> customerAccountsReadIn = DataEntryDriver.readFileToCustomerAccountsArrayList();
@@ -63,6 +64,18 @@ public class Controller {
     @FXML RadioButton ManageExistingTellerCheckingAccount;
     @FXML RadioButton ManageExistingTellerSavingsAccount;
     @FXML TextField ManageExistingTellerFundsTransferAmount;
+
+    @FXML Button TellerUpdateDataPreviousButton;
+    @FXML Button TellerUpdateDataSaveButton;
+    @FXML TextField TellerUpdateDataSSN;
+    @FXML TextField TellerUpdateDataFirstName;
+    @FXML TextField TellerUpdateDataLastName;
+    @FXML TextField TellerUpdateDataStreetAddress;
+    @FXML TextField TellerUpdateDataCity;
+    @FXML TextField TellerUpdateDataState;
+    @FXML TextField TellerUpdateDataZip;
+
+
 
 
 
@@ -235,6 +248,7 @@ public class Controller {
     public void tellerInterfaceAddNewButton(){
         System.out.println("hi");
         Parent root = null;
+        System.out.println(toString());
         try {
             root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
             //Stage stage = new Stage();
@@ -255,6 +269,7 @@ public class Controller {
     public void tellerInterfaceManageButton(){
         System.out.println("hi");
         Parent root = null;
+        System.out.println(toString());
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
             Main.primaryStage.setTitle("Manage existing user");
@@ -268,7 +283,15 @@ public class Controller {
 
     @FXML
     public void tellerInterfaceManageLookupButton(){
-        System.out.println("001001001 found user launching interface");
+
+        String ssn = ManageUserSSNField.getText();
+        String ssnStripped = ssn.replace("-","");
+
+        placeholder.setSsn(ssnStripped);
+        System.out.println(toString());
+
+        System.out.println("001001001 found user "+ ssnStripped +" launching interface");
+
         // put code here to find user to display data on the screen that is about to be launched.
 
         // put if statement if ssn did not match user display error on the ManageExistingUser.fxml screen
@@ -277,8 +300,12 @@ public class Controller {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
-            Main.primaryStage.setTitle("Customer Account Data Management Interface");
-            Main.primaryStage.setScene(new Scene(root,700,500));
+
+            Stage stage = Main.getPrimaryStage();
+
+            stage.setTitle("Customer Account Data Management Interface");
+            stage.setScene(new Scene(root,700,500));
+            Main.setPrimaryStage(stage);
             Main.primaryStage.show();
 
 
@@ -292,22 +319,111 @@ public class Controller {
     @FXML
     public void tellerInterfaceManageUpdateDataButton(){
         //
-        Parent root = null;
+        //Parent root = null;
 
         try {
 
+//            FXMLLoader root = new FXMLLoader();
+//            root.setLocation(getClass().getResource("ManageExistingUserUpdateData.fxml"));
+//            TellerUpdateDataSSN.setText("54321");
+//            root.load();
+
+
+            Parent root;
+
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserUpdateData.fxml"));
-            Scene primarySceneUserData = root.getScene();
-            tempScene = primarySceneUserData;
+
 
             Main.primaryStage.setTitle("Update Customer Data");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
 
+
+            System.out.println(toString());
+
+
+            TellerUpdateDataSSN.setText("test");
+
+
+            String ssn = TellerUpdateDataSSN.getText();
+            System.out.println(ssn);
+            //System.out.println(TellerUpdateDataSSN.getText());
+
+
+
+
+
+
         } catch (IOException e) {
+            e.printStackTrace();
+        }catch(NullPointerException npe){
+            System.out.println("null pointer");
+            return;
+        }
+
+    }
+
+    @FXML
+    public void tellerInterfaceUpdateDataPreviousButton(){
+        Parent root = null;
+
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
+
+            Main.primaryStage.setTitle("Customer Account Data Management Interface");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+
+            // add code to pull the data for the currentSSN data
+            System.out.println("current ssn is: "+placeholder.getSsn());
+
+            // use placeholder object if needed to display data.
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void tellerInterfaceUpdateDataSaveButton(){
+        Parent root = null;
+
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
+
+            Main.primaryStage.setTitle("Customer Account Data Management Interface");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+
+
+            // add code to pull the data for the currentSSN data
+            System.out.println("current ssn is: "+placeholder.getSsn());
+            // use placeholder object if needed to display data.
+
+            // use the placeholder ssn to lookup and grab object
+            System.out.println("current ssn is: "+placeholder.getSsn());
+
+            String ssn = placeholder.getSsn();
+            CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(customerAccounts,ssn);
+
+            System.out.println(ca.toString());
+
+            // if enters invalid ssn provide warning for now I am setting a static ssn in the driver for testing if
+            // the one entered in box does not match anything
+
+
+            // pull info from fields
+
+
+
+            // save the new data to the object in the arraylist
+
+
+
+            Main.primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // will need this one because teller and bank manager can both see different items on user accounts
@@ -415,9 +531,67 @@ public class Controller {
 
     }
 
+    @Override
+    public String toString() {
+        return "Controller{" +
+                "tellerLogIn=" + tellerLogIn +
+                ", managerLogIn=" + managerLogIn +
+                ", tellerPendingLogin=" + tellerPendingLogin +
+                ", managerPendingLogin=" + managerPendingLogin +
+                ", currentSSN='" + currentSSN + '\'' +
+                ", fNameTextField=" + fNameTextField +
+                ", lNameTextField=" + lNameTextField +
+                ", socialSecTextField=" + socialSecTextField +
+                ", streetAddressTextField=" + streetAddressTextField +
+                ", cityTextField=" + cityTextField +
+                ", zipCodeTextField=" + zipCodeTextField +
+                ", stateTextField=" + stateTextField +
+                ", successfulEntryLabel=" + successfulEntryLabel +
+                ", LoginInterUser=" + LoginInterUser +
+                ", LoginInterPass=" + LoginInterPass +
+                ", LoginInterLoginButton=" + LoginInterLoginButton +
+                ", LoginInterExitButton=" + LoginInterExitButton +
+                ", enterButton=" + enterButton +
+                ", TellerScreen=" + TellerScreen +
+                ", BankManagerScreen=" + BankManagerScreen +
+                ", TellerInterAddNew=" + TellerInterAddNew +
+                ", TellerInterManage=" + TellerInterManage +
+                ", TellerInterPrev=" + TellerInterPrev +
+                ", ManageUserSSNField=" + ManageUserSSNField +
+                ", ManageUserLookupButton=" + ManageUserLookupButton +
+                ", ManageUserPrevButton=" + ManageUserPrevButton +
+                ", AddNewUserPreviousButton=" + AddNewUserPreviousButton +
+                ", BankManagerPrevButton=" + BankManagerPrevButton +
+                ", ManageExistingDispDataPrevButton=" + ManageExistingDispDataPrevButton +
+                ", ManageExistingTellerUpdateDataButton=" + ManageExistingTellerUpdateDataButton +
+                ", ManageExistingTellerViewRecentActivityButton=" + ManageExistingTellerViewRecentActivityButton +
+                ", ManageExistingTellerDebitCreditAccountButton=" + ManageExistingTellerDebitCreditAccountButton +
+                ", ManageExistingTellerCheckingAccount=" + ManageExistingTellerCheckingAccount +
+                ", ManageExistingTellerSavingsAccount=" + ManageExistingTellerSavingsAccount +
+                ", ManageExistingTellerFundsTransferAmount=" + ManageExistingTellerFundsTransferAmount +
+                ", TellerUpdateDataPreviousButton=" + TellerUpdateDataPreviousButton +
+                ", TellerUpdateDataSaveButton=" + TellerUpdateDataSaveButton +
+                ", TellerUpdateDataSSN=" + TellerUpdateDataSSN +
+                ", TellerUpdateDataFirstName=" + TellerUpdateDataFirstName +
+                ", TellerUpdateDataLastName=" + TellerUpdateDataLastName +
+                ", TellerUpdateDataStreetAddress=" + TellerUpdateDataStreetAddress +
+                ", TellerUpdateDataCity=" + TellerUpdateDataCity +
+                ", TellerUpdateDataState=" + TellerUpdateDataState +
+                ", TellerUpdateDataZip=" + TellerUpdateDataZip +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", socialSec='" + socialSec + '\'' +
+                ", streetAddress='" + streetAddress + '\'' +
+                ", city='" + city + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
 
 
     // END COMMENT
+
+
 
 
 }

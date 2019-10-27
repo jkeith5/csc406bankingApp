@@ -62,6 +62,10 @@ public class Main extends Application {
         return primaryStage;
     }
 
+    public static void setPrimaryStage(Stage stage){
+        primaryStage = stage;
+    }
+
 
     public void initialize() {
         // here we can initialize our database into the arrayList objects.

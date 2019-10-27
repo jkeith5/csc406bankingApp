@@ -176,6 +176,10 @@ public class DataEntryDriver {
             }
         }
 
+        if(result.getCustID()==null){
+            result = accountsList.get(0);
+        }
+
         return result;
     }
 
