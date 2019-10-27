@@ -16,6 +16,7 @@
             <Label layoutX="101.0" layoutY="120.0" prefHeight="25.0" prefWidth="34.0" text="SSN:" />
             <Button fx:id="ManageUserLookupButton" layoutX="336.0" layoutY="120.0" mnemonicParsing="false" onAction="#tellerInterfaceManageLookupButton" prefHeight="25.0" prefWidth="113.0" text="Lookup Account" />
             <Button fx:id="ManageUserPrevButton" layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#goToTellerScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button fx:id="generalTestButton" layoutX="220.0" layoutY="253.0" mnemonicParsing="false" onAction="#generalTestButtonAction" text="Button" />
          </children>
       </Pane>
    </children>

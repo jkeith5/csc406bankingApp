@@ -22,6 +22,11 @@ public class Main extends Application {
 
     public static Stage primaryStage;
 
+    // access the customerAccount object and arraylist by all Classes
+    public static CustomerAccount customerAccount;
+    public static ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
+    public static String currentCustomerID;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         initialize();
@@ -31,6 +36,7 @@ public class Main extends Application {
         Main.primaryStage.setTitle("Teller Bank Application(WIP)");
         Main.primaryStage.setScene(new Scene(root, 700, 500));
         Main.primaryStage.show();
+        System.out.println("in main start block");
 
     }
 
@@ -69,7 +75,7 @@ public class Main extends Application {
 
     public void initialize() {
         // here we can initialize our database into the arrayList objects.
-        System.out.println("initalizing");
+        System.out.println("initalizing in Main");
 
         outputFile = new File("src/Resources/outputLog.txt");
 

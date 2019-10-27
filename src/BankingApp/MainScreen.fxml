@@ -14,11 +14,6 @@
             <Text layoutX="172.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Banking Application Please Select A User" wrappingWidth="330.13671875" />
             <Button fx:id="TellerScreen" layoutX="277.0" layoutY="111.0" mnemonicParsing="false" onAction="#mainInterfaceTellerButton" prefHeight="32.0" prefWidth="120.0" text="Bank Teller" />
             <Button fx:id="BankManagerScreen" layoutX="277.0" layoutY="179.0" mnemonicParsing="false" onAction="#mainInterfaceManagerButton" prefHeight="32.0" prefWidth="120.0" text="Bank Manager" />
-            <TextField fx:id="mainScreenTest" layoutX="263.0" layoutY="250.0" />
-            <Button fx:id="mainScreenTestButton" layoutX="266.0" layoutY="333.0" mnemonicParsing="false" onAction="#mainScreenTestButton" prefHeight="25.0" prefWidth="95.0" text="Testing" />
-            <TextField fx:id="tf1" layoutX="44.0" layoutY="86.0" />
-            <TextField fx:id="tf2" layoutX="44.0" layoutY="154.0" />
-            <TextField fx:id="tf3" layoutX="44.0" layoutY="222.0" />
          </children>
       </Pane>
    </children>

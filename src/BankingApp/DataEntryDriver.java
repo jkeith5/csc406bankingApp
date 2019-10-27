@@ -1,6 +1,7 @@
 package BankingApp;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -87,22 +88,6 @@ public class DataEntryDriver {
         result.add(acc2);
         result.add(acc3);
 
-
-
-        System.out.println("\n\n");
-
-        System.out.println(acc1.toString());
-        System.out.println("\n\n");
-        String acc1String = acc1.toString();
-
-        String acc1StringArr[] = acc1String.split("~");
-        List<String> acc1ArrList = new ArrayList<String>();
-        acc1ArrList = Arrays.asList(acc1StringArr);
-
-        for(String s:acc1ArrList){
-            System.out.println(s);
-        }
-
         serializeArrayListToFile(result);
     }
 
@@ -139,7 +124,7 @@ public class DataEntryDriver {
             System.out.println(e.toString());
         }
 
-        System.out.println("READ IN FILE AS ARRAYLIST\n\n\n");
+        System.out.println("READ IN FILE AS ARRAYLIST\nAccounts Database\n");
 
         for(CustomerAccount ca: result){
             System.out.println(ca.toString());
@@ -147,9 +132,10 @@ public class DataEntryDriver {
 
         System.out.println("End of read in file\n\n\n");
 
-        System.out.println("Testing\n");
 
-        System.out.println(result.get(0).toString());
+        //testing
+
+        //System.out.println(result.get(0).toString());
 
         double test1 = result.get(0).getSavingsAccount().accountBalance;
         double test2 = test1 - 457.00;
@@ -160,26 +146,45 @@ public class DataEntryDriver {
         // should be equal to 0.58
         System.out.println(Math.round(test2*100.0)/100.0);
 
-
+        // end test
 
         return result;
     }
 
 
-    public static CustomerAccount getCustomerAccountFromCustomerID(ArrayList<CustomerAccount> accountsList,String customerID){
-        CustomerAccount result = new CustomerAccount();
-        String searchIDStripped = customerID.replace("-","");
+    public static CustomerAccount getCustomerAccountFromCustomerID(String customerID){
+        System.out.println("start of get customer acct from id");
+        ArrayList<CustomerAccount> accountsList = Main.customerAccounts;
+
+        System.out.println("test account list");
+        System.out.println(accountsList.size());
+        System.out.println(accountsList.get(0).toString());
+
+        CustomerAccount result = new CustomerAccount("null");
+
+        String searchIDStripped = stripSSN(customerID);
 
         for(CustomerAccount ca:accountsList){
-            String custIDStripped = ca.getCustID().replace("-","");
+            System.out.println(ca.toString());
+            String custIDStripped = stripSSN(ca.getCustID());
             if(custIDStripped.equals(searchIDStripped)){
                 result = ca;
+                break;
             }
         }
 
-        if(result.getCustID()==null){
-            result = accountsList.get(0);
+        if(result.isNull()){
+            System.out.println("no results found in getCustAcctFromID");
         }
+
+        //System.out.println(result.isNull());
+
+//        if(result.getCustID()==null){
+//            //result = accountsList.get(0);
+//            result = new CustomerAccount("null");
+//        }
+
+
 
         return result;
     }
@@ -203,6 +208,25 @@ public class DataEntryDriver {
             result = p1+"-"+p2+"-"+p3;
         }
         return result;
+    }
+
+
+    public static boolean ssnInDatabase(String ssnInput){
+        boolean returnVal = false;
+
+        String ssnStripped = stripSSN(ssnInput);
+        for(CustomerAccount ca : Main.customerAccounts){
+            String custIdStripped = stripSSN(ca.getCustID());
+            if(custIdStripped.equals(ssnStripped)){
+                System.out.println("ssn is in the database");
+                returnVal = true;
+            }
+        }
+
+
+
+        return returnVal;
+
     }
 
     public static boolean ssnValid(String ssn){
@@ -242,6 +266,22 @@ public class DataEntryDriver {
         Random random = new Random();
         int randomInt = random.nextInt(10);
         return randomInt;
+    }
+
+
+    public static String getLocationFileName(URL inputLocation){
+        String result = "";
+
+        String locationString = String.valueOf(inputLocation);
+        locationString = locationString.replace("file:/","");
+        String[] locationStringSplit = locationString.split("/");
+
+        result=locationStringSplit[locationStringSplit.length-1];
+
+
+
+
+        return result;
     }
 
 

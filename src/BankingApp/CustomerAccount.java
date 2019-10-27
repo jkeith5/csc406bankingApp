@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class CustomerAccount implements Serializable {
     // This will hold all data for customer account in the ArrayList of CustomerAccouts Objects
     // will have info on all accounts savings cds Checking Credit Card all all relevant info
+    // NOTE!!! CHANGING DATA HERE LIKE ADDING METHODS OR VARIABLES REQUIRES TO DELETE CUSTOMERDATABASE FILE IN
+    // RESOURCES SO THE OBJECT INPUT STREAM WILL CORRECTLY READ IN THE NEW DATA INTO OBJECTS
 
     public String custID;
     public String firstName;
@@ -32,9 +34,18 @@ public class CustomerAccount implements Serializable {
     public ArrayList<LoanAccount> loanAccounts= new ArrayList<LoanAccount>();
     public ArrayList<Check> checks = new ArrayList<Check>();
 
+    public boolean isNull=false;
+
 
     public CustomerAccount(){
-        // use setters and getters
+        // use setters and getters setting null pointer to null until at least a ssn is added
+        this.isNull=true;
+    }
+
+    public CustomerAccount(String isNullString){
+        if(isNullString.toLowerCase().equals("null")){
+            this.isNull= true;
+        }
     }
 
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String dateCreated) {
@@ -66,6 +77,7 @@ public class CustomerAccount implements Serializable {
 
     public void setCustID(String custID) {
         this.custID = custID;
+        this.isNull=false;
     }
 
     public String getFirstName() {
@@ -264,6 +276,13 @@ public class CustomerAccount implements Serializable {
         this.checks.add(temp);
     }
 
+    public boolean isNull() {
+        return isNull;
+    }
+
+    public void setNull(boolean aNull) {
+        isNull = aNull;
+    }
 
     @Override
     public String toString() {
@@ -288,8 +307,10 @@ public class CustomerAccount implements Serializable {
                 ", transactions=" + transactions +
                 ", loanAccounts=" + loanAccounts +
                 ", checks=" + checks +
+                ", isNull=" + isNull +
                 '}';
     }
+
 
 
 }

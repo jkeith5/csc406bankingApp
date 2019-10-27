@@ -28,6 +28,7 @@
             <TextField fx:id="TellerUpdateDataCity" layoutX="242.0" layoutY="192.0" text="temp" />
             <TextField fx:id="TellerUpdateDataState" layoutX="242.0" layoutY="227.0" text="temp" />
             <TextField fx:id="TellerUpdateDataZip" layoutX="242.0" layoutY="262.0" text="temp" />
+            <Button fx:id="generalTestButton" layoutX="264.0" layoutY="347.0" mnemonicParsing="false" onAction="#generalTestButtonAction" text="Test" />
          </children></Pane>
    </children>
 </AnchorPane>

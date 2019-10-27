@@ -3,6 +3,7 @@ package BankingApp;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
@@ -11,21 +12,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import javax.print.DocFlavor;
 import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable{
     //public static Stage primaryStage = Main.primaryStage;
-    public static Placeholder placeholder = new Placeholder();
+    //public static Placeholder placeholder = new Placeholder();
 
-    public boolean tellerLogIn;
-    public boolean managerLogIn;
-    public boolean tellerPendingLogin;
-    public boolean managerPendingLogin;
-    public String currentSSN;
+    public static boolean tellerLogIn;
+    public static boolean managerLogIn;
+    public static boolean tellerPendingLogin;
+    public static boolean managerPendingLogin;
 
     public static ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
     //public ArrayList<CustomerAccount> customerAccountsReadIn = DataEntryDriver.readFileToCustomerAccountsArrayList();
@@ -35,6 +39,8 @@ public class Controller {
     @FXML TextField tf1;
     @FXML TextField tf2;
     @FXML TextField tf3;
+    @FXML TextField generalTestTextField;
+    @FXML Button generalTestButton;
 
     @FXML Button mainScreenTestButton;
 
@@ -59,7 +65,7 @@ public class Controller {
     @FXML Button TellerInterAddNew;
     @FXML Button TellerInterManage;
     @FXML Button TellerInterPrev;
-    @FXML public TextField ManageUserSSNField;
+    @FXML TextField ManageUserSSNField;
     @FXML Button ManageUserLookupButton;
     @FXML Button ManageUserPrevButton;
     @FXML Button AddNewUserPreviousButton;
@@ -77,7 +83,7 @@ public class Controller {
 
     @FXML Button TellerUpdateDataPreviousButton;
     @FXML Button TellerUpdateDataSaveButton;
-    @FXML public TextField TellerUpdateDataSSN;
+    @FXML TextField TellerUpdateDataSSN;
     @FXML TextField TellerUpdateDataFirstName;
     @FXML TextField TellerUpdateDataLastName;
     @FXML TextField TellerUpdateDataStreetAddress;
@@ -97,22 +103,101 @@ public class Controller {
 
 
 
-    public void initialize() {
-        System.out.println("initializing controller");
-        tf1.setText("test1");
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("\ninitializing controller");
+        System.out.println(customerAccounts);
+        System.out.println("\n\n");
+
+        String locationString = DataEntryDriver.getLocationFileName(location);
+        System.out.println(locationString);
+
+        // Okay so note to self. Each time an interface is created from one of the
+        // many buttons in this program, The
+
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+
+        System.out.println("\n\nStackTrace\n");
+        System.out.println("Stack Trace: "+stackTraceElements[10].toString());
+
+        int z = -1;
+        if(z!=-1){
+            int i =0;
+            for(StackTraceElement ste:stackTraceElements){
+                //System.out.println("Calling Method Name: "+ste.getMethodName());
+                //System.out.println("Line Number of Caller: "+ste.getLineNumber());
+                System.out.println(String.valueOf(i)+" : "+ste.toString());
+                i++;
+            }
+        }
+
+
+
+        System.out.println("\nEnd Stack Trace\n");
+
+        // so either create a seperate Controller for interfaces that need to pull dynamic data
+        // or just make a bunch of if statement blocks here with the location filename and
+        // initialize the data for the interface. I'll go with the second method.
+        if(locationString.equals("ManageExistingUserUpdateData.fxml")){
+            System.out.println("in manage existing user if block");
+            //
+            System.out.println(TellerUpdateDataSSN.getText());
+            //TellerUpdateDataSSN.setText(DataEntryDriver.stripSSN(placeholder.getSsn()));
+            System.out.println("ssn in main variable is: "+Main.currentCustomerID);
+        }
+        if(locationString.equals("ManageExistingUser.fxml")){
+            // set to static ssn for now for testing
+            ManageUserSSNField.setText("687-69-8941");
+        }
+
+        //
+
     }
 
 
     @FXML
     public void mainScreenTestButton(){
+        System.out.println("\n\n");
         System.out.println(mainScreenTest.toString());
         System.out.println(mainScreenTest.getText());
+        System.out.println("\n\n");
 
         String replaceText = "goodbye";
 
-        mainScreenTest.setText("goodbye");
+        mainScreenTest.setText("goodbye "+String.valueOf(DataEntryDriver.getRandomInt()));
 
     }
+
+    @FXML
+    public void generalTestButtonAction(){
+        System.out.println("\n\nTestbutton action\n");
+        //System.out.println(generalTestTextField.toString());
+        //System.out.println(generalTestTextField.getText());
+        //generalTestTextField.setText("working "+String.valueOf(DataEntryDriver.getRandomInt()));
+
+        //System.out.println(TellerUpdateDataSSN.getText());
+        //System.out.println(placeholder.getSsn());
+        //TellerUpdateDataSSN.setText(placeholder.getSsn());
+        //System.out.println(TellerUpdateDataFirstName.getText());
+        //System.out.println(TellerUpdateDataLastName.getText());
+        //System.out.println(TellerUpdateDataStreetAddress.getText());
+
+        System.out.println("ManageUserSSNField text: "+ManageUserSSNField.getText());
+        //CustomerAccount temp = DataEntryDriver.getCustomerAccountFromCustomerID(ManageUserSSNField.getText());
+
+        //CustomerAccount temp = DataEntryDriver.getCustomerAccountFromCustomerID(ManageUserSSNField.getText());
+
+        System.out.println(" Controller in database ssn: "+ManageUserSSNField.getText());
+        try {
+            System.out.println(DataEntryDriver.ssnInDatabase(ManageUserSSNField.getText()));
+        } catch (Exception e) {
+            System.out.println("something up");
+        }
+
+
+        System.out.println("\n\n");
+    }
+
 
 
     @FXML
@@ -294,6 +379,8 @@ public class Controller {
     @FXML
     public void tellerInterfaceManageButton(){
         System.out.println("tellerInterfaceManageButton");
+
+
         Parent root = null;
 
         printAllData();//testing
@@ -314,6 +401,8 @@ public class Controller {
         System.out.println("tellerInterfaceManageLookupButton");
 
 
+
+
         String ssn = ManageUserSSNField.getText();
         String ssnStripped = DataEntryDriver.stripSSN(ssn);
 
@@ -325,21 +414,22 @@ public class Controller {
 
         }
 
+        // NOTE SSN IS STATICALLY SET IN THE INITIALIZE METHOD ON LINE NUMBER 153
 
+        // pass data back to main variable
+        Main.currentCustomerID = ssnStripped;
 
-        placeholder.setSsn(ssnStripped);
+        System.out.println("Main customer ID is: "+Main.currentCustomerID);
 
-        ManageUserSSNField.setText(ssnStripped);
+        // lookup the account number with DataEntryDriver and set object to static variable
+        //Main.customerAccount = DataEntryDriver.getCustomerAccountFromCustomerID(ssnStripped);
 
 
         System.out.println("001001001 found user "+ ssnStripped +" launching interface");
 
-        printAllData();//testing
-
-        // put code here to find user to display data on the screen that is about to be launched.
-
         // put if statement if ssn did not match user display error on the ManageExistingUser.fxml screen
         // else continue to launch window and display data
+
 
         Parent root = null;
         try {
@@ -359,47 +449,25 @@ public class Controller {
 
     @FXML
     public void tellerInterfaceManageUpdateDataButton(){
-        //
+        System.out.println("start tell int update button method");
         Parent root = null;
 
         try {
-
-//            FXMLLoader root = new FXMLLoader();
-//            root.setLocation(getClass().getResource("ManageExistingUserUpdateData.fxml"));
-//            TellerUpdateDataSSN.setText("54321");
-//            root.load();
-
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserUpdateData.fxml"));
-
-
             Main.primaryStage.setTitle("Update Customer Data");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
 
 
-            System.out.println(toString());
-
-
-            String ssn = TellerUpdateDataSSN.getText();
-
-            if(ssn!=null){
-                System.out.println("ssn from field is: "+ssn);
-            }
-
-
-
-
-
-
 
         } catch (IOException e) {
             e.printStackTrace();
-        }catch(NullPointerException npe){
-            System.out.println("null pointer");
-            return;
         }
 
+
+
     }
+
 
     @FXML
     public void tellerInterfaceUpdateDataPreviousButton(){
@@ -413,7 +481,7 @@ public class Controller {
             Main.primaryStage.show();
 
             // add code to pull the data for the currentSSN data
-            System.out.println("current ssn is: "+placeholder.getSsn());
+            System.out.println("current ssn is: "+Main.currentCustomerID);
 
             // use placeholder object if needed to display data.
 
@@ -435,14 +503,15 @@ public class Controller {
 
 
             // add code to pull the data for the currentSSN data
-            System.out.println("current ssn is: "+placeholder.getSsn());
+            System.out.println("current ssn is: "+Main.currentCustomerID);
+            //System.out.println("current ssn is: "+placeholder.getSsn());
             // use placeholder object if needed to display data.
 
-            // use the placeholder ssn to lookup and grab object
-            System.out.println("current ssn is: "+placeholder.getSsn());
+            // use the main.currentCustomerID ssn to lookup and grab object
 
-            String ssn = placeholder.getSsn();
-            CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(customerAccounts,ssn);
+            //String ssn = placeholder.getSsn();
+            String ssn = Main.currentCustomerID;
+            CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ssn);
 
             System.out.println(ca.toString());
 
@@ -584,6 +653,9 @@ public class Controller {
         }
     }
 
+
+
+
     public String toStringValues(){
         try {
             return "Controller{" +
@@ -594,8 +666,8 @@ public class Controller {
                     ", fName=" + fName + ", lName=" + lName + ", socialSec='" + socialSec + '\'' +
                     ", streetAddress=" + streetAddress + ", city=" + city +
                     ", zipCode=" + zipCode +
-                    ", state=" + state + " PlaceholderSSN: "+placeholder.getSsn()+
-                    "PlaceholderAccount={ "+ placeholder.getCustomerAccount().toString()+ " }" +
+                    ", state=" + state + " MainSSN: "+Main.currentCustomerID+
+                    "Main.CustomerAccount={ "+ Main.customerAccount.toString()+ " }" +
                     '}';
         } catch (NullPointerException e) {
             return "null";
@@ -609,7 +681,6 @@ public class Controller {
                 ", managerLogIn=" + managerLogIn +
                 ", tellerPendingLogin=" + tellerPendingLogin +
                 ", managerPendingLogin=" + managerPendingLogin +
-                ", currentSSN='" + currentSSN + '\'' +
                 ", fNameTextField=" + fNameTextField +
                 ", lNameTextField=" + lNameTextField +
                 ", socialSecTextField=" + socialSecTextField +
@@ -658,6 +729,8 @@ public class Controller {
                 ", state='" + state + '\'' +
                 '}';
     }
+
+
 
 
     // END COMMENT
