@@ -23,6 +23,12 @@ public class Transaction implements Serializable {
         this.description=desc;
         this.transactionAccount=transactionAcct;
     }
+    public Transaction(String transactionType,String amount,String desc,String transactionAcct){
+        this.transactionType = transactionType;
+        setAmount(amount);
+        this.description=desc;
+        this.transactionAccount=transactionAcct;
+    }
 
     public String getTransactionType() {
         return transactionType;
@@ -39,6 +45,13 @@ public class Transaction implements Serializable {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+    public void setAmount(String amount) {
+        try {
+            this.amount = Double.parseDouble(amount);
+        } catch (NumberFormatException e) {
+            this.amount = 0.0;
+        }
+    }
 
     public String getDescription() {
         return description;
@@ -54,6 +67,16 @@ public class Transaction implements Serializable {
 
     public void setTransactionAccount(String transactionAccount) {
         this.transactionAccount = transactionAccount;
+    }
+
+    public String getType(){
+        if(this.transactionType.equals("W")){
+            return "Withdraw";
+        }else if(this.transactionType.equals("D")){
+            return "Deposit";
+        }else{
+            return "null";
+        }
     }
 
 

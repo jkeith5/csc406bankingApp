@@ -292,13 +292,11 @@ public class CustomerAccount implements Serializable {
         }
     }
 
-
-
-    public void addLoanAccount(String loanAccountType, String custID, double initialLoanAmt, double currentBalance,
+    public void addLoanAccount( String custID, double initialLoanAmt, double currentBalance,
                                double interestRate, String paymentDueDate, String paymentNoticeDate, double amountDue,
-                               String lastPaymentDate, boolean hasMissedPayment){
-        LoanAccount tempLoanAcct = new LoanAccount(loanAccountType,custID,initialLoanAmt,currentBalance,interestRate,paymentDueDate,
-                paymentNoticeDate,amountDue,lastPaymentDate,hasMissedPayment);
+                               String lastPaymentDate, boolean hasMissedPayment,String loanAccountType){
+        LoanAccount tempLoanAcct = new LoanAccount(custID,initialLoanAmt,currentBalance,interestRate,paymentDueDate,
+                paymentNoticeDate,amountDue,lastPaymentDate,hasMissedPayment,loanAccountType);
         this.loanAccounts.add(tempLoanAcct);
 
         setHasLoanAccount(true);

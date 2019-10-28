@@ -12,9 +12,10 @@ public class SavingsAccount implements Serializable {
     public boolean isCdAccount;
     public String cdCloseDate;
 
+    public boolean isNull = false; // is the whole Object null
 
     public SavingsAccount(){
-        //
+        setAllNull();
     }
 
     public SavingsAccount(String custID, String savingsAcctID, double accountBalance, double interestRate, String dateOpened, boolean isCdAccount) {
@@ -24,6 +25,7 @@ public class SavingsAccount implements Serializable {
         this.interestRate = interestRate;
         this.dateOpened = dateOpened;
         this.isCdAccount = isCdAccount;
+        this.cdCloseDate="null";
     }
 
     public SavingsAccount(String custID, String savingsAcctID, double accountBalance, double interestRate, String dateOpened, boolean isCdAccount, String cdCloseDate) {
@@ -35,6 +37,15 @@ public class SavingsAccount implements Serializable {
         this.isCdAccount = isCdAccount;
         this.cdCloseDate = cdCloseDate;
     }
+    public SavingsAccount(String custID, String savingsAcctID, String accountBalance, String interestRate, String dateOpened, String isCdAccount, String cdCloseDate) {
+        this.custID = custID;
+        this.savingsAcctID = savingsAcctID;
+        setAccountBalance(accountBalance);
+        setInterestRate(interestRate);
+        this.dateOpened = dateOpened;
+        setCdAccount(isCdAccount);
+        this.cdCloseDate = cdCloseDate;
+    }
 
     public String getCustID() {
         return custID;
@@ -42,6 +53,7 @@ public class SavingsAccount implements Serializable {
 
     public void setCustID(String custID) {
         this.custID = custID;
+        calcNullValue();
     }
 
     public String getSavingsAcctID() {
@@ -50,6 +62,7 @@ public class SavingsAccount implements Serializable {
 
     public void setSavingsAcctID(String savingsAcctID) {
         this.savingsAcctID = savingsAcctID;
+        calcNullValue();
     }
 
     public double getAccountBalance() {
@@ -59,6 +72,13 @@ public class SavingsAccount implements Serializable {
     public void setAccountBalance(double accountBalance) {
         this.accountBalance = accountBalance;
     }
+    public void setAccountBalance(String accountBalance) {
+        try {
+            this.accountBalance = Double.parseDouble(accountBalance);
+        } catch (NumberFormatException e) {
+            this.accountBalance = 0.0;
+        }
+    }
 
     public double getInterestRate() {
         return interestRate;
@@ -67,6 +87,14 @@ public class SavingsAccount implements Serializable {
     public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
+    public void setInterestRate(String interestRate) {
+        try {
+            this.interestRate = Double.parseDouble(interestRate);
+        } catch (NumberFormatException e) {
+            this.interestRate = 0.0;
+        }
+    }
+
 
     public String getDateOpened() {
         return dateOpened;
@@ -74,6 +102,7 @@ public class SavingsAccount implements Serializable {
 
     public void setDateOpened(String dateOpened) {
         this.dateOpened = dateOpened;
+        calcNullValue();
     }
 
     public boolean isCdAccount() {
@@ -82,6 +111,11 @@ public class SavingsAccount implements Serializable {
 
     public void setCdAccount(boolean cdAccount) {
         isCdAccount = cdAccount;
+        calcNullValue();
+    }
+    public void setCdAccount(String cdAccount) {
+        isCdAccount = Boolean.parseBoolean(cdAccount);
+        calcNullValue();
     }
 
     public String getCdCloseDate() {
@@ -90,6 +124,51 @@ public class SavingsAccount implements Serializable {
 
     public void setCdCloseDate(String cdCloseDate) {
         this.cdCloseDate = cdCloseDate;
+        calcNullValue();
+    }
+
+
+    public void setAllNull(){
+        this.custID = "null";
+        this.savingsAcctID = "null";
+        this.dateOpened = "null";
+        this.cdCloseDate="null";
+        this.isCdAccount = false;
+        this.isNull=true;
+        this.accountBalance = 0.0;
+        this.interestRate = 0.0;
+    }
+
+    public void calcNullValue(){ // used to make sure all fields are set if not then make null true so we don't read
+        //                          Null values and get NullPointerExceptions
+        if(this.isCdAccount){
+            if(this.custID.equals("null") || this.savingsAcctID.equals("null") || this.dateOpened.equals("null") ||
+                    this.cdCloseDate.equals("null")){
+                this.isNull = true;
+            }else{
+                this.isNull = false;
+            }
+        }else{
+            if(this.custID.equals("null") || this.savingsAcctID.equals("null") || this.dateOpened.equals("null")){
+                this.isNull = true;
+            }else{
+                this.isNull = false;
+            }
+        }
+    }
+
+
+    public String getType(){
+        calcNullValue();
+        if(!this.isNull){
+            if(this.isCdAccount){
+                return "Savings CD";
+            }else{
+                return "Simple Savings";
+            }
+        }else{
+            return "null";
+        }
     }
 
 

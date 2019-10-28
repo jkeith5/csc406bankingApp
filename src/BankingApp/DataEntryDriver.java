@@ -57,8 +57,8 @@ public class DataEntryDriver {
         CheckingAccount checking3 = new CheckingAccount(acc3.custID,"3",57.14,acc3.dateCreated,false,false,3);
 
 
-        LoanAccount loan1 = new LoanAccount("CCL",acc1.custID,10000,874.58,0.018,false);
-        LoanAccount loan2 = new LoanAccount("STL",acc2.custID,8750.00,1244.58,0.011,true);
+        LoanAccount loan1 = new LoanAccount(acc1.custID,10000,874.58,0.018,false,"CCL");
+        LoanAccount loan2 = new LoanAccount(acc2.custID,8750.00,1244.58,0.011,true,"STL");
 
         Check check1 = new Check("150","1","2019/10/20",287.89,false);
         Check check2 = new Check("478","2","2019/10/22",2145.58,true);

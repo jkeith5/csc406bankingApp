@@ -53,6 +53,14 @@ public class Check implements Serializable {
     public void setCheckAmount(double checkAmount) {
         this.checkAmount = checkAmount;
     }
+    public void setCheckAmount(String checkAmount) {
+        try {
+            this.checkAmount = Double.parseDouble(checkAmount);
+        } catch (NumberFormatException e) {
+            this.checkAmount = 0.0;
+            Main.out.println(Main.getDateTimeString()+" Error in setting check amount "+e.toString());
+        }
+    }
 
     public boolean isCheckProcessed() {
         return checkProcessed;
@@ -60,6 +68,9 @@ public class Check implements Serializable {
 
     public void setCheckProcessed(boolean checkProcessed) {
         this.checkProcessed = checkProcessed;
+    }
+    public void setCheckProcessed(String checkProcessed) {
+        this.checkProcessed = Boolean.parseBoolean(checkProcessed);
     }
 
 

@@ -168,6 +168,20 @@ public class Controller implements Initializable{
 
         }
         if(locationString.equals("ManageExistingUserDisplayDataTeller.fxml")){
+            CustomerAccount ca = Main.customerAccount;
+
+            if(ca.hasCheckingAccount()){
+                manageExistingTellerCheckingAccount.setSelected(true);
+            }else{
+                manageExistingTellerCheckingAccount.setDisable(true);
+            }
+            if(!ca.hasSavingsAccount()){
+                manageExistingTellerSavingsAccount.setDisable(true);
+            }else{
+                manageExistingTellerSavingsAccount.setDisable(false);
+            }
+
+
             tellerManageDispData();
         }
 
@@ -244,11 +258,22 @@ public class Controller implements Initializable{
 
 
 
+    public void tellerManageDispToggleRadioButtonsEvent(){
+        if(manageExistingTellerCheckingAccount.isSelected()){
+            manageExistingTellerSavingsAccount.setSelected(false);
+            tellerManageDispData();
+        }else if(manageExistingTellerSavingsAccount.isSelected()){
+            manageExistingTellerCheckingAccount.setSelected(false);
+            tellerManageDispData();
+        }
+    }
 
     public void tellerManageDispData(){
         CustomerAccount ca = Main.customerAccount;
         System.out.println("display data");
         System.out.println(ca.toString());
+
+        //System.out.println(ca.getSavingsAccount().getCdCloseDate());
 
         manageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
         manageDispDataFirst.setText(ca.getFirstName());
@@ -259,22 +284,43 @@ public class Controller implements Initializable{
         manageDispDataZip.setText(ca.getZip());
 
 
-        if(ca.hasCheckingAccount()){
-            String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
-            manageDispDataAcctBalance.setText(balanceFormatted);
+        if(manageExistingTellerCheckingAccount.isSelected()){
+            if(ca.hasCheckingAccount()){
+                String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
+                manageDispDataAcctBalance.setText(balanceFormatted);
 
-            // will probably move this to the DataEntryDriver Class and make it accept the account object and account type
-            // checking savings cd or loan and then return proper string object for status.
-            if(ca.getCheckingAccount().getAccountBalance()<0.00){
-                manageDispDataAcctStatus.setText("Overdrawn");
+                // will probably move this to the DataEntryDriver Class and make it accept the account object and account type
+                // checking savings cd or loan and then return proper string object for status.
+                if(ca.getCheckingAccount().getAccountBalance()<0.00){
+                    manageDispDataAcctStatus.setText("Overdrawn");
+                }else{
+                    manageDispDataAcctStatus.setText("Current");
+                }
+
+                String checkingAcctType = ca.getCheckingAccount().getType();
+                manageDispDataAcctType.setText(checkingAcctType+" Account");
+
             }else{
-                manageDispDataAcctStatus.setText("Current");
+                manageExistingTellerCheckingAccount.setDisable(true);
+                manageDispDataAcctBalance.setText("");
+                manageDispDataAcctStatus.setText("No account for user");
             }
+        }else if(manageExistingTellerSavingsAccount.isSelected()){
+            //
+            String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getSavingsAccount().getAccountBalance());
+            manageDispDataAcctBalance.setText(balanceFormatted);
+            //
+
 
         }else{
             manageDispDataAcctBalance.setText("");
             manageDispDataAcctStatus.setText("No account for user");
         }
+
+
+
+
+
 
 
 
