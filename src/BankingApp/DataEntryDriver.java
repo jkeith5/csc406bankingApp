@@ -123,10 +123,12 @@ public class DataEntryDriver {
                 result.add(customerAccountRead);
             }
 
-        } catch (IOException e) {
-            Main.out.println(Main.getDateTimeString()+"Error in readFile. File not read in to array.");
-            System.out.println(e.toString());
+        } catch (EOFException e) {
+            System.out.println("");
         } catch (ClassNotFoundException e) {
+            System.out.println(e.toString());
+        }catch (IOException e){
+            Main.out.println(Main.getDateTimeString()+"Error in readFile. File not read in to array.");
             System.out.println(e.toString());
         }
         return result;

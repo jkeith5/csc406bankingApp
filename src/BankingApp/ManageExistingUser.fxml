@@ -12,11 +12,11 @@
       <Pane layoutX="16.0" layoutY="16.0" prefHeight="468.0" prefWidth="669.0">
          <children>
             <Text layoutX="292.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Existing User" wrappingWidth="129.13671875" />
-            <TextField fx:id="ManageUserSSNField" layoutX="146.0" layoutY="120.0" onKeyPressed="#manageUserKeyEvent" onKeyReleased="#manageUserKeyEvent" />
+            <TextField fx:id="manageUserSSNField" layoutX="146.0" layoutY="120.0" onKeyPressed="#manageUserKeyEvent" onKeyReleased="#manageUserKeyEvent" />
             <Label layoutX="101.0" layoutY="120.0" prefHeight="25.0" prefWidth="34.0" text="SSN:" />
-            <Button fx:id="ManageUserLookupButton" disable="true" layoutX="336.0" layoutY="120.0" mnemonicParsing="false" onAction="#tellerInterfaceManageLookupButton" prefHeight="25.0" prefWidth="113.0" text="Lookup Account" />
-            <Button fx:id="ManageUserPrevButton" layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#goToTellerScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
-            <Label fx:id="LookupInterErrLabel" layoutX="109.0" layoutY="158.0" prefHeight="209.0" prefWidth="452.0" />
+            <Button fx:id="manageUserLookupButton" disable="true" layoutX="336.0" layoutY="120.0" mnemonicParsing="false" onAction="#tellerInterfaceManageLookupButton" prefHeight="25.0" prefWidth="113.0" text="Lookup Account" />
+            <Button fx:id="manageUserPrevButton" layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#goToTellerScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Label fx:id="lookupInterErrLabel" layoutX="109.0" layoutY="158.0" prefHeight="209.0" prefWidth="452.0" />
          </children>
       </Pane>
    </children>

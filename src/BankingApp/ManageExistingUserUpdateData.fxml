@@ -12,8 +12,8 @@
       <Pane layoutX="16.0" layoutY="16.0" prefHeight="468.0" prefWidth="669.0">
          <children>
             <Text layoutX="271.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Customer Data" wrappingWidth="126.13671875" />
-            <Button fx:id="TellerUpdateDataPreviousButton" layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#tellerInterfaceUpdateDataPreviousButton" prefHeight="25.0" prefWidth="83.0" text="Previous" />
-            <Button fx:id="TellerUpdateDataSaveButton" layoutX="572.0" layoutY="429.0" mnemonicParsing="false" onAction="#tellerInterfaceUpdateDataSaveButton" prefHeight="25.0" prefWidth="83.0" text="Save" />
+            <Button fx:id="tellerUpdateDataPreviousButton" layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#tellerInterfaceUpdateDataPreviousButton" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button fx:id="tellerUpdateDataSaveButton" layoutX="572.0" layoutY="429.0" mnemonicParsing="false" onAction="#tellerInterfaceUpdateDataSaveButton" prefHeight="25.0" prefWidth="83.0" text="Save" />
             <Label layoutX="145.0" layoutY="52.0" prefHeight="17.0" prefWidth="27.0" text="SSN:" />
             <Label layoutX="145.0" layoutY="87.0" prefHeight="17.0" prefWidth="61.0" text="First Name:" />
             <Label layoutX="145.0" layoutY="122.0" prefHeight="17.0" prefWidth="61.0" text="Last Name:" />
@@ -21,13 +21,13 @@
             <Label layoutX="145.0" layoutY="192.0" prefHeight="17.0" prefWidth="27.0" text="City:" />
             <Label layoutX="145.0" layoutY="227.0" prefHeight="17.0" prefWidth="37.0" text="State:" />
             <Label layoutX="145.0" layoutY="262.0" prefHeight="17.0" prefWidth="21.0" text="Zip:" />
-            <TextField fx:id="TellerUpdateDataSSN" layoutX="242.0" layoutY="52.0" text="temp" />
-            <TextField fx:id="TellerUpdateDataFirstName" layoutX="242.0" layoutY="87.0" text="temp" />
-            <TextField fx:id="TellerUpdateDataLastName" layoutX="242.0" layoutY="122.0" text="temp" />
-            <TextField fx:id="TellerUpdateDataStreetAddress" layoutX="242.0" layoutY="157.0" text="temp" />
-            <TextField fx:id="TellerUpdateDataCity" layoutX="242.0" layoutY="192.0" text="temp" />
-            <TextField fx:id="TellerUpdateDataState" layoutX="242.0" layoutY="227.0" text="temp" />
-            <TextField fx:id="TellerUpdateDataZip" layoutX="242.0" layoutY="262.0" text="temp" />
+            <TextField fx:id="tellerUpdateDataSSN" layoutX="242.0" layoutY="52.0" text="temp" />
+            <TextField fx:id="tellerUpdateDataFirstName" layoutX="242.0" layoutY="87.0" text="temp" />
+            <TextField fx:id="tellerUpdateDataLastName" layoutX="242.0" layoutY="122.0" text="temp" />
+            <TextField fx:id="tellerUpdateDataStreetAddress" layoutX="242.0" layoutY="157.0" text="temp" />
+            <TextField fx:id="tellerUpdateDataCity" layoutX="242.0" layoutY="192.0" text="temp" />
+            <TextField fx:id="tellerUpdateDataState" layoutX="242.0" layoutY="227.0" text="temp" />
+            <TextField fx:id="tellerUpdateDataZip" layoutX="242.0" layoutY="262.0" text="temp" />
             <Button fx:id="generalTestButton" layoutX="264.0" layoutY="347.0" mnemonicParsing="false" onAction="#generalTestButtonAction" text="Test" />
          </children></Pane>
    </children>

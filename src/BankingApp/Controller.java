@@ -11,7 +11,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -53,43 +52,53 @@ public class Controller implements Initializable{
     @FXML Label successfulEntryLabel;
     @FXML Label unsuccessfulEntryLabel;
 
-    @FXML TextField LoginInterUser;
-    @FXML TextField LoginInterPass;
-    @FXML Button LoginInterLoginButton;
-    @FXML Button LoginInterExitButton;
-    @FXML Button AddNewUserInterfaceEnterButton;
-    @FXML Button TellerScreen;
-    @FXML Button BankManagerScreen;
-    @FXML Button TellerInterAddNew;
-    @FXML Button TellerInterManage;
-    @FXML Button TellerInterPrev;
-    @FXML TextField ManageUserSSNField;
-    @FXML Button ManageUserLookupButton;
-    @FXML Label LookupInterErrLabel;
-    @FXML Button ManageUserPrevButton;
-    @FXML Button AddNewUserPreviousButton;
-    @FXML Button BankManagerPrevButton;
-    @FXML Button ManageExistingDispDataPrevButton;
-    @FXML Label tellerManageDispDataSSN;
+    @FXML TextField loginInterUser;
+    @FXML TextField loginInterPass;
+    @FXML Button loginInterLoginButton;
+    @FXML Button loginInterExitButton;
+    @FXML Button addNewUserInterfaceEnterButton;
+    @FXML Button tellerScreen;
+    @FXML Button bankManagerScreen;
+    @FXML Button tellerInterAddNew;
+    @FXML Button tellerInterManage;
+    @FXML Button tellerInterPrev;
+    @FXML TextField manageUserSSNField;
+    @FXML Button manageUserLookupButton;
+    @FXML Label lookupInterErrLabel;
+    @FXML Button manageUserPrevButton;
+    @FXML Button addNewUserPreviousButton;
+    @FXML Button bankManagerPrevButton;
+    @FXML Button manageExistingDispDataPrevButton;
+
+    @FXML Label manageDispDataSSN;
+    @FXML Label manageDispDataFirst;
+    @FXML Label manageDispDataLast;
+    @FXML Label manageDispDataStreetAddr;
+    @FXML Label manageDispDataCity;
+    @FXML Label manageDispDataState;
+    @FXML Label manageDispDataZip;
+    @FXML Label manageDispDataAcctBalance;
+    @FXML Label manageDispDataAcctStatus;
+
 
 
     // Note when I say ManageExistingTeller I mean the ManageExistingUser interface for the Teller account
-    @FXML Button ManageExistingTellerUpdateDataButton;
-    @FXML Button ManageExistingTellerViewRecentActivityButton;
-    @FXML Button ManageExistingTellerDebitCreditAccountButton;
-    @FXML RadioButton ManageExistingTellerCheckingAccount;
-    @FXML RadioButton ManageExistingTellerSavingsAccount;
-    @FXML TextField ManageExistingTellerFundsTransferAmount;
+    @FXML Button manageExistingTellerUpdateDataButton;
+    @FXML Button manageExistingTellerViewRecentActivityButton;
+    @FXML Button manageExistingTellerDebitCreditAccountButton;
+    @FXML RadioButton manageExistingTellerCheckingAccount;
+    @FXML RadioButton manageExistingTellerSavingsAccount;
+    @FXML TextField manageExistingTellerFundsTransferAmount;
 
-    @FXML Button TellerUpdateDataPreviousButton;
-    @FXML Button TellerUpdateDataSaveButton;
-    @FXML TextField TellerUpdateDataSSN;
-    @FXML TextField TellerUpdateDataFirstName;
-    @FXML TextField TellerUpdateDataLastName;
-    @FXML TextField TellerUpdateDataStreetAddress;
-    @FXML TextField TellerUpdateDataCity;
-    @FXML TextField TellerUpdateDataState;
-    @FXML TextField TellerUpdateDataZip;
+    @FXML Button tellerUpdateDataPreviousButton;
+    @FXML Button tellerUpdateDataSaveButton;
+    @FXML TextField tellerUpdateDataSSN;
+    @FXML TextField tellerUpdateDataFirstName;
+    @FXML TextField tellerUpdateDataLastName;
+    @FXML TextField tellerUpdateDataStreetAddress;
+    @FXML TextField tellerUpdateDataCity;
+    @FXML TextField tellerUpdateDataState;
+    @FXML TextField tellerUpdateDataZip;
 
 
 
@@ -142,16 +151,16 @@ public class Controller implements Initializable{
         if(locationString.equals("ManageExistingUserUpdateData.fxml")){
             System.out.println("in manage existing user if block");
             //
-            System.out.println(TellerUpdateDataSSN.getText());
-            //TellerUpdateDataSSN.setText(DataEntryDriver.stripSSN(placeholder.getSsn()));
+            System.out.println(tellerUpdateDataSSN.getText());
+            //tellerUpdateDataSSN.setText(DataEntryDriver.stripSSN(placeholder.getSsn()));
             System.out.println("ssn in main variable is: "+Main.currentCustomerID);
         }
         if(locationString.equals("ManageExistingUser.fxml")){
             // set to static ssn for now for testing
 
-            if(!DataEntryDriver.ssnInDatabase(DataEntryDriver.stripSSN(ManageUserSSNField.getText()))){
-                ManageUserSSNField.setText("687-69-8941");
-                ManageUserLookupButton.setDisable(false);
+            if(!DataEntryDriver.ssnInDatabase(DataEntryDriver.stripSSN(manageUserSSNField.getText()))){
+                manageUserSSNField.setText("687-69-8941");
+                manageUserLookupButton.setDisable(false);
             }else{
                 manageUserKeyEvent();
             }
@@ -221,15 +230,15 @@ public class Controller implements Initializable{
 
         ArrayList<String[]> itemsValid = getNewUserInfoValid();
         if(addNewUserInfoValid(itemsValid)){
-            AddNewUserInterfaceEnterButton.setDisable(false);
+            addNewUserInterfaceEnterButton.setDisable(false);
             unsuccessfulEntryLabel.visibleProperty().setValue(false);
         }else{
-            AddNewUserInterfaceEnterButton.setDisable(true);
+            addNewUserInterfaceEnterButton.setDisable(true);
             unsuccessfulEntryLabel.visibleProperty().setValue(true);
         }
 
 
-        //AddNewUserInterfaceEnterButton.setDisable(false);
+        //addNewUserInterfaceEnterButton.setDisable(false);
     }
 
 
@@ -240,7 +249,14 @@ public class Controller implements Initializable{
         System.out.println("display data");
         System.out.println(ca.toString());
 
-        tellerManageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
+        manageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
+        manageDispDataFirst.setText(ca.getFirstName());
+        manageDispDataLast.setText(ca.getLastName());
+        manageDispDataStreetAddr.setText(ca.getStreetAddr());
+
+
+
+
     }
 
 
@@ -257,7 +273,7 @@ public class Controller implements Initializable{
             System.out.println(Arrays.toString(itemsArray.get(i)));
 
             if(itemsArray.get(i)[2].equals("false")){// if any other field shows false
-                AddNewUserInterfaceEnterButton.setDisable(true);
+                addNewUserInterfaceEnterButton.setDisable(true);
                 String[] falseItem = itemsArray.get(i);
                 returnVal=false;
 
@@ -265,17 +281,17 @@ public class Controller implements Initializable{
                 if(falseItem[0].equals("ssn")){
                     System.out.println("The ssn you entered was not valid please enter 9 numbers");
                     unsuccessfulEntryLabel.setText("Please enter a Valid 9 digit SSN with or without the '-'");
-                    AddNewUserInterfaceEnterButton.setDisable(true);
+                    addNewUserInterfaceEnterButton.setDisable(true);
                 }
                 if(falseItem[0].equals("zip")){
                     System.out.println("The zip you entered was not valid please enter a 5 digit zip");
                     unsuccessfulEntryLabel.setText("Please enter a 5 digit Zip");
-                    AddNewUserInterfaceEnterButton.setDisable(true);
+                    addNewUserInterfaceEnterButton.setDisable(true);
                 }
                 if(falseItem[0].equals("state")){
                     System.out.println("Please enter a 2 character State such as MO or AK");
                     unsuccessfulEntryLabel.setText("Please enter a 2 character State Abbreviation");
-                    AddNewUserInterfaceEnterButton.setDisable(true);
+                    addNewUserInterfaceEnterButton.setDisable(true);
                 }
 
 
@@ -350,7 +366,7 @@ public class Controller implements Initializable{
             tellerLogIn = validateLoginCreds("Teller");
             if(tellerLogIn){
                 tellerPendingLogin=false;
-                EmployeeAccount employee = new EmployeeAccount(LoginInterUser.getText());
+                EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
                 Main.loggedInEmployee = employee;
                 Main.outEmployee.println(Main.getDateTimeString()+"Teller Account UserName: "+Main.loggedInEmployee.getUserName()+
                 " logged into account.");
@@ -363,7 +379,7 @@ public class Controller implements Initializable{
             managerLogIn = validateLoginCreds("Manager");
             if(managerLogIn){
                 managerPendingLogin=false;
-                EmployeeAccount employee = new EmployeeAccount(LoginInterUser.getText());
+                EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
                 Main.loggedInEmployee = employee;
                 Main.outEmployee.println(Main.getDateTimeString()+"Manager Account UserName: "+Main.loggedInEmployee.getUserName()+
                 " logged into account.");
@@ -381,7 +397,7 @@ public class Controller implements Initializable{
     public void loginInterfaceExitButton(){
         tellerLogIn=false;
         managerLogIn=false;
-        Stage stage = (Stage) LoginInterExitButton.getScene().getWindow();
+        Stage stage = (Stage) loginInterExitButton.getScene().getWindow();
         stage.close();
         goToMainScene();
     }
@@ -392,10 +408,10 @@ public class Controller implements Initializable{
         printAllData();//testing
 
         if(userType == "Teller"){
-            if(LoginInterUser.getText() == "teller" || LoginInterUser.getText().length()>0){
+            if(loginInterUser.getText() == "teller" || loginInterUser.getText().length()>0){
                 // here we would validate the credintials but They're always good for now
 
-                if(LoginInterPass.getText().length()>0){
+                if(loginInterPass.getText().length()>0){
                     // here we would validate the password for the user
                     returnVal=true;
                 }else{
@@ -407,8 +423,8 @@ public class Controller implements Initializable{
         }
         if(userType == "Manager"){
             // verify the credentials of the Manager account
-            if(LoginInterUser.getText() == "manager" || LoginInterUser.getText().length()>0){
-                if(LoginInterPass.getText().length()>0){
+            if(loginInterUser.getText() == "manager" || loginInterUser.getText().length()>0){
+                if(loginInterPass.getText().length()>0){
                     returnVal=true;
                 }else{
                     returnVal=false;
@@ -467,25 +483,25 @@ public class Controller implements Initializable{
 
     @FXML
     public void manageUserKeyEvent(){
-        String ssn = DataEntryDriver.stripSSN(ManageUserSSNField.getText().trim());
+        String ssn = DataEntryDriver.stripSSN(manageUserSSNField.getText().trim());
 
         if(!DataEntryDriver.ssnValid(ssn)){
-            ManageUserLookupButton.setDisable(true);
+            manageUserLookupButton.setDisable(true);
         }
 
         if(!DataEntryDriver.ssnValid(ssn)){
             System.out.println("enter valid number");
-            LookupInterErrLabel.setText("Please Enter a Valid 9 digit SSN number");
+            lookupInterErrLabel.setText("Please Enter a Valid 9 digit SSN number");
         }else{
             if(!DataEntryDriver.ssnInDatabase(ssn)) {
-                ManageUserLookupButton.setDisable(true);
+                manageUserLookupButton.setDisable(true);
                 System.out.println("ssn not in database please go to add account");
-                LookupInterErrLabel.setText("The SSN you Entered Is not In the Database.\nGo to Add new Customer or enter" +
+                lookupInterErrLabel.setText("The SSN you Entered Is not In the Database.\nGo to Add new Customer or enter" +
                         " a valid 9 Digit SSN number.");
             }else{
-                ManageUserLookupButton.setDisable(false);
-                CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ManageUserSSNField.getText());
-                LookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
+                manageUserLookupButton.setDisable(false);
+                CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(manageUserSSNField.getText());
+                lookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
                 //Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+ ca.toString());
             }
         }
@@ -515,7 +531,7 @@ public class Controller implements Initializable{
     public void tellerInterfaceManageLookupButton(){
         System.out.println("tellerInterfaceManageLookupButton");
 
-        String ssn = ManageUserSSNField.getText();
+        String ssn = manageUserSSNField.getText();
         String ssnStripped = DataEntryDriver.stripSSN(ssn);
 
         CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ssnStripped);
@@ -598,38 +614,19 @@ public class Controller implements Initializable{
     public void tellerInterfaceUpdateDataSaveButton(){
         Parent root = null;
 
+        // to do record the new customer account in log file and pull data fields here.
+        // add code to pull the data for the currentSSN data
+        System.out.println("current ssn is: "+Main.currentCustomerID);
+        String ssn = Main.currentCustomerID;
+        CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ssn);
+
+        System.out.println(ca.toString());
+
+
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
-
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
-
-
-            // add code to pull the data for the currentSSN data
-            System.out.println("current ssn is: "+Main.currentCustomerID);
-            //System.out.println("current ssn is: "+placeholder.getSsn());
-            // use placeholder object if needed to display data.
-
-            // use the main.currentCustomerID ssn to lookup and grab object
-
-            //String ssn = placeholder.getSsn();
-            String ssn = Main.currentCustomerID;
-            CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ssn);
-
-            System.out.println(ca.toString());
-
-            // if enters invalid ssn provide warning for now I am setting a static ssn in the driver for testing if
-            // the one entered in box does not match anything
-
-
-            // pull info from fields
-
-
-
-            // save the new data to the object in the arraylist
-
-
-
             Main.primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -712,7 +709,7 @@ public class Controller implements Initializable{
     @FXML
     public void closeWindow(){
         Parent root = null;
-        Stage stage = (Stage) LoginInterLoginButton.getScene().getWindow();
+        Stage stage = (Stage) loginInterLoginButton.getScene().getWindow();
         stage.close();
 
     }
@@ -846,37 +843,37 @@ public class Controller implements Initializable{
                 ", zipCodeTextField=" + zipCodeTextField +
                 ", stateTextField=" + stateTextField +
                 ", successfulEntryLabel=" + successfulEntryLabel +
-                ", LoginInterUser=" + LoginInterUser +
-                ", LoginInterPass=" + LoginInterPass +
-                ", LoginInterLoginButton=" + LoginInterLoginButton +
-                ", LoginInterExitButton=" + LoginInterExitButton +
-                ", AddNewUserInterfaceEnterButton=" + AddNewUserInterfaceEnterButton +
-                ", TellerScreen=" + TellerScreen +
-                ", BankManagerScreen=" + BankManagerScreen +
-                ", TellerInterAddNew=" + TellerInterAddNew +
-                ", TellerInterManage=" + TellerInterManage +
-                ", TellerInterPrev=" + TellerInterPrev +
-                ", ManageUserSSNField=" + ManageUserSSNField +
-                ", ManageUserLookupButton=" + ManageUserLookupButton +
-                ", ManageUserPrevButton=" + ManageUserPrevButton +
-                ", AddNewUserPreviousButton=" + AddNewUserPreviousButton +
-                ", BankManagerPrevButton=" + BankManagerPrevButton +
-                ", ManageExistingDispDataPrevButton=" + ManageExistingDispDataPrevButton +
-                ", ManageExistingTellerUpdateDataButton=" + ManageExistingTellerUpdateDataButton +
-                ", ManageExistingTellerViewRecentActivityButton=" + ManageExistingTellerViewRecentActivityButton +
-                ", ManageExistingTellerDebitCreditAccountButton=" + ManageExistingTellerDebitCreditAccountButton +
-                ", ManageExistingTellerCheckingAccount=" + ManageExistingTellerCheckingAccount +
-                ", ManageExistingTellerSavingsAccount=" + ManageExistingTellerSavingsAccount +
-                ", ManageExistingTellerFundsTransferAmount=" + ManageExistingTellerFundsTransferAmount +
-                ", TellerUpdateDataPreviousButton=" + TellerUpdateDataPreviousButton +
-                ", TellerUpdateDataSaveButton=" + TellerUpdateDataSaveButton +
-                ", TellerUpdateDataSSN=" + TellerUpdateDataSSN +
-                ", TellerUpdateDataFirstName=" + TellerUpdateDataFirstName +
-                ", TellerUpdateDataLastName=" + TellerUpdateDataLastName +
-                ", TellerUpdateDataStreetAddress=" + TellerUpdateDataStreetAddress +
-                ", TellerUpdateDataCity=" + TellerUpdateDataCity +
-                ", TellerUpdateDataState=" + TellerUpdateDataState +
-                ", TellerUpdateDataZip=" + TellerUpdateDataZip +
+                ", loginInterUser=" + loginInterUser +
+                ", loginInterPass=" + loginInterPass +
+                ", loginInterLoginButton=" + loginInterLoginButton +
+                ", loginInterExitButton=" + loginInterExitButton +
+                ", addNewUserInterfaceEnterButton=" + addNewUserInterfaceEnterButton +
+                ", tellerScreen=" + tellerScreen +
+                ", bankManagerScreen=" + bankManagerScreen +
+                ", tellerInterAddNew=" + tellerInterAddNew +
+                ", tellerInterManage=" + tellerInterManage +
+                ", tellerInterPrev=" + tellerInterPrev +
+                ", manageUserSSNField=" + manageUserSSNField +
+                ", manageUserLookupButton=" + manageUserLookupButton +
+                ", manageUserPrevButton=" + manageUserPrevButton +
+                ", addNewUserPreviousButton=" + addNewUserPreviousButton +
+                ", bankManagerPrevButton=" + bankManagerPrevButton +
+                ", manageExistingDispDataPrevButton=" + manageExistingDispDataPrevButton +
+                ", manageExistingTellerUpdateDataButton=" + manageExistingTellerUpdateDataButton +
+                ", manageExistingTellerViewRecentActivityButton=" + manageExistingTellerViewRecentActivityButton +
+                ", manageExistingTellerDebitCreditAccountButton=" + manageExistingTellerDebitCreditAccountButton +
+                ", manageExistingTellerCheckingAccount=" + manageExistingTellerCheckingAccount +
+                ", manageExistingTellerSavingsAccount=" + manageExistingTellerSavingsAccount +
+                ", manageExistingTellerFundsTransferAmount=" + manageExistingTellerFundsTransferAmount +
+                ", tellerUpdateDataPreviousButton=" + tellerUpdateDataPreviousButton +
+                ", tellerUpdateDataSaveButton=" + tellerUpdateDataSaveButton +
+                ", tellerUpdateDataSSN=" + tellerUpdateDataSSN +
+                ", tellerUpdateDataFirstName=" + tellerUpdateDataFirstName +
+                ", tellerUpdateDataLastName=" + tellerUpdateDataLastName +
+                ", tellerUpdateDataStreetAddress=" + tellerUpdateDataStreetAddress +
+                ", tellerUpdateDataCity=" + tellerUpdateDataCity +
+                ", tellerUpdateDataState=" + tellerUpdateDataState +
+                ", tellerUpdateDataZip=" + tellerUpdateDataZip +
                 ", fName='" + fName + '\'' +
                 ", lName='" + lName + '\'' +
                 ", socialSec='" + socialSec + '\'' +
