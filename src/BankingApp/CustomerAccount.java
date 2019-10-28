@@ -59,7 +59,8 @@ public class CustomerAccount implements Serializable {
         this.dateCreated=dateCreated;
     }
 
-    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String dateCreated, String atmCardNumber) {
+    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
+                           String state, String zip,String dateCreated, String atmCardNumber) {
         this.custID = custID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -69,6 +70,56 @@ public class CustomerAccount implements Serializable {
         this.zip = zip;
         this.dateCreated=dateCreated;
         this.atmCardNumber = atmCardNumber;
+    }
+
+    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
+                           String state, String zip, String atmCardNumber, String dateCreated, CheckingAccount checkingAccount) {
+        this.custID = custID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.streetAddr = streetAddr;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.atmCardNumber = atmCardNumber;
+        this.dateCreated = dateCreated;
+        this.checkingAccount = checkingAccount;
+        this.hasCheckingAccount = true;
+    }
+
+    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
+                           String state, String zip, String atmCardNumber, String dateCreated, SavingsAccount savingsAccount) {
+        this.custID = custID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.streetAddr = streetAddr;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.atmCardNumber = atmCardNumber;
+        this.dateCreated = dateCreated;
+        this.savingsAccount = savingsAccount;
+        this.hasSavingsAccount=true;
+    }
+
+    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
+                           String state, String zip, String atmCardNumber, String dateCreated,
+                           SavingsAccount savingsAccount, CheckingAccount checkingAccount, ArrayList<LoanAccount> loanAccounts) {
+        this.custID = custID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.streetAddr = streetAddr;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.atmCardNumber = atmCardNumber;
+        this.dateCreated = dateCreated;
+        this.savingsAccount = savingsAccount;
+        this.checkingAccount = checkingAccount;
+        this.loanAccounts = loanAccounts;
+        this.hasCheckingAccount=true;
+        this.hasSavingsAccount=true;
+        this.hasLoanAccount=true;
     }
 
     public String getCustID() {

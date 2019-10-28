@@ -38,6 +38,8 @@
             <Label fx:id="manageDispDataZip" layoutX="546.0" layoutY="94.0" prefHeight="17.0" prefWidth="109.0" text="Label" />
             <Label fx:id="manageDispDataAcctBalance" layoutX="124.0" layoutY="142.0" prefHeight="17.0" prefWidth="89.0" text="Label" />
             <Label fx:id="manageDispDataAcctStatus" layoutX="255.0" layoutY="142.0" prefHeight="17.0" prefWidth="146.0" text="Label" />
+            <Label layoutX="421.0" layoutY="142.0" prefHeight="17.0" prefWidth="83.0" text="Account Type:" />
+            <Label fx:id="manageDispDataAcctType" layoutX="501.0" layoutY="142.0" prefHeight="17.0" prefWidth="118.0" text="Label" />
          </children>
       </Pane>
    </children>

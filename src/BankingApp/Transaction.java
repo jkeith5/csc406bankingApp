@@ -9,6 +9,9 @@ public class Transaction implements Serializable {
     public String description;
     public String transactionAccount; // S=Savings C=Checking
 
+    // make methods to complete the actual transaction using variable such as
+    // Main.customerAccount
+
 
     public Transaction(){
         //

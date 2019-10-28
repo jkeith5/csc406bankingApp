@@ -79,6 +79,7 @@ public class Controller implements Initializable{
     @FXML Label manageDispDataZip;
     @FXML Label manageDispDataAcctBalance;
     @FXML Label manageDispDataAcctStatus;
+    @FXML Label manageDispDataAcctType;
 
 
 
@@ -253,6 +254,30 @@ public class Controller implements Initializable{
         manageDispDataFirst.setText(ca.getFirstName());
         manageDispDataLast.setText(ca.getLastName());
         manageDispDataStreetAddr.setText(ca.getStreetAddr());
+        manageDispDataCity.setText(ca.getCity());
+        manageDispDataState.setText(ca.getState());
+        manageDispDataZip.setText(ca.getZip());
+
+
+        if(ca.hasCheckingAccount()){
+            String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
+            manageDispDataAcctBalance.setText(balanceFormatted);
+
+            // will probably move this to the DataEntryDriver Class and make it accept the account object and account type
+            // checking savings cd or loan and then return proper string object for status.
+            if(ca.getCheckingAccount().getAccountBalance()<0.00){
+                manageDispDataAcctStatus.setText("Overdrawn");
+            }else{
+                manageDispDataAcctStatus.setText("Current");
+            }
+
+        }else{
+            manageDispDataAcctBalance.setText("");
+            manageDispDataAcctStatus.setText("No account for user");
+        }
+
+
+
 
 
 

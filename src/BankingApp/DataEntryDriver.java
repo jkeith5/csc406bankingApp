@@ -2,10 +2,8 @@ package BankingApp;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.text.NumberFormat;
+import java.util.*;
 
 public class DataEntryDriver {
     File file;//this contains the file name of the related data file
@@ -297,6 +295,20 @@ public class DataEntryDriver {
         result=locationStringSplit[locationStringSplit.length-1];
 
 
+
+
+        return result;
+    }
+
+    public static String formatAccountBalance(double accountBalance){
+        String result = "";
+        double fixedBalance = Math.round(accountBalance*100.0)/100.0;
+        Locale locale = new Locale("en", "US");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+
+        System.out.println(currencyFormatter.format(fixedBalance));
+
+        result = currencyFormatter.format(fixedBalance);
 
 
         return result;
