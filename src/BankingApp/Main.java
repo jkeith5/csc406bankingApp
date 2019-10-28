@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class Main extends Application {
 
-    private static String customerDataDir = "src/Resources/customerData";
-    private static File customerFile = new File(customerDataDir);
-    private static DataEntryDriver customerData = new DataEntryDriver(customerFile);
+    //private static String customerDataDir = "src/Resources/customerData";
+    //private static File customerFile = new File(customerDataDir);
+    //private static DataEntryDriver customerData = new DataEntryDriver(customerFile);
     public static File outputFile;
     public static PrintWriter out;
 
@@ -24,13 +24,13 @@ public class Main extends Application {
 
     // access the customerAccount object and arraylist by all Classes
     public static CustomerAccount customerAccount;
-    public static ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
+    public static ArrayList<CustomerAccount> customerAccounts; //= DataEntryDriver.readFileToCustomerAccountsArrayList();
     public static String currentCustomerID;
+    public static String loginUserName;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         initialize();
-        //Parent root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
         Main.primaryStage = new Stage();
         Main.primaryStage.setTitle("Teller Bank Application(WIP)");
@@ -47,45 +47,41 @@ public class Main extends Application {
 
         // here we will condense the arraylist of objects back into a text file
         out.close();
-        DataEntryDriver.serializeArrayListToFile(Controller.customerAccounts);
+        DataEntryDriver.serializeArrayListToFile(customerAccounts);
 
     }
 
-    public static void dataEntry(String fName, String lName, String socialSec, String streetAddress, String city, String zipCode, String state) {
-        ArrayList<String> tempData = new ArrayList<>();
-        tempData.add(fName);
-        tempData.add(lName);
-        tempData.add(socialSec);
-        tempData.add(streetAddress);
-        tempData.add(city);
-        tempData.add(zipCode);
-        tempData.add(state);
-        customerData.printData(tempData);
-
-    }
-
-    public static Stage getPrimaryStage(){
-        return primaryStage;
-    }
-
-    public static void setPrimaryStage(Stage stage){
-        primaryStage = stage;
-    }
-
+//    public static void dataEntry(String fName, String lName, String socialSec, String streetAddress, String city, String zipCode, String state) {
+//        ArrayList<String> tempData = new ArrayList<>();
+//        tempData.add(fName);
+//        tempData.add(lName);
+//        tempData.add(socialSec);
+//        tempData.add(streetAddress);
+//        tempData.add(city);
+//        tempData.add(zipCode);
+//        tempData.add(state);
+//        customerData.printData(tempData);
+//
+//    }
 
     public void initialize() {
         // here we can initialize our database into the arrayList objects.
         System.out.println("initalizing in Main");
 
+        //customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
         outputFile = new File("src/Resources/outputLog.txt");
 
         try {
             File customerDatabase = new File("src/Resources/customerDatabase");
             out = new PrintWriter(outputFile);
 
-            // if it does not exist we need to create it from the csv files. NOTE just delete the file to recreate it if needed
+            // if it does not exist we need to create it from the csv files. AND populate Main.customerAccounts
+            // NOTE just delete the file to recreate it if needed
             if(!customerDatabase.exists()){
                 DataEntryDriver.createCustomerAccountsArray();
+                customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
+            }else{
+                customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
             }
 
 

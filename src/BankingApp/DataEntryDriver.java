@@ -88,6 +88,7 @@ public class DataEntryDriver {
         result.add(acc2);
         result.add(acc3);
 
+        // this writes the accounts to the Resources customerDatabase file
         serializeArrayListToFile(result);
     }
 
@@ -190,6 +191,20 @@ public class DataEntryDriver {
     }
 
 
+    public static boolean addCustomerAccountToArrayList(CustomerAccount ca){
+        try {
+            Main.customerAccounts.add(ca);
+            System.out.println("adding customer account to array");
+            System.out.println(ca.toString());
+            // might run a serialize to file here
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return false;
+        }
+    }
+
+
     public static String stripSSN(String ssn){
         String result = ssn.replace("-","");
         return result;
@@ -236,6 +251,10 @@ public class DataEntryDriver {
             returnval = true;
         }
         return returnval;
+    }
+
+    public static boolean zipValid(String zip){
+        return zip.length() == 5;
     }
 
     public static String makeSSNValid(String ssn){

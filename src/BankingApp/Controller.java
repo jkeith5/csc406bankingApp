@@ -1,5 +1,6 @@
 package BankingApp;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -10,16 +11,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-import javax.print.DocFlavor;
-import javax.xml.crypto.Data;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
@@ -31,8 +29,7 @@ public class Controller implements Initializable{
     public static boolean tellerPendingLogin;
     public static boolean managerPendingLogin;
 
-    public static ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
-    //public ArrayList<CustomerAccount> customerAccountsReadIn = DataEntryDriver.readFileToCustomerAccountsArrayList();
+    //public static ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
 
 
     @FXML TextField mainScreenTest;
@@ -54,12 +51,13 @@ public class Controller implements Initializable{
     @FXML TextField zipCodeTextField;
     @FXML TextField stateTextField;
     @FXML Label successfulEntryLabel;
+    @FXML Label unsuccessfulEntryLabel;
 
     @FXML TextField LoginInterUser;
     @FXML TextField LoginInterPass;
     @FXML Button LoginInterLoginButton;
     @FXML Button LoginInterExitButton;
-    @FXML Button enterButton;
+    @FXML Button AddNewUserInterfaceEnterButton;
     @FXML Button TellerScreen;
     @FXML Button BankManagerScreen;
     @FXML Button TellerInterAddNew;
@@ -106,7 +104,7 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("\ninitializing controller");
-        System.out.println(customerAccounts);
+        System.out.println(Main.customerAccounts);
         System.out.println("\n\n");
 
         String locationString = DataEntryDriver.getLocationFileName(location);
@@ -188,11 +186,8 @@ public class Controller implements Initializable{
         //CustomerAccount temp = DataEntryDriver.getCustomerAccountFromCustomerID(ManageUserSSNField.getText());
 
         System.out.println(" Controller in database ssn: "+ManageUserSSNField.getText());
-        try {
-            System.out.println(DataEntryDriver.ssnInDatabase(ManageUserSSNField.getText()));
-        } catch (Exception e) {
-            System.out.println("something up");
-        }
+        System.out.println(DataEntryDriver.ssnInDatabase(ManageUserSSNField.getText()));
+
 
 
         System.out.println("\n\n");
@@ -201,20 +196,166 @@ public class Controller implements Initializable{
 
 
     @FXML
-    public void handleEnterButton(javafx.event.ActionEvent event) {
-        this.fName = fNameTextField.getText();
-        this.lName = lNameTextField.getText();
-        this.socialSec = socialSecTextField.getText();
-        this.streetAddress = streetAddressTextField.getText();
-        this.city = cityTextField.getText();
-        this.zipCode = zipCodeTextField.getText();
-        this.state = stateTextField.getText();
+    public void addNewAccountEnterButton(ActionEvent event) { // for the Add new user interface
+        String fName = fNameTextField.getText();
+        String lName = lNameTextField.getText();
+        String ssn = socialSecTextField.getText();
+        String streetAddress = streetAddressTextField.getText();
+        String city = cityTextField.getText();
+        String zipCode = zipCodeTextField.getText();
+        String state = stateTextField.getText();
 
-        Main.dataEntry(fName, lName, socialSec, streetAddress, city, zipCode, state);
+        CustomerAccount tempAccount = new CustomerAccount();
+        tempAccount.setFirstName(fName);
+        tempAccount.setLastName(lName);
+        tempAccount.setStreetAddr(streetAddress);
+        tempAccount.setCity(city);
+        tempAccount.setState(state);
+        tempAccount.setZip(zipCode);
+        tempAccount.setCustID(DataEntryDriver.stripSSN(ssn));
 
-        successfulEntryLabel.setText("Data storage for " + fName + " " + lName + " was successful!");
-        successfulEntryLabel.visibleProperty().setValue(true);
+        // need to tie into main to add data
+
+        boolean sucess = DataEntryDriver.addCustomerAccountToArrayList(tempAccount);
+
+        if(sucess){
+            successfulEntryLabel.setText("Data storage for " + fName + " " + lName + " was successful!");
+            successfulEntryLabel.visibleProperty().setValue(true);
+        }else{
+            unsuccessfulEntryLabel.setText("ERROR CUSTOMER DATA WAS NOT SAVED!!!! PLEASE CONTACT TECH SUPPORT");
+        }
+
+
     }
+
+    @FXML
+    public void addNewUserKeyEvent(){
+        System.out.println("event");
+
+        ArrayList<String[]> itemsValid = getNewUserInfoValid();
+        if(addNewUserInfoValid(itemsValid)){
+            AddNewUserInterfaceEnterButton.setDisable(false);
+            unsuccessfulEntryLabel.visibleProperty().setValue(false);
+        }else{
+            AddNewUserInterfaceEnterButton.setDisable(true);
+            unsuccessfulEntryLabel.visibleProperty().setValue(true);
+        }
+
+
+        //AddNewUserInterfaceEnterButton.setDisable(false);
+    }
+
+
+    // make sure all items are true if not set label warning.
+    public boolean addNewUserInfoValid(ArrayList<String[]> itemsArray){
+        boolean returnVal = true;
+
+        if(!allFieldsHaveData(getNewUserInfoValid(),1)){
+            unsuccessfulEntryLabel.setText("Please fill out all fields");
+            return false;
+        }
+
+        for(int i=0;i<itemsArray.size();i++){
+            System.out.println(Arrays.toString(itemsArray.get(i)));
+
+            if(itemsArray.get(i)[2].equals("false")){// if any other field shows false
+                AddNewUserInterfaceEnterButton.setDisable(true);
+                String[] falseItem = itemsArray.get(i);
+                returnVal=false;
+
+                // explain why it's false
+                if(falseItem[0].equals("ssn")){
+                    System.out.println("The ssn you entered was not valid please enter 9 numbers");
+                    unsuccessfulEntryLabel.setText("Please enter a Valid 9 digit SSN with or without the '-'");
+                    AddNewUserInterfaceEnterButton.setDisable(true);
+                }
+                if(falseItem[0].equals("zip")){
+                    System.out.println("The zip you entered was not valid please enter a 5 digit zip");
+                    unsuccessfulEntryLabel.setText("Please enter a 5 digit Zip");
+                    AddNewUserInterfaceEnterButton.setDisable(true);
+                }
+                if(falseItem[0].equals("state")){
+                    System.out.println("Please enter a 2 character State such as MO or AK");
+                    unsuccessfulEntryLabel.setText("Please enter a 2 character State Abbreviation");
+                    AddNewUserInterfaceEnterButton.setDisable(true);
+                }
+
+
+
+            }
+
+        }
+
+        return returnVal;
+    }
+
+    public boolean allFieldsHaveData(ArrayList<String[]> inputList,int indexToCheck){
+        boolean returnVal = true;
+
+        for(int i=0;i<inputList.size();i++){
+            if(inputList.get(i)[indexToCheck].length()<1){
+                returnVal = false;
+            }
+        }
+
+        return returnVal;
+    }
+
+    // this method gets the data from the interface, checks if it's valid, and returns and arraylist with
+    // [0]= fieldName, [1]=data, [2]=isValid
+    public ArrayList<String[]> getNewUserInfoValid(){
+        ArrayList<String[]> validItems = new ArrayList<>();
+
+        String fName = fNameTextField.getText();
+        String lName = lNameTextField.getText();
+        String ssn = socialSecTextField.getText();
+        String streetAddress = streetAddressTextField.getText();
+        String city = cityTextField.getText();
+        String zipCode = zipCodeTextField.getText();
+        String state = stateTextField.getText();
+
+
+        String[] items = {fName,lName,streetAddress,city};
+
+        for(int i=0;i<items.length;i++){
+            if(items[i].length()<1){
+                // if nothing was entered in the field save data to display warning
+                if(i==0) validItems.add(new String[]{"fName",fName, "false"});
+                if(i==1) validItems.add(new String[]{"lName",lName ,"false"});
+                if(i==2) validItems.add(new String[]{"streetAddress",streetAddress ,"false"});
+                if(i==3) validItems.add(new String[]{"city",city ,"false"});
+            }else{
+                if(i==0) validItems.add(new String[]{"fName",fName ,"true"});
+                if(i==1) validItems.add(new String[]{"lName",lName ,"true"});
+                if(i==2) validItems.add(new String[]{"streetAddress",streetAddress ,"true"});
+                if(i==3) validItems.add(new String[]{"city",city ,"true"});
+            }
+        }
+        if(DataEntryDriver.ssnValid(ssn)){
+            if(DataEntryDriver.ssnInDatabase(ssn)){
+                validItems.add(new String[]{"ssnExists",ssn,"false"});
+            }else{
+                validItems.add(new String[]{"ssn",ssn,"true"});
+            }
+
+        }else{
+            validItems.add(new String[]{"ssn",ssn,"false"});
+        }
+
+        if(DataEntryDriver.zipValid(zipCode)){
+            validItems.add(new String[]{"zip",zipCode,"true"});
+        }else{
+            validItems.add(new String[]{"zip",zipCode,"false"});
+        }
+
+        if(state.length()==2){
+            validItems.add(new String[]{"state",state,"true"});
+        }else{
+            validItems.add(new String[]{"state",state,"false"});
+        }
+        return validItems;
+    }
+
 
     @FXML
     public void mainInterfaceTellerButton(){
@@ -693,7 +834,7 @@ public class Controller implements Initializable{
                 ", LoginInterPass=" + LoginInterPass +
                 ", LoginInterLoginButton=" + LoginInterLoginButton +
                 ", LoginInterExitButton=" + LoginInterExitButton +
-                ", enterButton=" + enterButton +
+                ", AddNewUserInterfaceEnterButton=" + AddNewUserInterfaceEnterButton +
                 ", TellerScreen=" + TellerScreen +
                 ", BankManagerScreen=" + BankManagerScreen +
                 ", TellerInterAddNew=" + TellerInterAddNew +
