@@ -70,6 +70,7 @@ public class Controller implements Initializable{
     @FXML Button AddNewUserPreviousButton;
     @FXML Button BankManagerPrevButton;
     @FXML Button ManageExistingDispDataPrevButton;
+    @FXML Label tellerManageDispDataSSN;
 
 
     // Note when I say ManageExistingTeller I mean the ManageExistingUser interface for the Teller account
@@ -156,6 +157,9 @@ public class Controller implements Initializable{
             }
 
         }
+        if(locationString.equals("ManageExistingUserDisplayDataTeller.fxml")){
+            tellerManageDispData();
+        }
 
         //
 
@@ -227,6 +231,17 @@ public class Controller implements Initializable{
     }
 
 
+
+
+    public void tellerManageDispData(){
+        CustomerAccount ca = Main.customerAccount;
+        System.out.println("display data");
+        System.out.println(ca.toString());
+
+        tellerManageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
+    }
+
+
     // make sure all items are true if not set label warning.
     public boolean addNewUserInfoValid(ArrayList<String[]> itemsArray){
         boolean returnVal = true;
@@ -282,60 +297,7 @@ public class Controller implements Initializable{
         return returnVal;
     }
 
-    // this method gets the data from the interface, checks if it's valid, and returns and arraylist with
-    // [0]= fieldName, [1]=data, [2]=isValid
-    public ArrayList<String[]> getNewUserInfoValid(){
-        ArrayList<String[]> validItems = new ArrayList<>();
 
-        String fName = fNameTextField.getText();
-        String lName = lNameTextField.getText();
-        String ssn = socialSecTextField.getText();
-        String streetAddress = streetAddressTextField.getText();
-        String city = cityTextField.getText();
-        String zipCode = zipCodeTextField.getText();
-        String state = stateTextField.getText();
-
-
-        String[] items = {fName,lName,streetAddress,city};
-
-        for(int i=0;i<items.length;i++){
-            if(items[i].length()<1){
-                // if nothing was entered in the field save data to display warning
-                if(i==0) validItems.add(new String[]{"fName",fName, "false"});
-                if(i==1) validItems.add(new String[]{"lName",lName ,"false"});
-                if(i==2) validItems.add(new String[]{"streetAddress",streetAddress ,"false"});
-                if(i==3) validItems.add(new String[]{"city",city ,"false"});
-            }else{
-                if(i==0) validItems.add(new String[]{"fName",fName ,"true"});
-                if(i==1) validItems.add(new String[]{"lName",lName ,"true"});
-                if(i==2) validItems.add(new String[]{"streetAddress",streetAddress ,"true"});
-                if(i==3) validItems.add(new String[]{"city",city ,"true"});
-            }
-        }
-        if(DataEntryDriver.ssnValid(ssn)){
-            if(DataEntryDriver.ssnInDatabase(ssn)){
-                validItems.add(new String[]{"ssnExists",ssn,"false"});
-            }else{
-                validItems.add(new String[]{"ssn",ssn,"true"});
-            }
-
-        }else{
-            validItems.add(new String[]{"ssn",ssn,"false"});
-        }
-
-        if(DataEntryDriver.zipValid(zipCode)){
-            validItems.add(new String[]{"zip",zipCode,"true"});
-        }else{
-            validItems.add(new String[]{"zip",zipCode,"false"});
-        }
-
-        if(state.length()==2){
-            validItems.add(new String[]{"state",state,"true"});
-        }else{
-            validItems.add(new String[]{"state",state,"false"});
-        }
-        return validItems;
-    }
 
 
     @FXML
@@ -552,11 +514,12 @@ public class Controller implements Initializable{
     public void tellerInterfaceManageLookupButton(){
         System.out.println("tellerInterfaceManageLookupButton");
 
-
-
-
         String ssn = ManageUserSSNField.getText();
         String ssnStripped = DataEntryDriver.stripSSN(ssn);
+
+        CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ssnStripped);
+        Main.customerAccount = ca;
+        Main.currentCustomerID= ssnStripped;
 
         if(!DataEntryDriver.ssnValid(ssnStripped)){
             // could display a message telling user that ssn is not of valid format
@@ -571,7 +534,7 @@ public class Controller implements Initializable{
         // NOTE SSN IS STATICALLY SET IN THE INITIALIZE METHOD ON LINE NUMBER 153
 
         // pass data back to main variable
-        Main.currentCustomerID = ssnStripped;
+        //Main.currentCustomerID = ssnStripped;
 
         System.out.println("Main customer ID is: "+Main.currentCustomerID);
 
@@ -769,6 +732,60 @@ public class Controller implements Initializable{
     }
 
 
+    // this method gets the data from the interface, checks if it's valid, and returns and arraylist with
+    // [0]= fieldName, [1]=data, [2]=isValid
+    public ArrayList<String[]> getNewUserInfoValid(){
+        ArrayList<String[]> validItems = new ArrayList<>();
+
+        String fName = fNameTextField.getText();
+        String lName = lNameTextField.getText();
+        String ssn = socialSecTextField.getText();
+        String streetAddress = streetAddressTextField.getText();
+        String city = cityTextField.getText();
+        String zipCode = zipCodeTextField.getText();
+        String state = stateTextField.getText();
+
+
+        String[] items = {fName,lName,streetAddress,city};
+
+        for(int i=0;i<items.length;i++){
+            if(items[i].length()<1){
+                // if nothing was entered in the field save data to display warning
+                if(i==0) validItems.add(new String[]{"fName",fName, "false"});
+                if(i==1) validItems.add(new String[]{"lName",lName ,"false"});
+                if(i==2) validItems.add(new String[]{"streetAddress",streetAddress ,"false"});
+                if(i==3) validItems.add(new String[]{"city",city ,"false"});
+            }else{
+                if(i==0) validItems.add(new String[]{"fName",fName ,"true"});
+                if(i==1) validItems.add(new String[]{"lName",lName ,"true"});
+                if(i==2) validItems.add(new String[]{"streetAddress",streetAddress ,"true"});
+                if(i==3) validItems.add(new String[]{"city",city ,"true"});
+            }
+        }
+        if(DataEntryDriver.ssnValid(ssn)){
+            if(DataEntryDriver.ssnInDatabase(ssn)){
+                validItems.add(new String[]{"ssnExists",ssn,"false"});
+            }else{
+                validItems.add(new String[]{"ssn",ssn,"true"});
+            }
+
+        }else{
+            validItems.add(new String[]{"ssn",ssn,"false"});
+        }
+
+        if(DataEntryDriver.zipValid(zipCode)){
+            validItems.add(new String[]{"zip",zipCode,"true"});
+        }else{
+            validItems.add(new String[]{"zip",zipCode,"false"});
+        }
+
+        if(state.length()==2){
+            validItems.add(new String[]{"state",state,"true"});
+        }else{
+            validItems.add(new String[]{"state",state,"false"});
+        }
+        return validItems;
+    }
 
 
 
