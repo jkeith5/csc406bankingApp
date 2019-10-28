@@ -206,6 +206,8 @@ public class Controller implements Initializable{
         if(sucess){
             successfulEntryLabel.setText("Data storage for " + fName + " " + lName + " was successful!");
             successfulEntryLabel.visibleProperty().setValue(true);
+            Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+" added account: "+
+            tempAccount.toString());
         }else{
             unsuccessfulEntryLabel.setText("ERROR CUSTOMER DATA WAS NOT SAVED!!!! PLEASE CONTACT TECH SUPPORT");
         }
@@ -350,7 +352,7 @@ public class Controller implements Initializable{
                 tellerPendingLogin=false;
                 EmployeeAccount employee = new EmployeeAccount(LoginInterUser.getText());
                 Main.loggedInEmployee = employee;
-                Main.outEmployee.println("Teller Account UserName: "+Main.loggedInEmployee.getUserName()+
+                Main.outEmployee.println(Main.getDateTimeString()+"Teller Account UserName: "+Main.loggedInEmployee.getUserName()+
                 " logged into account.");
                 closeWindow();
                 mainInterfaceTellerButton();
@@ -363,7 +365,7 @@ public class Controller implements Initializable{
                 managerPendingLogin=false;
                 EmployeeAccount employee = new EmployeeAccount(LoginInterUser.getText());
                 Main.loggedInEmployee = employee;
-                Main.outEmployee.println("Manager Account UserName: "+Main.loggedInEmployee.getUserName()+
+                Main.outEmployee.println(Main.getDateTimeString()+"Manager Account UserName: "+Main.loggedInEmployee.getUserName()+
                 " logged into account.");
                 closeWindow();
                 mainInterfaceManagerButton();
@@ -484,8 +486,7 @@ public class Controller implements Initializable{
                 ManageUserLookupButton.setDisable(false);
                 CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ManageUserSSNField.getText());
                 LookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
-                Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+
-                ca.toString());
+                //Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+ ca.toString());
             }
         }
     }
@@ -518,34 +519,19 @@ public class Controller implements Initializable{
         String ssnStripped = DataEntryDriver.stripSSN(ssn);
 
         CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ssnStripped);
+        // pass current customer account back to main
         Main.customerAccount = ca;
         Main.currentCustomerID= ssnStripped;
 
-        if(!DataEntryDriver.ssnValid(ssnStripped)){
-            // could display a message telling user that ssn is not of valid format
-            // but for now I'll just make it valid
-
-            String validSSN = DataEntryDriver.makeSSNValid(ssnStripped);
-            ssnStripped = validSSN;
-            LookupInterErrLabel.setText("Enter a valid SSN");
-
-        }
+        Main.outEmployee.println(Main.getDateTimeString()+"Employee UserName: "+Main.loggedInEmployee.getUserName()
+                +" Looked Up account: "+ ca.toString());
 
         // NOTE SSN IS STATICALLY SET IN THE INITIALIZE METHOD ON LINE NUMBER 153
 
-        // pass data back to main variable
-        //Main.currentCustomerID = ssnStripped;
-
         System.out.println("Main customer ID is: "+Main.currentCustomerID);
-
-        // lookup the account number with DataEntryDriver and set object to static variable
-        //Main.customerAccount = DataEntryDriver.getCustomerAccountFromCustomerID(ssnStripped);
-
 
         System.out.println("001001001 found user "+ ssnStripped +" launching interface");
 
-        // put if statement if ssn did not match user display error on the ManageExistingUser.fxml screen
-        // else continue to launch window and display data
 
 
         Parent root = null;

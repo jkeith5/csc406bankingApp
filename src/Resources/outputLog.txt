@@ -1,0 +1,5 @@
+2019-10-28T13:55:50.066  Initializing in Main
+2019-10-28T13:55:50.144 Error in readFile. File not read in to array.
+2019-10-28T13:55:50.145 Database Already Existed. Read into list.
+2019-10-28T13:56:21.350 ArrayList was written to File.
+2019-10-28T13:56:21.350 The Customer Accounts Database Was sucessfully Written to the File

@@ -92,8 +92,7 @@ public class DataEntryDriver {
         serializeArrayListToFile(result);
     }
 
-    public static void serializeArrayListToFile(ArrayList<CustomerAccount> customerAccounts){
-
+    public static boolean serializeArrayListToFile(ArrayList<CustomerAccount> customerAccounts){
         try{
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/Resources/customerDatabase"));
 
@@ -101,9 +100,12 @@ public class DataEntryDriver {
                 objectOutputStream.writeObject(ca);
             }
             objectOutputStream.close();
-
+            Main.out.println(Main.getDateTimeString()+"ArrayList was written to File.");
+            return true;
         } catch (IOException e){
             e.printStackTrace();
+            Main.out.println(Main.getDateTimeString()+"Error in serializeArrayListToFile File was not written.");
+            return false;
         }
 
     }
@@ -121,7 +123,10 @@ public class DataEntryDriver {
                 result.add(customerAccountRead);
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
+            Main.out.println(Main.getDateTimeString()+"Error in readFile. File not read in to array.");
+            System.out.println(e.toString());
+        } catch (ClassNotFoundException e) {
             System.out.println(e.toString());
         }
         return result;
@@ -164,11 +169,12 @@ public class DataEntryDriver {
             Main.customerAccounts.add(ca);
             System.out.println("adding customer account to array");
             System.out.println(ca.toString());
-            Main.outEmployee.println(Main.loggedInEmployee.getUserName()+" added: "+ca.toString());
+            Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+" added: "+ca.toString());
             // might run a serialize to file here
             return true;
         } catch (Exception e) {
             System.out.println(e.toString());
+            Main.out.println(Main.getDateTimeString()+"Error in add customerToArray.");
             return false;
         }
     }
@@ -177,7 +183,7 @@ public class DataEntryDriver {
         try {
             if(ssnInDatabase(stripSSN(ssn))){
                 int index = getIndexOfCustomerAccountInArray(ssn);
-                Main.outEmployee.println(Main.loggedInEmployee.getUserName()+" deleted: "+Main.customerAccounts.get(index).toString());
+                Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+" deleted: "+Main.customerAccounts.get(index).toString());
                 Main.customerAccounts.remove(index);
                 System.out.println("Removed customer account");
 
@@ -188,6 +194,7 @@ public class DataEntryDriver {
             }
         } catch (Exception e) {
             System.out.println(e.toString());
+            Main.out.println(Main.getDateTimeString()+"Error in remove customerAccount.");
             return false;
         }
     }
