@@ -19,6 +19,8 @@ public class Main extends Application {
     //private static DataEntryDriver customerData = new DataEntryDriver(customerFile);
     public static File outputFile;
     public static PrintWriter out;
+    public static File outputEmployeeRecord;
+    public static PrintWriter outEmployee;
 
     public static Stage primaryStage;
 
@@ -26,7 +28,7 @@ public class Main extends Application {
     public static CustomerAccount customerAccount;
     public static ArrayList<CustomerAccount> customerAccounts; //= DataEntryDriver.readFileToCustomerAccountsArrayList();
     public static String currentCustomerID;
-    public static String loginUserName;
+    public static EmployeeAccount loggedInEmployee;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -47,6 +49,7 @@ public class Main extends Application {
 
         // here we will condense the arraylist of objects back into a text file
         out.close();
+        outEmployee.close();
         DataEntryDriver.serializeArrayListToFile(customerAccounts);
 
     }
@@ -70,10 +73,12 @@ public class Main extends Application {
 
         //customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
         outputFile = new File("src/Resources/outputLog.txt");
+        outputEmployeeRecord = new File("src/Resources/EmployeeRecord.txt");
 
         try {
             File customerDatabase = new File("src/Resources/customerDatabase");
             out = new PrintWriter(outputFile);
+            outEmployee = new PrintWriter(outputEmployeeRecord);
 
             // if it does not exist we need to create it from the csv files. AND populate Main.customerAccounts
             // NOTE just delete the file to recreate it if needed

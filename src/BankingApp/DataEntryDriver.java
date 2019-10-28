@@ -124,31 +124,6 @@ public class DataEntryDriver {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-
-        System.out.println("READ IN FILE AS ARRAYLIST\nAccounts Database\n");
-
-        for(CustomerAccount ca: result){
-            System.out.println(ca.toString());
-        }
-
-        System.out.println("End of read in file\n\n\n");
-
-
-        //testing
-
-        //System.out.println(result.get(0).toString());
-
-        double test1 = result.get(0).getSavingsAccount().accountBalance;
-        double test2 = test1 - 457.00;
-
-        String idStrip = result.get(0).getCustID().replace("-","");
-        System.out.println(idStrip);
-
-        // should be equal to 0.58
-        System.out.println(Math.round(test2*100.0)/100.0);
-
-        // end test
-
         return result;
     }
 
@@ -157,16 +132,11 @@ public class DataEntryDriver {
         System.out.println("start of get customer acct from id");
         ArrayList<CustomerAccount> accountsList = Main.customerAccounts;
 
-        System.out.println("test account list");
-        System.out.println(accountsList.size());
-        System.out.println(accountsList.get(0).toString());
-
         CustomerAccount result = new CustomerAccount("null");
 
         String searchIDStripped = stripSSN(customerID);
 
         for(CustomerAccount ca:accountsList){
-            System.out.println(ca.toString());
             String custIDStripped = stripSSN(ca.getCustID());
             if(custIDStripped.equals(searchIDStripped)){
                 result = ca;
@@ -178,24 +148,23 @@ public class DataEntryDriver {
             System.out.println("no results found in getCustAcctFromID");
         }
 
-        //System.out.println(result.isNull());
-
-//        if(result.getCustID()==null){
-//            //result = accountsList.get(0);
-//            result = new CustomerAccount("null");
-//        }
-
-
 
         return result;
     }
 
+    public static void printCustomerDatabase(){
+        System.out.println("Printing customer Database\n");
+        for(CustomerAccount ca:Main.customerAccounts){
+            System.out.println(ca.toString());
+        }
+    }
 
     public static boolean addCustomerAccountToArrayList(CustomerAccount ca){
         try {
             Main.customerAccounts.add(ca);
             System.out.println("adding customer account to array");
             System.out.println(ca.toString());
+            Main.outEmployee.println(Main.loggedInEmployee.getUserName()+" added: "+ca.toString());
             // might run a serialize to file here
             return true;
         } catch (Exception e) {
@@ -204,6 +173,40 @@ public class DataEntryDriver {
         }
     }
 
+    public static boolean removeCustomerAccount(String ssn){
+        try {
+            if(ssnInDatabase(stripSSN(ssn))){
+                int index = getIndexOfCustomerAccountInArray(ssn);
+                Main.outEmployee.println(Main.loggedInEmployee.getUserName()+" deleted: "+Main.customerAccounts.get(index).toString());
+                Main.customerAccounts.remove(index);
+                System.out.println("Removed customer account");
+
+
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return false;
+        }
+    }
+
+
+    public static int getIndexOfCustomerAccountInArray(String ssn){
+        int returnVal = -1;
+
+        if(ssnInDatabase(stripSSN(ssn))){
+            for(int i=0;i<Main.customerAccounts.size();i++){
+                CustomerAccount ca = Main.customerAccounts.get(i);
+                if(stripSSN(ssn).equals(stripSSN(ca.getCustID()))){
+                    returnVal=i;
+                }
+            }
+        }
+
+        return returnVal;
+    }
 
     public static String stripSSN(String ssn){
         String result = ssn.replace("-","");
@@ -260,21 +263,8 @@ public class DataEntryDriver {
     public static String makeSSNValid(String ssn){
         String result = ssn;
 
-        if(!ssnValid(result)){
-            result = stripSSN(result);
-            if(result.length()!=9){
-                if(result.length()<9){
-                    while(result.length()<9){
-                        String randomIntString = String.valueOf(getRandomInt());
-                        result = result+randomIntString;
-                    }
-                }
-                if(result.length()>9){
-                    while(result.length()>9){
-                        result = result.substring(0,result.length()-1);
-                    }
-                }
-            }
+        if(!ssnInDatabase(result)){
+            result = stripSSN(Main.customerAccounts.get(0).getCustID());
         }
 
         return result;

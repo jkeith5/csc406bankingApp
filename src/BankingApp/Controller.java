@@ -65,6 +65,7 @@ public class Controller implements Initializable{
     @FXML Button TellerInterPrev;
     @FXML TextField ManageUserSSNField;
     @FXML Button ManageUserLookupButton;
+    @FXML Label LookupInterErrLabel;
     @FXML Button ManageUserPrevButton;
     @FXML Button AddNewUserPreviousButton;
     @FXML Button BankManagerPrevButton;
@@ -104,8 +105,9 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("\ninitializing controller");
-        System.out.println(Main.customerAccounts);
         System.out.println("\n\n");
+
+        DataEntryDriver.printCustomerDatabase();
 
         String locationString = DataEntryDriver.getLocationFileName(location);
         System.out.println(locationString);
@@ -145,7 +147,14 @@ public class Controller implements Initializable{
         }
         if(locationString.equals("ManageExistingUser.fxml")){
             // set to static ssn for now for testing
-            ManageUserSSNField.setText("687-69-8941");
+
+            if(!DataEntryDriver.ssnInDatabase(DataEntryDriver.stripSSN(ManageUserSSNField.getText()))){
+                ManageUserSSNField.setText("687-69-8941");
+                ManageUserLookupButton.setDisable(false);
+            }else{
+                manageUserKeyEvent();
+            }
+
         }
 
         //
@@ -155,41 +164,13 @@ public class Controller implements Initializable{
 
     @FXML
     public void mainScreenTestButton(){
-        System.out.println("\n\n");
-        System.out.println(mainScreenTest.toString());
-        System.out.println(mainScreenTest.getText());
-        System.out.println("\n\n");
-
-        String replaceText = "goodbye";
-
-        mainScreenTest.setText("goodbye "+String.valueOf(DataEntryDriver.getRandomInt()));
-
+        //
     }
 
     @FXML
     public void generalTestButtonAction(){
         System.out.println("\n\nTestbutton action\n");
-        //System.out.println(generalTestTextField.toString());
-        //System.out.println(generalTestTextField.getText());
-        //generalTestTextField.setText("working "+String.valueOf(DataEntryDriver.getRandomInt()));
-
-        //System.out.println(TellerUpdateDataSSN.getText());
-        //System.out.println(placeholder.getSsn());
-        //TellerUpdateDataSSN.setText(placeholder.getSsn());
-        //System.out.println(TellerUpdateDataFirstName.getText());
-        //System.out.println(TellerUpdateDataLastName.getText());
-        //System.out.println(TellerUpdateDataStreetAddress.getText());
-
-        System.out.println("ManageUserSSNField text: "+ManageUserSSNField.getText());
-        //CustomerAccount temp = DataEntryDriver.getCustomerAccountFromCustomerID(ManageUserSSNField.getText());
-
-        //CustomerAccount temp = DataEntryDriver.getCustomerAccountFromCustomerID(ManageUserSSNField.getText());
-
-        System.out.println(" Controller in database ssn: "+ManageUserSSNField.getText());
-        System.out.println(DataEntryDriver.ssnInDatabase(ManageUserSSNField.getText()));
-
-
-
+        //
         System.out.println("\n\n");
     }
 
@@ -364,11 +345,6 @@ public class Controller implements Initializable{
         Parent login = null;
 
         try {
-            //stage.setTitle("Teller Interface");
-            //stage.setScene(new Scene(root, 700, 500));
-            //stage.show();
-            //this.primaryStage = Main.getPrimaryStage();
-
             if(tellerLogIn){// if teller is logged in after login window closes and it recalls this method
                 tellerPendingLogin=false;
                 root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
@@ -410,6 +386,10 @@ public class Controller implements Initializable{
             tellerLogIn = validateLoginCreds("Teller");
             if(tellerLogIn){
                 tellerPendingLogin=false;
+                EmployeeAccount employee = new EmployeeAccount(LoginInterUser.getText());
+                Main.loggedInEmployee = employee;
+                Main.outEmployee.println("Teller Account UserName: "+Main.loggedInEmployee.getUserName()+
+                " logged into account.");
                 closeWindow();
                 mainInterfaceTellerButton();
             }
@@ -419,6 +399,10 @@ public class Controller implements Initializable{
             managerLogIn = validateLoginCreds("Manager");
             if(managerLogIn){
                 managerPendingLogin=false;
+                EmployeeAccount employee = new EmployeeAccount(LoginInterUser.getText());
+                Main.loggedInEmployee = employee;
+                Main.outEmployee.println("Manager Account UserName: "+Main.loggedInEmployee.getUserName()+
+                " logged into account.");
                 closeWindow();
                 mainInterfaceManagerButton();
             }
@@ -518,9 +502,35 @@ public class Controller implements Initializable{
 
 
     @FXML
+    public void manageUserKeyEvent(){
+        String ssn = DataEntryDriver.stripSSN(ManageUserSSNField.getText().trim());
+
+        if(!DataEntryDriver.ssnValid(ssn)){
+            ManageUserLookupButton.setDisable(true);
+        }
+
+        if(!DataEntryDriver.ssnValid(ssn)){
+            System.out.println("enter valid number");
+            LookupInterErrLabel.setText("Please Enter a Valid 9 digit SSN number");
+        }else{
+            if(!DataEntryDriver.ssnInDatabase(ssn)) {
+                ManageUserLookupButton.setDisable(true);
+                System.out.println("ssn not in database please go to add account");
+                LookupInterErrLabel.setText("The SSN you Entered Is not In the Database.\nGo to Add new Customer or enter" +
+                        " a valid 9 Digit SSN number.");
+            }else{
+                ManageUserLookupButton.setDisable(false);
+                CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ManageUserSSNField.getText());
+                LookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
+                Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+
+                ca.toString());
+            }
+        }
+    }
+
+    @FXML
     public void tellerInterfaceManageButton(){
         System.out.println("tellerInterfaceManageButton");
-
 
         Parent root = null;
 
@@ -534,6 +544,7 @@ public class Controller implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 
@@ -550,8 +561,10 @@ public class Controller implements Initializable{
         if(!DataEntryDriver.ssnValid(ssnStripped)){
             // could display a message telling user that ssn is not of valid format
             // but for now I'll just make it valid
+
             String validSSN = DataEntryDriver.makeSSNValid(ssnStripped);
             ssnStripped = validSSN;
+            LookupInterErrLabel.setText("Enter a valid SSN");
 
         }
 
