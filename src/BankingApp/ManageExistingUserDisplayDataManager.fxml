@@ -7,13 +7,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
    <children>
-      <Pane layoutX="16.0" layoutY="16.0" prefHeight="468.0" prefWidth="669.0">
+      <Pane prefHeight="500.0" prefWidth="700.0">
          <children>
             <Text layoutX="295.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
-            <Button fx:id="manageExistingDispDataPrevButton" layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#goToManageLookupScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button fx:id="manageExistingDispDataPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageLookupScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
             <Label layoutX="30.0" layoutY="55.0" prefHeight="17.0" prefWidth="30.0" text="SSN:" />
             <Label layoutX="216.0" layoutY="55.0" prefHeight="17.0" prefWidth="65.0" text="First Name:" />
             <Label layoutX="435.0" layoutY="55.0" prefHeight="17.0" prefWidth="65.0" text="Last Name:" />

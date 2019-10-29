@@ -9,14 +9,14 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
    <children>
-      <Pane layoutX="16.0" layoutY="16.0" prefHeight="468.0" prefWidth="669.0">
+      <Pane prefHeight="500.0" prefWidth="700.0">
          <children>
-            <Text layoutX="292.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Existing User" wrappingWidth="129.13671875" />
-            <TextField fx:id="manageUserSSNField" layoutX="146.0" layoutY="120.0" onKeyPressed="#manageUserKeyEvent" onKeyReleased="#manageUserKeyEvent" />
-            <Label layoutX="101.0" layoutY="120.0" prefHeight="25.0" prefWidth="34.0" text="SSN:" />
-            <Button fx:id="manageUserLookupButton" disable="true" layoutX="336.0" layoutY="120.0" mnemonicParsing="false" onAction="#tellerInterfaceManageLookupButton" prefHeight="25.0" prefWidth="113.0" text="Lookup Account" />
-            <Button fx:id="manageUserPrevButton" layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#goToTellerScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
-            <Label fx:id="lookupInterErrLabel" layoutX="109.0" layoutY="158.0" prefHeight="209.0" prefWidth="452.0" />
+            <Text layoutX="285.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Existing User" wrappingWidth="129.13671875" />
+            <TextField fx:id="manageUserSSNField" layoutX="146.0" layoutY="120.0" onKeyPressed="#manageUserKeyEvent" onKeyReleased="#manageUserKeyEvent" translateX="48.0" />
+            <Label layoutX="101.0" layoutY="120.0" prefHeight="25.0" prefWidth="34.0" text="SSN:" translateX="48.0" />
+            <Button fx:id="manageUserLookupButton" disable="true" layoutX="336.0" layoutY="120.0" mnemonicParsing="false" onAction="#tellerInterfaceManageLookupButton" prefHeight="25.0" prefWidth="113.0" text="Lookup Account" translateX="48.0" />
+            <Button fx:id="manageUserPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToTellerScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Label fx:id="lookupInterErrLabel" layoutX="76.0" layoutY="158.0" prefHeight="209.0" prefWidth="452.0" translateX="48.0" />
          </children>
       </Pane>
    </children>

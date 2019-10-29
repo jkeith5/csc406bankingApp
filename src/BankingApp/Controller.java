@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,6 +24,7 @@ public class Controller implements Initializable{
     public static boolean managerLogIn;
     public static boolean tellerPendingLogin;
     public static boolean managerPendingLogin;
+    public static ToggleGroup accTypeToggleGroup;
 
     //public static ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
 
@@ -169,6 +167,7 @@ public class Controller implements Initializable{
         }
         if(locationString.equals("ManageExistingUserDisplayDataTeller.fxml")){
             CustomerAccount ca = Main.customerAccount;
+            accTypeToggleGroup = manageExistingTellerCheckingAccount.getToggleGroup();
 
             if(ca.hasCheckingAccount()){
                 manageExistingTellerCheckingAccount.setSelected(true);
@@ -256,16 +255,9 @@ public class Controller implements Initializable{
         //addNewUserInterfaceEnterButton.setDisable(false);
     }
 
-
-
-    public void tellerManageDispToggleRadioButtonsEvent(){
-        if(manageExistingTellerCheckingAccount.isSelected()){
-            manageExistingTellerSavingsAccount.setSelected(false);
-            tellerManageDispData();
-        }else if(manageExistingTellerSavingsAccount.isSelected()){
-            manageExistingTellerCheckingAccount.setSelected(false);
-            tellerManageDispData();
-        }
+    public void displayDataRadioButtonEvent(){
+        // if no account of each type disable radio button for that account
+        tellerManageDispData();
     }
 
     public void tellerManageDispData(){
@@ -282,7 +274,7 @@ public class Controller implements Initializable{
         manageDispDataCity.setText(ca.getCity());
         manageDispDataState.setText(ca.getState());
         manageDispDataZip.setText(ca.getZip());
-
+        //manageExistingTellerCheckingAccount.getToggleGroup();
 
         if(manageExistingTellerCheckingAccount.isSelected()){
             if(ca.hasCheckingAccount()){
@@ -298,7 +290,7 @@ public class Controller implements Initializable{
                 }
 
                 String checkingAcctType = ca.getCheckingAccount().getType();
-                manageDispDataAcctType.setText(checkingAcctType+" Account");
+                manageDispDataAcctType.setText(checkingAcctType);
 
             }else{
                 manageExistingTellerCheckingAccount.setDisable(true);
@@ -309,7 +301,14 @@ public class Controller implements Initializable{
             //
             String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getSavingsAccount().getAccountBalance());
             manageDispDataAcctBalance.setText(balanceFormatted);
-            //
+
+            if(ca.getSavingsAccount().getAccountBalance()<0.0){
+                manageDispDataAcctStatus.setText("Overdrawn");
+            }else{
+                manageDispDataAcctStatus.setText("Current");
+            }
+            manageDispDataAcctType.setText(ca.getSavingsAccount().getType());
+
 
 
         }else{
