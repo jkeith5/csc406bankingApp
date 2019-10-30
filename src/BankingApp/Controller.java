@@ -186,27 +186,20 @@ public class Controller implements Initializable{
 
             tellerManageDispData();
         }
+        if(locationString.equals("ManageExistingUserUpdateData.fxml")){
+            //
+        }
 
         //
 
     }
 
 
-    @FXML
-    public void mainScreenTestButton(){
-        //
-        System.out.println("test");
-    }
-
-    @FXML
-    public void generalTestButtonAction(){
-        System.out.println("\n\nTestbutton action\n");
-        //
-        System.out.println("\n\n");
-    }
 
 
 
+
+    // KEY EVENTS BLOCK
     @FXML
     public void addNewAccountEnterButton(ActionEvent event) { // for the Add new user interface
         String fName = fNameTextField.getText();
@@ -264,133 +257,6 @@ public class Controller implements Initializable{
         tellerManageDispData();
     }
 
-    public void tellerManageDispData(){
-        CustomerAccount ca = Main.customerAccount;
-        System.out.println("display data");
-        System.out.println(ca.toString());
-
-        //System.out.println(ca.getSavingsAccount().getCdCloseDate());
-
-        manageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
-        manageDispDataFirst.setText(ca.getFirstName());
-        manageDispDataLast.setText(ca.getLastName());
-        manageDispDataStreetAddr.setText(ca.getStreetAddr());
-        manageDispDataCity.setText(ca.getCity());
-        manageDispDataState.setText(ca.getState());
-        manageDispDataZip.setText(ca.getZip());
-        //manageExistingTellerCheckingAccount.getToggleGroup();
-
-        if(manageExistingTellerCheckingAccount.isSelected()){
-            if(ca.hasCheckingAccount()){
-                String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
-                manageDispDataAcctBalance.setText(balanceFormatted);
-
-                // will probably move this to the DataEntryDriver Class and make it accept the account object and account type
-                // checking savings cd or loan and then return proper string object for status.
-                if(ca.getCheckingAccount().getAccountBalance()<0.00){
-                    manageDispDataAcctStatus.setText("Overdrawn");
-                }else{
-                    manageDispDataAcctStatus.setText("Current");
-                }
-
-                String checkingAcctType = ca.getCheckingAccount().getType();
-                manageDispDataAcctType.setText(checkingAcctType);
-
-            }else{
-                manageExistingTellerCheckingAccount.setDisable(true);
-                manageDispDataAcctBalance.setText("");
-                manageDispDataAcctStatus.setText("No account for user");
-            }
-        }else if(manageExistingTellerSavingsAccount.isSelected()){
-            //
-            String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getSavingsAccount().getAccountBalance());
-            manageDispDataAcctBalance.setText(balanceFormatted);
-
-            if(ca.getSavingsAccount().getAccountBalance()<0.0){
-                manageDispDataAcctStatus.setText("Overdrawn");
-            }else{
-                manageDispDataAcctStatus.setText("Current");
-            }
-            manageDispDataAcctType.setText(ca.getSavingsAccount().getType());
-
-
-
-        }else{
-            manageDispDataAcctBalance.setText("");
-            manageDispDataAcctStatus.setText("No account for user");
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-    // make sure all items are true if not set label warning.
-    public boolean addNewUserInfoValid(ArrayList<String[]> itemsArray){
-        boolean returnVal = true;
-
-        if(!allFieldsHaveData(getNewUserInfoValid(),1)){
-            unsuccessfulEntryLabel.setText("Please fill out all fields");
-            return false;
-        }
-
-        for(int i=0;i<itemsArray.size();i++){
-            System.out.println(Arrays.toString(itemsArray.get(i)));
-
-            if(itemsArray.get(i)[2].equals("false")){// if any other field shows false
-                addNewUserInterfaceEnterButton.setDisable(true);
-                String[] falseItem = itemsArray.get(i);
-                returnVal=false;
-
-                // explain why it's false
-                if(falseItem[0].equals("ssn")){
-                    System.out.println("The ssn you entered was not valid please enter 9 numbers");
-                    unsuccessfulEntryLabel.setText("Please enter a Valid 9 digit SSN with or without the '-'");
-                    addNewUserInterfaceEnterButton.setDisable(true);
-                }
-                if(falseItem[0].equals("zip")){
-                    System.out.println("The zip you entered was not valid please enter a 5 digit zip");
-                    unsuccessfulEntryLabel.setText("Please enter a 5 digit Zip");
-                    addNewUserInterfaceEnterButton.setDisable(true);
-                }
-                if(falseItem[0].equals("state")){
-                    System.out.println("Please enter a 2 character State such as MO or AK");
-                    unsuccessfulEntryLabel.setText("Please enter a 2 character State Abbreviation");
-                    addNewUserInterfaceEnterButton.setDisable(true);
-                }
-
-
-
-            }
-
-        }
-
-        return returnVal;
-    }
-
-    public boolean allFieldsHaveData(ArrayList<String[]> inputList,int indexToCheck){
-        boolean returnVal = true;
-
-        for(int i=0;i<inputList.size();i++){
-            if(inputList.get(i)[indexToCheck].length()<1){
-                returnVal = false;
-            }
-        }
-
-        return returnVal;
-    }
-
-
-
     public void enterKeyDefaultEvent(KeyEvent e){
         // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
         Node focusedNode = Main.primaryStage.getScene().getFocusOwner();
@@ -414,7 +280,6 @@ public class Controller implements Initializable{
             }
         }
     }
-
 
     public void enterKeyLoginDefaultEvent(KeyEvent e){
         // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
@@ -448,174 +313,6 @@ public class Controller implements Initializable{
             }
         }
     }
-
-
-
-    @FXML
-    public void mainInterfaceTellerButton(){
-        System.out.println("hi");
-        Parent root = null;
-        Parent login = null;
-
-        try {
-            if(tellerLogIn){// if teller is logged in after login window closes and it recalls this method
-                tellerPendingLogin=false;
-                root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
-
-                Main.primaryStage.setTitle("Teller Interface");
-                Main.primaryStage.setScene(new Scene(root,700,500));
-                Main.primaryStage.show();
-            }else{
-                login = FXMLLoader.load(getClass().getResource("TellerLogin.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Teller Login");
-                stage.setScene(new Scene(login,382,420));
-                stage.show();
-            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @FXML
-    public void tellerLoginButton(){
-        tellerPendingLogin = true;
-        loginInterfaceLoginButton();
-    }
-
-    @FXML
-    public void ManagerLoginButton(){
-        //
-        managerPendingLogin=true;
-        loginInterfaceLoginButton();
-    }
-
-    @FXML
-    public void loginInterfaceLoginButton(){
-        if(tellerPendingLogin){
-            tellerLogIn = validateLoginCreds("Teller");
-            if(tellerLogIn){
-                tellerPendingLogin=false;
-                EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
-                employee.setType("T");
-                Main.loggedInEmployee = employee;
-                Main.outEmployee.println(Main.getDateTimeString()+"Teller Account UserName: "+Main.loggedInEmployee.getUserName()+
-                " logged into account.");
-                closeWindow();
-                mainInterfaceTellerButton();
-            }
-        }
-
-        if(managerPendingLogin){
-            managerLogIn = validateLoginCreds("Manager");
-            if(managerLogIn){
-                managerPendingLogin=false;
-                EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
-                employee.setType("M");
-                Main.loggedInEmployee = employee;
-                Main.outEmployee.println(Main.getDateTimeString()+"Manager Account UserName: "+Main.loggedInEmployee.getUserName()+
-                " logged into account.");
-                closeWindow();
-                mainInterfaceManagerButton();
-            }
-
-        }
-
-
-        // now the tellerLogIn and managerLogIn booleans let us know if, and of what type, a user is logged in as.
-    }
-
-    @FXML
-    public void loginInterfaceExitButton(){
-        tellerLogIn=false;
-        managerLogIn=false;
-        Stage stage = (Stage) loginInterExitButton.getScene().getWindow();
-        stage.close();
-        goToMainScene();
-    }
-
-    public boolean validateLoginCreds(String userType){// userType is either Teller or Manager
-        boolean returnVal = false;
-
-        printAllData();//testing
-
-        if(userType == "Teller"){
-            if(loginInterUser.getText() == "teller" || loginInterUser.getText().length()>0){
-                // here we would validate the credintials but They're always good for now
-
-                if(loginInterPass.getText().length()>0){
-                    // here we would validate the password for the user
-                    returnVal=true;
-                }else{
-                    returnVal=false;
-                }
-            }else{
-                System.out.println("not a valid username for a Teller Account");
-            }
-        }
-        if(userType == "Manager"){
-            // verify the credentials of the Manager account
-            if(loginInterUser.getText() == "manager" || loginInterUser.getText().length()>0){
-                if(loginInterPass.getText().length()>0){
-                    returnVal=true;
-                }else{
-                    returnVal=false;
-                }
-            }
-        }
-
-        return returnVal;
-    }
-
-
-    @FXML
-    public void mainInterfaceManagerButton(){
-        Parent root = null;
-        Parent login = null;
-        try {
-            if(managerLogIn){
-                managerPendingLogin = false;
-                root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
-                Main.primaryStage.setTitle("Bank Manager Interface");
-                Main.primaryStage.setScene(new Scene(root, 700, 500));
-                Main.primaryStage.show();
-            }else{
-                managerPendingLogin =true;
-                login = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Bank Manager Login");
-                stage.setScene(new Scene(login,382,420));
-                stage.show();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @FXML
-    public void tellerInterfaceAddNewButton(){
-        System.out.println("tellerInterfaceAddNewButton");
-        Parent root = null;
-
-        printAllData();//testing
-
-        try {
-            root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
-            Main.primaryStage.setTitle("Add a new user Account");
-            Main.primaryStage.setScene(new Scene(root, 700, 500));
-            Main.primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
 
     @FXML
     public void manageUserKeyEvent(KeyEvent e){
@@ -697,80 +394,214 @@ public class Controller implements Initializable{
 
     }
 
-    public void validateSSNField(){ // just checking to include numbers and '-'
-        // fixes zip (ssn) field to ONLY allow numbers and limit length to 5
-        // [0-9]{3}-?\d\d-?[0-9]{4}
-        // example ssn 123-01-0123
-        // example ssn 000000000
-        // 12354   -4544
-        // 123-54-
-        // 123-54-1234
-        // 123541234
-
-
-        String ssnFieldText = manageUserSSNField.getText();
-        String ssnFieldTextBefore = "";
-        System.out.println("SSN Field before fixing: "+ssnFieldText);
-
-        manageUserSSNField.setText(manageUserSSNField.getText().replaceAll("[^\\d-]",""));
-        manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
-
-
-        if(!manageUserSSNField.getText().matches("[0-9]{3}-?\\d\\d-?[0-9]{4}")){ // if not in format 123-45-6789 or 000000000
-
-            String temp = ssnFieldText.replaceAll("[^\\d]", ""); // This removes everything that isn't number
-            //manageUserSSNField.setText(temp);
-            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+    // END KEY EVENTS BLOCK
 
 
 
-            //manageUserSSNField.setText(temp);
-            System.out.println("s1: ["+ssnFieldText+"]");
-            System.out.println("s2: ["+temp+"]");
-            ssnFieldText=manageUserSSNField.getText();
+    // Main Screen Buttons and Login Methods
+    @FXML
+    public void mainInterfaceTellerButton(){
+        System.out.println("hi");
+        Parent root = null;
+        Parent login = null;
 
-            if(temp.length()==3){
-                ssnFieldText=manageUserSSNField.getText();
-                manageUserSSNField.setText(temp+"-");
-                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+        try {
+            if(tellerLogIn){// if teller is logged in after login window closes and it recalls this method
+                tellerPendingLogin=false;
+                root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
 
-                System.out.println("s3: ["+ssnFieldText+"]");
-                System.out.println("s4: ["+temp+"]");
-                System.out.println("BLOCK ONE");
-            }else if(temp.length()==5 ){
-                ssnFieldText=manageUserSSNField.getText();
-                String p1 = temp.substring(0,3);
-                String p2 = temp.substring(3,5);
-                manageUserSSNField.setText(p1+"-"+p2+"-");
-                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
-                System.out.println("s5: ["+ssnFieldText+"]");
-                System.out.println("s6: ["+temp+"]");
-                System.out.println("BLOCK TWO");
-            }else if(temp.length()==9){
-                manageUserSSNField.setText(DataEntryDriver.fixSSN(temp));
-                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
-                System.out.println("BLOCK THREE");
+                Main.primaryStage.setTitle("Teller Interface");
+                Main.primaryStage.setScene(new Scene(root,700,500));
+                Main.primaryStage.show();
+            }else{
+                login = FXMLLoader.load(getClass().getResource("TellerLogin.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Teller Login");
+                stage.setScene(new Scene(login,382,420));
+                stage.show();
             }
 
-            //
-            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
 
-            if(manageUserSSNField.getText().length() >11){
-                ssnFieldText = manageUserSSNField.getText().substring(0,11);
-                manageUserSSNField.setText(ssnFieldText);
-                manageUserSSNField.positionCaret(11);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    public void mainInterfaceManagerButton(){
+        Parent root = null;
+        Parent login = null;
+        try {
+            if(managerLogIn){
+                managerPendingLogin = false;
+                root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
+                Main.primaryStage.setTitle("Bank Manager Interface");
+                Main.primaryStage.setScene(new Scene(root, 700, 500));
+                Main.primaryStage.show();
+            }else{
+                managerPendingLogin =true;
+                login = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Bank Manager Login");
+                stage.setScene(new Scene(login,382,420));
+                stage.show();
             }
 
-            //manageUserSSNField.setText(temp);
-            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            System.out.println("SSN field after Fix: "+manageUserSSNField.getText());
+    }
 
-        }else{
-            return;
+    @FXML
+    public void tellerLoginButton(){
+        tellerPendingLogin = true;
+        loginInterfaceLoginButton();
+    }
+
+    @FXML
+    public void ManagerLoginButton(){
+        //
+        managerPendingLogin=true;
+        loginInterfaceLoginButton();
+    }
+
+    @FXML
+    public void loginInterfaceLoginButton(){
+        if(tellerPendingLogin){
+            tellerLogIn = validateLoginCreds("Teller");
+            if(tellerLogIn){
+                tellerPendingLogin=false;
+                EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
+                employee.setType("T");
+                Main.loggedInEmployee = employee;
+                Main.outEmployee.println(Main.getDateTimeString()+"Teller Account UserName: "+Main.loggedInEmployee.getUserName()+
+                " logged into account.");
+                closeWindow();
+                mainInterfaceTellerButton();
+            }
+        }
+
+        if(managerPendingLogin){
+            managerLogIn = validateLoginCreds("Manager");
+            if(managerLogIn){
+                managerPendingLogin=false;
+                EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
+                employee.setType("M");
+                Main.loggedInEmployee = employee;
+                Main.outEmployee.println(Main.getDateTimeString()+"Manager Account UserName: "+Main.loggedInEmployee.getUserName()+
+                " logged into account.");
+                closeWindow();
+                mainInterfaceManagerButton();
+            }
+
         }
 
 
+        // now the tellerLogIn and managerLogIn booleans let us know if, and of what type, a user is logged in as.
+    }
+
+    @FXML
+    public void loginInterfaceExitButton(){
+        tellerLogIn=false;
+        managerLogIn=false;
+        Stage stage = (Stage) loginInterExitButton.getScene().getWindow();
+        stage.close();
+        goToMainScene();
+    }
+
+
+
+    //End Main Screen Block
+
+
+    // TELLER INTERFACE BLOCK
+
+    public void tellerManageDispData(){
+        CustomerAccount ca = Main.customerAccount;
+        System.out.println("display data");
+        System.out.println(ca.toString());
+
+        //System.out.println(ca.getSavingsAccount().getCdCloseDate());
+
+        manageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
+        manageDispDataFirst.setText(ca.getFirstName());
+        manageDispDataLast.setText(ca.getLastName());
+        manageDispDataStreetAddr.setText(ca.getStreetAddr());
+        manageDispDataCity.setText(ca.getCity());
+        manageDispDataState.setText(ca.getState());
+        manageDispDataZip.setText(ca.getZip());
+        //manageExistingTellerCheckingAccount.getToggleGroup();
+
+        if(manageExistingTellerCheckingAccount.isSelected()){
+            if(ca.hasCheckingAccount()){
+                String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
+                manageDispDataAcctBalance.setText(balanceFormatted);
+
+                // will probably move this to the DataEntryDriver Class and make it accept the account object and account type
+                // checking savings cd or loan and then return proper string object for status.
+                if(ca.getCheckingAccount().getAccountBalance()<0.00){
+                    manageDispDataAcctStatus.setText("Overdrawn");
+                }else{
+                    manageDispDataAcctStatus.setText("Current");
+                }
+
+                String checkingAcctType = ca.getCheckingAccount().getType();
+                manageDispDataAcctType.setText(checkingAcctType);
+
+            }else{
+                manageExistingTellerCheckingAccount.setDisable(true);
+                manageDispDataAcctBalance.setText("");
+                manageDispDataAcctStatus.setText("No account for user");
+            }
+        }else if(manageExistingTellerSavingsAccount.isSelected()){
+            //
+            String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getSavingsAccount().getAccountBalance());
+            manageDispDataAcctBalance.setText(balanceFormatted);
+
+            if(ca.getSavingsAccount().getAccountBalance()<0.0){
+                manageDispDataAcctStatus.setText("Overdrawn");
+            }else{
+                manageDispDataAcctStatus.setText("Current");
+            }
+            manageDispDataAcctType.setText(ca.getSavingsAccount().getType());
+
+
+
+        }else{
+            manageDispDataAcctBalance.setText("");
+            manageDispDataAcctStatus.setText("No account for user");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    @FXML
+    public void tellerInterfaceAddNewButton(){
+        System.out.println("tellerInterfaceAddNewButton");
+        Parent root = null;
+
+        printAllData();//testing
+
+        try {
+            root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
+            Main.primaryStage.setTitle("Add a new user Account");
+            Main.primaryStage.setScene(new Scene(root, 700, 500));
+            Main.primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -900,6 +731,11 @@ public class Controller implements Initializable{
         }
     }
 
+
+
+
+    // BANK MANAGER INTERFACES
+
     // will need this one because teller and bank manager can both see different items on user accounts
     @FXML
     public void bankManagerInterfaceManageLookupButton(){
@@ -923,64 +759,88 @@ public class Controller implements Initializable{
 
     }
 
-    @FXML
-    public void goToMainScene(){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-            Main.primaryStage.setTitle("Teller Bank Application(WIP)");
-            Main.primaryStage.setScene(new Scene(root,700,500));
-            Main.primaryStage.show();
 
-            tellerLogIn = false;
-            managerLogIn = false;
 
-        } catch (IOException e) {
-            e.printStackTrace();
+
+
+    // GENERAL VALIDATION TYPE METHODS
+
+    public void validateSSNField(){ // just checking to include numbers and '-'
+        // fixes zip (ssn) field to ONLY allow numbers and limit length to 5
+        // [0-9]{3}-?\d\d-?[0-9]{4}
+        // example ssn 123-01-0123
+        // example ssn 000000000
+        // 12354   -4544
+        // 123-54-
+        // 123-54-1234
+        // 123541234
+
+
+        String ssnFieldText = manageUserSSNField.getText();
+        String ssnFieldTextBefore = "";
+        System.out.println("SSN Field before fixing: "+ssnFieldText);
+
+        manageUserSSNField.setText(manageUserSSNField.getText().replaceAll("[^\\d-]",""));
+        manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+
+        if(!manageUserSSNField.getText().matches("[0-9]{3}-?\\d\\d-?[0-9]{4}")){ // if not in format 123-45-6789 or 000000000
+
+            String temp = ssnFieldText.replaceAll("[^\\d]", ""); // This removes everything that isn't number
+            //manageUserSSNField.setText(temp);
+            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+
+
+            //manageUserSSNField.setText(temp);
+            System.out.println("s1: ["+ssnFieldText+"]");
+            System.out.println("s2: ["+temp+"]");
+            ssnFieldText=manageUserSSNField.getText();
+
+            if(temp.length()==3){
+                ssnFieldText=manageUserSSNField.getText();
+                manageUserSSNField.setText(temp+"-");
+                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+                System.out.println("s3: ["+ssnFieldText+"]");
+                System.out.println("s4: ["+temp+"]");
+                System.out.println("BLOCK ONE");
+            }else if(temp.length()==5 ){
+                ssnFieldText=manageUserSSNField.getText();
+                String p1 = temp.substring(0,3);
+                String p2 = temp.substring(3,5);
+                manageUserSSNField.setText(p1+"-"+p2+"-");
+                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+                System.out.println("s5: ["+ssnFieldText+"]");
+                System.out.println("s6: ["+temp+"]");
+                System.out.println("BLOCK TWO");
+            }else if(temp.length()==9){
+                manageUserSSNField.setText(DataEntryDriver.fixSSN(temp));
+                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+                System.out.println("BLOCK THREE");
+            }
+
+            //
+            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+            if(manageUserSSNField.getText().length() >11){
+                ssnFieldText = manageUserSSNField.getText().substring(0,11);
+                manageUserSSNField.setText(ssnFieldText);
+                manageUserSSNField.positionCaret(11);
+            }
+
+            //manageUserSSNField.setText(temp);
+            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+            System.out.println("SSN field after Fix: "+manageUserSSNField.getText());
+
+        }else{
+            return;
         }
-    }
-
-    @FXML
-    public void goToTellerScene(){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
-            Main.primaryStage.setTitle("Teller Interface");
-            Main.primaryStage.setScene(new Scene(root,700,500));
-            Main.primaryStage.show();
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void goToManageLookupScene(){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
-            Main.primaryStage.setTitle("Lookup User");
-            Main.primaryStage.setScene(new Scene(root,700,500));
-            Main.primaryStage.show();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-    @FXML
-    public void closeWindow(){
-        Parent root = null;
-        Stage stage = (Stage) loginInterLoginButton.getScene().getWindow();
-        stage.close();
 
     }
-
 
     // this method gets the data from the interface, checks if it's valid, and returns and arraylist with
     // [0]= fieldName, [1]=data, [2]=isValid
@@ -1037,6 +897,158 @@ public class Controller implements Initializable{
         return validItems;
     }
 
+    public boolean validateLoginCreds(String userType){// userType is either Teller or Manager
+        boolean returnVal = false;
+
+        printAllData();//testing
+
+        if(userType == "Teller"){
+            if(loginInterUser.getText() == "teller" || loginInterUser.getText().length()>0){
+                // here we would validate the credintials but They're always good for now
+
+                if(loginInterPass.getText().length()>0){
+                    // here we would validate the password for the user
+                    returnVal=true;
+                }else{
+                    returnVal=false;
+                }
+            }else{
+                System.out.println("not a valid username for a Teller Account");
+            }
+        }
+        if(userType == "Manager"){
+            // verify the credentials of the Manager account
+            if(loginInterUser.getText() == "manager" || loginInterUser.getText().length()>0){
+                if(loginInterPass.getText().length()>0){
+                    returnVal=true;
+                }else{
+                    returnVal=false;
+                }
+            }
+        }
+
+        return returnVal;
+    }
+
+
+
+    // ADD NEW USER INTERFACE
+    // make sure all items are true if not set label warning.
+    public boolean addNewUserInfoValid(ArrayList<String[]> itemsArray){
+        boolean returnVal = true;
+
+        if(!allFieldsHaveData(getNewUserInfoValid(),1)){
+            unsuccessfulEntryLabel.setText("Please fill out all fields");
+            return false;
+        }
+
+        for(int i=0;i<itemsArray.size();i++){
+            System.out.println(Arrays.toString(itemsArray.get(i)));
+
+            if(itemsArray.get(i)[2].equals("false")){// if any other field shows false
+                addNewUserInterfaceEnterButton.setDisable(true);
+                String[] falseItem = itemsArray.get(i);
+                returnVal=false;
+
+                // explain why it's false
+                if(falseItem[0].equals("ssn")){
+                    System.out.println("The ssn you entered was not valid please enter 9 numbers");
+                    unsuccessfulEntryLabel.setText("Please enter a Valid 9 digit SSN with or without the '-'");
+                    addNewUserInterfaceEnterButton.setDisable(true);
+                }
+                if(falseItem[0].equals("zip")){
+                    System.out.println("The zip you entered was not valid please enter a 5 digit zip");
+                    unsuccessfulEntryLabel.setText("Please enter a 5 digit Zip");
+                    addNewUserInterfaceEnterButton.setDisable(true);
+                }
+                if(falseItem[0].equals("state")){
+                    System.out.println("Please enter a 2 character State such as MO or AK");
+                    unsuccessfulEntryLabel.setText("Please enter a 2 character State Abbreviation");
+                    addNewUserInterfaceEnterButton.setDisable(true);
+                }
+
+
+
+            }
+
+        }
+
+        return returnVal;
+    }
+
+    public boolean allFieldsHaveData(ArrayList<String[]> inputList,int indexToCheck){
+        boolean returnVal = true;
+
+        for(int i=0;i<inputList.size();i++){
+            if(inputList.get(i)[indexToCheck].length()<1){
+                returnVal = false;
+            }
+        }
+
+        return returnVal;
+    }
+
+
+
+
+    // GENERAL NAVIGATION METHODS
+
+    @FXML
+    public void closeWindow(){
+        Parent root = null;
+        Stage stage = (Stage) loginInterLoginButton.getScene().getWindow();
+        stage.close();
+
+    }
+
+    @FXML
+    public void goToMainScene(){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            Main.primaryStage.setTitle("Teller Bank Application(WIP)");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+
+            tellerLogIn = false;
+            managerLogIn = false;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void goToTellerScene(){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
+            Main.primaryStage.setTitle("Teller Interface");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void goToManageLookupScene(){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
+            Main.primaryStage.setTitle("Lookup User");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 
@@ -1076,6 +1088,18 @@ public class Controller implements Initializable{
 
 
 
+    @FXML
+    public void mainScreenTestButton(){
+        //
+        System.out.println("test");
+    }
+
+    @FXML
+    public void generalTestButtonAction(){
+        System.out.println("\n\nTestbutton action\n");
+        //
+        System.out.println("\n\n");
+    }
 
     public String toStringValues(){
         try {
