@@ -649,7 +649,6 @@ public class Controller implements Initializable{
                 manageUserSSNField.setText(s);
                 manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
 
-                //validateSSNField();
 
 
                 if(keyCodeName.equals("Backspace")){
@@ -684,6 +683,9 @@ public class Controller implements Initializable{
 
             }else{
                 System.out.println("else Key Pressed");
+                if(!keyCodeName.equals("Backspace")){
+                    validateSSNField();
+                }
             }
         }
 
