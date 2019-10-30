@@ -16,8 +16,8 @@
             <Label layoutX="66.0" layoutY="136.0" prefHeight="17.0" prefWidth="89.0" text="Password:" />
             <TextField fx:id="loginInterUser" layoutX="191.0" layoutY="88.0" />
             <TextField fx:id="loginInterPass" layoutX="191.0" layoutY="132.0" onAction="#tellerLoginButton" />
-            <Button fx:id="loginInterLoginButton" layoutX="285.0" layoutY="347.0" mnemonicParsing="false" onAction="#tellerLoginButton" prefHeight="25.0" prefWidth="83.0" text="Login" />
-            <Button fx:id="loginInterExitButton" layoutX="14.0" layoutY="347.0" mnemonicParsing="false" onAction="#loginInterfaceExitButton" prefHeight="25.0" prefWidth="83.0" text="Exit" />
+            <Button fx:id="loginInterLoginButton" layoutX="285.0" layoutY="347.0" mnemonicParsing="false" onAction="#tellerLoginButton" onKeyPressed="#enterKeyLoginDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Login" />
+            <Button fx:id="loginInterExitButton" layoutX="14.0" layoutY="347.0" mnemonicParsing="false" onAction="#loginInterfaceExitButton" onKeyPressed="#enterKeyLoginExit" prefHeight="25.0" prefWidth="83.0" text="Exit" />
             <Text layoutX="78.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note: Enter anything in both fields and click Login" wrappingWidth="225.13671875" />
             <Text layoutX="56.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teller Login:" wrappingWidth="83.0" />
          </children>

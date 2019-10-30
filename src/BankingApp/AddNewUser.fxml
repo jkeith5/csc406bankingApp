@@ -29,8 +29,8 @@
             <TextField id="cityTextfield" fx:id="cityTextField" layoutX="261.0" layoutY="205.0" onKeyPressed="#addNewUserKeyEvent" onKeyReleased="#addNewUserKeyEvent" promptText="Enter City..." translateX="69.0" />
             <TextField id="stateTextField" fx:id="stateTextField" layoutX="261.0" layoutY="243.0" onKeyReleased="#addNewUserKeyEvent" promptText="Enter State Abbrev. (AL, MO, etc.)..." translateX="69.0" />
             <TextField id="zipCodeTextField" fx:id="zipCodeTextField" layoutX="261.0" layoutY="281.0" onKeyReleased="#addNewUserKeyEvent" promptText="Enter Zip Code..." translateX="69.0" />
-            <Button id="enterButton" fx:id="addNewUserInterfaceEnterButton" disable="true" layoutX="575.0" layoutY="461.0" mnemonicParsing="false" onAction="#addNewAccountEnterButton" prefHeight="22.0" prefWidth="111.0" text="Enter All Data" />
-            <Button id="backButtonInfoEnterPanel" fx:id="addNewUserPreviousButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToTellerScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button id="enterButton" fx:id="addNewUserInterfaceEnterButton" disable="true" layoutX="575.0" layoutY="461.0" mnemonicParsing="false" onAction="#addNewAccountEnterButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="22.0" prefWidth="111.0" text="Enter All Data" />
+            <Button id="backButtonInfoEnterPanel" fx:id="addNewUserPreviousButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToTellerScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
             <Label layoutX="132.0" layoutY="205.0" text="Enter City:" translateX="69.0" />
             <Label fx:id="unsuccessfulEntryLabel" alignment="CENTER" layoutX="156.0" layoutY="320.0" prefHeight="85.0" prefWidth="358.0" textFill="RED" visible="false" wrapText="true" />
          </children>

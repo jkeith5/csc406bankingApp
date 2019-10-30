@@ -11,10 +11,10 @@
    <children>
       <Pane prefHeight="500.0" prefWidth="700.0">
          <children>
-            <Text layoutX="292.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teller Interface" wrappingWidth="89.13671875" />
-            <Button fx:id="tellerInterAddNew" layoutX="277.0" layoutY="111.0" mnemonicParsing="false" onAction="#tellerInterfaceAddNewButton" prefHeight="32.0" prefWidth="120.0" text="Add New User" />
-            <Button fx:id="tellerInterManage" layoutX="277.0" layoutY="179.0" mnemonicParsing="false" onAction="#tellerInterfaceManageButton" prefHeight="32.0" prefWidth="120.0" text="Manage User" />
-            <Button fx:id="tellerInterPrev" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToMainScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Text layoutX="305.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teller Interface" wrappingWidth="89.13671875" />
+            <Button fx:id="tellerInterAddNew" layoutX="290.0" layoutY="111.0" mnemonicParsing="false" onAction="#tellerInterfaceAddNewButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="32.0" prefWidth="120.0" text="Add New User" />
+            <Button fx:id="tellerInterManage" layoutX="290.0" layoutY="179.0" mnemonicParsing="false" onAction="#tellerInterfaceManageButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="32.0" prefWidth="120.0" text="Manage User" />
+            <Button fx:id="tellerInterPrev" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToMainScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
          </children>
       </Pane>
    </children>

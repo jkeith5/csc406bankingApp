@@ -236,6 +236,17 @@ public class DataEntryDriver {
     }
 
 
+    public static boolean ssnValidAndInDatabase(String ssnInput){
+        boolean returnVal = false;
+
+        String ssnStripped = stripSSN(ssnInput);
+
+        if(ssnValid(ssnStripped) && ssnInDatabase(ssnStripped)){
+            returnVal = true;
+        }
+        return returnVal;
+    }
+
     public static boolean ssnInDatabase(String ssnInput){
         boolean returnVal = false;
 
@@ -247,11 +258,7 @@ public class DataEntryDriver {
                 returnVal = true;
             }
         }
-
-
-
         return returnVal;
-
     }
 
     public static boolean ssnValid(String ssn){

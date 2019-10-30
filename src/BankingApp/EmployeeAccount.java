@@ -4,6 +4,7 @@ public class EmployeeAccount {
 
     private String userName;
     private String password;
+    private String type; // T for teller M for manager
 
 
     public EmployeeAccount(String userName){
@@ -13,6 +14,20 @@ public class EmployeeAccount {
     public EmployeeAccount(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    public EmployeeAccount(String userName, String password,String type) {
+        this.userName = userName;
+        this.password = password;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getUserName() {

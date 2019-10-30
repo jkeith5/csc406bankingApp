@@ -1,13 +1,16 @@
 package BankingApp;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -161,7 +164,7 @@ public class Controller implements Initializable{
                 manageUserSSNField.setText("687-69-8941");
                 manageUserLookupButton.setDisable(false);
             }else{
-                manageUserKeyEvent();
+                manageUserKeyEvent(null);
             }
 
         }
@@ -192,6 +195,7 @@ public class Controller implements Initializable{
     @FXML
     public void mainScreenTestButton(){
         //
+        System.out.println("test");
     }
 
     @FXML
@@ -387,6 +391,65 @@ public class Controller implements Initializable{
 
 
 
+    public void enterKeyDefaultEvent(KeyEvent e){
+        // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
+        Node focusedNode = Main.primaryStage.getScene().getFocusOwner();
+        System.out.println(focusedNode.toString());
+        System.out.println(focusedNode.getId().toString());
+        if(e.getCode().getName().equals("Enter")){
+            if(Main.primaryStage.getScene().getFocusOwner() instanceof Button){
+                Button fireButton = (Button) Main.primaryStage.getScene().focusOwnerProperty().get();
+                if(!fireButton.isDisabled()){
+                    fireButton.fire();
+                }
+            }else if(Main.primaryStage.getScene().getFocusOwner() instanceof TextField){
+                System.out.println(Main.primaryStage.getScene().getFocusOwner().getId());
+
+                TextField fireTextField = (TextField) Main.primaryStage.getScene().focusOwnerProperty().get();
+                System.out.println(fireTextField.getId());
+                if(fireTextField.getId().equals("manageUserSSNField")){
+                    //tellerInterfaceManageLookupButton();
+
+                }
+            }
+        }
+    }
+
+
+    public void enterKeyLoginDefaultEvent(KeyEvent e){
+        // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
+        Node focusedNode = Main.primaryStage.getScene().getFocusOwner();
+        System.out.println("t1"+focusedNode.toString());
+        System.out.println("t2"+focusedNode.getId().toString());
+        if(e.getCode().getName().equals("Enter")){
+            if(Main.primaryStage.getScene().getFocusOwner() instanceof Button){
+                System.out.println("loginLogin");
+
+                if(focusedNode.getId().equals("tellerScreen")){
+                    tellerLoginButton();
+                }
+                if(focusedNode.getId().equals("bankManagerScreen")){
+                    ManagerLoginButton();
+                }
+
+            }
+        }
+    }
+
+    public void enterKeyLoginExit(KeyEvent e){
+        // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
+        Node focusedNode = Main.primaryStage.getScene().getFocusOwner();
+        System.out.println(focusedNode.toString());
+        System.out.println(focusedNode.getId().toString());
+        if(e.getCode().getName().equals("Enter")){
+            if(Main.primaryStage.getScene().getFocusOwner() instanceof Button){
+                loginInterfaceExitButton();
+                //fireButton.fire();
+            }
+        }
+    }
+
+
 
     @FXML
     public void mainInterfaceTellerButton(){
@@ -437,6 +500,7 @@ public class Controller implements Initializable{
             if(tellerLogIn){
                 tellerPendingLogin=false;
                 EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
+                employee.setType("T");
                 Main.loggedInEmployee = employee;
                 Main.outEmployee.println(Main.getDateTimeString()+"Teller Account UserName: "+Main.loggedInEmployee.getUserName()+
                 " logged into account.");
@@ -450,6 +514,7 @@ public class Controller implements Initializable{
             if(managerLogIn){
                 managerPendingLogin=false;
                 EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
+                employee.setType("M");
                 Main.loggedInEmployee = employee;
                 Main.outEmployee.println(Main.getDateTimeString()+"Manager Account UserName: "+Main.loggedInEmployee.getUserName()+
                 " logged into account.");
@@ -551,30 +616,160 @@ public class Controller implements Initializable{
     }
 
 
+
     @FXML
-    public void manageUserKeyEvent(){
-        String ssn = DataEntryDriver.stripSSN(manageUserSSNField.getText().trim());
+    public void manageUserKeyEvent(KeyEvent e){
+        EventType<KeyEvent> keyEventType = e.getEventType();
+        String keyCodeName = e.getCode().getName();
+        String keyEventTypeName = keyEventType.getName();
 
-        if(!DataEntryDriver.ssnValid(ssn)){
-            manageUserLookupButton.setDisable(true);
-        }
+        System.out.println(e.getCode().getName());
+        String ssn = DataEntryDriver.stripSSN(manageUserSSNField.getText());
+        manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
 
-        if(!DataEntryDriver.ssnValid(ssn)){
-            System.out.println("enter valid number");
-            lookupInterErrLabel.setText("Please Enter a Valid 9 digit SSN number");
-        }else{
-            if(!DataEntryDriver.ssnInDatabase(ssn)) {
-                manageUserLookupButton.setDisable(true);
-                System.out.println("ssn not in database please go to add account");
-                lookupInterErrLabel.setText("The SSN you Entered Is not In the Database.\nGo to Add new Customer or enter" +
-                        " a valid 9 Digit SSN number.");
+        if(keyCodeName.equals("Enter")){
+            System.out.println(keyEventType.toString());
+            if(keyEventTypeName.equals("KEY_PRESSED")){
+                System.out.println("hello again");
+                if(!manageUserLookupButton.isDisabled()){
+                    System.out.println("Enter key pressed button not disabled");
+                    if(Main.loggedInEmployee.getType().equals("T")){
+                        tellerInterfaceManageLookupButton();
+                    }
+                    if(Main.loggedInEmployee.getType().equals("M")){
+                        // PUT THE CODE FOR MANAGER INTERFACE LOOKUP BUTTON HERE
+                    }
+
+                }
+            }
+        }else{ // if enter button was not pressed
+            if(keyEventTypeName.equals("KEY_RELEASED")) {
+                String s = manageUserSSNField.getText();
+                s = s.replaceAll(" ","");
+                manageUserSSNField.setText(s);
+                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+                //validateSSNField();
+
+
+                if(keyCodeName.equals("Backspace")){
+                    return;
+                }else{
+                    System.out.println(keyEventTypeName);
+                    validateSSNField();
+                    ssn = manageUserSSNField.getText();
+                    manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
+
+                    if(!DataEntryDriver.ssnValid(ssn)){// if not 9 digits
+                        System.out.println("enter valid number "+ssn);
+                        lookupInterErrLabel.setText("Please Enter a Valid 9 digit SSN number");
+                    }else{ // if ssn is 9 digits
+                        if(!DataEntryDriver.ssnInDatabase(ssn)) {
+                            System.out.println("ssn not in database please go to add account");
+                            lookupInterErrLabel.setText("The SSN you Entered Is not In the Database.\nGo to Add new Customer or enter" +
+                                    " a valid 9 Digit SSN number.");
+                        }else{
+                            CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(manageUserSSNField.getText());
+                            lookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
+                            //Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+ ca.toString());
+                            System.out.println("LAST SSN: "+ssn);
+                            manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
+
+                        }
+                    }
+                }
+
+
+
+
             }else{
-                manageUserLookupButton.setDisable(false);
-                CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(manageUserSSNField.getText());
-                lookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
-                //Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+ ca.toString());
+                System.out.println("else Key Pressed");
             }
         }
+
+
+
+
+
+
+
+    }
+
+    public void validateSSNField(){ // just checking to include numbers and '-'
+        // fixes zip (ssn) field to ONLY allow numbers and limit length to 5
+        // [0-9]{3}-?\d\d-?[0-9]{4}
+        // example ssn 123-01-0123
+        // example ssn 000000000
+        // 12354   -4544
+        // 123-54-
+        // 123-54-1234
+        // 123541234
+
+
+        String ssnFieldText = manageUserSSNField.getText();
+        String ssnFieldTextBefore = "";
+        System.out.println("SSN Field before fixing: "+ssnFieldText);
+
+        manageUserSSNField.setText(manageUserSSNField.getText().replaceAll("[^\\d-]",""));
+        manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+
+        if(!manageUserSSNField.getText().matches("[0-9]{3}-?\\d\\d-?[0-9]{4}")){ // if not in format 123-45-6789 or 000000000
+
+            String temp = ssnFieldText.replaceAll("[^\\d]", ""); // This removes everything that isn't number
+            //manageUserSSNField.setText(temp);
+            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+
+
+            //manageUserSSNField.setText(temp);
+            System.out.println("s1: ["+ssnFieldText+"]");
+            System.out.println("s2: ["+temp+"]");
+            ssnFieldText=manageUserSSNField.getText();
+
+            if(temp.length()==3){
+                ssnFieldText=manageUserSSNField.getText();
+                manageUserSSNField.setText(temp+"-");
+                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+                System.out.println("s3: ["+ssnFieldText+"]");
+                System.out.println("s4: ["+temp+"]");
+                System.out.println("BLOCK ONE");
+            }else if(temp.length()==5 ){
+                ssnFieldText=manageUserSSNField.getText();
+                String p1 = temp.substring(0,3);
+                String p2 = temp.substring(3,5);
+                manageUserSSNField.setText(p1+"-"+p2+"-");
+                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+                System.out.println("s5: ["+ssnFieldText+"]");
+                System.out.println("s6: ["+temp+"]");
+                System.out.println("BLOCK TWO");
+            }else if(temp.length()==9){
+                manageUserSSNField.setText(DataEntryDriver.fixSSN(temp));
+                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+                System.out.println("BLOCK THREE");
+            }
+
+            //
+            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+            if(manageUserSSNField.getText().length() >11){
+                ssnFieldText = manageUserSSNField.getText().substring(0,11);
+                manageUserSSNField.setText(ssnFieldText);
+                manageUserSSNField.positionCaret(11);
+            }
+
+            //manageUserSSNField.setText(temp);
+            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+            System.out.println("SSN field after Fix: "+manageUserSSNField.getText());
+
+        }else{
+            return;
+        }
+
+
+
     }
 
     @FXML
