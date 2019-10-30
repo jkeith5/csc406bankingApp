@@ -11,7 +11,6 @@
    <children>
       <Pane prefHeight="500.0" prefWidth="700.0">
          <children>
-            <Button fx:id="manageExistingDispDataPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageLookupScene" prefHeight="25.0" prefWidth="83.0" text="Previous" />
             <Label layoutX="172.0" layoutY="32.0" prefHeight="17.0" prefWidth="30.0" text="SSN:" />
             <Label layoutX="172.0" layoutY="49.0" prefHeight="17.0" prefWidth="65.0" text="First Name:" />
             <Label layoutX="172.0" layoutY="68.0" prefHeight="17.0" prefWidth="65.0" text="Last Name:" />
@@ -23,15 +22,8 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Button fx:id="manageExistingTellerDebitCreditAccountButton" layoutX="484.0" layoutY="268.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Debit/Credit Account" />
-            <RadioButton fx:id="manageExistingTellerCheckingAccount" layoutX="255.0" layoutY="205.0" mnemonicParsing="false" onAction="#displayDataRadioButtonEvent" text="Checking">
-               <toggleGroup>
-                  <ToggleGroup fx:id="toggle1" />
-               </toggleGroup></RadioButton>
-            <RadioButton fx:id="manageExistingTellerSavingsAccount" layoutX="255.0" layoutY="230.0" mnemonicParsing="false" onAction="#displayDataRadioButtonEvent" text="Savings" toggleGroup="$toggle1" />
             <Label layoutX="210.0" layoutY="143.0" prefHeight="17.0" prefWidth="39.0" text="Status:" />
             <Label layoutX="255.0" layoutY="272.0" prefHeight="17.0" prefWidth="61.0" text="Amount : $" />
-            <TextField fx:id="manageExistingTellerFundsTransferAmount" layoutX="325.0" layoutY="268.0" promptText="Enter Amount" />
             <Label fx:id="manageDispDataSSN" layoutX="204.0" layoutY="32.0" prefHeight="17.0" prefWidth="97.0" text="000-00-0000" />
             <Label fx:id="manageDispDataFirst" layoutX="233.0" layoutY="49.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
             <Label fx:id="manageDispDataLast" layoutX="237.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
@@ -43,15 +35,23 @@
             <Label fx:id="manageDispDataAcctStatus" layoutX="309.0" layoutY="143.0" prefHeight="17.0" prefWidth="156.0" text="Label" />
             <Label layoutX="210.0" layoutY="123.0" prefHeight="17.0" prefWidth="79.0" text="Account Type:" />
             <Label fx:id="manageDispDataAcctType" layoutX="309.0" layoutY="124.0" prefHeight="17.0" prefWidth="156.0" text="Label" />
-            <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
-            <Button layoutX="15.0" layoutY="197.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Add Account" />
-            <Button layoutX="15.0" layoutY="235.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Remove Account" />
-            <Button layoutX="15.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Manage Loan Account" />
-            <CheckBox layoutX="206.0" layoutY="177.0" mnemonicParsing="false" text="Transfer Funds" />
             <Label layoutX="207.0" layoutY="205.0" prefHeight="17.0" prefWidth="39.0" text="From: " />
             <Label layoutX="207.0" layoutY="230.0" prefHeight="17.0" prefWidth="39.0" text="To:" />
             <Button fx:id="manageExistingTellerUpdateDataButton" layoutX="15.0" layoutY="121.0" mnemonicParsing="false" onAction="#tellerInterfaceManageUpdateDataButton" prefHeight="25.0" prefWidth="156.0" text="Update Customer Data" />
             <Button fx:id="manageExistingTellerViewRecentActivityButton1" layoutX="15.0" layoutY="159.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="View Recent Activity" />
+            <Button layoutX="15.0" layoutY="197.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Add Account" />
+            <Button layoutX="15.0" layoutY="235.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Remove Account" />
+            <Button layoutX="15.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Manage Loan Account" />
+            <CheckBox layoutX="206.0" layoutY="177.0" mnemonicParsing="false" text="Transfer Funds" />
+            <RadioButton fx:id="manageExistingTellerCheckingAccount" layoutX="255.0" layoutY="205.0" mnemonicParsing="false" onKeyPressed="#displayDataRadioButtonEvent" onMouseClicked="#displayDataRadioButtonEvent" text="Checking">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggle1" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="manageExistingTellerSavingsAccount" layoutX="255.0" layoutY="230.0" mnemonicParsing="false" onKeyPressed="#displayDataRadioButtonEvent" onMouseClicked="#displayDataRadioButtonEvent" text="Savings" toggleGroup="$toggle1" />
+            <TextField fx:id="manageExistingTellerFundsTransferAmount" layoutX="325.0" layoutY="268.0" promptText="Enter Amount" />
+            <Button fx:id="manageExistingTellerDebitCreditAccountButton" layoutX="484.0" layoutY="268.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Debit/Credit Account" />
+            <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
+            <Button fx:id="manageExistingDispDataPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageLookupScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
          </children>
       </Pane>
    </children>
