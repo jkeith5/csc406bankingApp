@@ -92,20 +92,17 @@ public class Controller implements Initializable{
     @FXML RadioButton manageExistingTellerSavingsAccount;
     @FXML TextField manageExistingTellerFundsTransferAmount;
 
+
+    // Update data interface
     @FXML Button tellerUpdateDataPreviousButton;
     @FXML Button tellerUpdateDataSaveButton;
-    @FXML TextField tellerUpdateDataSSN;
-    @FXML TextField tellerUpdateDataFirstName;
-    @FXML TextField tellerUpdateDataLastName;
-    @FXML TextField tellerUpdateDataStreetAddress;
-    @FXML TextField tellerUpdateDataCity;
-    @FXML TextField tellerUpdateDataState;
-    @FXML TextField tellerUpdateDataZip;
-
-
-
-
-
+    @FXML TextField updateDataSSN;
+    @FXML TextField updateDataFirstName;
+    @FXML TextField updateDataLastName;
+    @FXML TextField updateDataAddress;
+    @FXML TextField updateDataCity;
+    @FXML TextField updateDataState;
+    @FXML TextField updateDataZip;
 
 
 
@@ -153,14 +150,16 @@ public class Controller implements Initializable{
         if(locationString.equals("ManageExistingUserUpdateData.fxml")){
             System.out.println("in manage existing user if block");
             //
-            System.out.println(tellerUpdateDataSSN.getText());
-            //tellerUpdateDataSSN.setText(DataEntryDriver.stripSSN(placeholder.getSsn()));
+            System.out.println(updateDataSSN.getText());
+            //updateDataSSN.setText(DataEntryDriver.stripSSN(placeholder.getSsn()));
             System.out.println("ssn in main variable is: "+Main.currentCustomerID);
         }
         if(locationString.equals("ManageExistingUser.fxml")){
             // set to static ssn for now for testing
 
+
             if(!DataEntryDriver.ssnInDatabase(DataEntryDriver.stripSSN(manageUserSSNField.getText()))){
+                // if whatever is in the box is not in the database, display this code
                 manageUserSSNField.setText("687-69-8941");
                 manageUserLookupButton.setDisable(false);
             }else{
@@ -187,7 +186,7 @@ public class Controller implements Initializable{
             tellerManageDispData();
         }
         if(locationString.equals("ManageExistingUserUpdateData.fxml")){
-            //
+            populateUpdateDataScreen();
         }
 
         //
@@ -316,6 +315,7 @@ public class Controller implements Initializable{
 
     @FXML
     public void manageUserKeyEvent(KeyEvent e){
+        System.out.println("Start Manage User Key Event");
         EventType<KeyEvent> keyEventType = e.getEventType();
         String keyCodeName = e.getCode().getName();
         String keyEventTypeName = keyEventType.getName();
@@ -323,11 +323,14 @@ public class Controller implements Initializable{
         System.out.println(e.getCode().getName());
         String ssn = DataEntryDriver.stripSSN(manageUserSSNField.getText());
         manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
+        int caretPos = manageUserSSNField.getCaretPosition();
+        String selectedText = manageUserSSNField.getSelectedText();
 
         if(keyCodeName.equals("Enter")){
+            System.out.println("Keycode was enter");
             System.out.println(keyEventType.toString());
             if(keyEventTypeName.equals("KEY_PRESSED")){
-                System.out.println("hello again");
+                System.out.println("Key Event Type Key Pressed");
                 if(!manageUserLookupButton.isDisabled()){
                     System.out.println("Enter key pressed button not disabled");
                     if(Main.loggedInEmployee.getType().equals("T")){
@@ -340,21 +343,40 @@ public class Controller implements Initializable{
                 }
             }
         }else{ // if enter button was not pressed
-            if(keyEventTypeName.equals("KEY_RELEASED")) {
-                String s = manageUserSSNField.getText();
-                s = s.replaceAll(" ","");
-                manageUserSSNField.setText(s);
-                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
+
+            if(keyCodeName.equals("Up") || keyCodeName.equals("Down") || keyCodeName.equals("Left")
+                    || keyCodeName.equals("Right")){
+                return;
+            }
 
 
-
-                if(keyCodeName.equals("Backspace")){
+            if(!keyCodeName.equals("Backspace")){ // if users types number 5 at start of interface
+                if(caretPos==0 && selectedText.length()==11){ // allow users to enter new numbers
                     return;
+                }
+
+            }
+
+
+            if(keyEventTypeName.equals("KEY_RELEASED")) {
+                validateSSNField(e);
+                if(keyCodeName.equals("Backspace")){
+                    if(caretPos==55 || caretPos==85){
+                        //validateSSNField();
+                        //manageUserSSNField.positionCaret(caretPos-1);
+                        //caretPos = manageUserSSNField.getCaretPosition();
+
+                        //manageUserSSNField.positionCaret(caretPos);
+
+                    }
                 }else{
+
+
+
                     System.out.println(keyEventTypeName);
-                    validateSSNField();
+                    validateSSNField(e);
                     ssn = manageUserSSNField.getText();
-                    manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
+                    //manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
 
                     if(!DataEntryDriver.ssnValid(ssn)){// if not 9 digits
                         System.out.println("enter valid number "+ssn);
@@ -374,27 +396,20 @@ public class Controller implements Initializable{
                         }
                     }
                 }
-
-
-
-
             }else{
                 System.out.println("else Key Pressed");
                 if(!keyCodeName.equals("Backspace")){
-                    validateSSNField();
+                    validateSSNField(e);
                 }
             }
         }
 
-
-
-
-
-
-
     }
 
     // END KEY EVENTS BLOCK
+
+
+
 
 
 
@@ -575,17 +590,13 @@ public class Controller implements Initializable{
         }
 
 
-
-
-
-
-
-
-
-
-
-
     }
+
+
+
+
+
+
 
     @FXML
     public void tellerInterfaceAddNewButton(){
@@ -765,82 +776,48 @@ public class Controller implements Initializable{
 
     // GENERAL VALIDATION TYPE METHODS
 
-    public void validateSSNField(){ // just checking to include numbers and '-'
-        // fixes zip (ssn) field to ONLY allow numbers and limit length to 5
-        // [0-9]{3}-?\d\d-?[0-9]{4}
-        // example ssn 123-01-0123
-        // example ssn 000000000
-        // 12354   -4544
-        // 123-54-
-        // 123-54-1234
-        // 123541234
+    public void validateSSNField(KeyEvent e){ // fixes ssn and adds - when needed. bulletproof method of data validation
+        // see DataEntryDriver
+        int position = manageUserSSNField.getCaretPosition();
+        String temp = manageUserSSNField.getText();
+        manageUserSSNField.setText(DataEntryDriver.fixSSN(manageUserSSNField.getText()));
 
-
-        String ssnFieldText = manageUserSSNField.getText();
-        String ssnFieldTextBefore = "";
-        System.out.println("SSN Field before fixing: "+ssnFieldText);
-
-        manageUserSSNField.setText(manageUserSSNField.getText().replaceAll("[^\\d-]",""));
-        manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
-
-
-        if(!manageUserSSNField.getText().matches("[0-9]{3}-?\\d\\d-?[0-9]{4}")){ // if not in format 123-45-6789 or 000000000
-
-            String temp = ssnFieldText.replaceAll("[^\\d]", ""); // This removes everything that isn't number
-            //manageUserSSNField.setText(temp);
-            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
-
-
-
-            //manageUserSSNField.setText(temp);
-            System.out.println("s1: ["+ssnFieldText+"]");
-            System.out.println("s2: ["+temp+"]");
-            ssnFieldText=manageUserSSNField.getText();
-
-            if(temp.length()==3){
-                ssnFieldText=manageUserSSNField.getText();
-                manageUserSSNField.setText(temp+"-");
-                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
-
-                System.out.println("s3: ["+ssnFieldText+"]");
-                System.out.println("s4: ["+temp+"]");
-                System.out.println("BLOCK ONE");
-            }else if(temp.length()==5 ){
-                ssnFieldText=manageUserSSNField.getText();
-                String p1 = temp.substring(0,3);
-                String p2 = temp.substring(3,5);
-                manageUserSSNField.setText(p1+"-"+p2+"-");
-                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
-                System.out.println("s5: ["+ssnFieldText+"]");
-                System.out.println("s6: ["+temp+"]");
-                System.out.println("BLOCK TWO");
-            }else if(temp.length()==9){
-                manageUserSSNField.setText(DataEntryDriver.fixSSN(temp));
-                manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
-                System.out.println("BLOCK THREE");
+        System.out.println(e.getCode().getName().toLowerCase().matches("[^\\d]"));
+        if(e.getCode().getName().toLowerCase().matches("[^\\d]")){
+            if(position!=0){
+                manageUserSSNField.positionCaret(position-1);
+                return;
             }
-
-            //
-            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
-
-            if(manageUserSSNField.getText().length() >11){
-                ssnFieldText = manageUserSSNField.getText().substring(0,11);
-                manageUserSSNField.setText(ssnFieldText);
-                manageUserSSNField.positionCaret(11);
-            }
-
-            //manageUserSSNField.setText(temp);
-            //manageUserSSNField.positionCaret(manageUserSSNField.getText().length());
-
-            System.out.println("SSN field after Fix: "+manageUserSSNField.getText());
 
         }else{
-            return;
+            if(e.getCode().getName().equals("Backspace")){
+                if(position==7){
+                    manageUserSSNField.positionCaret(6);
+                }
+                if(position==4){
+                    manageUserSSNField.positionCaret(3);
+                }else{
+                    manageUserSSNField.positionCaret(position);
+                }
+            }else{
+                if(position==3){
+                    System.out.println("position 4");
+                    manageUserSSNField.positionCaret(4);
+                    System.out.println("CARET SETASDFASKF");
+                }else if(position==6){
+                    manageUserSSNField.positionCaret(7);
+                }else{
+                    manageUserSSNField.positionCaret(position);
+                }
+            }
         }
 
 
-
+        manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(manageUserSSNField.getText()));
     }
+
+
+
 
     // this method gets the data from the interface, checks if it's valid, and returns and arraylist with
     // [0]= fieldName, [1]=data, [2]=isValid
@@ -987,6 +964,27 @@ public class Controller implements Initializable{
 
         return returnVal;
     }
+
+
+    // GENERAL METHODS SUCH AS INTERFACES THAT ARE REUSED LIKE THE UPDATE BASE DATA
+
+
+    public void populateUpdateDataScreen(){
+        updateDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
+        updateDataFirstName.setText(Main.customerAccount.getFirstName());
+        updateDataLastName.setText(Main.customerAccount.getLastName());
+        updateDataAddress.setText(Main.customerAccount.getStreetAddr());
+        updateDataCity.setText(Main.customerAccount.getCity());
+        updateDataState.setText(Main.customerAccount.getState());
+        updateDataZip.setText(Main.customerAccount.getZip());
+    }
+
+
+
+
+    // end general block
+
+
 
 
 
@@ -1158,13 +1156,13 @@ public class Controller implements Initializable{
                 ", manageExistingTellerFundsTransferAmount=" + manageExistingTellerFundsTransferAmount +
                 ", tellerUpdateDataPreviousButton=" + tellerUpdateDataPreviousButton +
                 ", tellerUpdateDataSaveButton=" + tellerUpdateDataSaveButton +
-                ", tellerUpdateDataSSN=" + tellerUpdateDataSSN +
-                ", tellerUpdateDataFirstName=" + tellerUpdateDataFirstName +
-                ", tellerUpdateDataLastName=" + tellerUpdateDataLastName +
-                ", tellerUpdateDataStreetAddress=" + tellerUpdateDataStreetAddress +
-                ", tellerUpdateDataCity=" + tellerUpdateDataCity +
-                ", tellerUpdateDataState=" + tellerUpdateDataState +
-                ", tellerUpdateDataZip=" + tellerUpdateDataZip +
+                ", updateDataSSN=" + updateDataSSN +
+                ", tellerUpdateDataFirstName=" + updateDataFirstName +
+                ", updateDataLastName=" + updateDataLastName +
+                ", updateDataAddress=" + updateDataAddress +
+                ", updateDataCity=" + updateDataCity +
+                ", updateDataState=" + updateDataState +
+                ", updateDataZip=" + updateDataZip +
                 ", fName='" + fName + '\'' +
                 ", lName='" + lName + '\'' +
                 ", socialSec='" + socialSec + '\'' +

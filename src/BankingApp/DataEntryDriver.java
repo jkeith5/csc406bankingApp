@@ -216,23 +216,52 @@ public class DataEntryDriver {
     }
 
     public static String stripSSN(String ssn){
-        String result = ssn.replace("-","");
+        String result = ssn.replaceAll("[^\\d]", "");
         return result;
     }
+
+
 
     public static String fixSSN(String ssnStripped){
         String result = ssnStripped;
         result = stripSSN(result);
+        String p1;
+        String p2;
+        String p3;
 
-        if(!ssnValid(result)){
-            result = makeSSNValid(result);
+        if(result.length()==3){
+            p1 = result;
+            result= p1+"-";
+            return result;
+        }else if(result.length()>3 && result.length()<6){
+            if(result.length()==5){
+                p1 = result.substring(0,3);
+                p2 = result.substring(3,5);
+                result= p1+"-"+p2+"-";
+                return result;
+            }else{
+                p1 = result.substring(0,3);
+                p2 = result.substring(3,result.length());
+                result= p1+"-"+p2;
+                return result;
+            }
+        }else if(result.length()>5 && result.length()<10){
+            p1 = result.substring(0,3);
+            p2 = result.substring(3,5);
+            p3 = result.substring(p1.length()+p2.length());
+            if(result.length()==9){
+                return  p1+"-"+p2+"-"+p3;
+            }
+            result= p1+"-"+p2+"-"+p3;
+            return result;
+        }else if(result.length()>9){
+            result = result.substring(0,9);
+            return fixSSN(result);
         }else{
-            String p1 = result.substring(0,3);
-            String p2 = result.substring(3,5);
-            String p3 = result.substring(p1.length()+p2.length());
-            result = p1+"-"+p2+"-"+p3;
+            return result;
         }
-        return result;
+
+
     }
 
 
@@ -320,6 +349,7 @@ public class DataEntryDriver {
 
         return result;
     }
+
 
 
 
