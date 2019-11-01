@@ -27,7 +27,10 @@ public class CustomerAccount implements Serializable {
 
     public boolean hasLoanAccount=false;
 
-    public SavingsAccount savingsAccount;
+    //public SavingsAccount savingsAccount;
+    public ArrayList<SavingsAccount> savingsAccounts = new ArrayList<SavingsAccount>();
+
+
     public CheckingAccount checkingAccount;
 
     public ArrayList<Transaction> transactions= new ArrayList<Transaction>();
@@ -98,7 +101,8 @@ public class CustomerAccount implements Serializable {
         this.zip = zip;
         this.atmCardNumber = atmCardNumber;
         this.dateCreated = dateCreated;
-        this.savingsAccount = savingsAccount;
+        addSavingsAccount(savingsAccount);
+        //this.savingsAccount = savingsAccount;
         this.hasSavingsAccount=true;
     }
 
@@ -114,7 +118,8 @@ public class CustomerAccount implements Serializable {
         this.zip = zip;
         this.atmCardNumber = atmCardNumber;
         this.dateCreated = dateCreated;
-        this.savingsAccount = savingsAccount;
+        addSavingsAccount(savingsAccount);
+        //this.savingsAccount = savingsAccount;
         this.checkingAccount = checkingAccount;
         this.loanAccounts = loanAccounts;
         this.hasCheckingAccount=true;
@@ -243,12 +248,21 @@ public class CustomerAccount implements Serializable {
         this.hasLoanAccount = hasLoanAccount;
     }
 
-    public SavingsAccount getSavingsAccount() {
-        return savingsAccount;
+    public ArrayList<SavingsAccount> getSavingsAccounts() {
+        return savingsAccounts;
+    }
+
+    public SavingsAccount getSavingsAccount(){
+        return this.savingsAccounts.get(0);
+    }
+
+    public SavingsAccount getSavingsAccountByIndex(int index){
+        return this.savingsAccounts.get(index);
     }
 
     public void addSavingsAccount(SavingsAccount savingsAccount) {
-        this.savingsAccount = savingsAccount;
+        //this.savingsAccount = savingsAccount;
+        this.savingsAccounts.add(savingsAccount);
         setHasSavingsAccount(true);
     }
 
@@ -351,7 +365,7 @@ public class CustomerAccount implements Serializable {
                 ", hasLongTermLoan=" + hasLongTermLoan +
                 ", hasCreditCardAcct=" + hasCreditCardAcct +
                 ", hasLoanAccount=" + hasLoanAccount +
-                ", savingsAccount=" + savingsAccount +
+                ", savingsAccount=" + savingsAccounts +
                 ", checkingAccount=" + checkingAccount +
                 ", transactions=" + transactions +
                 ", loanAccounts=" + loanAccounts +

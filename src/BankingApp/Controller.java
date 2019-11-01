@@ -166,7 +166,9 @@ public class Controller implements Initializable{
                 // if whatever is in the box is not in the database, display this code
                 manageUserSSNField.setText("687-69-8941");
                 manageUserLookupButton.setDisable(false);
+                setManageUserErrLabel(manageUserSSNField.getText());
             }else{
+
                 manageUserKeyEvent(null);
             }
 
@@ -426,25 +428,27 @@ public class Controller implements Initializable{
                     System.out.println(keyEventTypeName);
                     validateSSNField(e);
                     ssn = manageUserSSNField.getText();
+                    setManageUserErrLabel(ssn);
+
                     //manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
 
-                    if(!DataEntryDriver.ssnValid(ssn)){// if not 9 digits
-                        System.out.println("enter valid number "+ssn);
-                        lookupInterErrLabel.setText("Please Enter a Valid 9 digit SSN number");
-                    }else{ // if ssn is 9 digits
-                        if(!DataEntryDriver.ssnInDatabase(ssn)) {
-                            System.out.println("ssn not in database please go to add account");
-                            lookupInterErrLabel.setText("The SSN you Entered Is not In the Database.\nGo to Add new Customer or enter" +
-                                    " a valid 9 Digit SSN number.");
-                        }else{
-                            CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(manageUserSSNField.getText());
-                            lookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
-                            //Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+ ca.toString());
-                            System.out.println("LAST SSN: "+ssn);
-                            manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
-
-                        }
-                    }
+//                    if(!DataEntryDriver.ssnValid(ssn)){// if not 9 digits
+//                        System.out.println("enter valid number "+ssn);
+//                        lookupInterErrLabel.setText("Please Enter a Valid 9 digit SSN number");
+//                    }else{ // if ssn is 9 digits
+//                        if(!DataEntryDriver.ssnInDatabase(ssn)) {
+//                            System.out.println("ssn not in database please go to add account");
+//                            lookupInterErrLabel.setText("The SSN you Entered Is not In the Database.\nGo to Add new Customer or enter" +
+//                                    " a valid 9 Digit SSN number.");
+//                        }else{
+//                            CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(manageUserSSNField.getText());
+//                            lookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
+//                            //Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+ ca.toString());
+//                            System.out.println("LAST SSN: "+ssn);
+//                            manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
+//
+//                        }
+//                    }
                 }
             }else{
                 System.out.println("else Key Pressed");
@@ -458,6 +462,29 @@ public class Controller implements Initializable{
 
     // END KEY EVENTS BLOCK
 
+    // sets the err label in manage user accordingly
+    public void setManageUserErrLabel(String ssn){
+        ssn = DataEntryDriver.stripSSN(ssn);
+
+        if(!DataEntryDriver.ssnValid(ssn)){// if not 9 digits
+            System.out.println("enter valid number "+ssn);
+            lookupInterErrLabel.setText("Please Enter a Valid 9 digit SSN number");
+        }else{ // if ssn is 9 digits
+            if(!DataEntryDriver.ssnInDatabase(ssn)) {
+                System.out.println("ssn not in database please go to add account");
+                lookupInterErrLabel.setText("The SSN you Entered Is not In the Database.\nGo to Add new Customer or enter" +
+                        " a valid 9 Digit SSN number.");
+            }else{
+                CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(manageUserSSNField.getText());
+                lookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
+                //Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+ ca.toString());
+                System.out.println("LAST SSN: "+ssn);
+                manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
+
+            }
+        }
+
+    }
 
 
 
