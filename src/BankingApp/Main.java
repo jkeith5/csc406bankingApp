@@ -1,13 +1,11 @@
 package BankingApp;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -68,6 +66,9 @@ public class Main extends Application {
         System.out.println("initalizing in Main");
 
         try {
+            File sqliteModule = new File("src/Resources/sqlite-jdbc.jar");
+            ModuleLoader.addModule(sqliteModule);
+
             // first initialize the PrintWriters of the log file and employee log file
             outputFile = new File("src/Resources/outputLog.txt");
             outputEmployeeRecord = new File("src/Resources/EmployeeRecord.txt");

@@ -722,14 +722,33 @@ public class Controller implements Initializable{
     @FXML
     public void tellerInterfaceUpdateDataSaveButton(){
         Parent root = null;
-
         // to do record the new customer account in log file and pull data fields here.
         // add code to pull the data for the currentSSN data
+
         System.out.println("current ssn is: "+Main.currentCustomerID);
         String ssn = Main.currentCustomerID;
         CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ssn);
 
         System.out.println(ca.toString());
+
+        ca.setCustID(DataEntryDriver.fixSSN(updateDataSSN.getText()));
+        ca.setFirstName(updateDataFirstName.getText().trim());
+        ca.setLastName(updateDataLastName.getText().trim());
+        ca.setStreetAddr(updateDataAddress.getText().trim());
+        ca.setCity(updateDataCity.getText().trim());
+        ca.setState(updateDataState.getText().trim().toUpperCase());
+        ca.setZip(updateDataZip.getText().trim());
+
+        DataEntryDriver.updateCustomerAccount(ca,ssn);
+
+        //ArrayList<String> testArrListOfState = DataEntryDriver.createStatesArray();
+
+
+
+        String[] testCityState = DataEntryDriver.getCityStateFromZip("64505");
+
+        System.out.println(Arrays.toString(testCityState));
+
 
 
         try {
@@ -772,6 +791,8 @@ public class Controller implements Initializable{
 
 
 
+    public static int positionAtKeyPress = -1;
+    public static String lastEventTypeName="";
 
 
     // GENERAL VALIDATION TYPE METHODS
@@ -779,17 +800,34 @@ public class Controller implements Initializable{
     public void validateSSNField(KeyEvent e){ // fixes ssn and adds - when needed. bulletproof method of data validation
         // see DataEntryDriver
         int position = manageUserSSNField.getCaretPosition();
-        String temp = manageUserSSNField.getText();
-        manageUserSSNField.setText(DataEntryDriver.fixSSN(manageUserSSNField.getText()));
+        String keyCodeName = e.getCode().getName().toLowerCase();
+        EventType keyEventType = e.getEventType();
+        String keyEventTypeName = keyEventType.getName();
 
-        System.out.println(e.getCode().getName().toLowerCase().matches("[^\\d]"));
-        if(e.getCode().getName().toLowerCase().matches("[^\\d]")){
-            if(position!=0){
-                manageUserSSNField.positionCaret(position-1);
-                return;
+        if(keyCodeName.matches("[^\\d]")){// if not a digit return true or if digit false // if letter block
+
+            if(keyEventTypeName.equals("KEY_PRESSED")){ // if key is pressed
+                if(!lastEventTypeName.equals("KEY_PRESSED")){ // if last event type was not a key press ie. key release true or if first keypress
+                    positionAtKeyPress = manageUserSSNField.getCaretPosition(); // get the position at the first key press
+                    lastEventTypeName = keyEventTypeName; // set last event type
+                }else{ // if last event is key pressed and this event is also key pressed
+                    manageUserSSNField.setText(DataEntryDriver.fixSSN(manageUserSSNField.getText()));
+                    manageUserSSNField.positionCaret(positionAtKeyPress);
+                    return;
+                }
+
+            }else if(keyEventTypeName.equals("KEY_RELEASED")){ // if key is released
+                // just set position to whatever it was when first keypress was recorded.
+
+                manageUserSSNField.setText(DataEntryDriver.fixSSN(manageUserSSNField.getText()));
+                manageUserSSNField.positionCaret(positionAtKeyPress);
+                lastEventTypeName=keyEventTypeName;
             }
 
-        }else{
+
+        }else{ // else entered key was a digit
+            positionAtKeyPress=manageUserSSNField.getCaretPosition();
+            manageUserSSNField.setText(DataEntryDriver.fixSSN(manageUserSSNField.getText()));
             if(e.getCode().getName().equals("Backspace")){
                 if(position==7){
                     manageUserSSNField.positionCaret(6);
@@ -801,9 +839,7 @@ public class Controller implements Initializable{
                 }
             }else{
                 if(position==3){
-                    System.out.println("position 4");
                     manageUserSSNField.positionCaret(4);
-                    System.out.println("CARET SETASDFASKF");
                 }else if(position==6){
                     manageUserSSNField.positionCaret(7);
                 }else{

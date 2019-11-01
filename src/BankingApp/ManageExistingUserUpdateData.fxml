@@ -20,7 +20,7 @@
             <Label layoutX="144.0" layoutY="230.0" prefHeight="17.0" prefWidth="27.0" text="City:" translateX="67.0" />
             <Label layoutX="144.0" layoutY="265.0" prefHeight="17.0" prefWidth="37.0" text="State:" translateX="67.0" />
             <Label layoutX="144.0" layoutY="300.0" prefHeight="17.0" prefWidth="21.0" text="Zip:" translateX="67.0" />
-            <TextField fx:id="updateDataSSN" layoutX="241.0" layoutY="90.0" text="temp1" translateX="67.0" />
+            <TextField fx:id="updateDataSSN" editable="false" focusTraversable="false" layoutX="241.0" layoutY="90.0" opacity="0.61" text="temp1" translateX="67.0" />
             <TextField fx:id="updateDataFirstName" layoutX="241.0" layoutY="125.0" text="temp" translateX="67.0" />
             <TextField fx:id="updateDataLastName" layoutX="241.0" layoutY="160.0" text="temp" translateX="67.0" />
             <TextField fx:id="updateDataAddress" layoutX="241.0" layoutY="195.0" text="temp" translateX="67.0" />

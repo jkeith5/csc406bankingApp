@@ -2,6 +2,7 @@ package BankingApp;
 
 import java.io.*;
 import java.net.URL;
+import java.sql.*;
 import java.text.NumberFormat;
 import java.util.*;
 
@@ -199,6 +200,24 @@ public class DataEntryDriver {
         }
     }
 
+    public static boolean updateCustomerAccount(CustomerAccount ca,String ssn){
+        boolean returnVal = false;
+
+        if(ssnValidAndInDatabase(ssn)){
+            int indexOfCa = getIndexOfCustomerAccountInArray(ssn);
+            CustomerAccount oldCA = getCustomerAccountFromCustomerID(ssn);
+            Main.customerAccounts.set(indexOfCa,ca);
+            returnVal=true;
+            Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+
+                    " updated account: "+oldCA.toString()+" With data: "+ca.toString());
+
+        }
+
+
+
+        return returnVal;
+    }
+
 
     public static int getIndexOfCustomerAccountInArray(String ssn){
         int returnVal = -1;
@@ -349,6 +368,220 @@ public class DataEntryDriver {
 
         return result;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // city stat combo box database related stuff
+
+    public static Connection connectToDB(String databaseName){
+        try {
+            String connectString = "jdbc:sqlite:" + databaseName;
+            Connection conn = DriverManager.getConnection(connectString);
+            if(conn == null) {
+                conn = null;
+            }
+            return conn;
+        } catch (SQLException e) {
+            try {
+                Main.out.println("Error in connect to db: Error");
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public static String getZipFromCityState(String state,String city){
+        // returns the zip code given the city and state
+        String result = "";
+
+        Connection conn = null;
+        if(runningFromIDE()){
+            conn = connectToDB("src/Resources/zipDatabase.db");
+        }else{
+            conn = connectToDB(System.getProperty("user.dir")+"/Resources/zipDatabase.db");
+        }
+
+        if(conn == null){
+            System.exit(1);
+        }
+
+        try {
+            Statement stmt = conn.createStatement();
+
+            String queryString = String.format("Select * from zips where state like '%s' and city like '%s' and decommissioned like 'false' " +
+                    "order by estimatedpopulation",state,city);//and locationtype like 'primary'
+            ResultSet rs = stmt.executeQuery(queryString);
+            while (rs.next()) {
+                result = rs.getString("zipcode");
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            result = "error";
+        }
+        closeDB(conn);
+        return result;
+    }
+
+    public static void closeDB(Connection conn){
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<String> createStatesArray() {
+        // populates the states array for the ComboBox
+        ArrayList<String> result = new ArrayList<String>();
+        if(!runningFromIDE()){
+            File test = new File(System.getProperty("user.dir")+"/Resources/zipDatabase.db");
+            if(!test.exists()){
+                try {
+                    Main.out.println(Main.getDateTimeString()+" ZipDatabase does not exist in resources folder");
+                    Main.out.println(Main.getDateTimeString()+" Abs path of db: "+test.getAbsolutePath());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        Connection conn;
+        if(runningFromIDE()){
+            conn = connectToDB("src/Resources/zipDatabase.db");
+        }else{
+            conn = connectToDB(System.getProperty("user.dir")+"/Resources/zipDatabase.db");
+        }
+
+        if(conn == null){
+            return null;
+        }
+
+        try {
+            Statement stmt = conn.createStatement();
+            String queryString = String.format("Select * from states order by stateFull");
+            ResultSet rs = stmt.executeQuery(queryString);
+            while(rs.next()){
+                result.add(rs.getString("stateFull"));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e){
+            System.out.println("something up");
+        }
+        closeDB(conn);
+        return result;
+
+    }
+
+
+    public static String[] getCityStateFromZip(String zip){
+        String[] zipInfo = new String[2];
+
+        String userDir = System.getProperty("user.dir").replaceAll("%20"," ");
+        Connection conn;
+        if(runningFromIDE()){
+            conn = connectToDB("src/Resources/zipDatabase.db");
+        }else{
+            conn = connectToDB(userDir+"/Resources/zipDatabase.db");
+        }
+
+        if(conn == null){
+            System.out.println("con is NULLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+        }
+
+        try {
+            Statement stmt = conn.createStatement();
+            String queryString = String.format("Select * from zips where zipcode like '%s' and locationtype like 'PRIMARY' ",zip);
+            ResultSet rs = stmt.executeQuery(queryString);
+            while (rs.next()) {
+                zipInfo[0] = rs.getString("city");
+                zipInfo[1] = rs.getString("state");
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            zipInfo[0]="error"; // catches errors and sets the output accordingly so I can handle it in the Controller
+            zipInfo[1] = "error";
+        }
+        closeDB(conn);
+        if(zipInfo[0] == null || zipInfo[1] == null){
+            zipInfo[0] = "error";
+            zipInfo[1] = "error";
+        }
+        return zipInfo;
+    }
+
+    public static String fullStateToAbb(String fullState) {
+        // returns the state abbreviation given the full state name
+        String result = "";
+
+        Connection conn = null;
+        if(runningFromIDE()){
+            conn = connectToDB("src/Resources/zipDatabase.db");
+        }else{
+            conn = connectToDB(System.getProperty("user.dir")+"/Resources/zipDatabase.db");
+        }
+
+        if(conn == null){
+            Main.out.println("CreateStatesArray Error Conn is null");
+            System.exit(1);
+        }
+
+        try {
+            Statement stmt = conn.createStatement();
+            String queryString = String.format("Select * from states where stateFull like '%s' ",fullState);
+            ResultSet rs = stmt.executeQuery(queryString);
+            while(rs.next()){
+                result = rs.getString("stateAbb");
+            }
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeDB(conn);
+        return result;
+    }
+
+    public static boolean runningFromIDE(){
+        String userDir = System.getProperty("user.dir");
+        File f = new File(userDir+"/src");
+        if(f.exists()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+
+
+
+
 
 
 
