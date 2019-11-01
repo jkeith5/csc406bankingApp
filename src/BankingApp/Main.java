@@ -37,7 +37,7 @@ public class Main extends Application {
         Main.primaryStage.setTitle("Teller Bank Application(WIP)");
         Main.primaryStage.setScene(new Scene(root, 700, 500));
         Main.primaryStage.show();
-        System.out.println("in main start block");
+        System.out.println("In main start block");
 
     }
 
@@ -53,7 +53,7 @@ public class Main extends Application {
         if(arrayWrittenToFile){
             out.println(getDateTimeString()+"The Customer Accounts Database Was sucessfully Written to the File");
         }else{
-            out.println(getDateTimeString()+"There was some error writing the Accounts to a file.");
+            out.println(getDateTimeString()+"There was an error writing the Accounts to a file.");
         }
 
         out.close();
@@ -63,7 +63,7 @@ public class Main extends Application {
 
     public void initialize() {
         // here we can initialize our database into the arrayList objects.
-        System.out.println("initalizing in Main");
+        System.out.println("initializing in Main");
 
         try {
             File sqliteModule = new File("src/Resources/sqlite-jdbc.jar");
