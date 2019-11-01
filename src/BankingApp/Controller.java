@@ -216,6 +216,8 @@ public class Controller implements Initializable{
         String fName = fNameTextField.getText();
         String lName = lNameTextField.getText();
         String ssn = socialSecTextField.getText();
+        ssn = DataEntryDriver.fixSSN(ssn);
+
         String streetAddress = streetAddressTextField.getText();
         String city = cityTextField.getText();
         String zipCode = zipCodeTextField.getText();
@@ -486,6 +488,15 @@ public class Controller implements Initializable{
 
     }
 
+
+    public void deleteAccountButton(){
+        DataEntryDriver.removeCustomerAccount(Main.customerAccount.getCustID());
+
+        if(Main.loggedInEmployee.getType().equals("T")){
+            goToTellerScene();
+        }
+
+    }
 
 
 

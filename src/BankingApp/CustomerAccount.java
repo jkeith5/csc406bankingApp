@@ -52,7 +52,8 @@ public class CustomerAccount implements Serializable {
     }
 
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String dateCreated) {
-        this.custID = custID;
+        //this.custID = custID;
+        setCustID(custID);
         this.firstName = firstName;
         this.lastName = lastName;
         this.streetAddr = streetAddr;
@@ -64,7 +65,8 @@ public class CustomerAccount implements Serializable {
 
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
                            String state, String zip,String dateCreated, String atmCardNumber) {
-        this.custID = custID;
+        //this.custID = custID;
+        setCustID(custID);
         this.firstName = firstName;
         this.lastName = lastName;
         this.streetAddr = streetAddr;
@@ -77,7 +79,8 @@ public class CustomerAccount implements Serializable {
 
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
                            String state, String zip, String atmCardNumber, String dateCreated, CheckingAccount checkingAccount) {
-        this.custID = custID;
+        //this.custID = custID;
+        setCustID(custID);
         this.firstName = firstName;
         this.lastName = lastName;
         this.streetAddr = streetAddr;
@@ -92,7 +95,8 @@ public class CustomerAccount implements Serializable {
 
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
                            String state, String zip, String atmCardNumber, String dateCreated, SavingsAccount savingsAccount) {
-        this.custID = custID;
+        //this.custID = custID;
+        setCustID(custID);
         this.firstName = firstName;
         this.lastName = lastName;
         this.streetAddr = streetAddr;
@@ -109,7 +113,8 @@ public class CustomerAccount implements Serializable {
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
                            String state, String zip, String atmCardNumber, String dateCreated,
                            SavingsAccount savingsAccount, CheckingAccount checkingAccount, ArrayList<LoanAccount> loanAccounts) {
-        this.custID = custID;
+        //this.custID = custID;
+        setCustID(custID);
         this.firstName = firstName;
         this.lastName = lastName;
         this.streetAddr = streetAddr;
@@ -132,7 +137,8 @@ public class CustomerAccount implements Serializable {
     }
 
     public void setCustID(String custID) {
-        this.custID = custID;
+        //this.custID = custID;
+        this.custID = DataEntryDriver.fixSSN(custID);
         this.isNull=false;
     }
 
