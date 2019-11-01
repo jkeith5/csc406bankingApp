@@ -90,6 +90,10 @@ public class Controller implements Initializable{
     @FXML Button manageExistingTellerDebitCreditAccountButton;
     @FXML RadioButton manageExistingTellerCheckingAccount;
     @FXML RadioButton manageExistingTellerSavingsAccount;
+    @FXML CheckBox manageExistingTellerTransferFunds;
+    @FXML Label manageExistingTellerCheckingLabel;
+    @FXML Label manageExistingTellerSavingsLabel;
+
     @FXML TextField manageExistingTellerFundsTransferAmount;
 
 
@@ -170,16 +174,22 @@ public class Controller implements Initializable{
         if(locationString.equals("ManageExistingUserDisplayDataTeller.fxml")){
             CustomerAccount ca = Main.customerAccount;
             accTypeToggleGroup = manageExistingTellerCheckingAccount.getToggleGroup();
+            manageExistingTellerTransferFunds.setSelected(false);
+            manageExistingTellerTransferFunds.setDisable(true);
 
             if(ca.hasCheckingAccount()){
                 manageExistingTellerCheckingAccount.setSelected(true);
-            }else{
-                manageExistingTellerCheckingAccount.setDisable(true);
             }
             if(!ca.hasSavingsAccount()){
                 manageExistingTellerSavingsAccount.setDisable(true);
             }else{
                 manageExistingTellerSavingsAccount.setDisable(false);
+            }
+
+            if(ca.hasSavingsAccount && ca.hasCheckingAccount()){
+                manageExistingTellerTransferFunds.setDisable(false);
+                manageExistingTellerCheckingLabel.setText("");
+                manageExistingTellerSavingsLabel.setText("");
             }
 
 
@@ -254,6 +264,46 @@ public class Controller implements Initializable{
     public void displayDataRadioButtonEvent(){
         // if no account of each type disable radio button for that account
         tellerManageDispData();
+
+        System.out.println(accTypeToggleGroup.toString());
+
+        if(manageExistingTellerTransferFunds.isSelected()){ // if box is selected
+
+            if(manageExistingTellerCheckingAccount.isSelected()){
+                manageExistingTellerCheckingLabel.setText("From: ");
+                manageExistingTellerSavingsLabel.setText("To: ");
+            }else{
+                manageExistingTellerSavingsLabel.setText("From: ");
+                manageExistingTellerCheckingLabel.setText("To: ");
+            }
+
+
+
+        }else{// if box was not selected
+            manageExistingTellerCheckingLabel.setText("");
+            manageExistingTellerSavingsLabel.setText("");
+        }
+
+    }
+
+    public void transferFundsCheckBoxEvent(){
+        System.out.println("transfer funds block event");
+
+        if(!manageExistingTellerTransferFunds.isDisabled()){
+            if(manageExistingTellerTransferFunds.isSelected()){
+                System.out.println("selected");
+                displayDataRadioButtonEvent();
+            }else{
+                System.out.println("not selected");
+                manageExistingTellerCheckingLabel.setText("");
+                manageExistingTellerSavingsLabel.setText("");
+            }
+        }
+
+
+
+
+
     }
 
     public void enterKeyDefaultEvent(KeyEvent e){
