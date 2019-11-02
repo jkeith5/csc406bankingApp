@@ -347,8 +347,7 @@ public class Controller implements Initializable{
     public void enterKeyDefaultEvent(KeyEvent e){
         // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
         Node focusedNode = Main.primaryStage.getScene().getFocusOwner();
-        System.out.println(focusedNode.toString());
-        System.out.println(focusedNode.getId().toString());
+
         if(e.getCode().getName().equals("Enter")){
             if(Main.primaryStage.getScene().getFocusOwner() instanceof Button){
                 Button fireButton = (Button) Main.primaryStage.getScene().focusOwnerProperty().get();
@@ -388,18 +387,72 @@ public class Controller implements Initializable{
         }
     }
 
-    public void enterKeyLoginExit(KeyEvent e){
-        // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
+
+    public <T> T getFocusedObject(){ // so far returns a TextField or Button of focused object
+        // use caution with how and when you call this.
         Node focusedNode = Main.primaryStage.getScene().getFocusOwner();
-        System.out.println(focusedNode.toString());
-        System.out.println(focusedNode.getId().toString());
-        if(e.getCode().getName().equals("Enter")){
-            if(Main.primaryStage.getScene().getFocusOwner() instanceof Button){
-                loginInterfaceExitButton();
-                //fireButton.fire();
-            }
+
+        if(focusedNode instanceof TextField){
+            TextField returnVal = (TextField) Main.primaryStage.getScene().focusOwnerProperty().get();
+            return (T) returnVal;
+        }else if(focusedNode instanceof Button){
+            Button returnVal = (Button) Main.primaryStage.getScene().focusOwnerProperty().get();
+            return (T) returnVal;
+        }else{
+            return null;
+        }
+
+    }
+
+
+    public void enterKeyLoginExit(KeyEvent e){
+        if(e.getCode().getName().equals("Enter") && Main.primaryStage.getScene().getFocusOwner() instanceof Button ){
+            loginInterfaceExitButton();
         }
     }
+
+
+    @FXML
+    public void ssnFieldKeyEvent(KeyEvent e){ // a generic and multi use method to validate any ssn textfield hopefully
+        System.out.println("Start SSN field key event");
+        EventType<KeyEvent> keyEventType = e.getEventType();
+        String keyCodeName = e.getCode().getName();
+        String keyEventTypeName = keyEventType.getName();
+        System.out.println(e.getCode().getName());
+
+        TextField focusedTextField = getFocusedObject();
+
+        if(keyCodeName.equals("Up") || keyCodeName.equals("Down") || keyCodeName.equals("Left")
+                || keyCodeName.equals("Right")){
+            return;
+        }
+
+        // only fired if all text is selected and full ssn length of 11 is entered. Launch of interface with textfield selected
+        if(!keyCodeName.equals("Backspace")){ // if users types number 5 at start of interface
+            if(focusedTextField.getCaretPosition()==0 && focusedTextField.getText().length()==11){ // allow users to enter new numbers
+                return;
+            }
+
+        }
+
+
+        if(keyEventTypeName.equals("KEY_RELEASED")) {
+            validateSSNField(e,focusedTextField);
+            if(!keyCodeName.equals("Backspace")){
+                System.out.println(keyEventTypeName);
+                validateSSNField(e,focusedTextField);
+            }
+        }else{
+            System.out.println("else Key Pressed");
+            if(!keyCodeName.equals("Backspace")){
+                validateSSNField(e,focusedTextField);
+            }
+        }
+
+
+
+    }
+
 
     @FXML
     public void manageUserKeyEvent(KeyEvent e){
@@ -414,7 +467,7 @@ public class Controller implements Initializable{
         int caretPos = manageUserSSNField.getCaretPosition();
         String selectedText = manageUserSSNField.getSelectedText();
 
-        if(keyCodeName.equals("Enter")){
+        if(keyCodeName.equals("Enter")){ // allows enter button to fire main event
             System.out.println("Keycode was enter");
             System.out.println(keyEventType.toString());
             if(keyEventTypeName.equals("KEY_PRESSED")){
@@ -431,35 +484,9 @@ public class Controller implements Initializable{
                 }
             }
         }else{ // if enter button was not pressed
-
-            if(keyCodeName.equals("Up") || keyCodeName.equals("Down") || keyCodeName.equals("Left")
-                    || keyCodeName.equals("Right")){
-                return;
-            }
-
-
-            if(!keyCodeName.equals("Backspace")){ // if users types number 5 at start of interface
-                if(caretPos==0 && selectedText.length()==11){ // allow users to enter new numbers
-                    return;
-                }
-
-            }
-
-
-            if(keyEventTypeName.equals("KEY_RELEASED")) {
-                validateSSNField(e);
-                if(!keyCodeName.equals("Backspace")){
-                    System.out.println(keyEventTypeName);
-                    validateSSNField(e);
-                    ssn = manageUserSSNField.getText();
-                    setManageUserErrLabel(ssn);
-                }
-            }else{
-                System.out.println("else Key Pressed");
-                if(!keyCodeName.equals("Backspace")){
-                    validateSSNField(e);
-                }
-            }
+            ssnFieldKeyEvent(e);
+            manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(manageUserSSNField.getText()));
+            setManageUserErrLabel(manageUserSSNField.getText());
         }
 
     }
@@ -693,7 +720,6 @@ public class Controller implements Initializable{
         System.out.println("tellerInterfaceAddNewButton");
         Parent root = null;
 
-        printAllData();//testing
 
         try {
             root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
@@ -712,7 +738,6 @@ public class Controller implements Initializable{
 
         Parent root = null;
 
-        printAllData();//testing
 
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
@@ -887,9 +912,9 @@ public class Controller implements Initializable{
 
     // GENERAL VALIDATION TYPE METHODS
 
-    public void validateSSNField(KeyEvent e){ // fixes ssn and adds - when needed. bulletproof method of data validation
+    public void validateSSNField(KeyEvent e,TextField textField){ // fixes ssn and adds - when needed. bulletproof method of data validation
         // see DataEntryDriver
-        int position = manageUserSSNField.getCaretPosition();
+        int position = textField.getCaretPosition();
         String keyCodeName = e.getCode().getName().toLowerCase();
         EventType keyEventType = e.getEventType();
         String keyEventTypeName = keyEventType.getName();
@@ -898,48 +923,44 @@ public class Controller implements Initializable{
 
             if(keyEventTypeName.equals("KEY_PRESSED")){ // if key is pressed
                 if(!lastEventTypeName.equals("KEY_PRESSED")){ // if last event type was not a key press ie. key release true or if first keypress
-                    positionAtKeyPress = manageUserSSNField.getCaretPosition(); // get the position at the first key press
+                    positionAtKeyPress = textField.getCaretPosition(); // get the position at the first key press
                     lastEventTypeName = keyEventTypeName; // set last event type
                 }else{ // if last event is key pressed and this event is also key pressed
-                    manageUserSSNField.setText(DataEntryDriver.fixSSN(manageUserSSNField.getText()));
-                    manageUserSSNField.positionCaret(positionAtKeyPress);
+                    textField.setText(DataEntryDriver.fixSSN(textField.getText()));
+                    textField.positionCaret(positionAtKeyPress);
                     return;
                 }
 
             }else if(keyEventTypeName.equals("KEY_RELEASED")){ // if key is released
                 // just set position to whatever it was when first keypress was recorded.
-
-                manageUserSSNField.setText(DataEntryDriver.fixSSN(manageUserSSNField.getText()));
-                manageUserSSNField.positionCaret(positionAtKeyPress);
+                textField.setText(DataEntryDriver.fixSSN(textField.getText()));
+                textField.positionCaret(positionAtKeyPress);
                 lastEventTypeName=keyEventTypeName;
             }
 
 
         }else{ // else entered key was a digit
-            positionAtKeyPress=manageUserSSNField.getCaretPosition();
-            manageUserSSNField.setText(DataEntryDriver.fixSSN(manageUserSSNField.getText()));
+            positionAtKeyPress=textField.getCaretPosition();
+            textField.setText(DataEntryDriver.fixSSN(textField.getText()));
             if(e.getCode().getName().equals("Backspace")){
                 if(position==7){
-                    manageUserSSNField.positionCaret(6);
+                    textField.positionCaret(6);
                 }
                 if(position==4){
-                    manageUserSSNField.positionCaret(3);
+                    textField.positionCaret(3);
                 }else{
-                    manageUserSSNField.positionCaret(position);
+                    textField.positionCaret(position);
                 }
             }else{
                 if(position==3){
-                    manageUserSSNField.positionCaret(4);
+                    textField.positionCaret(4);
                 }else if(position==6){
-                    manageUserSSNField.positionCaret(7);
+                    textField.positionCaret(7);
                 }else{
-                    manageUserSSNField.positionCaret(position);
+                    textField.positionCaret(position);
                 }
             }
         }
-
-
-        manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(manageUserSSNField.getText()));
     }
 
 

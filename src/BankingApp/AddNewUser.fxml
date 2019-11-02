@@ -24,7 +24,7 @@
             <Label id="successfulEntry" fx:id="successfulEntryLabel" prefHeight="21.0" prefWidth="253.0" text="Label" textAlignment="RIGHT" visible="false" />
             <TextField id="fNameTextField" fx:id="fNameTextField" layoutX="261.0" layoutY="53.0" onKeyReleased="#addNewUserKeyEvent" promptText="Enter First Name..." translateX="69.0" />
             <TextField id="lNameTextField" fx:id="lNameTextField" layoutX="261.0" layoutY="91.0" onKeyReleased="#addNewUserKeyEvent" promptText="Enter Last Name..." translateX="69.0" />
-            <TextField id="socialSecTextField" fx:id="socialSecTextField" layoutX="261.0" layoutY="129.0" onKeyReleased="#addNewUserKeyEvent" promptText="Enter Social Sec. Number(SSN)..." translateX="69.0" />
+            <TextField id="socialSecTextField" fx:id="socialSecTextField" layoutX="261.0" layoutY="129.0" onKeyPressed="#ssnFieldKeyEvent" onKeyReleased="#ssnFieldKeyEvent" promptText="Enter Social Sec. Number(SSN)..." translateX="69.0" />
             <TextField id="streetAddressTextField" fx:id="streetAddressTextField" layoutX="261.0" layoutY="167.0" onKeyReleased="#addNewUserKeyEvent" promptText="Enter Street Address..." translateX="69.0" />
             <TextField id="cityTextfield" fx:id="cityTextField" layoutX="261.0" layoutY="205.0" onKeyPressed="#addNewUserKeyEvent" onKeyReleased="#addNewUserKeyEvent" promptText="Enter City..." translateX="69.0" />
             <TextField id="stateTextField" fx:id="stateTextField" layoutX="261.0" layoutY="243.0" onKeyReleased="#addNewUserKeyEvent" promptText="Enter State Abbrev. (AL, MO, etc.)..." translateX="69.0" />
