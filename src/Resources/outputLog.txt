@@ -1857,3 +1857,23 @@ Error in connect to db: Error
 2019-11-01T21:57:44.116 Database Already Existed. Read into list.
 2019-11-01T21:58:31.150 ArrayList was written to File.
 2019-11-01T21:58:31.151 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-01T22:02:23.100  Initializing in Main
+2019-11-01T22:02:23.197 Database Already Existed. Read into list.
+2019-11-01T22:09:02.713 ArrayList was written to File.
+2019-11-01T22:09:02.713 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-01T22:40:18.829  Initializing in Main
+2019-11-01T22:40:18.926 Database Already Existed. Read into list.
+2019-11-01T22:42:41.305 ArrayList was written to File.
+2019-11-01T22:42:41.305 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-01T22:44:46.514  Initializing in Main
+2019-11-01T22:44:46.605 Database Already Existed. Read into list.
+2019-11-01T22:46:38.954 ArrayList was written to File.
+2019-11-01T22:46:38.954 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-01T22:48:17.469  Initializing in Main
+2019-11-01T22:48:17.558 Database Already Existed. Read into list.
+2019-11-01T22:50:48.645 ArrayList was written to File.
+2019-11-01T22:50:48.645 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-02T00:00:05.726  Initializing in Main
+2019-11-02T00:00:05.822 Database Already Existed. Read into list.
+2019-11-02T00:00:28.360 ArrayList was written to File.
+2019-11-02T00:00:28.360 The Customer Accounts Database Was sucessfully Written to the File

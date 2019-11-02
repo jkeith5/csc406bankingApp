@@ -1,6 +1,7 @@
 package BankingApp;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 
@@ -29,8 +30,15 @@ public class Controller implements Initializable{
     public static boolean managerPendingLogin;
     public static ToggleGroup accTypeToggleGroup;
 
-    //public static ArrayList<CustomerAccount> customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
+    public ArrayList<String> states = DataEntryDriver.createStatesArray();
 
+    @FXML
+    public ComboBox<String> stateComboBox; // the regular combobox
+
+    public ComboBoxAutoComplete<String> autoCombo;
+
+
+    //= new ComboBoxAutoComplete<>(stateComboBox); // the autoComboBox
 
     @FXML TextField mainScreenTest;
     @FXML TextField tf1;
@@ -227,6 +235,19 @@ public class Controller implements Initializable{
             populateUpdateDataScreen();
         }
 
+        if(locationString.equals("AddNewUser.fxml")){
+
+            stateComboBox.setTooltip(new Tooltip());
+
+            stateComboBox.getItems().clear();
+            stateComboBox.getItems().addAll(states);
+
+            stateComboBox.setVisibleRowCount(13);
+
+            autoCombo = new ComboBoxAutoComplete<String>(stateComboBox); // creates and manages the combo box
+
+        }
+
         //
 
     }
@@ -286,7 +307,7 @@ public class Controller implements Initializable{
     public void addNewUserKeyEvent(){
         System.out.println("event");
 
-        ArrayList<String[]> itemsValid = getNewUserInfoValid();
+        ArrayList<String[]> itemsValid = getNewUserInfoValidArrayList();
         if(addNewUserInfoValid(itemsValid)){
             addNewUserInterfaceEnterButton.setDisable(false);
             unsuccessfulEntryLabel.visibleProperty().setValue(false);
@@ -435,19 +456,7 @@ public class Controller implements Initializable{
 
         }
 
-
-        if(keyEventTypeName.equals("KEY_RELEASED")) {
-            validateSSNField(e,focusedTextField);
-            if(!keyCodeName.equals("Backspace")){
-                System.out.println(keyEventTypeName);
-                validateSSNField(e,focusedTextField);
-            }
-        }else{
-            System.out.println("else Key Pressed");
-            if(!keyCodeName.equals("Backspace")){
-                validateSSNField(e,focusedTextField);
-            }
-        }
+        validateSSNField(e,focusedTextField);
 
 
 
@@ -464,8 +473,6 @@ public class Controller implements Initializable{
         System.out.println(e.getCode().getName());
         String ssn = DataEntryDriver.stripSSN(manageUserSSNField.getText());
         manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
-        int caretPos = manageUserSSNField.getCaretPosition();
-        String selectedText = manageUserSSNField.getSelectedText();
 
         if(keyCodeName.equals("Enter")){ // allows enter button to fire main event
             System.out.println("Keycode was enter");
@@ -968,7 +975,7 @@ public class Controller implements Initializable{
 
     // this method gets the data from the interface, checks if it's valid, and returns and arraylist with
     // [0]= fieldName, [1]=data, [2]=isValid
-    public ArrayList<String[]> getNewUserInfoValid(){
+    public ArrayList<String[]> getNewUserInfoValidArrayList(){
         ArrayList<String[]> validItems = new ArrayList<>();
 
         String fName = fNameTextField.getText();
@@ -983,7 +990,7 @@ public class Controller implements Initializable{
         String[] items = {fName,lName,streetAddress,city};
 
         for(int i=0;i<items.length;i++){
-            if(items[i].length()<1){
+            if(items[i].length()<1){// if anything was not entered in first last name or city or address
                 // if nothing was entered in the field save data to display warning
                 if(i==0) validItems.add(new String[]{"fName",fName, "false"});
                 if(i==1) validItems.add(new String[]{"lName",lName ,"false"});
@@ -996,16 +1003,32 @@ public class Controller implements Initializable{
                 if(i==3) validItems.add(new String[]{"city",city ,"true"});
             }
         }
-        if(DataEntryDriver.ssnValid(ssn)){
-            if(DataEntryDriver.ssnInDatabase(ssn)){
-                validItems.add(new String[]{"ssnExists",ssn,"false"});
-            }else{
-                validItems.add(new String[]{"ssn",ssn,"true"});
-            }
 
+        if(DataEntryDriver.ssnValid(ssn)){ // generic is the ssn a valid format number yes or no
+            validItems.add(new String[]{"ssn",ssn,"true"});
         }else{
             validItems.add(new String[]{"ssn",ssn,"false"});
         }
+
+        if(DataEntryDriver.ssnValidAndInDatabase(ssn)){
+            validItems.add(new String[]{"ssnDoesNotExist",ssn,"false"});//ssn does not exist false means it does exist
+        }else{
+            validItems.add(new String[]{"ssnDoesNotExist",ssn,"true"});// ssn is not in database go got a true value
+        }
+
+
+//        if(DataEntryDriver.ssnValid(ssn)){
+//            if(DataEntryDriver.ssnInDatabase(ssn)){ // if ssn is in database
+//                validItems.add(new String[]{"ssnExists",ssn,"false"});
+//            }else{
+//                validItems.add(new String[]{"ssn",ssn,"true"});
+//            }
+//
+//        }else{
+//            validItems.add(new String[]{"ssn",ssn,"false"});// generic ssn not valid message
+//        }
+
+
 
         if(DataEntryDriver.zipValid(zipCode)){
             validItems.add(new String[]{"zip",zipCode,"true"});
@@ -1061,7 +1084,7 @@ public class Controller implements Initializable{
     public boolean addNewUserInfoValid(ArrayList<String[]> itemsArray){
         boolean returnVal = true;
 
-        if(!allFieldsHaveData(getNewUserInfoValid(),1)){
+        if(!allFieldsHaveData(getNewUserInfoValidArrayList(),1)){
             unsuccessfulEntryLabel.setText("Please fill out all fields");
             return false;
         }
@@ -1075,9 +1098,9 @@ public class Controller implements Initializable{
                 returnVal=false;
 
                 // explain why it's false
-                if(falseItem[0].equals("ssn")){
+                if(falseItem[0].equals("ssn")){// display error for invalid ssn number
                     System.out.println("The ssn you entered was not valid please enter 9 numbers");
-                    unsuccessfulEntryLabel.setText("Please enter a Valid 9 digit SSN with or without the '-'");
+                    unsuccessfulEntryLabel.setText("Please enter a Valid 9 digit SSN!");
                     addNewUserInterfaceEnterButton.setDisable(true);
                 }
                 if(falseItem[0].equals("zip")){
@@ -1090,6 +1113,11 @@ public class Controller implements Initializable{
                     unsuccessfulEntryLabel.setText("Please enter a 2 character State Abbreviation");
                     addNewUserInterfaceEnterButton.setDisable(true);
                 }
+                if(falseItem[0].equals("ssnDoesNotExist")){
+                    unsuccessfulEntryLabel.setText("This Customer Already Exist. Go To Manage User Interface to manage this user" +
+                            " or enter another SSN!");
+                }
+
 
 
 
@@ -1199,7 +1227,21 @@ public class Controller implements Initializable{
 
 
 
+    @FXML
+    public void stateComboBoxKeyPressed(KeyEvent e){
+        autoCombo.keyReleased(e);
+    }
 
+    @FXML
+    public void stateComboBoxKeyReleased(KeyEvent e){
+        autoCombo.keyReleased(e);
+    }
+
+
+    @FXML
+    public void stateComboBoxHiding(Event e){
+        autoCombo.onHiding(e);
+    }
 
 
 
