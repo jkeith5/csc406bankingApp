@@ -179,19 +179,45 @@ public class Controller implements Initializable{
             manageExistingTellerTransferFunds.setSelected(false);
             manageExistingTellerTransferFunds.setDisable(true);
 
+            // disable checking readio button if no checking account if it exists then set as default selected
             if(ca.hasCheckingAccount()){
                 manageExistingTellerCheckingAccount.setSelected(true);
-            }
-            if(!ca.hasSavingsAccount()){
-                manageExistingTellerSavingsAccount.setDisable(true);
             }else{
-                manageExistingTellerSavingsAccount.setDisable(false);
+                manageExistingTellerCheckingAccount.setSelected(false);
+                manageExistingTellerCheckingAccount.setDisable(true);
             }
 
-            if(ca.hasSavingsAccount && ca.hasCheckingAccount()){
+            // STUFF I NEED TO ADD. differentiate between savings cd and simple savings and display the correct type to teller
+            // teller can credit any account but savings CD
+            // same as above but with savings account
+            if(!ca.hasSavingsAccount()){// if no savings account
+                manageExistingTellerSavingsAccount.setSelected(false);
+                manageExistingTellerSavingsAccount.setDisable(true);
+            }else{// if they do have a savings account
+                manageExistingTellerSavingsAccount.setDisable(false);
+                if(!ca.hasCheckingAccount()){// if they have a savings but not a checking account
+                    manageExistingTellerSavingsAccount.setSelected(true);
+                }
+            }
+
+
+            if(ca.hasSavingsAccount() && ca.hasCheckingAccount()){ // if they have a savings and checking account
                 manageExistingTellerTransferFunds.setDisable(false);
                 manageExistingTellerCheckingLabel.setText("");
                 manageExistingTellerSavingsLabel.setText("");
+            }else{// else they have NO savings or checking account disable all features related
+
+                if(!ca.hasSavingsAccount() && !ca.hasCheckingAccount()){
+                    manageExistingTellerFundsTransferAmount.setDisable(true);
+                    manageExistingTellerDebitCreditAccountButton.setDisable(true);
+                    manageExistingTellerViewRecentActivityButton.setDisable(true);
+                    manageExistingTellerCheckingLabel.setText("");
+                    manageExistingTellerSavingsLabel.setText("");
+                    manageDispDataAcctType.setText("");
+                    manageDispDataAcctStatus.setText("");
+                }
+
+
             }
 
 
