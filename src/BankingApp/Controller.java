@@ -12,12 +12,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
@@ -46,6 +50,7 @@ public class Controller implements Initializable{
     @FXML TextField tf3;
     @FXML TextField generalTestTextField;
     @FXML Button generalTestButton;
+    @FXML Button testWindowExitButton;
 
     @FXML Button mainScreenTestButton;
 
@@ -118,6 +123,10 @@ public class Controller implements Initializable{
 
 
 
+    @FXML Button testButton;
+
+
+
 
     String fName, lName, socialSec, streetAddress, city, zipCode, state;
 
@@ -159,13 +168,28 @@ public class Controller implements Initializable{
         // so either create a seperate Controller for interfaces that need to pull dynamic data
         // or just make a bunch of if statement blocks here with the location filename and
         // initialize the data for the interface. I'll go with the second method.
-        if(locationString.equals("ManageExistingUserUpdateData.fxml")){
-            System.out.println("in manage existing user if block");
-            //
-            System.out.println(updateDataSSN.getText());
-            //updateDataSSN.setText(DataEntryDriver.stripSSN(placeholder.getSsn()));
-            System.out.println("ssn in main variable is: "+Main.currentCustomerID);
+
+        if(locationString.equals("AddNewUser.fxml")){
+
+            stateComboBox.setTooltip(new Tooltip());
+
+            stateComboBox.getItems().clear();
+            stateComboBox.getItems().addAll(states);
+
+            stateComboBox.setVisibleRowCount(13);
+
+            autoCombo = new ComboBoxAutoComplete<String>(stateComboBox); // creates and manages the combo box
+
         }
+
+        if(locationString.equals("BankManagerInterface.fxml")){
+            //
+        }
+
+        if(locationString.equals("MainScreen.fxml")){
+            //
+        }
+
         if(locationString.equals("ManageExistingUser.fxml")){
             // set to static ssn for now for testing
 
@@ -181,6 +205,11 @@ public class Controller implements Initializable{
             }
 
         }
+
+        if(locationString.equals("ManageExistingUserDisplayDataManager.fxml")){
+            //
+        }
+
         if(locationString.equals("ManageExistingUserDisplayDataTeller.fxml")){
             CustomerAccount ca = Main.customerAccount;
             accTypeToggleGroup = manageExistingTellerCheckingAccount.getToggleGroup();
@@ -231,22 +260,32 @@ public class Controller implements Initializable{
 
             tellerManageDispData();
         }
+
         if(locationString.equals("ManageExistingUserUpdateData.fxml")){
             populateUpdateDataScreen();
         }
 
-        if(locationString.equals("AddNewUser.fxml")){
-
-            stateComboBox.setTooltip(new Tooltip());
-
-            stateComboBox.getItems().clear();
-            stateComboBox.getItems().addAll(states);
-
-            stateComboBox.setVisibleRowCount(13);
-
-            autoCombo = new ComboBoxAutoComplete<String>(stateComboBox); // creates and manages the combo box
-
+        if(locationString.equals("ManagerLogin.fxml")){
+            //
         }
+
+        if(locationString.equals("TellerInterface.fxml")){
+            //
+        }
+
+        if(locationString.equals("TellerLogin.fxml")){
+            //
+        }
+
+
+        if(locationString.equals("TestWindow.fxml")){
+            //
+        }
+
+
+
+
+
 
         //
 
@@ -367,62 +406,88 @@ public class Controller implements Initializable{
 
     public void enterKeyDefaultEvent(KeyEvent e){
         // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
-        Node focusedNode = Main.primaryStage.getScene().getFocusOwner();
+        if(Main.activeStage==null){
+            return;
+        }else{ // if Main.activeStage is not null
+            // add to use currently active stage
+            Stage activeStage = Main.activeStage;
 
-        if(e.getCode().getName().equals("Enter")){
-            if(Main.primaryStage.getScene().getFocusOwner() instanceof Button){
-                Button fireButton = (Button) Main.primaryStage.getScene().focusOwnerProperty().get();
-                if(!fireButton.isDisabled()){
-                    fireButton.fire();
-                }
-            }else if(Main.primaryStage.getScene().getFocusOwner() instanceof TextField){
-                System.out.println(Main.primaryStage.getScene().getFocusOwner().getId());
+            if(e.getCode().getName().equals("Enter")){
+                if(activeStage.getScene().getFocusOwner() instanceof Button){
+                    Button fireButton = (Button) activeStage.getScene().focusOwnerProperty().get();
+                    if(!fireButton.isDisabled()){
+                        fireButton.fire();
+                    }
+                }else if(activeStage.getScene().getFocusOwner() instanceof TextField){
+                    System.out.println(activeStage.getScene().getFocusOwner().getId());
 
-                TextField fireTextField = (TextField) Main.primaryStage.getScene().focusOwnerProperty().get();
-                System.out.println(fireTextField.getId());
-                if(fireTextField.getId().equals("manageUserSSNField")){
-                    //tellerInterfaceManageLookupButton();
+                    TextField fireTextField = (TextField) activeStage.getScene().focusOwnerProperty().get();
+                    System.out.println(fireTextField.getId());
+                    if(fireTextField.getId().equals("manageUserSSNField")){
+                        //tellerInterfaceManageLookupButton();
 
+                    }
                 }
             }
+
+
         }
+
+
+
     }
 
-    public void enterKeyLoginDefaultEvent(KeyEvent e){
-        // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
-        Node focusedNode = Main.primaryStage.getScene().getFocusOwner();
-        System.out.println("t1"+focusedNode.toString());
-        System.out.println("t2"+focusedNode.getId().toString());
-        if(e.getCode().getName().equals("Enter")){
-            if(Main.primaryStage.getScene().getFocusOwner() instanceof Button){
-                System.out.println("loginLogin");
-
-                if(focusedNode.getId().equals("tellerScreen")){
-                    tellerLoginButton();
-                }
-                if(focusedNode.getId().equals("bankManagerScreen")){
-                    ManagerLoginButton();
-                }
-
-            }
-        }
-    }
 
 
     public <T> T getFocusedObject(){ // so far returns a TextField or Button of focused object
         // use caution with how and when you call this.
-        Node focusedNode = Main.primaryStage.getScene().getFocusOwner();
+        Node focusedNode = getFocusedNode();
 
         if(focusedNode instanceof TextField){
-            TextField returnVal = (TextField) Main.primaryStage.getScene().focusOwnerProperty().get();
+            TextField returnVal = (TextField) Main.activeStage.getScene().focusOwnerProperty().get();
             return (T) returnVal;
         }else if(focusedNode instanceof Button){
-            Button returnVal = (Button) Main.primaryStage.getScene().focusOwnerProperty().get();
+            Button returnVal = (Button) Main.activeStage.getScene().focusOwnerProperty().get();
             return (T) returnVal;
         }else{
             return null;
         }
 
+    }
+
+    public boolean focusedNodeButton(){ // true if focused node is a button
+        boolean returnVal = false;
+        Node focusedNode = getFocusedNode();
+
+        if(focusedNode instanceof Button){
+            returnVal = true;
+        }
+
+        return returnVal;
+    }
+
+    @FXML
+    public void testWindowExitButtonAction(){
+        System.out.println("testwindowtest");
+        //Stage activeStage = Main.activeStage;
+        //System.out.println(activeStage.isFocused());
+
+        closeWindow();
+
+    }
+
+
+    public Node getFocusedNode(){ // of active stage
+        Node returnNode;
+
+        if(Main.activeStage!=null){
+            returnNode = Main.activeStage.getScene().getFocusOwner();
+        }else{
+            returnNode = null;
+        }
+
+        return returnNode;
+        //return Main.activeStage.getScene().getFocusOwner();
     }
 
 
@@ -543,26 +608,48 @@ public class Controller implements Initializable{
         System.out.println("hi");
         Parent root = null;
         Parent login = null;
+        System.out.println("tellerLogIn value: "+tellerLogIn);
+        System.out.println("teller Pending value: "+tellerPendingLogin);
 
         try {
-            if(tellerLogIn){// if teller is logged in after login window closes and it recalls this method
-                tellerPendingLogin=false;
-                root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
 
-                Main.primaryStage.setTitle("Teller Interface");
-                Main.primaryStage.setScene(new Scene(root,700,500));
-                Main.primaryStage.show();
+            if(!tellerPendingLogin){ // if login window is not already active
+                if(tellerLogIn){// if teller is logged in after login window closes and it recalls this method
+                    root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
+                    Main.primaryStage.setTitle("Teller Interface");
+                    Main.primaryStage.setScene(new Scene(root,700,500));
+                    Main.primaryStage.show();
+                    Main.activeStage=Main.primaryStage;
+                }else{
+                    tellerPendingLogin=true;
+                    login = FXMLLoader.load(getClass().getResource("TellerLogin.fxml"));
+                    Stage stage = new Stage();
+                    stage.setTitle("Teller Login");
+                    stage.setScene(new Scene(login,382,420));
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.show();
+
+                    stage.setOnCloseRequest(event -> loginInterfaceExitButton());
+
+
+                    Main.activeStage = stage;
+                    System.out.println("set active stage in tellerbutton: "+stage.getTitle());
+                    System.out.println("main active stage title is: "+Main.activeStage.getTitle());
+
+
+
+                }
             }else{
-                login = FXMLLoader.load(getClass().getResource("TellerLogin.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Teller Login");
-                stage.setScene(new Scene(login,382,420));
-                stage.show();
+                System.out.println("teller already pending login");
+
             }
+
+
 
 
         } catch (IOException e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
 
     }
@@ -578,20 +665,32 @@ public class Controller implements Initializable{
                 Main.primaryStage.setTitle("Bank Manager Interface");
                 Main.primaryStage.setScene(new Scene(root, 700, 500));
                 Main.primaryStage.show();
+                Main.activeStage=Main.primaryStage;
+                System.out.println("set active stage to primary in manager button");
             }else{
                 managerPendingLogin =true;
                 login = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
                 Stage stage = new Stage();
                 stage.setTitle("Bank Manager Login");
                 stage.setScene(new Scene(login,382,420));
+                stage.initModality(Modality.APPLICATION_MODAL);
                 stage.show();
+
+                stage.setOnCloseRequest(event -> loginInterfaceExitButton());
+
+                Main.activeStage=stage;
+                System.out.println("set active stage to manager login");
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
 
     }
+
+
+
 
     @FXML
     public void tellerLoginButton(){
@@ -608,9 +707,11 @@ public class Controller implements Initializable{
 
     @FXML
     public void loginInterfaceLoginButton(){
-        if(tellerPendingLogin){
+        System.out.println("logininterloginbutton pending: "+tellerPendingLogin);
+
+        if(tellerPendingLogin){ // if pending but not complete login
             tellerLogIn = validateLoginCreds("Teller");
-            if(tellerLogIn){
+            if(tellerLogIn){ // if login info was valid
                 tellerPendingLogin=false;
                 EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
                 employee.setType("T");
@@ -645,7 +746,11 @@ public class Controller implements Initializable{
     public void loginInterfaceExitButton(){
         tellerLogIn=false;
         managerLogIn=false;
-        Stage stage = (Stage) loginInterExitButton.getScene().getWindow();
+        tellerPendingLogin=false;
+        managerPendingLogin=false;
+
+        //Stage stage = (Stage) loginInterExitButton.getScene().getWindow();
+        Stage stage = Main.activeStage;
         stage.close();
         goToMainScene();
     }
@@ -733,8 +838,11 @@ public class Controller implements Initializable{
             Main.primaryStage.setTitle("Add a new user Account");
             Main.primaryStage.setScene(new Scene(root, 700, 500));
             Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("set active to primary in teller add new");
         } catch (IOException e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
 
     }
@@ -742,17 +850,17 @@ public class Controller implements Initializable{
     @FXML
     public void tellerInterfaceManageButton(){
         System.out.println("tellerInterfaceManageButton");
-
         Parent root = null;
-
-
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
             Main.primaryStage.setTitle("Manage existing user");
             Main.primaryStage.setScene(new Scene(root, 700, 500));
             Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("set active to pri teller int manage");
         } catch (IOException e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
 
 
@@ -788,10 +896,12 @@ public class Controller implements Initializable{
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
-
+            Main.activeStage=Main.primaryStage;
+            System.out.println("set active stage to primary in lookup ssn button");
 
         } catch (IOException e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
 
     }
@@ -807,11 +917,13 @@ public class Controller implements Initializable{
             Main.primaryStage.setTitle("Update Customer Data");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
-
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to primary in teller update data button");
 
 
         } catch (IOException e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
 
 
@@ -829,7 +941,8 @@ public class Controller implements Initializable{
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
-
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to primary in teller update data prev");
             // add code to pull the data for the currentSSN data
             System.out.println("current ssn is: "+Main.currentCustomerID);
 
@@ -837,6 +950,7 @@ public class Controller implements Initializable{
 
         } catch (Exception e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
 
     }
@@ -878,8 +992,11 @@ public class Controller implements Initializable{
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to primary in teller update save");
         } catch (Exception e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
     }
 
@@ -903,10 +1020,13 @@ public class Controller implements Initializable{
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to primary in manager lookup");
 
 
         } catch (IOException e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
 
     }
@@ -1166,13 +1286,27 @@ public class Controller implements Initializable{
 
     // GENERAL NAVIGATION METHODS
 
+
     @FXML
-    public void closeWindow(){
-        Parent root = null;
-        Stage stage = (Stage) loginInterLoginButton.getScene().getWindow();
-        stage.close();
+    public void closeWindow(){ // use this to CLOSE A WINDOW so will exit whole program if used on a primaryStage
+
+        try {
+            Node activeNode = getFocusedNode();
+            //Stage stage = (Stage) loginInterLoginButton.getScene().getWindow();
+            Stage stage = (Stage) activeNode.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            System.err.println("ERROR IN CLOSE WINDOW");
+        }
+
 
     }
+
+
+    public void closeStage(Stage cStage){
+        cStage.close();
+    }
+
 
     @FXML
     public void goToMainScene(){
@@ -1182,12 +1316,15 @@ public class Controller implements Initializable{
             Main.primaryStage.setTitle("Teller Bank Application(WIP)");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to pri in goToMainScene");
 
             tellerLogIn = false;
             managerLogIn = false;
 
         } catch (IOException e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
     }
 
@@ -1199,10 +1336,13 @@ public class Controller implements Initializable{
             Main.primaryStage.setTitle("Teller Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to pri goToTellerScene");
 
 
         } catch (IOException e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
     }
 
@@ -1214,10 +1354,13 @@ public class Controller implements Initializable{
             Main.primaryStage.setTitle("Lookup User");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to prim in goToManageLookupScene");
 
 
         } catch (IOException e) {
             e.printStackTrace();
+            Main.activeStage=null;
         }
     }
 
@@ -1246,6 +1389,28 @@ public class Controller implements Initializable{
 
 
     // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY
+
+
+    @FXML
+    public void mainInterfaceTestButton(){
+        Parent root = null;
+        Parent test = null;
+        try {
+            test = FXMLLoader.load(getClass().getResource("TestWindow.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Bank Manager Login");
+            stage.setScene(new Scene(test,382,420));
+            stage.show();
+            Main.activeStage=stage;
+            System.out.println("active stage to stage of Test window");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+
 
     @FXML
     public void test(){

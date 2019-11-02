@@ -21,7 +21,8 @@ public class Main extends Application {
     public static File outputEmployeeRecord;
     public static PrintWriter outEmployee;
 
-    public static Stage primaryStage;
+    public static Stage primaryStage; // holds the currently active PRIMARY STAGE
+    public static Stage activeStage=null;
 
     // access the customerAccount object and arraylist by all Classes
     public static CustomerAccount customerAccount;
@@ -37,6 +38,9 @@ public class Main extends Application {
         Main.primaryStage.setTitle("Teller Bank Application(WIP)");
         Main.primaryStage.setScene(new Scene(root, 700, 500));
         Main.primaryStage.show();
+        activeStage=Main.primaryStage;
+        System.out.println("active set to primary in Main Start");
+
         System.out.println("In main start block");
 
     }

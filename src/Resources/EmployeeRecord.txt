@@ -630,3 +630,23 @@
 2019-11-01T22:44:49.742 Teller Account UserName: asdf logged into account.
 2019-11-01T22:48:36.842 Teller Account UserName: asdf logged into account.
 2019-11-02T00:00:10.322 Teller Account UserName: asdf logged into account.
+2019-11-02T10:33:28.048 Teller Account UserName: jkl;lkj logged into account.
+2019-11-02T10:35:28.601 Teller Account UserName: asd logged into account.
+2019-11-02T11:09:29.575 Teller Account UserName: asdf logged into account.
+2019-11-02T11:10:48.172 Teller Account UserName: asd logged into account.
+2019-11-02T11:22:30.484 Teller Account UserName: asdf logged into account.
+2019-11-02T11:23:57.787 Teller Account UserName: asdf logged into account.
+2019-11-02T11:24:07.037 Teller Account UserName: adf logged into account.
+2019-11-02T11:24:10.918 Teller Account UserName: asdf logged into account.
+2019-11-02T11:24:21.674 Manager Account UserName: asdf logged into account.
+2019-11-02T11:24:29.063 Teller Account UserName: asdf logged into account.
+2019-11-02T11:25:40.715 Teller Account UserName: asdf logged into account.
+2019-11-02T11:25:44.270 Teller Account UserName: asdf logged into account.
+2019-11-02T11:26:00.795 Teller Account UserName: asdfa logged into account.
+2019-11-02T11:26:12.437 Teller Account UserName: asdf logged into account.
+2019-11-02T11:39:13.458 Teller Account UserName: asd logged into account.
+2019-11-02T12:15:29.900 Teller Account UserName: asd logged into account.
+2019-11-02T12:49:32.498 Teller Account UserName: sad logged into account.
+2019-11-02T12:49:42.391 Employee UserName: sad Looked Up account: CustomerAccount{custID='687-69-8941', firstName='Tom', lastName='Riddle', streetAddr='7487 somewhere lane', city='St Mosis', state='MO', zip='32568', atmCardNumber='4856523569854785', dateCreated='2007/08/08', hasSavingsAccount=true, hasCheckingAccount=true, hasShortTermLoan=true, hasLongTermLoan=false, hasCreditCardAcct=false, hasLoanAccount=true, savingsAccount=[SavingsAccount{custID='687-69-8941', savingsAcctID='2', accountBalance=7485.24, interestRate=0.028, dateOpened='2007/08/08', isCdAccount=true, cdCloseDate='2019/12/11'}], checkingAccount=CheckingAccount{custID='687-69-8941', checkingAcctID='2', accountBalance=5787.54, dateOpened='2007/08/08', isGoldAccount=true, backupSavingsEnabled=true, overdraftsOnAcct=0}, transactions=[], loanAccounts=[LoanAccount{loanAccountType='STL', custID='687-69-8941', initialLoanAmt=8750.0, currentBalance=1244.58, interestRate=0.011, paymentDueDate='null', paymentNoticeDate='null', amountDue=0.0, lastPaymentDate='null', hasMissedPayment=true}], checks=[Check{checkNumber='478', checkingAcctID='2', checkDate='2019/10/22', checkAmount=2145.58, checkProcessed=true}], isNull=false}
+2019-11-02T12:53:04.686 Manager Account UserName: sf logged into account.
+2019-11-02T12:53:10.591 Manager Account UserName: sd logged into account.
