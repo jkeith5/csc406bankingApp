@@ -52,6 +52,12 @@ public class Controller implements Initializable{
     @FXML TextField generalTestTextField;
     @FXML Button generalTestButton;
     @FXML Button testWindowExitButton;
+    @FXML
+    public ComboBox<String> testComboBox;
+
+
+    @FXML
+    public ComboBoxAutoComplete<String> autoComboTest;
 
     @FXML Button mainScreenTestButton;
 
@@ -281,6 +287,14 @@ public class Controller implements Initializable{
 
         if(locationString.equals("TestWindow.fxml")){
             //
+            testComboBox.setTooltip(new Tooltip());
+
+            testComboBox.getItems().clear();
+            testComboBox.getItems().addAll(states);
+
+            testComboBox.setVisibleRowCount(13);
+
+            autoComboTest = new ComboBoxAutoComplete<String>(testComboBox); // creates and manages the combo box
         }
 
 
@@ -1373,18 +1387,18 @@ public class Controller implements Initializable{
 
     @FXML
     public void stateComboBoxKeyPressed(KeyEvent e){
-        autoCombo.keyReleased(e);
+        autoComboTest.keyReleased(e);
     }
 
     @FXML
     public void stateComboBoxKeyReleased(KeyEvent e){
-        autoCombo.keyReleased(e);
+        autoComboTest.keyReleased(e);
     }
 
 
     @FXML
     public void stateComboBoxHiding(Event e){
-        autoCombo.onHiding(e);
+        autoComboTest.onHiding(e);
     }
 
 
@@ -1400,7 +1414,7 @@ public class Controller implements Initializable{
             test = FXMLLoader.load(getClass().getResource("TestWindow.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Bank Manager Login");
-            stage.setScene(new Scene(test,382,420));
+            stage.setScene(new Scene(test,660,532));
             stage.show();
             Main.activeStage=stage;
             System.out.println("active stage to stage of Test window");
