@@ -51,8 +51,8 @@ public class CustomerAccount implements Serializable {
         }
     }
 
-    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String dateCreated) {
-        //this.custID = custID;
+    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String atmCardNumber) {
+        // auto sets the date created to the current date created.
         setCustID(custID);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -60,7 +60,7 @@ public class CustomerAccount implements Serializable {
         this.city = city;
         this.state = state;
         this.zip = zip;
-        this.dateCreated=dateCreated;
+        this.atmCardNumber=atmCardNumber;
     }
 
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
@@ -204,6 +204,10 @@ public class CustomerAccount implements Serializable {
 
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public void setDateCreatedAuto(){ // sets date to today
+        //
     }
 
     public boolean hasSavingsAccount() {

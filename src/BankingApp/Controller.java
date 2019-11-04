@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -1449,8 +1450,14 @@ public class Controller implements Initializable{
     @FXML
     public void generalTestButtonAction(){
         System.out.println("\n\nTestbutton action\n");
-        //
-        System.out.println("\n\n");
+        String testString = DataEntryDriver.getDateString();
+        System.out.println(testString);
+
+        String testFixed = DataEntryDriver.fixDateString("7/8/2008");
+        String test2 = DataEntryDriver.fixDateString("07/08/2008");
+        String test3 = DataEntryDriver.fixDateString("null");
+
+
     }
 
     public String toStringValues(){

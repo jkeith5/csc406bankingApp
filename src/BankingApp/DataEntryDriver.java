@@ -4,6 +4,10 @@ import java.io.*;
 import java.net.URL;
 import java.sql.*;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class DataEntryDriver {
@@ -47,6 +51,9 @@ public class DataEntryDriver {
 
         CustomerAccount acc3 = new CustomerAccount("987-70-9747","Tim","Toe",
                 "1245 anywhere street Apt. 88","Bullhead","AZ","87459","2018/12/18");
+
+
+        //CustomerAccount acc4 = new CustomerAccount()
 
         //
         SavingsAccount saving1 = new SavingsAccount(acc1.custID,"1",457.58,0.022,"1969/02/17",true,"2022/05/18");
@@ -371,9 +378,57 @@ public class DataEntryDriver {
 
 
 
+    // 2019-11-01T14:08:29.608
+
+    public static String getDateString(){ // returns the current date in mm/dd/yyyy format
+        String result = "";
+        System.out.println("getDateString");
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // formatter for date output
+
+        result = localDate.format(formatter);
+
+        System.out.println("get date no format: "+localDate);
+        System.out.println("get date formatted: "+result);
+
+        return result;
+    }
 
 
+    // 7/8/2008
+    public static String fixDateString(String inputDateString){ // returns the current date in mm/dd/yyyy format from input string
+        String result = "";
+        System.out.println("fix dateString");
 
+        if(inputDateString.equals("null")){ // can either return null or put current date in.
+            return "null";
+        }
+
+        System.out.println("fixDateString input: "+inputDateString);
+
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // formatter for date output
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("M/d/yyyy"); // input formatter
+
+        LocalDate dateInput;
+
+        try {
+
+            dateInput = LocalDate.parse(inputDateString,inputFormatter);
+
+            String outputResult = dateInput.format(outputFormatter);
+
+            result = outputResult;
+
+            System.out.println("formatted: "+result);
+
+
+        } catch (DateTimeParseException e) {
+            Main.out.println(Main.getDateTimeString()+"Error in fixDateString with input: "+inputDateString+" Error: "+e.toString());
+            return "null";
+        }
+
+        return result;
+    }
 
 
 
