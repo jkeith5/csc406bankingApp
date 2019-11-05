@@ -1,5 +1,7 @@
 package BankingApp;
 
+import javafx.scene.control.TextField;
+
 import java.io.*;
 import java.net.URL;
 import java.sql.*;
@@ -329,6 +331,17 @@ public class DataEntryDriver {
         return zip.length() == 5;
     }
 
+    public static void validateZip(TextField zipField){
+        String result = zipField.getText().replaceAll("[^\\d]", "");
+        if(result.length()>5){
+            result=result.substring(0,5);
+        }
+
+        zipField.setText(result);
+        zipField.positionCaret(zipField.getText().length());
+
+    }
+
     public static String makeSSNValid(String ssn){
         String result = ssn;
 
@@ -621,6 +634,40 @@ public class DataEntryDriver {
         closeDB(conn);
         return result;
     }
+
+    public static String stateAbbToFullName(String stateAbb) {
+        // returns the state abbreviation given the full state name
+        String result = "";
+
+        Connection conn = null;
+        if(runningFromIDE()){
+            conn = connectToDB("src/Resources/zipDatabase.db");
+        }else{
+            conn = connectToDB(System.getProperty("user.dir")+"/Resources/zipDatabase.db");
+        }
+
+        if(conn == null){
+            Main.out.println("CreateStatesArray Error Conn is null");
+            System.exit(1);
+        }
+
+        try {
+            Statement stmt = conn.createStatement();
+            String queryString = String.format("Select * from states where stateAbb like '%s' ",stateAbb);
+            ResultSet rs = stmt.executeQuery(queryString);
+            while(rs.next()){
+                result = rs.getString("stateFull");
+            }
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeDB(conn);
+        return result;
+    }
+
 
     public static boolean runningFromIDE(){
         String userDir = System.getProperty("user.dir");

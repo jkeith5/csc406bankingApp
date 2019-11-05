@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -23,6 +24,7 @@ public class Main extends Application {
 
     public static Stage primaryStage; // holds the currently active PRIMARY STAGE
     public static Stage activeStage=null;
+    public static Button defaultSceneButton = null;
 
     // access the customerAccount object and arraylist by all Classes
     public static CustomerAccount customerAccount;

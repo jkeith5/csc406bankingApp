@@ -62,6 +62,9 @@ public class Controller implements Initializable{
     @FXML Button mainScreenTestButton;
 
 
+    @FXML
+    public ComboBox<String> testCombo2;
+
 
     @FXML TextField fNameTextField;
     @FXML TextField lNameTextField;
@@ -179,13 +182,11 @@ public class Controller implements Initializable{
         if(locationString.equals("AddNewUser.fxml")){
 
             stateComboBox.setTooltip(new Tooltip());
-
             stateComboBox.getItems().clear();
             stateComboBox.getItems().addAll(states);
-
-            stateComboBox.setVisibleRowCount(13);
-
             autoCombo = new ComboBoxAutoComplete<String>(stateComboBox); // creates and manages the combo box
+
+            Main.defaultSceneButton = addNewUserInterfaceEnterButton;
 
         }
 
@@ -269,6 +270,14 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("ManageExistingUserUpdateData.fxml")){
+
+            stateComboBox.setTooltip(new Tooltip());
+            stateComboBox.getItems().clear();
+            stateComboBox.getItems().addAll(states);
+            autoCombo = new ComboBoxAutoComplete<String>(stateComboBox); // creates and manages the combo box
+
+            Main.defaultSceneButton = tellerUpdateDataSaveButton;
+
             populateUpdateDataScreen();
         }
 
@@ -286,15 +295,11 @@ public class Controller implements Initializable{
 
 
         if(locationString.equals("TestWindow.fxml")){
-            //
             testComboBox.setTooltip(new Tooltip());
-
             testComboBox.getItems().clear();
             testComboBox.getItems().addAll(states);
-
-            testComboBox.setVisibleRowCount(13);
-
             autoComboTest = new ComboBoxAutoComplete<String>(testComboBox); // creates and manages the combo box
+
         }
 
 
@@ -305,8 +310,6 @@ public class Controller implements Initializable{
         //
 
     }
-
-
 
 
 
@@ -322,7 +325,9 @@ public class Controller implements Initializable{
         String streetAddress = streetAddressTextField.getText();
         String city = cityTextField.getText();
         String zipCode = zipCodeTextField.getText();
-        String state = stateTextField.getText();
+        //String state = stateTextField.getText();
+        String state = stateComboBox.getValue();
+        System.out.println("State is "+state);
 
         CustomerAccount tempAccount = new CustomerAccount();
         tempAccount.setFirstName(fName);
@@ -361,18 +366,44 @@ public class Controller implements Initializable{
     public void addNewUserKeyEvent(){
         System.out.println("event");
 
+        DataEntryDriver.validateZip(zipCodeTextField);
         ArrayList<String[]> itemsValid = getNewUserInfoValidArrayList();
         if(addNewUserInfoValid(itemsValid)){
             addNewUserInterfaceEnterButton.setDisable(false);
             unsuccessfulEntryLabel.visibleProperty().setValue(false);
         }else{
             addNewUserInterfaceEnterButton.setDisable(true);
+
             unsuccessfulEntryLabel.visibleProperty().setValue(true);
         }
 
 
         //addNewUserInterfaceEnterButton.setDisable(false);
     }
+
+    @FXML
+    public void updateUserKeyEvent(){
+        System.out.println("update user key event");
+        DataEntryDriver.validateZip(updateDataZip);
+
+        ArrayList<String[]> itemsValid = getNewUserInfoValidArrayList();
+        for(String[] el:itemsValid){
+            System.out.println(Arrays.toString(el));
+        }
+
+
+        if(addNewUserInfoValid(itemsValid)){
+            System.out.println("valid");
+            Main.defaultSceneButton.setDisable(false);
+            //tellerUpdateDataSaveButton.setDisable(false);
+        }else{
+            System.out.println("notvalid");
+            Main.defaultSceneButton.setDisable(true);
+            //tellerUpdateDataSaveButton.setDisable(true);
+        }
+
+    }
+
 
     public void displayDataRadioButtonEvent(){
         // if no account of each type disable radio button for that account
@@ -987,7 +1018,17 @@ public class Controller implements Initializable{
         ca.setLastName(updateDataLastName.getText().trim());
         ca.setStreetAddr(updateDataAddress.getText().trim());
         ca.setCity(updateDataCity.getText().trim());
-        ca.setState(updateDataState.getText().trim().toUpperCase());
+
+        String state;
+        try {
+            state = stateComboBox.getValue();
+        } catch (Exception e) {
+            state = "";
+        }
+        state = DataEntryDriver.fullStateToAbb(state);
+
+        ca.setState(state);
+        //ca.setState(updateDataState.getText().trim().toUpperCase());
         ca.setZip(updateDataZip.getText().trim());
 
         DataEntryDriver.updateCustomerAccount(ca,ssn);
@@ -1112,14 +1153,53 @@ public class Controller implements Initializable{
     // [0]= fieldName, [1]=data, [2]=isValid
     public ArrayList<String[]> getNewUserInfoValidArrayList(){
         ArrayList<String[]> validItems = new ArrayList<>();
+        String interfaceID = "";
 
-        String fName = fNameTextField.getText();
-        String lName = lNameTextField.getText();
-        String ssn = socialSecTextField.getText();
-        String streetAddress = streetAddressTextField.getText();
-        String city = cityTextField.getText();
-        String zipCode = zipCodeTextField.getText();
-        String state = stateTextField.getText();
+        String fName="";
+        String lName="";
+        String ssn="";
+        String streetAddress="";
+        String city="";
+        String zipCode="";
+        String state = "";
+
+        System.out.println("MAIN ACTIVE TITLE IS: "+Main.activeStage.getTitle());
+        if(Main.activeStage.getTitle().contains("new")){
+            interfaceID = "add";
+            System.out.println("new");
+            fName = fNameTextField.getText();
+            lName = lNameTextField.getText();
+            ssn = socialSecTextField.getText();
+            streetAddress = streetAddressTextField.getText();
+            city = cityTextField.getText();
+            zipCode = zipCodeTextField.getText();
+        }
+        if(Main.activeStage.getTitle().contains("Update")){
+            interfaceID = "update";
+            System.out.println("update");
+            fName = updateDataFirstName.getText();
+            lName = updateDataLastName.getText();
+            ssn = Main.customerAccount.getCustID();
+            streetAddress = updateDataAddress.getText();
+            city = updateDataCity.getText();
+            zipCode = updateDataZip.getText();
+        }
+
+        //String state = autoCombo.getSelectionModel().getSelectedItem().toString();
+
+
+
+        try {
+            state = stateComboBox.getValue().toString();
+        } catch (Exception e) {
+            state = "";
+        }
+
+
+        state = DataEntryDriver.fullStateToAbb(state);
+
+
+
 
 
         String[] items = {fName,lName,streetAddress,city};
@@ -1146,22 +1226,18 @@ public class Controller implements Initializable{
         }
 
         if(DataEntryDriver.ssnValidAndInDatabase(ssn)){
-            validItems.add(new String[]{"ssnDoesNotExist",ssn,"false"});//ssn does not exist false means it does exist
+
+            if(interfaceID.equals("add")){
+                validItems.add(new String[]{"ssnDoesNotExist",ssn,"false"});//ssn does not exist false means it does exist
+            }
+            if(interfaceID.equals("update")){// override the value for this interface because it will always exist
+                validItems.add(new String[]{"ssnDoesNotExist",ssn,"true"});//ssn does not exist false means it does exist
+            }
+
+
         }else{
             validItems.add(new String[]{"ssnDoesNotExist",ssn,"true"});// ssn is not in database go got a true value
         }
-
-
-//        if(DataEntryDriver.ssnValid(ssn)){
-//            if(DataEntryDriver.ssnInDatabase(ssn)){ // if ssn is in database
-//                validItems.add(new String[]{"ssnExists",ssn,"false"});
-//            }else{
-//                validItems.add(new String[]{"ssn",ssn,"true"});
-//            }
-//
-//        }else{
-//            validItems.add(new String[]{"ssn",ssn,"false"});// generic ssn not valid message
-//        }
 
 
 
@@ -1221,14 +1297,17 @@ public class Controller implements Initializable{
 
         if(!allFieldsHaveData(getNewUserInfoValidArrayList(),1)){
             unsuccessfulEntryLabel.setText("Please fill out all fields");
-            return false;
+            Main.defaultSceneButton.setDisable(true);
+
+
         }
 
         for(int i=0;i<itemsArray.size();i++){
             System.out.println(Arrays.toString(itemsArray.get(i)));
 
             if(itemsArray.get(i)[2].equals("false")){// if any other field shows false
-                addNewUserInterfaceEnterButton.setDisable(true);
+                //addNewUserInterfaceEnterButton.setDisable(true);
+                Main.defaultSceneButton.setDisable(true);
                 String[] falseItem = itemsArray.get(i);
                 returnVal=false;
 
@@ -1236,17 +1315,20 @@ public class Controller implements Initializable{
                 if(falseItem[0].equals("ssn")){// display error for invalid ssn number
                     System.out.println("The ssn you entered was not valid please enter 9 numbers");
                     unsuccessfulEntryLabel.setText("Please enter a Valid 9 digit SSN!");
-                    addNewUserInterfaceEnterButton.setDisable(true);
+                    //addNewUserInterfaceEnterButton.setDisable(true);
+                    Main.defaultSceneButton.setDisable(true);
                 }
                 if(falseItem[0].equals("zip")){
                     System.out.println("The zip you entered was not valid please enter a 5 digit zip");
                     unsuccessfulEntryLabel.setText("Please enter a 5 digit Zip");
-                    addNewUserInterfaceEnterButton.setDisable(true);
+                    //addNewUserInterfaceEnterButton.setDisable(true);
+                    Main.defaultSceneButton.setDisable(true);
                 }
                 if(falseItem[0].equals("state")){
                     System.out.println("Please enter a 2 character State such as MO or AK");
                     unsuccessfulEntryLabel.setText("Please enter a 2 character State Abbreviation");
-                    addNewUserInterfaceEnterButton.setDisable(true);
+                    //addNewUserInterfaceEnterButton.setDisable(true);
+                    Main.defaultSceneButton.setDisable(true);
                 }
                 if(falseItem[0].equals("ssnDoesNotExist")){
                     unsuccessfulEntryLabel.setText("This Customer Already Exist. Go To Manage User Interface to manage this user" +
@@ -1285,7 +1367,16 @@ public class Controller implements Initializable{
         updateDataLastName.setText(Main.customerAccount.getLastName());
         updateDataAddress.setText(Main.customerAccount.getStreetAddr());
         updateDataCity.setText(Main.customerAccount.getCity());
-        updateDataState.setText(Main.customerAccount.getState());
+
+        String stateAbb = Main.customerAccount.getState();
+        String stateFull = DataEntryDriver.stateAbbToFullName(stateAbb);
+
+        stateComboBox.getEditor().setText(stateFull);
+        stateComboBox.getSelectionModel().select(stateFull);
+
+        //updateDataState.setText(Main.customerAccount.getState());
+
+
         updateDataZip.setText(Main.customerAccount.getZip());
     }
 
@@ -1381,28 +1472,6 @@ public class Controller implements Initializable{
 
 
 
-
-
-
-
-    @FXML
-    public void stateComboBoxKeyPressed(KeyEvent e){
-        autoComboTest.keyReleased(e);
-    }
-
-    @FXML
-    public void stateComboBoxKeyReleased(KeyEvent e){
-        autoComboTest.keyReleased(e);
-    }
-
-
-    @FXML
-    public void stateComboBoxHiding(Event e){
-        autoComboTest.onHiding(e);
-    }
-
-
-
     // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY
 
 
@@ -1470,6 +1539,19 @@ public class Controller implements Initializable{
         String testFixed = DataEntryDriver.fixDateString("7/8/2008");
         String test2 = DataEntryDriver.fixDateString("07/08/2008");
         String test3 = DataEntryDriver.fixDateString("null");
+
+        System.out.println(Main.activeStage.getTitle());
+        System.out.println(Main.activeStage.toString());
+        System.out.println(Main.primaryStage.getClass().getName());
+        System.out.println(Main.primaryStage.getScene().toString());
+        System.out.println(Main.activeStage.getClass().getCanonicalName());
+        System.out.println(Main.activeStage.getClass().getTypeName());
+        //System.out.println(Main.activeStage.getClass().getClassLoader().getParent().toString());
+        System.out.println(Main.activeStage.getClass().getSimpleName());
+        System.out.println(Main.activeStage.getClass().toGenericString());
+        System.out.println(Main.activeStage.getScene().getProperties().toString());
+        System.out.println(Main.activeStage.getTitle());
+        System.out.println(Main.activeStage.getScene().getFocusOwner().getId());
 
 
     }
