@@ -55,6 +55,13 @@ public class DataEntryDriver {
                 "1245 anywhere street Apt. 88","Bullhead","AZ","87459","2018/12/18");
 
 
+
+        ArrayList<CustomerAccount> caRead = readCustomerAccountsCSV();
+        System.out.println(caRead.toString());
+
+        //result = caRead;
+
+
         //CustomerAccount acc4 = new CustomerAccount()
 
         //
@@ -64,7 +71,7 @@ public class DataEntryDriver {
 
         CheckingAccount checking1 = new CheckingAccount(acc1.custID,"1",147.58,"2019/05/05",false,true);
         CheckingAccount checking2 = new CheckingAccount(acc2.custID,"2",5787.54,acc2.dateCreated,true,true);
-        CheckingAccount checking3 = new CheckingAccount(acc3.custID,"3",57.14,acc3.dateCreated,false,false,3);
+        CheckingAccount checking3 = new CheckingAccount(acc3.custID,"3",57.14,acc3.dateCreated,false,false);
 
 
         LoanAccount loan1 = new LoanAccount(acc1.custID,10000,874.58,0.018,false,"CCL");
@@ -98,6 +105,101 @@ public class DataEntryDriver {
 
         // this writes the accounts to the Resources customerDatabase file
         serializeArrayListToFile(result);
+    }
+
+    public static ArrayList<CustomerAccount> readCustomerAccountsCSV(){
+        ArrayList<CustomerAccount> result = new ArrayList<>();
+
+        File customerBase = new File("src/Resources/CustomersBase.csv");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(customerBase));
+            String line;
+
+            CustomerAccount caTemp;
+            while((line = br.readLine()) != null){
+                String[] lineSplit = line.split(",");
+                System.out.println(Arrays.toString(lineSplit));
+                CustomerAccount ca = new CustomerAccount(lineSplit[0],lineSplit[1],lineSplit[2],lineSplit[3],lineSplit[4],
+                        lineSplit[5],lineSplit[6],lineSplit[7]);
+
+                result.add(ca);
+
+            }
+
+
+
+            for(CustomerAccount caz:result){ // base data at this point
+                System.out.println(caz.toString());
+            }
+
+
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return result;
+    }
+
+    public static ArrayList<CheckingAccount> readCheckingAccountsToArrList(){
+        ArrayList<CheckingAccount> result = new ArrayList<>();
+
+        File checkingAccountsFile = new File("src/Resources/CheckingAccounts.csv");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(checkingAccountsFile));
+            String line;
+
+            while((line = br.readLine()) != null){
+                String[] split = line.split(",");
+                System.out.println(Arrays.toString(split));
+
+                CheckingAccount ca = new CheckingAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
+                result.add(ca);
+
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return result;
+    }
+
+    public static ArrayList<SavingsAccount> readSavingsAccountsToArrList(){
+        ArrayList<SavingsAccount> result = new ArrayList<>();
+
+        File savingsAccountFile = new File("src/Resources/SavingsAccounts.csv");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(savingsAccountFile));
+            String line;
+
+            while((line = br.readLine()) != null){
+                String[] split = line.split(",");
+                System.out.println(Arrays.toString(split));
+
+                SavingsAccount sa = new SavingsAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
+                result.add(sa);
+
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return result;
     }
 
     public static boolean serializeArrayListToFile(ArrayList<CustomerAccount> customerAccounts){

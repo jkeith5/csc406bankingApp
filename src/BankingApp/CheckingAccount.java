@@ -21,38 +21,20 @@ public class CheckingAccount implements Serializable {
     }
 
     public CheckingAccount(String custID, String checkingAcctID, double accountBalance, String dateOpened, boolean isGoldAccount, boolean backupSavingsEnabled) {
-        this.custID = custID;
-        this.checkingAcctID = checkingAcctID;
-        this.accountBalance = accountBalance;
-        this.dateOpened = dateOpened;
-        this.isGoldAccount = isGoldAccount;
-        this.backupSavingsEnabled = backupSavingsEnabled;
-        this.overdraftsOnAcct=0;
-    }
-    public CheckingAccount(String custID, String checkingAcctID, String accountBalance, String dateOpened, String isGoldAccount, String backupSavingsEnabled) {
-        this.custID = custID;
-        this.checkingAcctID = checkingAcctID;
+        setCustID(custID);
+        setCheckingAcctID(checkingAcctID);
         setAccountBalance(accountBalance);
-        this.dateOpened = dateOpened;
+        setDateOpened(dateOpened);
         setGoldAccount(isGoldAccount);
         setBackupSavingsEnabled(backupSavingsEnabled);
-        this.overdraftsOnAcct=0;
+        setOverdraftsOnAcct(0);
     }
 
-    public CheckingAccount(String custID, String checkingAcctID, double accountBalance, String dateOpened, boolean isGoldAccount, boolean backupSavingsEnabled, int overdraftsOnAcct) {
-        this.custID = custID;
-        this.checkingAcctID = checkingAcctID;
-        this.accountBalance = accountBalance;
-        this.dateOpened = dateOpened;
-        this.isGoldAccount = isGoldAccount;
-        this.backupSavingsEnabled = backupSavingsEnabled;
-        this.overdraftsOnAcct = overdraftsOnAcct;
-    }
     public CheckingAccount(String custID, String checkingAcctID, String accountBalance, String dateOpened, String isGoldAccount, String backupSavingsEnabled, String overdraftsOnAcct) {
-        this.custID = custID;
-        this.checkingAcctID = checkingAcctID;
+        setCustID(custID);
+        setCheckingAcctID(checkingAcctID);
         setAccountBalance(accountBalance);
-        this.dateOpened = dateOpened;
+        setDateOpened(dateOpened);
         setGoldAccount(isGoldAccount);
         setBackupSavingsEnabled(backupSavingsEnabled);
         setOverdraftsOnAcct(overdraftsOnAcct);

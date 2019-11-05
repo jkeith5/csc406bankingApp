@@ -19,32 +19,32 @@ public class SavingsAccount implements Serializable {
     }
 
     public SavingsAccount(String custID, String savingsAcctID, double accountBalance, double interestRate, String dateOpened, boolean isCdAccount) {
-        this.custID = custID;
-        this.savingsAcctID = savingsAcctID;
-        this.accountBalance = accountBalance;
-        this.interestRate = interestRate;
-        this.dateOpened = dateOpened;
-        this.isCdAccount = isCdAccount;
+        setCustID(custID);
+        setSavingsAcctID(savingsAcctID);
+        setAccountBalance(accountBalance);
+        setInterestRate(interestRate);
+        setDateOpened(dateOpened);
+        setCdAccount(isCdAccount);
         this.cdCloseDate="null";
     }
 
     public SavingsAccount(String custID, String savingsAcctID, double accountBalance, double interestRate, String dateOpened, boolean isCdAccount, String cdCloseDate) {
-        this.custID = custID;
-        this.savingsAcctID = savingsAcctID;
-        this.accountBalance = accountBalance;
-        this.interestRate = interestRate;
-        this.dateOpened = dateOpened;
-        this.isCdAccount = isCdAccount;
-        this.cdCloseDate = cdCloseDate;
-    }
-    public SavingsAccount(String custID, String savingsAcctID, String accountBalance, String interestRate, String dateOpened, String isCdAccount, String cdCloseDate) {
-        this.custID = custID;
-        this.savingsAcctID = savingsAcctID;
+        setCustID(custID);
+        setSavingsAcctID(savingsAcctID);
         setAccountBalance(accountBalance);
         setInterestRate(interestRate);
-        this.dateOpened = dateOpened;
+        setDateOpened(dateOpened);
         setCdAccount(isCdAccount);
-        this.cdCloseDate = cdCloseDate;
+        setCdCloseDate(cdCloseDate);
+    }
+    public SavingsAccount(String custID, String savingsAcctID, String accountBalance, String interestRate, String dateOpened, String isCdAccount, String cdCloseDate) {
+        setCustID(custID);
+        setSavingsAcctID(savingsAcctID);
+        setAccountBalance(accountBalance);
+        setInterestRate(interestRate);
+        setDateOpened(dateOpened);
+        setCdAccount(isCdAccount);
+        setCdCloseDate(cdCloseDate);
     }
 
     public String getCustID() {

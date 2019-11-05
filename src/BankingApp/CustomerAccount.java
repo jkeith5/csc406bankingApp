@@ -43,94 +43,45 @@ public class CustomerAccount implements Serializable {
     public CustomerAccount(){
         // use setters and getters setting null pointer to null until at least a ssn is added
         this.isNull=true;
+        setDateCreatedAuto();
     }
 
     public CustomerAccount(String isNullString){
         if(isNullString.toLowerCase().equals("null")){
             this.isNull= true;
         }
+        setDateCreatedAuto();
     }
 
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String atmCardNumber) {
         // auto sets the date created to the current date created.
         setCustID(custID);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.streetAddr = streetAddr;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.atmCardNumber=atmCardNumber;
+        setFirstName(firstName);
+        setLastName(lastName);
+        setStreetAddr(streetAddr);
+        setCity(city);
+        setState(state);
+        setZip(zip);
+        //this.atmCardNumber=atmCardNumber;
+        setAtmCardNumber(atmCardNumber);
+        setDateCreatedAuto();
     }
 
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
                            String state, String zip,String dateCreated, String atmCardNumber) {
         //this.custID = custID;
         setCustID(custID);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.streetAddr = streetAddr;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.dateCreated=dateCreated;
-        this.atmCardNumber = atmCardNumber;
+        setFirstName(firstName);
+        setLastName(lastName);
+        setStreetAddr(streetAddr);
+        setCity(city);
+        setState(state);
+        setZip(zip);
+        setDateCreatedAuto();
+        setAtmCardNumber(atmCardNumber);
+        setDateCreatedAuto();
     }
 
-    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
-                           String state, String zip, String atmCardNumber, String dateCreated, CheckingAccount checkingAccount) {
-        //this.custID = custID;
-        setCustID(custID);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.streetAddr = streetAddr;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.atmCardNumber = atmCardNumber;
-        this.dateCreated = dateCreated;
-        this.checkingAccount = checkingAccount;
-        this.hasCheckingAccount = true;
-    }
-
-    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
-                           String state, String zip, String atmCardNumber, String dateCreated, SavingsAccount savingsAccount) {
-        //this.custID = custID;
-        setCustID(custID);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.streetAddr = streetAddr;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.atmCardNumber = atmCardNumber;
-        this.dateCreated = dateCreated;
-        addSavingsAccount(savingsAccount);
-        //this.savingsAccount = savingsAccount;
-        this.hasSavingsAccount=true;
-    }
-
-    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
-                           String state, String zip, String atmCardNumber, String dateCreated,
-                           SavingsAccount savingsAccount, CheckingAccount checkingAccount, ArrayList<LoanAccount> loanAccounts) {
-        //this.custID = custID;
-        setCustID(custID);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.streetAddr = streetAddr;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.atmCardNumber = atmCardNumber;
-        this.dateCreated = dateCreated;
-        addSavingsAccount(savingsAccount);
-        //this.savingsAccount = savingsAccount;
-        this.checkingAccount = checkingAccount;
-        this.loanAccounts = loanAccounts;
-        this.hasCheckingAccount=true;
-        this.hasSavingsAccount=true;
-        this.hasLoanAccount=true;
-    }
 
     public String getCustID() {
         return custID;
@@ -179,7 +130,16 @@ public class CustomerAccount implements Serializable {
     }
 
     public void setState(String state) {
-        this.state = state;
+        if(state.length()>2){
+            if(state.equals("null")){
+                this.state="null";
+            }else{
+                this.state=DataEntryDriver.fullStateToAbb(state);
+            }
+
+        }else{
+            this.state=state.toUpperCase();
+        }
     }
 
     public String getZip() {
@@ -202,12 +162,12 @@ public class CustomerAccount implements Serializable {
         return dateCreated;
     }
 
-    public void setDateCreated(String dateCreated) {
+    public void setDateCreated(String dateCreated) { // of customer account object
         this.dateCreated = dateCreated;
     }
 
     public void setDateCreatedAuto(){ // sets date to today
-        //
+        this.dateCreated=DataEntryDriver.getDateString();
     }
 
     public boolean hasSavingsAccount() {

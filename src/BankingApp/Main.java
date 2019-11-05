@@ -44,6 +44,8 @@ public class Main extends Application {
         System.out.println("active set to primary in Main Start");
 
         System.out.println("In main start block");
+        DataEntryDriver.readCustomerAccountsCSV();
+        DataEntryDriver.readCheckingAccountsToArrList();
 
     }
 
@@ -51,6 +53,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
         System.out.println("end");
+
 
         // here we will condense the arraylist of objects back into a text file
         boolean arrayWrittenToFile = DataEntryDriver.serializeArrayListToFile(customerAccounts);
@@ -74,6 +77,8 @@ public class Main extends Application {
         try {
             File sqliteModule = new File("src/Resources/sqlite-jdbc.jar");
             ModuleLoader.addModule(sqliteModule);
+
+
 
             // first initialize the PrintWriters of the log file and employee log file
             outputFile = new File("src/Resources/outputLog.txt");
@@ -115,6 +120,7 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
 
     }

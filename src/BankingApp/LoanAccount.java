@@ -43,31 +43,31 @@ public class LoanAccount implements Serializable {
     public LoanAccount(String custID, double initialLoanAmt, double currentBalance, double interestRate,
                        String paymentDueDate, String paymentNoticeDate, double amountDue, String lastPaymentDate,
                        boolean hasMissedPayment, String loanAccountType) {
-        this.custID = custID;
-        this.initialLoanAmt = initialLoanAmt;
-        this.currentBalance = currentBalance;
-        this.interestRate = interestRate;
-        this.paymentDueDate = paymentDueDate;
-        this.paymentNoticeDate = paymentNoticeDate;
-        this.amountDue = amountDue;
-        this.lastPaymentDate = lastPaymentDate;
-        this.hasMissedPayment = hasMissedPayment;
-        this.loanAccountType = loanAccountType;
+        setCustID(custID);
+        setInitialLoanAmt(initialLoanAmt);
+        setCurrentBalance(currentBalance);
+        setInterestRate(interestRate);
+        setPaymentDueDate(paymentDueDate);
+        setPaymentNoticeDate(paymentNoticeDate);
+        setAmountDue(amountDue);
+        setLastPaymentDate(lastPaymentDate);
+        setHasMissedPayment(hasMissedPayment);
+        setLoanAccountType(loanAccountType);
     }
 
     public LoanAccount(String custID, String initialLoanAmt, String currentBalance, String interestRate,
                        String paymentDueDate, String paymentNoticeDate, String amountDue, String lastPaymentDate,
                        String hasMissedPayment, String loanAccountType) {
-        this.custID = custID;
+        setCustID(custID);
         setInitialLoanAmt(initialLoanAmt);
         setCurrentBalance(currentBalance);
         setInterestRate(interestRate);
-        this.paymentDueDate = paymentDueDate;
-        this.paymentNoticeDate = paymentNoticeDate;
+        setPaymentDueDate(paymentDueDate);
+        setPaymentNoticeDate(paymentNoticeDate);
         setAmountDue(amountDue);
-        this.lastPaymentDate = lastPaymentDate;
+        setLastPaymentDate(lastPaymentDate);
         setHasMissedPayment(hasMissedPayment);
-        this.loanAccountType = loanAccountType;
+        setLoanAccountType(loanAccountType);
     }
 
     public String getLoanAccountType() {

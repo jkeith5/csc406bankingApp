@@ -18,16 +18,16 @@ public class Transaction implements Serializable {
     }
 
     public Transaction(String transactionType,double amount,String desc,String transactionAcct){
-        this.transactionType = transactionType;
-        this.amount=amount;
-        this.description=desc;
-        this.transactionAccount=transactionAcct;
+        setTransactionType(transactionType);
+        setAmount(amount);
+        setDescription(desc);
+        setTransactionAccount(transactionAcct);
     }
     public Transaction(String transactionType,String amount,String desc,String transactionAcct){
-        this.transactionType = transactionType;
+        setTransactionType(transactionType);
         setAmount(amount);
-        this.description=desc;
-        this.transactionAccount=transactionAcct;
+        setDescription(desc);
+        setTransactionAccount(transactionAcct);
     }
 
     public String getTransactionType() {
