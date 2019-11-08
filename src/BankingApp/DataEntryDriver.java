@@ -168,6 +168,8 @@ public class DataEntryDriver {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch(NullPointerException e){
+            System.out.println("NULL : "+e.toString());
         }
 
 
