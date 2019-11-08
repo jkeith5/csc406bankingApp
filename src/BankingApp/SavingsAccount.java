@@ -8,9 +8,9 @@ public class SavingsAccount implements Serializable {
     public String savingsAcctID;
     public double accountBalance;
     public double interestRate;
-    public String dateOpened;
+    public String dateOpened; // date saving acct opened
     public boolean isCdAccount;
-    public String cdCloseDate;
+    public String cdCloseDate; // if cd date it closes
 
     public boolean isNull = false; // is the whole Object null
 
@@ -52,7 +52,7 @@ public class SavingsAccount implements Serializable {
     }
 
     public void setCustID(String custID) {
-        this.custID = custID;
+        this.custID = DataEntryDriver.fixSSN(custID);
         calcNullValue();
     }
 
@@ -141,19 +141,42 @@ public class SavingsAccount implements Serializable {
 
     public void calcNullValue(){ // used to make sure all fields are set if not then make null true so we don't read
         //                          Null values and get NullPointerExceptions
-        if(this.isCdAccount){
-            if(this.custID.equals("null") || this.savingsAcctID.equals("null") || this.dateOpened.equals("null") ||
-                    this.cdCloseDate.equals("null")){
-                this.isNull = true;
-            }else{
-                this.isNull = false;
+        this.isNull = false; // set to false and trigger true if important data is null
+
+        if(custID!=null){
+            if(custID.equalsIgnoreCase("null")){
+                this.isNull=true;
             }
         }else{
-            if(this.custID.equals("null") || this.savingsAcctID.equals("null") || this.dateOpened.equals("null")){
-                this.isNull = true;
-            }else{
-                this.isNull = false;
+            this.isNull=true;
+        }
+
+        if(savingsAcctID!=null){
+            if(savingsAcctID.equalsIgnoreCase("null")){
+                this.isNull=true;
             }
+        }else{
+            this.isNull=true;
+        }
+
+        if(dateOpened!=null){
+            if(dateOpened.equalsIgnoreCase("null")){
+                this.isNull=true;
+            }
+        }else{
+            this.isNull=true;
+        }
+
+        if(this.isCdAccount){
+
+            if(cdCloseDate!=null){
+                if(cdCloseDate.equalsIgnoreCase("null")){
+                    this.isNull=true;
+                }
+            }else{
+                this.isNull=true;
+            }
+
         }
     }
 

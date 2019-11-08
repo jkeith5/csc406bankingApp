@@ -14,6 +14,7 @@ public class LoanAccount implements Serializable {
     public String lastPaymentDate;
     public boolean hasMissedPayment=false;
     public String loanAccountType; // STL= short term loan LTL= long term loan CCL= credit card loan
+    public String loanAccountID;
     public boolean isNull = false;
 
     public LoanAccount(){
@@ -27,6 +28,7 @@ public class LoanAccount implements Serializable {
         this.custID = custID;
     }
 
+
     public LoanAccount(String custID, double initialLoanAmt, double currentBalance, double interestRate,boolean hasMissedPayment, String loanAccountType) {
         this.custID = custID;
         this.initialLoanAmt = initialLoanAmt;
@@ -38,6 +40,7 @@ public class LoanAccount implements Serializable {
         this.lastPaymentDate = "null";
         this.hasMissedPayment=hasMissedPayment;
         this.loanAccountType = loanAccountType;
+        this.loanAccountID="temp";
     }
 
     public LoanAccount(String custID, double initialLoanAmt, double currentBalance, double interestRate,
@@ -55,9 +58,11 @@ public class LoanAccount implements Serializable {
         setLoanAccountType(loanAccountType);
     }
 
+
+    //custID,initLoanAmt,CurrentBalance,InterestRate,PmtDueDate,DateOfNotice,AmtDue,LastPmtDate,HasMissedPmt,LoanAcctType
     public LoanAccount(String custID, String initialLoanAmt, String currentBalance, String interestRate,
                        String paymentDueDate, String paymentNoticeDate, String amountDue, String lastPaymentDate,
-                       String hasMissedPayment, String loanAccountType) {
+                       String hasMissedPayment, String loanAccountType, String loanAccountId) {
         setCustID(custID);
         setInitialLoanAmt(initialLoanAmt);
         setCurrentBalance(currentBalance);
@@ -68,6 +73,7 @@ public class LoanAccount implements Serializable {
         setLastPaymentDate(lastPaymentDate);
         setHasMissedPayment(hasMissedPayment);
         setLoanAccountType(loanAccountType);
+        setLoanAccountID(loanAccountId);
     }
 
     public String getLoanAccountType() {
@@ -101,6 +107,14 @@ public class LoanAccount implements Serializable {
         } catch (NumberFormatException e) {
             this.initialLoanAmt=0.0;
         }
+    }
+
+    public String getLoanAccountID() {
+        return loanAccountID;
+    }
+
+    public void setLoanAccountID(String loanAccountID) {
+        this.loanAccountID = loanAccountID;
     }
 
     public double getCurrentBalance() {
@@ -197,11 +211,30 @@ public class LoanAccount implements Serializable {
     }
 
     public void calcNullValue(){
-        if(loanAccountType.equalsIgnoreCase("null") || custID.equalsIgnoreCase("null")){
-            this.isNull = true;
+        this.isNull=false;
+
+        if(loanAccountType!=null){
+            if(loanAccountType.equalsIgnoreCase("null")){
+                this.isNull=true;
+            }
         }else{
-            this.isNull = false;
+            this.isNull=true;
         }
+
+        if(custID!=null){
+            if(custID.equalsIgnoreCase("null")){
+                this.isNull=true;
+            }
+        }else{
+            this.isNull=true;
+        }
+
+
+//        if(loanAccountType.equalsIgnoreCase("null") || custID.equalsIgnoreCase("null")){
+//            this.isNull = true;
+//        }else{
+//            this.isNull = false;
+//        }
     }
 
 

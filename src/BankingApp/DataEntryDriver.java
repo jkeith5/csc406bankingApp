@@ -198,6 +198,7 @@ public class DataEntryDriver {
 
                 SavingsAccount sa = new SavingsAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
                 result.add(sa);
+                System.out.println("Testing: print double interest rate: "+sa.getInterestRate());
 
             }
 
@@ -211,6 +212,70 @@ public class DataEntryDriver {
 
         return result;
     }
+
+
+    public static ArrayList<LoanAccount> readLoanAccountsToArrList(){ // Reads the LoanAccounts.csv
+        ArrayList<LoanAccount> result = new ArrayList<>();
+
+        File loanAccountFile = new File("src/Resources/LoanAccounts.csv");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(loanAccountFile));
+            String line;
+            br.readLine();
+
+            while((line = br.readLine()) != null){
+                String[] split = line.split(",");
+                System.out.println(Arrays.toString(split));
+
+                LoanAccount la = new LoanAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6],split[7],split[8],split[9],split[10]);
+                result.add(la);
+
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return result;
+    }
+
+
+    public static ArrayList<SavingsAccount> readChecksToArrList(){ // Reads the Checks.csv
+        ArrayList<SavingsAccount> result = new ArrayList<>();
+
+        File savingsAccountFile = new File("src/Resources/SavingsAccounts.csv");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(savingsAccountFile));
+            String line;
+            br.readLine();
+
+            while((line = br.readLine()) != null){
+                String[] split = line.split(",");
+                System.out.println(Arrays.toString(split));
+
+                SavingsAccount sa = new SavingsAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
+                result.add(sa);
+                System.out.println("Testing: print double interest rate: "+sa.getInterestRate());
+
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return result;
+    }
+
+
+
 
     public static boolean serializeArrayListToFile(ArrayList<CustomerAccount> customerAccounts){
         try{

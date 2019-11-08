@@ -46,7 +46,8 @@ public class Main extends Application {
         System.out.println("In main start block");
         DataEntryDriver.readCustomerAccountsCSV();
         DataEntryDriver.readCheckingAccountsToArrList();
-        //DataEntryDriver.readSavingsAccountsToArrList();
+        DataEntryDriver.readSavingsAccountsToArrList();
+        DataEntryDriver.readLoanAccountsToArrList();
 
 
     }

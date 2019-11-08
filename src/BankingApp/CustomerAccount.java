@@ -17,7 +17,7 @@ public class CustomerAccount implements Serializable {
     public String state;// 2 letter All Caps MO
     public String zip;
     public String atmCardNumber;
-    public String dateCreated;
+    public String dateCreated; // date of initial customer account
 
     public boolean hasSavingsAccount=false;
     public boolean hasCheckingAccount=false;

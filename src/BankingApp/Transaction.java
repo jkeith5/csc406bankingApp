@@ -7,7 +7,7 @@ public class Transaction implements Serializable {
     public String transactionType; // W=Withdrawal D=Deposit F=Fee
     public double amount;
     public String description;
-    public String transactionAccount; // S=Savings C=Checking
+    public String transactionAccount; // S=Savings C=Checking CC= Credit Card F=Fee
 
     // make methods to complete the actual transaction using variable such as
     // Main.customerAccount
