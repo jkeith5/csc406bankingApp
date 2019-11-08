@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Transaction implements Serializable {
 
-    public String transactionType; // W=Withdrawal D=Deposit
+    public String transactionType; // W=Withdrawal D=Deposit F=Fee
     public double amount;
     public String description;
     public String transactionAccount; // S=Savings C=Checking

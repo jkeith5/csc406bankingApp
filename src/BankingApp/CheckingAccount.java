@@ -46,8 +46,9 @@ public class CheckingAccount implements Serializable {
     }
 
     public void setCustID(String custID) {
-        this.custID = custID;
+        this.custID = DataEntryDriver.fixSSN(custID);
         calcNullValue();
+
     }
 
     public String getCheckingAcctID() {
@@ -144,14 +145,40 @@ public class CheckingAccount implements Serializable {
         this.backupSavingsEnabled = false;
     }
 
-    public void calcNullValue(){
+    public void calcNullValue() throws NullPointerException{
+        this.isNull = false;
 
-        if(this.custID.equals("null") || this.checkingAcctID.equals("null") || this.dateOpened.equals("null") ||
-                this.overdraftsOnAcct==-1){
-            this.isNull=true;
+        if(custID!=null){
+            if(custID.equalsIgnoreCase("null")){
+                this.isNull=true;
+            }
         }else{
-            this.isNull=false;
+            this.isNull=true;
         }
+
+        if(checkingAcctID!=null){
+            if(checkingAcctID.equalsIgnoreCase("null")){
+                this.isNull=true;
+            }
+        }else{
+            this.isNull=true;
+        }
+
+        if(dateOpened!=null){
+            if(dateOpened.equalsIgnoreCase("null")){
+                this.isNull=true;
+            }
+        }else{
+            this.isNull=true;
+        }
+
+
+        if(overdraftsOnAcct == -1){
+            this.isNull=true;
+        }
+
+
+
     }
 
 

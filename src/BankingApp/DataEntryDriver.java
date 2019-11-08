@@ -107,7 +107,7 @@ public class DataEntryDriver {
         serializeArrayListToFile(result);
     }
 
-    public static ArrayList<CustomerAccount> readCustomerAccountsCSV(){
+    public static ArrayList<CustomerAccount> readCustomerAccountsCSV(){ // Reads CustomerDatabase.csv
         ArrayList<CustomerAccount> result = new ArrayList<>();
 
         File customerBase = new File("src/Resources/CustomersBase.csv");
@@ -146,20 +146,28 @@ public class DataEntryDriver {
         return result;
     }
 
-    public static ArrayList<CheckingAccount> readCheckingAccountsToArrList(){
+    public static ArrayList<CheckingAccount> readCheckingAccountsToArrList(){ // reads CheckingAccounts.csv
         ArrayList<CheckingAccount> result = new ArrayList<>();
-
         File checkingAccountsFile = new File("src/Resources/CheckingAccounts.csv");
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(checkingAccountsFile));
             String line;
+            br.readLine();
 
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
                 System.out.println(Arrays.toString(split));
-
                 CheckingAccount ca = new CheckingAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
-                result.add(ca);
+
+                try {
+                    result.add(ca);
+                } catch (NullPointerException e){
+                    System.out.println("Null pointer for: "+ca.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 
             }
 
@@ -168,21 +176,20 @@ public class DataEntryDriver {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch(NullPointerException e){
-            System.out.println("NULL : "+e.toString());
         }
 
 
         return result;
     }
 
-    public static ArrayList<SavingsAccount> readSavingsAccountsToArrList(){
+    public static ArrayList<SavingsAccount> readSavingsAccountsToArrList(){ // Reads the SavingsAccounts.csv
         ArrayList<SavingsAccount> result = new ArrayList<>();
 
         File savingsAccountFile = new File("src/Resources/SavingsAccounts.csv");
         try {
             BufferedReader br = new BufferedReader(new FileReader(savingsAccountFile));
             String line;
+            br.readLine();
 
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
@@ -357,6 +364,12 @@ public class DataEntryDriver {
     public static String fixSSN(String ssnStripped){
         String result = ssnStripped;
         result = stripSSN(result);
+
+        if(result.equalsIgnoreCase("null") || result.length()!=9){
+            return "null";
+        }
+
+
         String p1;
         String p2;
         String p3;

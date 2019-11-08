@@ -46,6 +46,8 @@ public class Main extends Application {
         System.out.println("In main start block");
         DataEntryDriver.readCustomerAccountsCSV();
         DataEntryDriver.readCheckingAccountsToArrList();
+        //DataEntryDriver.readSavingsAccountsToArrList();
+
 
     }
 
@@ -53,6 +55,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
         System.out.println("end");
+        System.err.println("WARNING If program does not run. Go to Resources in the source directory and \n" +
+                "Delete THE 'customerDatabase' FILE  NOT The CustomerBase.csv. Run Program Again.");
 
 
         // here we will condense the arraylist of objects back into a text file
