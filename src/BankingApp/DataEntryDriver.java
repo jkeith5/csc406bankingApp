@@ -115,6 +115,7 @@ public class DataEntryDriver {
             BufferedReader br = new BufferedReader(new FileReader(customerBase));
             String line;
 
+            br.readLine();
             CustomerAccount caTemp;
             while((line = br.readLine()) != null){
                 String[] lineSplit = line.split(",");
