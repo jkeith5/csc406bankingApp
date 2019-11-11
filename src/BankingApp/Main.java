@@ -44,10 +44,12 @@ public class Main extends Application {
         System.out.println("active set to primary in Main Start");
 
         System.out.println("In main start block");
-        DataEntryDriver.readCustomerAccountsCSV();
-        DataEntryDriver.readCheckingAccountsToArrList();
-        DataEntryDriver.readSavingsAccountsToArrList();
-        DataEntryDriver.readLoanAccountsToArrList();
+        //DataEntryDriver.readCustomerAccountsCSV();
+        //DataEntryDriver.readCheckingAccountsToArrList();
+        //DataEntryDriver.readSavingsAccountsToArrList();
+        //DataEntryDriver.readLoanAccountsToArrList();
+        //DataEntryDriver.readChecksToArrList();
+
 
 
     }
@@ -137,6 +139,12 @@ public class Main extends Application {
         return result;
     }
 
+
+    public static void printToConsoleAndLog(String message){
+        String result = getDateTimeString()+message;
+        out.println(result);
+        System.out.println(result);
+    }
 
 
 

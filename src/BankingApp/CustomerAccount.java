@@ -309,6 +309,8 @@ public class CustomerAccount implements Serializable {
         this.checks.add(temp);
     }
 
+
+
     public boolean isNull() {
         return isNull;
     }
