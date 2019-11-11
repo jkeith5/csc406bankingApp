@@ -118,8 +118,9 @@ public class Check implements Serializable {
         }
     }
 
+
     @Override
-    public String toString() {
+    public String toString(){
         return "Check{" +
                 "checkNumber='" + checkNumber + '\'' +
                 ", checkingAcctID=" + checkingAcctID +
@@ -129,4 +130,5 @@ public class Check implements Serializable {
                 ", checkStatus='" + checkStatus + '\'' +
                 '}';
     }
+
 }

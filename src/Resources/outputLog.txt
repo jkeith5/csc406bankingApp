@@ -3038,3 +3038,80 @@ Error in connect to db: Error
 2019-11-10T23:06:14.716 Database Already Existed. Read into list.
 2019-11-10T23:06:44.685 ArrayList was written to File.
 2019-11-10T23:06:44.686 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T11:44:36.973  Initializing in Main
+2019-11-11T11:44:37.071 Database Already Existed. Read into list.
+2019-11-11T11:44:49.621 ArrayList was written to File.
+2019-11-11T11:44:49.621 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:02:11.801  Initializing in Main
+2019-11-11T12:02:11.897 Error in readFile. File not read in to array.
+2019-11-11T12:02:11.898 Database Already Existed. Read into list.
+2019-11-11T12:02:27.758 ArrayList was written to File.
+2019-11-11T12:02:27.758 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:03:26.173  Initializing in Main
+2019-11-11T12:03:26.190 Database Already Existed. Read into list.
+2019-11-11T12:03:34.672 ArrayList was written to File.
+2019-11-11T12:03:34.672 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:03:57.638  Initializing in Main
+2019-11-11T12:03:57.658 Database Already Existed. Read into list.
+2019-11-11T12:04:04.189 ArrayList was written to File.
+2019-11-11T12:04:04.189 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:04:21.735  Initializing in Main
+2019-11-11T12:04:21.753 Database Already Existed. Read into list.
+2019-11-11T12:04:31.596 ArrayList was written to File.
+2019-11-11T12:04:31.596 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:04:53.304  Initializing in Main
+2019-11-11T12:04:53.364 Reading in LoanAccounts.csv
+2019-11-11T12:04:53.622 ArrayList was written to File.
+2019-11-11T12:04:53.659 Created Customer Database and read into list.
+2019-11-11T12:05:05.558 ArrayList was written to File.
+2019-11-11T12:05:05.558 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:05:25.949  Initializing in Main
+2019-11-11T12:05:26.051 Database Already Existed. Read into list.
+2019-11-11T12:05:36.678 ArrayList was written to File.
+2019-11-11T12:05:36.678 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:09:09.955  Initializing in Main
+2019-11-11T12:09:10.030 Error in readFile. File not read in to array.
+2019-11-11T12:09:10.030 Database Already Existed. Read into list.
+2019-11-11T12:09:16.062 ArrayList was written to File.
+2019-11-11T12:09:16.062 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:09:29.082  Initializing in Main
+2019-11-11T12:09:29.148 Reading in LoanAccounts.csv
+2019-11-11T12:09:29.253 ArrayList was written to File.
+2019-11-11T12:09:29.288 Created Customer Database and read into list.
+2019-11-11T12:11:28.480 ArrayList was written to File.
+2019-11-11T12:11:28.480 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:11:46.385  Initializing in Main
+2019-11-11T12:11:46.503 Database Already Existed. Read into list.
+2019-11-11T12:16:44.421 ArrayList was written to File.
+2019-11-11T12:16:44.421 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:24:04.941  Initializing in Main
+2019-11-11T12:24:05.046 Database Already Existed. Read into list.
+2019-11-11T12:25:30.908 ArrayList was written to File.
+2019-11-11T12:25:30.908 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:27:16.226  Initializing in Main
+2019-11-11T12:27:16.343 Database Already Existed. Read into list.
+2019-11-11T12:27:51.946 ArrayList was written to File.
+2019-11-11T12:27:51.946 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:28:08.723  Initializing in Main
+2019-11-11T12:28:08.860 Database Already Existed. Read into list.
+2019-11-11T12:28:12.976 ArrayList was written to File.
+2019-11-11T12:28:12.976 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:28:19.715  Initializing in Main
+2019-11-11T12:28:19.814 Database Already Existed. Read into list.
+2019-11-11T12:40:59.332 ArrayList was written to File.
+2019-11-11T12:40:59.332 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:57:47.724  Initializing in Main
+2019-11-11T12:57:47.796 Error in readFile. File not read in to array.
+2019-11-11T12:57:47.796 Database Already Existed. Read into list.
+2019-11-11T12:58:02.987 ArrayList was written to File.
+2019-11-11T12:58:02.987 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T12:58:15.266  Initializing in Main
+2019-11-11T12:58:15.326 Reading in LoanAccounts.csv
+2019-11-11T12:58:15.435 ArrayList was written to File.
+2019-11-11T12:58:15.475 Created Customer Database and read into list.
+2019-11-11T13:11:46.630 ArrayList was written to File.
+2019-11-11T13:11:46.630 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T13:18:25.737  Initializing in Main
+2019-11-11T13:18:25.841 Database Already Existed. Read into list.
+2019-11-11T13:38:55.789 ArrayList was written to File.
+2019-11-11T13:38:55.790 The Customer Accounts Database Was sucessfully Written to the File

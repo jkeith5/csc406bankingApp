@@ -43,15 +43,6 @@ public class Main extends Application {
         activeStage=Main.primaryStage;
         System.out.println("active set to primary in Main Start");
 
-        System.out.println("In main start block");
-        //DataEntryDriver.readCustomerAccountsCSV();
-        //DataEntryDriver.readCheckingAccountsToArrList();
-        //DataEntryDriver.readSavingsAccountsToArrList();
-        //DataEntryDriver.readLoanAccountsToArrList();
-        //DataEntryDriver.readChecksToArrList();
-
-
-
     }
 
 

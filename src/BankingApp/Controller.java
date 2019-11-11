@@ -6,6 +6,8 @@ import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 
+import java.util.*;
+import java.util.Random;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -52,6 +54,8 @@ public class Controller implements Initializable{
     @FXML TextField tf3;
     @FXML TextField generalTestTextField;
     @FXML Button generalTestButton;
+    @FXML Button randomSSN;
+
     @FXML Button testWindowExitButton;
     @FXML
     public ComboBox<String> testComboBox;
@@ -266,6 +270,8 @@ public class Controller implements Initializable{
 
             }
 
+            manageExistingTellerDebitCreditAccountButton.setDisable(true);
+
 
             tellerManageDispData();
         }
@@ -442,11 +448,20 @@ public class Controller implements Initializable{
             }
         }
 
-
-
-
-
     }
+
+
+    public void transferFundsKeyEvent(){
+
+
+
+        if(manageExistingTellerFundsTransferAmount.getText().length()>1){
+            manageExistingTellerDebitCreditAccountButton.setDisable(false);
+        }else{
+            manageExistingTellerDebitCreditAccountButton.setDisable(true);
+        }
+    }
+
 
     public void enterKeyDefaultEvent(KeyEvent e){
         // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
@@ -845,15 +860,16 @@ public class Controller implements Initializable{
             }
         }else if(manageExistingTellerSavingsAccount.isSelected()){
             //
-            String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getSavingsAccount().getAccountBalance());
+            SavingsAccount simple = ca.getSimpleSavingsAccount();
+            String balanceFormatted = DataEntryDriver.formatAccountBalance(simple.getAccountBalance());
             manageDispDataAcctBalance.setText(balanceFormatted);
 
-            if(ca.getSavingsAccount().getAccountBalance()<0.0){
+            if(simple.getAccountBalance()<0.0){
                 manageDispDataAcctStatus.setText("Overdrawn");
             }else{
                 manageDispDataAcctStatus.setText("Current");
             }
-            manageDispDataAcctType.setText(ca.getSavingsAccount().getType());
+            manageDispDataAcctType.setText(simple.getType());
 
 
 
@@ -1521,6 +1537,15 @@ public class Controller implements Initializable{
     }
 
 
+    @FXML
+    public void randomSSNButton(){
+        int size = Main.customerAccounts.size();
+        Random random = new Random();
+        int randomInt = random.nextInt(size);
+        System.out.println(randomInt);
+        manageUserSSNField.setText(Main.customerAccounts.get(randomInt).getCustID());
+
+    }
 
     @FXML
     public void mainScreenTestButton(){
@@ -1555,6 +1580,16 @@ public class Controller implements Initializable{
         for(CustomerAccount ca: Main.customerAccounts){
             if(ca.hasCheckingAccount()){
                 System.out.println("ca checking acct id: "+ca.getCheckingAccount().getCheckingAcctID()+" Ca checks array: "+ca.getChecks().toString());
+            }
+        }
+
+
+        System.out.println("Testing");
+        for(CustomerAccount ca: Main.customerAccounts){
+            ArrayList<Check> caChecks = ca.getChecks();
+
+            for(Check check:caChecks){
+                System.out.println(check.getCheckNumber());
             }
         }
 
