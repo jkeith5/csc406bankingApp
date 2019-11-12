@@ -25,7 +25,7 @@ public class LoanAccount implements Serializable {
 
     public LoanAccount(String custID) {
         setAllNull();
-        this.custID = custID;
+        setCustID(custID);
     }
 
 
@@ -90,7 +90,7 @@ public class LoanAccount implements Serializable {
     }
 
     public void setCustID(String custID) {
-        this.custID = custID;
+        this.custID = DataEntryDriver.fixSSN(custID);
         calcNullValue();
     }
 
@@ -210,6 +210,8 @@ public class LoanAccount implements Serializable {
         this.hasMissedPayment = false;
     }
 
+    // will use these calcNullValue methods to find if the overall object is considered Null, so we can't try to
+    // display data in the GUI that has null values which would cause issues.
     public void calcNullValue(){
         this.isNull=false;
 
@@ -229,12 +231,6 @@ public class LoanAccount implements Serializable {
             this.isNull=true;
         }
 
-
-//        if(loanAccountType.equalsIgnoreCase("null") || custID.equalsIgnoreCase("null")){
-//            this.isNull = true;
-//        }else{
-//            this.isNull = false;
-//        }
     }
 
 

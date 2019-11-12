@@ -5,22 +5,38 @@ import java.io.Serializable;
 public class Check implements Serializable {
 
     public String checkNumber;
-    public String checkingAcctID;
+    public int checkingAcctID;
     public String checkDate;
     public double checkAmount;
     public boolean checkProcessed;
 
+    public String checkStatus;
+
     public Check(){
         //
+        setCheckStatus();
     }
 
     public Check(String checkNumber, String checkingAcctID, String checkDate, double checkAmount, boolean checkProcessed) {
-        this.checkNumber = checkNumber;
-        this.checkingAcctID = checkingAcctID;
-        this.checkDate = checkDate;
-        this.checkAmount = checkAmount;
-        this.checkProcessed = checkProcessed;
+        setCheckNumber(checkNumber);
+        setCheckingAcctID(checkingAcctID);
+        setCheckDate(checkDate);
+        setCheckAmount(checkAmount);
+        setCheckProcessed(checkProcessed);
+
+        setCheckStatus();
     }
+
+    public Check(String checkNumber, String checkingAcctID, String checkDate, String checkAmount, String checkProcessed) {
+        setCheckNumber(checkNumber);
+        setCheckingAcctID(checkingAcctID);
+        setCheckDate(checkDate);
+        setCheckAmount(checkAmount);
+        setCheckProcessed(checkProcessed);
+
+        setCheckStatus();
+    }
+
 
     public String getCheckNumber() {
         return checkNumber;
@@ -30,12 +46,29 @@ public class Check implements Serializable {
         this.checkNumber = checkNumber;
     }
 
-    public String getCheckingAcctID() {
+    public int getCheckingAcctID() {
         return checkingAcctID;
     }
 
     public void setCheckingAcctID(String checkingAcctID) {
-        this.checkingAcctID = checkingAcctID;
+        try {
+            this.checkingAcctID = Integer.parseInt(checkingAcctID);
+        } catch (NumberFormatException e) {
+            this.checkingAcctID = -1;
+        }
+    }
+
+    private void setCheckStatus(){
+        this.checkStatus="normal";
+    }
+
+
+    public String getCheckStatus(){
+        return this.checkStatus;
+    }
+
+    public void setCheckingAcctID(int checkingAcctID) {
+        this.checkingAcctID=checkingAcctID;
     }
 
     public String getCheckDate() {
@@ -74,18 +107,28 @@ public class Check implements Serializable {
     }
 
 
-    @Override
-    public String toString() {
-        return "Check{" +
-                "checkNumber='" + checkNumber + '\'' +
-                ", checkingAcctID='" + checkingAcctID + '\'' +
-                ", checkDate='" + checkDate + '\'' +
-                ", checkAmount=" + checkAmount +
-                ", checkProcessed=" + checkProcessed +
-                '}';
+    // changes check status to hold to indicate that a stop payment was placed on the check.
+    public boolean stopCheckPayment(){
+        String result = "";
+        if(!checkProcessed){
+            this.checkStatus="hold";
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
-
+    @Override
+    public String toString(){
+        return "Check{" +
+                "checkNumber='" + checkNumber + '\'' +
+                ", checkingAcctID=" + checkingAcctID +
+                ", checkDate='" + checkDate + '\'' +
+                ", checkAmount=" + checkAmount +
+                ", checkProcessed=" + checkProcessed +
+                ", checkStatus='" + checkStatus + '\'' +
+                '}';
+    }
 
 }

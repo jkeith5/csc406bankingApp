@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class CheckingAccount implements Serializable {
 
     public String custID;//ssn
-    public String checkingAcctID;
+    public int checkingAcctID; //change to int
     public double accountBalance;
     public String dateOpened;
     public boolean isGoldAccount;
@@ -51,12 +51,23 @@ public class CheckingAccount implements Serializable {
 
     }
 
-    public String getCheckingAcctID() {
+    public int getCheckingAcctID() {
         return checkingAcctID;
     }
 
+    public String getCheckingAcctIDString(){
+        return String.valueOf(checkingAcctID);
+    }
+
+
     public void setCheckingAcctID(String checkingAcctID) {
-        this.checkingAcctID = checkingAcctID;
+
+        try {
+            this.checkingAcctID = Integer.parseInt(checkingAcctID);
+        } catch (NumberFormatException e) {
+            this.checkingAcctID = -1;
+        }
+
         calcNullValue();
     }
 
@@ -136,7 +147,7 @@ public class CheckingAccount implements Serializable {
     public void setAllNull(){
 
         this.custID = "null";
-        this.checkingAcctID = "null";
+        this.checkingAcctID = -1;
         this.dateOpened = "null";
         this.accountBalance = 0.0;
         this.overdraftsOnAcct = -1;
@@ -156,11 +167,7 @@ public class CheckingAccount implements Serializable {
             this.isNull=true;
         }
 
-        if(checkingAcctID!=null){
-            if(checkingAcctID.equalsIgnoreCase("null")){
-                this.isNull=true;
-            }
-        }else{
+        if(checkingAcctID==-1){
             this.isNull=true;
         }
 

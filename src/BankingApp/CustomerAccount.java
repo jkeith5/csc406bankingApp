@@ -226,6 +226,29 @@ public class CustomerAccount implements Serializable {
         return this.savingsAccounts.get(0);
     }
 
+    public SavingsAccount getSimpleSavingsAccount(){
+        SavingsAccount result = new SavingsAccount();
+        for(SavingsAccount sa: savingsAccounts){
+            if(!sa.isCdAccount()){
+                result = sa;
+            }
+        }
+
+        return result;
+    }
+
+    public SavingsAccount getCDSavingsAccount(){
+        SavingsAccount result = new SavingsAccount();
+
+        for(SavingsAccount sa:savingsAccounts){
+            if(sa.isCdAccount()){
+                result =sa;
+            }
+        }
+
+        return result;
+    }
+
     public SavingsAccount getSavingsAccountByIndex(int index){
         return this.savingsAccounts.get(index);
     }
@@ -309,12 +332,19 @@ public class CustomerAccount implements Serializable {
         this.checks.add(temp);
     }
 
+
+
     public boolean isNull() {
         return isNull;
     }
 
     public void setNull(boolean aNull) {
         isNull = aNull;
+    }
+
+    //testing
+    public void printChecks(){
+        System.out.println("custID: "+custID+"chekck Numbers: "+checks);
     }
 
     @Override

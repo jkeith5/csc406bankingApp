@@ -27,7 +27,7 @@ public class Main extends Application {
     public static Button defaultSceneButton = null;
 
     // access the customerAccount object and arraylist by all Classes
-    public static CustomerAccount customerAccount;
+    public static CustomerAccount customerAccount; // the currently active customer account
     public static ArrayList<CustomerAccount> customerAccounts; //= DataEntryDriver.readFileToCustomerAccountsArrayList();
     public static String currentCustomerID;
     public static EmployeeAccount loggedInEmployee;
@@ -42,13 +42,6 @@ public class Main extends Application {
         Main.primaryStage.show();
         activeStage=Main.primaryStage;
         System.out.println("active set to primary in Main Start");
-
-        System.out.println("In main start block");
-        DataEntryDriver.readCustomerAccountsCSV();
-        DataEntryDriver.readCheckingAccountsToArrList();
-        DataEntryDriver.readSavingsAccountsToArrList();
-        DataEntryDriver.readLoanAccountsToArrList();
-
 
     }
 
@@ -137,6 +130,12 @@ public class Main extends Application {
         return result;
     }
 
+
+    public static void printToConsoleAndLog(String message){
+        String result = getDateTimeString()+message;
+        out.println(result);
+        System.out.println(result);
+    }
 
 
 

@@ -1,10 +1,15 @@
 package BankingApp;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 
+import java.util.*;
+import java.util.Random;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -51,6 +56,8 @@ public class Controller implements Initializable{
     @FXML TextField tf3;
     @FXML TextField generalTestTextField;
     @FXML Button generalTestButton;
+    @FXML Button randomSSN;
+
     @FXML Button testWindowExitButton;
     @FXML
     public ComboBox<String> testComboBox;
@@ -104,6 +111,7 @@ public class Controller implements Initializable{
     @FXML Label manageDispDataAcctBalance;
     @FXML Label manageDispDataAcctStatus;
     @FXML Label manageDispDataAcctType;
+    @FXML Label manageDispDataErrLabel;
 
 
 
@@ -204,7 +212,7 @@ public class Controller implements Initializable{
 
             if(!DataEntryDriver.ssnInDatabase(DataEntryDriver.stripSSN(manageUserSSNField.getText()))){
                 // if whatever is in the box is not in the database, display this code
-                manageUserSSNField.setText("687-69-8941");
+                manageUserSSNField.setText("423-45-3245");
                 manageUserLookupButton.setDisable(false);
                 setManageUserErrLabel(manageUserSSNField.getText());
             }else{
@@ -265,6 +273,11 @@ public class Controller implements Initializable{
 
             }
 
+            manageDispDataErrLabel.setText("");
+            manageExistingTellerDebitCreditAccountButton.setDisable(true);
+
+            // sets a changed listener to this object
+            DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount);
 
             tellerManageDispData();
         }
@@ -299,6 +312,16 @@ public class Controller implements Initializable{
             testComboBox.getItems().clear();
             testComboBox.getItems().addAll(states);
             autoComboTest = new ComboBoxAutoComplete<String>(testComboBox); // creates and manages the combo box
+
+
+            //   ^-?\d{0,7}([\.]\d{0,4})?
+            DataEntryDriver.validateTransferField(tf1);
+            DataEntryDriver.validateZipField(tf2);
+
+
+
+
+
 
         }
 
@@ -366,7 +389,7 @@ public class Controller implements Initializable{
     public void addNewUserKeyEvent(){
         System.out.println("event");
 
-        DataEntryDriver.validateZip(zipCodeTextField);
+        DataEntryDriver.validateZipField(zipCodeTextField);
         ArrayList<String[]> itemsValid = getNewUserInfoValidArrayList();
         if(addNewUserInfoValid(itemsValid)){
             addNewUserInterfaceEnterButton.setDisable(false);
@@ -376,15 +399,12 @@ public class Controller implements Initializable{
 
             unsuccessfulEntryLabel.visibleProperty().setValue(true);
         }
-
-
-        //addNewUserInterfaceEnterButton.setDisable(false);
     }
 
     @FXML
     public void updateUserKeyEvent(){
         System.out.println("update user key event");
-        DataEntryDriver.validateZip(updateDataZip);
+        DataEntryDriver.validateZipField(updateDataZip);
 
         ArrayList<String[]> itemsValid = getNewUserInfoValidArrayList();
         for(String[] el:itemsValid){
@@ -409,16 +429,18 @@ public class Controller implements Initializable{
         // if no account of each type disable radio button for that account
         tellerManageDispData();
 
-        System.out.println(accTypeToggleGroup.toString());
+        //System.out.println(accTypeToggleGroup.toString());
 
         if(manageExistingTellerTransferFunds.isSelected()){ // if box is selected
 
             if(manageExistingTellerCheckingAccount.isSelected()){
                 manageExistingTellerCheckingLabel.setText("From: ");
                 manageExistingTellerSavingsLabel.setText("To: ");
+                transferFundsKeyEvent();
             }else{
                 manageExistingTellerSavingsLabel.setText("From: ");
                 manageExistingTellerCheckingLabel.setText("To: ");
+                transferFundsKeyEvent();
             }
 
 
@@ -426,29 +448,74 @@ public class Controller implements Initializable{
         }else{// if box was not selected
             manageExistingTellerCheckingLabel.setText("");
             manageExistingTellerSavingsLabel.setText("");
+            transferFundsKeyEvent();
         }
 
     }
+
 
     public void transferFundsCheckBoxEvent(){
         System.out.println("transfer funds block event");
 
+
+
+
+
         if(!manageExistingTellerTransferFunds.isDisabled()){
             if(manageExistingTellerTransferFunds.isSelected()){
                 System.out.println("selected");
+                manageExistingTellerFundsTransferAmount.setText("");
                 displayDataRadioButtonEvent();
             }else{
                 System.out.println("not selected");
+                manageExistingTellerFundsTransferAmount.setText("");
                 manageExistingTellerCheckingLabel.setText("");
                 manageExistingTellerSavingsLabel.setText("");
+                transferFundsKeyEvent();
             }
         }
 
-
-
-
-
     }
+
+
+    public void transferFundsKeyEvent(){
+        // THINGS THIS NEEDS TO DO
+        // READ IF WE ARE CONDUCTING AN ACTION ON A CHECKING OR SAVINGS ACCOUNT
+        // CHECK AND DISABLE TRANSFER BUTTON IF THERE ISN'T ENOUGH MONEY TO COMPLETE THE DEBIT
+        // ^^^^^^^ UNLESS THERE IS A BACKUP SAVING ACCOUNT ENABLED. IF SO TAKE REMAINDER FROM SAVING ACCOUNT
+        // CREATE A TRANSACTION OBJECT FOR EACH ACTION AND RECORD IN ACCOUNT
+        // GENERATE FINAL ALERT WINDOW TO CONFIRM TRANSACTION
+
+        System.out.println("\n\n");
+
+        if(manageExistingTellerTransferFunds.isSelected()){
+            String transferString = manageExistingTellerFundsTransferAmount.getText();
+            transferString = transferString.replaceAll("-",""); // can't just set a new listener in an easy way so just hack the - sign off
+            manageExistingTellerFundsTransferAmount.setText(transferString);
+            manageExistingTellerFundsTransferAmount.positionCaret(transferString.length());
+        }
+
+
+        if(manageExistingTellerFundsTransferAmount.getText().length()<1){
+            manageExistingTellerDebitCreditAccountButton.setDisable(true);
+        }else{
+            manageExistingTellerDebitCreditAccountButton.setDisable(false);
+            // set to value from method in FinanceDriver
+
+            // need to know transfer amt, if transfer is checked, to and from
+            // if not checked then debit / credit to account
+
+            // hand it the label as well.
+            boolean isValid = FinanceDriver.isTransferAmtValid(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,
+                    manageExistingTellerCheckingAccount,manageExistingTellerSavingsAccount,manageDispDataErrLabel);
+
+            System.out.println("is valid: "+isValid);
+
+
+
+        }
+    }
+
 
     public void enterKeyDefaultEvent(KeyEvent e){
         // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
@@ -465,10 +532,10 @@ public class Controller implements Initializable{
                         fireButton.fire();
                     }
                 }else if(activeStage.getScene().getFocusOwner() instanceof TextField){
-                    System.out.println(activeStage.getScene().getFocusOwner().getId());
+                    //System.out.println(activeStage.getScene().getFocusOwner().getId());
 
                     TextField fireTextField = (TextField) activeStage.getScene().focusOwnerProperty().get();
-                    System.out.println(fireTextField.getId());
+                    //System.out.println(fireTextField.getId());
                     if(fireTextField.getId().equals("manageUserSSNField")){
                         //tellerInterfaceManageLookupButton();
 
@@ -546,11 +613,11 @@ public class Controller implements Initializable{
 
     @FXML
     public void ssnFieldKeyEvent(KeyEvent e){ // a generic and multi use method to validate any ssn textfield hopefully
-        System.out.println("Start SSN field key event");
+        //System.out.println("Start SSN field key event");
         EventType<KeyEvent> keyEventType = e.getEventType();
         String keyCodeName = e.getCode().getName();
         String keyEventTypeName = keyEventType.getName();
-        System.out.println(e.getCode().getName());
+        //System.out.println(e.getCode().getName());
 
         TextField focusedTextField = getFocusedObject();
 
@@ -576,22 +643,22 @@ public class Controller implements Initializable{
 
     @FXML
     public void manageUserKeyEvent(KeyEvent e){
-        System.out.println("Start Manage User Key Event");
+        //System.out.println("Start Manage User Key Event");
         EventType<KeyEvent> keyEventType = e.getEventType();
         String keyCodeName = e.getCode().getName();
         String keyEventTypeName = keyEventType.getName();
 
-        System.out.println(e.getCode().getName());
+        //System.out.println(e.getCode().getName());
         String ssn = DataEntryDriver.stripSSN(manageUserSSNField.getText());
         manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
 
         if(keyCodeName.equals("Enter")){ // allows enter button to fire main event
-            System.out.println("Keycode was enter");
-            System.out.println(keyEventType.toString());
+            //System.out.println("Keycode was enter");
+            //System.out.println(keyEventType.toString());
             if(keyEventTypeName.equals("KEY_PRESSED")){
-                System.out.println("Key Event Type Key Pressed");
+                //System.out.println("Key Event Type Key Pressed");
                 if(!manageUserLookupButton.isDisabled()){
-                    System.out.println("Enter key pressed button not disabled");
+                    //System.out.println("Enter key pressed button not disabled");
                     if(Main.loggedInEmployee.getType().equals("T")){
                         tellerInterfaceManageLookupButton();
                     }
@@ -616,18 +683,18 @@ public class Controller implements Initializable{
         ssn = DataEntryDriver.stripSSN(ssn);
 
         if(!DataEntryDriver.ssnValid(ssn)){// if not 9 digits
-            System.out.println("enter valid number "+ssn);
+            //System.out.println("enter valid number "+ssn);
             lookupInterErrLabel.setText("Please Enter a Valid 9 digit SSN number");
         }else{ // if ssn is 9 digits
             if(!DataEntryDriver.ssnInDatabase(ssn)) {
-                System.out.println("ssn not in database please go to add account");
+                //System.out.println("ssn not in database please go to add account");
                 lookupInterErrLabel.setText("The SSN you Entered Is not In the Database.\nGo to Add new Customer or enter" +
                         " a valid 9 Digit SSN number.");
             }else{
                 CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(manageUserSSNField.getText());
                 lookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
                 //Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+ ca.toString());
-                System.out.println("LAST SSN: "+ssn);
+                //System.out.println("LAST SSN: "+ssn);
                 manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
 
             }
@@ -654,8 +721,8 @@ public class Controller implements Initializable{
         System.out.println("hi");
         Parent root = null;
         Parent login = null;
-        System.out.println("tellerLogIn value: "+tellerLogIn);
-        System.out.println("teller Pending value: "+tellerPendingLogin);
+        //System.out.println("tellerLogIn value: "+tellerLogIn);
+        //System.out.println("teller Pending value: "+tellerPendingLogin);
 
         try {
 
@@ -847,15 +914,16 @@ public class Controller implements Initializable{
             }
         }else if(manageExistingTellerSavingsAccount.isSelected()){
             //
-            String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getSavingsAccount().getAccountBalance());
+            SavingsAccount simple = ca.getSimpleSavingsAccount();
+            String balanceFormatted = DataEntryDriver.formatAccountBalance(simple.getAccountBalance());
             manageDispDataAcctBalance.setText(balanceFormatted);
 
-            if(ca.getSavingsAccount().getAccountBalance()<0.0){
+            if(simple.getAccountBalance()<0.0){
                 manageDispDataAcctStatus.setText("Overdrawn");
             }else{
                 manageDispDataAcctStatus.setText("Current");
             }
-            manageDispDataAcctType.setText(ca.getSavingsAccount().getType());
+            manageDispDataAcctType.setText(simple.getType());
 
 
 
@@ -1523,6 +1591,15 @@ public class Controller implements Initializable{
     }
 
 
+    @FXML
+    public void randomSSNButton(){
+        int size = Main.customerAccounts.size();
+        Random random = new Random();
+        int randomInt = random.nextInt(size);
+        System.out.println(randomInt);
+        manageUserSSNField.setText(Main.customerAccounts.get(randomInt).getCustID());
+
+    }
 
     @FXML
     public void mainScreenTestButton(){
@@ -1552,6 +1629,23 @@ public class Controller implements Initializable{
         System.out.println(Main.activeStage.getScene().getProperties().toString());
         System.out.println(Main.activeStage.getTitle());
         System.out.println(Main.activeStage.getScene().getFocusOwner().getId());
+
+
+        for(CustomerAccount ca: Main.customerAccounts){
+            if(ca.hasCheckingAccount()){
+                System.out.println("ca checking acct id: "+ca.getCheckingAccount().getCheckingAcctID()+" Ca checks array: "+ca.getChecks().toString());
+            }
+        }
+
+
+        System.out.println("Testing");
+        for(CustomerAccount ca: Main.customerAccounts){
+            ArrayList<Check> caChecks = ca.getChecks();
+
+            for(Check check:caChecks){
+                System.out.println(check.getCheckNumber());
+            }
+        }
 
 
     }
