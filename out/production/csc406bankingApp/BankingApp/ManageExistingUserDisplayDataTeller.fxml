@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
+   <children>
+      <Pane prefHeight="500.0" prefWidth="700.0">
+         <children>
+            <Label layoutX="172.0" layoutY="32.0" prefHeight="17.0" prefWidth="30.0" text="SSN:" />
+            <Label layoutX="172.0" layoutY="49.0" prefHeight="17.0" prefWidth="65.0" text="First Name:" />
+            <Label layoutX="172.0" layoutY="68.0" prefHeight="17.0" prefWidth="65.0" text="Last Name:" />
+            <Label layoutX="334.0" layoutY="32.0" prefHeight="17.0" prefWidth="83.0" text="Street Address:" />
+            <Label layoutX="334.0" layoutY="49.0" prefHeight="17.0" prefWidth="30.0" text="City:" />
+            <Label layoutX="334.0" layoutY="68.0" prefHeight="17.0" prefWidth="30.0" text="State:" />
+            <Label layoutX="402.0" layoutY="68.0" prefHeight="17.0" prefWidth="30.0" text="Zip: " />
+            <Label layoutX="210.0" layoutY="107.0" prefHeight="17.0" prefWidth="97.0" text="Account Balance:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="210.0" layoutY="143.0" prefHeight="17.0" prefWidth="39.0" text="Status:" />
+            <Label layoutX="255.0" layoutY="272.0" prefHeight="17.0" prefWidth="61.0" text="Amount : $" />
+            <Label fx:id="manageDispDataSSN" layoutX="204.0" layoutY="32.0" prefHeight="17.0" prefWidth="97.0" text="000-00-0000" />
+            <Label fx:id="manageDispDataFirst" layoutX="233.0" layoutY="49.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+            <Label fx:id="manageDispDataLast" layoutX="237.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+            <Label fx:id="manageDispDataStreetAddr" layoutX="417.0" layoutY="32.0" prefHeight="17.0" prefWidth="133.0" text="Label" />
+            <Label fx:id="manageDispDataCity" layoutX="417.0" layoutY="49.0" prefHeight="17.0" prefWidth="133.0" text="Label" />
+            <Label fx:id="manageDispDataState" layoutX="366.0" layoutY="68.0" prefHeight="17.0" prefWidth="30.0" text="MO" />
+            <Label fx:id="manageDispDataZip" layoutX="423.0" layoutY="68.0" prefHeight="17.0" prefWidth="133.0" text="00000" />
+            <Label fx:id="manageDispDataAcctBalance" layoutX="309.0" layoutY="107.0" prefHeight="17.0" prefWidth="146.0" text="Label" />
+            <Label fx:id="manageDispDataAcctStatus" layoutX="309.0" layoutY="143.0" prefHeight="17.0" prefWidth="156.0" text="Label" />
+            <Label layoutX="210.0" layoutY="123.0" prefHeight="17.0" prefWidth="79.0" text="Account Type:" />
+            <Label fx:id="manageDispDataAcctType" layoutX="309.0" layoutY="124.0" prefHeight="17.0" prefWidth="156.0" text="Label" />
+            <Label fx:id="manageExistingTellerCheckingLabel" layoutX="207.0" layoutY="205.0" prefHeight="17.0" prefWidth="39.0" text="From: " />
+            <Label fx:id="manageExistingTellerSavingsLabel" layoutX="207.0" layoutY="230.0" prefHeight="17.0" prefWidth="39.0" text="To:" />
+            <Button fx:id="manageExistingTellerUpdateDataButton" layoutX="15.0" layoutY="121.0" mnemonicParsing="false" onAction="#tellerInterfaceManageUpdateDataButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="Update Customer Data" />
+            <Button fx:id="manageExistingTellerViewRecentActivityButton" layoutX="15.0" layoutY="159.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="View Recent Activity" />
+            <Button layoutX="15.0" layoutY="197.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Add Account" />
+            <Button layoutX="15.0" layoutY="235.0" mnemonicParsing="false" onAction="#deleteAccountButton" prefHeight="25.0" prefWidth="156.0" text="DELETE CUSTOMER ACC" />
+            <Button layoutX="15.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Manage Loan Account" />
+            <CheckBox fx:id="manageExistingTellerTransferFunds" layoutX="206.0" layoutY="177.0" mnemonicParsing="false" onAction="#transferFundsCheckBoxEvent" text="Transfer Funds" />
+            <RadioButton fx:id="manageExistingTellerCheckingAccount" layoutX="255.0" layoutY="205.0" mnemonicParsing="false" onAction="#displayDataRadioButtonEvent" onKeyPressed="#displayDataRadioButtonEvent" onKeyReleased="#displayDataRadioButtonEvent" text="Checking">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggle1" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="manageExistingTellerSavingsAccount" layoutX="255.0" layoutY="230.0" mnemonicParsing="false" onAction="#displayDataRadioButtonEvent" onKeyPressed="#displayDataRadioButtonEvent" onKeyReleased="#displayDataRadioButtonEvent" text="Savings" toggleGroup="$toggle1" />
+            <TextField fx:id="manageExistingTellerFundsTransferAmount" layoutX="325.0" layoutY="268.0" promptText="Enter Amount" />
+            <Button fx:id="manageExistingTellerDebitCreditAccountButton" layoutX="484.0" layoutY="268.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Debit/Credit Account" />
+            <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
+            <Button fx:id="manageExistingDispDataPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageLookupScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
