@@ -1,5 +1,7 @@
 package BankingApp;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
 import java.io.*;
@@ -130,17 +132,9 @@ public class DataEntryDriver {
                 result.add(ca);
 
             }
-
-
-
             for(CustomerAccount caz:result){ // base data at this point
                 System.out.println(caz.toString());
             }
-
-
-
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -173,18 +167,12 @@ public class DataEntryDriver {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
             }
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return result;
     }
 
@@ -205,17 +193,12 @@ public class DataEntryDriver {
                 SavingsAccount sa = new SavingsAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
                 result.add(sa);
                 //System.out.println("Testing: print double interest rate: "+sa.getInterestRate());
-
             }
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return result;
     }
 
@@ -234,20 +217,15 @@ public class DataEntryDriver {
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
                 System.out.println(Arrays.toString(split));
-
                 LoanAccount la = new LoanAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6],split[7],split[8],split[9],split[10]);
                 result.add(la);
 
             }
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return result;
     }
 
@@ -264,23 +242,15 @@ public class DataEntryDriver {
 
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
-
-
                 System.out.println("Split array: "+Arrays.toString(split));
-
                 Check check = new Check(split[0],split[1],split[2],split[3],split[4]);
                 result.add(check);
-
             }
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return result;
     }
 
@@ -441,11 +411,6 @@ public class DataEntryDriver {
         String result = ssnStripped;
         result = stripSSN(result);
 
-//        if(result.equalsIgnoreCase("null") || result.length()!=9){
-//            return "null";
-//        }
-
-
         String p1;
         String p2;
         String p3;
@@ -525,16 +490,39 @@ public class DataEntryDriver {
         return zip.length() == 5;
     }
 
-    public static void validateZip(TextField zipField){
-        String result = zipField.getText().replaceAll("[^\\d]", "");
-        if(result.length()>5){
-            result=result.substring(0,5);
-        }
-
-        zipField.setText(result);
-        zipField.positionCaret(zipField.getText().length());
+    public static void validateZipField(TextField zipField){
+        zipField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d{0,5}")) {
+                    zipField.setText(oldValue);
+                }
+            }
+        });
 
     }
+
+
+    public static void validateTransferField(TextField transferField){ // negative true = -55 false = 55
+        System.out.println("\nvalidate transfer field");
+
+        transferField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("-?\\d{0,7}([\\.]\\d{0,2})?")) {
+                    transferField.setText(oldValue);
+                }
+            }
+        });
+
+
+
+
+
+    }
+
+
+
 
     public static String makeSSNValid(String ssn){
         String result = ssn;

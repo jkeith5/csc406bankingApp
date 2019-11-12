@@ -1,6 +1,8 @@
 package BankingApp;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventType;
@@ -109,6 +111,7 @@ public class Controller implements Initializable{
     @FXML Label manageDispDataAcctBalance;
     @FXML Label manageDispDataAcctStatus;
     @FXML Label manageDispDataAcctType;
+    @FXML Label manageDispDataErrLabel;
 
 
 
@@ -270,8 +273,62 @@ public class Controller implements Initializable{
 
             }
 
+            manageDispDataErrLabel.setText("");
             manageExistingTellerDebitCreditAccountButton.setDisable(true);
 
+
+//            if(manageExistingTellerTransferFunds.isSelected()){
+//                DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,false);
+//            }else{
+//                DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,true);
+//            }
+
+            //DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount);
+
+
+//            transferField.textProperty().addListener(new ChangeListener<String>() {
+//                @Override
+//                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//                    if (!newValue.matches("-?\\d{0,7}([\\.]\\d{0,2})?")) {
+//                        transferField.setText(oldValue);
+//                        System.out.println("Set text normal");
+//                    }
+//                }
+//            });
+
+
+//            manageExistingTellerTransferFunds.selectedProperty().addListener(new ChangeListener<Boolean>() {
+//                @Override
+//                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+//                    //manageExistingTellerTransferFunds.setSelected(!newValue);
+//                    System.out.println("change listener on transfer funds activated");
+//                    System.out.println("new value: "+newValue);
+//                    if(newValue){// if selected
+//                        DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,false);
+//                    }else{
+//                        DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,true);
+//                    }
+//                }
+//            });
+
+
+
+//            manageExistingTellerTransferFunds.selectedProperty().addListener(new ChangeListener<Boolean>() {
+//                @Override
+//                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+//                    //manageExistingTellerTransferFunds.setSelected(!newValue);
+//                    System.out.println("change listener on transfer funds activated");
+//                    System.out.println("new value: "+newValue);
+//                    if(newValue){// if selected
+//                        DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,false);
+//                    }else{
+//                        DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,true);
+//                    }
+//                }
+//            });
+
+
+            DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount);
 
             tellerManageDispData();
         }
@@ -306,6 +363,16 @@ public class Controller implements Initializable{
             testComboBox.getItems().clear();
             testComboBox.getItems().addAll(states);
             autoComboTest = new ComboBoxAutoComplete<String>(testComboBox); // creates and manages the combo box
+
+
+            //   ^-?\d{0,7}([\.]\d{0,4})?
+            DataEntryDriver.validateTransferField(tf1);
+            DataEntryDriver.validateZipField(tf2);
+
+
+
+
+
 
         }
 
@@ -373,7 +440,7 @@ public class Controller implements Initializable{
     public void addNewUserKeyEvent(){
         System.out.println("event");
 
-        DataEntryDriver.validateZip(zipCodeTextField);
+        DataEntryDriver.validateZipField(zipCodeTextField);
         ArrayList<String[]> itemsValid = getNewUserInfoValidArrayList();
         if(addNewUserInfoValid(itemsValid)){
             addNewUserInterfaceEnterButton.setDisable(false);
@@ -388,7 +455,7 @@ public class Controller implements Initializable{
     @FXML
     public void updateUserKeyEvent(){
         System.out.println("update user key event");
-        DataEntryDriver.validateZip(updateDataZip);
+        DataEntryDriver.validateZipField(updateDataZip);
 
         ArrayList<String[]> itemsValid = getNewUserInfoValidArrayList();
         for(String[] el:itemsValid){
@@ -434,15 +501,24 @@ public class Controller implements Initializable{
 
     }
 
+
     public void transferFundsCheckBoxEvent(){
         System.out.println("transfer funds block event");
+
+
+
+
 
         if(!manageExistingTellerTransferFunds.isDisabled()){
             if(manageExistingTellerTransferFunds.isSelected()){
                 System.out.println("selected");
+                manageExistingTellerFundsTransferAmount.setText("");
+                //DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,false);
                 displayDataRadioButtonEvent();
             }else{
                 System.out.println("not selected");
+                manageExistingTellerFundsTransferAmount.setText("");
+                //DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,true);
                 manageExistingTellerCheckingLabel.setText("");
                 manageExistingTellerSavingsLabel.setText("");
             }
@@ -453,22 +529,38 @@ public class Controller implements Initializable{
 
     public void transferFundsKeyEvent(){
         // THINGS THIS NEEDS TO DO
-        // PARSE THE - AS A SUBTRACTION OR DEBIT TO AN ACCOUNT
         // READ IF WE ARE CONDUCTING AN ACTION ON A CHECKING OR SAVINGS ACCOUNT
         // CHECK AND DISABLE TRANSFER BUTTON IF THERE ISN'T ENOUGH MONEY TO COMPLETE THE DEBIT
         // ^^^^^^^ UNLESS THERE IS A BACKUP SAVING ACCOUNT ENABLED. IF SO TAKE REMAINDER FROM SAVING ACCOUNT
         // CREATE A TRANSACTION OBJECT FOR EACH ACTION AND RECORD IN ACCOUNT
         // GENERATE FINAL ALERT WINDOW TO CONFIRM TRANSACTION
-        // ADD A DATA VALIDATION METHOD TO THE TEXT FIELD.
-        // THIS VALIDATION SHOULD ONLY ALLOW MINUS SIGN, NUMBERS AND A DECIMAL PLACE.
-        // DISALLOW LENGTH OF MORE THAN 7 DIGITS AND TWO DECIMAL PLACES. THATS 1000000.00 SO 1 MILLION AND CHANGE
+
+        System.out.println("\n\n");
+
+        if(manageExistingTellerTransferFunds.isSelected()){
+            String transferString = manageExistingTellerFundsTransferAmount.getText();
+            transferString = transferString.replaceAll("-","");
+            manageExistingTellerFundsTransferAmount.setText(transferString);
+            manageExistingTellerFundsTransferAmount.positionCaret(transferString.length());
+        }
 
 
-
-        if(manageExistingTellerFundsTransferAmount.getText().length()>1){
-            manageExistingTellerDebitCreditAccountButton.setDisable(false);
-        }else{
+        if(manageExistingTellerFundsTransferAmount.getText().length()<1){
             manageExistingTellerDebitCreditAccountButton.setDisable(true);
+        }else{
+            manageExistingTellerDebitCreditAccountButton.setDisable(false);
+            // set to value from method in FinanceDriver
+
+            // need to know transfer amt, if transfer is checked, to and from
+            // if not checked then debit / credit to account
+
+            boolean isValid = FinanceDriver.isTransferAmtValid(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,
+                    manageExistingTellerCheckingAccount,manageExistingTellerSavingsAccount);
+
+            System.out.println("is valid: "+isValid);
+
+
+
         }
     }
 

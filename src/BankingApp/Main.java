@@ -27,7 +27,7 @@ public class Main extends Application {
     public static Button defaultSceneButton = null;
 
     // access the customerAccount object and arraylist by all Classes
-    public static CustomerAccount customerAccount;
+    public static CustomerAccount customerAccount; // the currently active customer account
     public static ArrayList<CustomerAccount> customerAccounts; //= DataEntryDriver.readFileToCustomerAccountsArrayList();
     public static String currentCustomerID;
     public static EmployeeAccount loggedInEmployee;

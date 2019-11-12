@@ -10,10 +10,10 @@
    <children>
       <Pane prefHeight="532.0" prefWidth="660.0">
          <children>
-            <TextField layoutX="213.0" layoutY="105.0" />
+            <TextField fx:id="tf1" layoutX="213.0" layoutY="105.0" />
             <ComboBox fx:id="testComboBox" editable="true" layoutX="212.0" layoutY="158.0" prefWidth="150.0" promptText="Missouri" />
-            <TextField layoutX="213.0" layoutY="211.0" />
-            <TextField layoutX="213.0" layoutY="266.0" />
+            <TextField fx:id="tf2" layoutX="213.0" layoutY="211.0" />
+            <TextField fx:id="tf3" layoutX="213.0" layoutY="266.0" />
             <ComboBox fx:id="testCombo2" editable="true" layoutX="212.0" layoutY="321.0" prefWidth="150.0" />
             <Button fx:id="testWindowExitButton" layoutX="14.0" layoutY="493.0" mnemonicParsing="false" onAction="#testWindowExitButtonAction" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="97.0" text="Exit to main" />
          </children>
