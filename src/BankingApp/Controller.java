@@ -276,58 +276,7 @@ public class Controller implements Initializable{
             manageDispDataErrLabel.setText("");
             manageExistingTellerDebitCreditAccountButton.setDisable(true);
 
-
-//            if(manageExistingTellerTransferFunds.isSelected()){
-//                DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,false);
-//            }else{
-//                DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,true);
-//            }
-
-            //DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount);
-
-
-//            transferField.textProperty().addListener(new ChangeListener<String>() {
-//                @Override
-//                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//                    if (!newValue.matches("-?\\d{0,7}([\\.]\\d{0,2})?")) {
-//                        transferField.setText(oldValue);
-//                        System.out.println("Set text normal");
-//                    }
-//                }
-//            });
-
-
-//            manageExistingTellerTransferFunds.selectedProperty().addListener(new ChangeListener<Boolean>() {
-//                @Override
-//                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-//                    //manageExistingTellerTransferFunds.setSelected(!newValue);
-//                    System.out.println("change listener on transfer funds activated");
-//                    System.out.println("new value: "+newValue);
-//                    if(newValue){// if selected
-//                        DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,false);
-//                    }else{
-//                        DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,true);
-//                    }
-//                }
-//            });
-
-
-
-//            manageExistingTellerTransferFunds.selectedProperty().addListener(new ChangeListener<Boolean>() {
-//                @Override
-//                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-//                    //manageExistingTellerTransferFunds.setSelected(!newValue);
-//                    System.out.println("change listener on transfer funds activated");
-//                    System.out.println("new value: "+newValue);
-//                    if(newValue){// if selected
-//                        DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,false);
-//                    }else{
-//                        DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,true);
-//                    }
-//                }
-//            });
-
-
+            // sets a changed listener to this object
             DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount);
 
             tellerManageDispData();
@@ -487,9 +436,11 @@ public class Controller implements Initializable{
             if(manageExistingTellerCheckingAccount.isSelected()){
                 manageExistingTellerCheckingLabel.setText("From: ");
                 manageExistingTellerSavingsLabel.setText("To: ");
+                transferFundsKeyEvent();
             }else{
                 manageExistingTellerSavingsLabel.setText("From: ");
                 manageExistingTellerCheckingLabel.setText("To: ");
+                transferFundsKeyEvent();
             }
 
 
@@ -497,6 +448,7 @@ public class Controller implements Initializable{
         }else{// if box was not selected
             manageExistingTellerCheckingLabel.setText("");
             manageExistingTellerSavingsLabel.setText("");
+            transferFundsKeyEvent();
         }
 
     }
@@ -513,14 +465,13 @@ public class Controller implements Initializable{
             if(manageExistingTellerTransferFunds.isSelected()){
                 System.out.println("selected");
                 manageExistingTellerFundsTransferAmount.setText("");
-                //DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,false);
                 displayDataRadioButtonEvent();
             }else{
                 System.out.println("not selected");
                 manageExistingTellerFundsTransferAmount.setText("");
-                //DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount,true);
                 manageExistingTellerCheckingLabel.setText("");
                 manageExistingTellerSavingsLabel.setText("");
+                transferFundsKeyEvent();
             }
         }
 
@@ -539,7 +490,7 @@ public class Controller implements Initializable{
 
         if(manageExistingTellerTransferFunds.isSelected()){
             String transferString = manageExistingTellerFundsTransferAmount.getText();
-            transferString = transferString.replaceAll("-","");
+            transferString = transferString.replaceAll("-",""); // can't just set a new listener in an easy way so just hack the - sign off
             manageExistingTellerFundsTransferAmount.setText(transferString);
             manageExistingTellerFundsTransferAmount.positionCaret(transferString.length());
         }
@@ -554,8 +505,9 @@ public class Controller implements Initializable{
             // need to know transfer amt, if transfer is checked, to and from
             // if not checked then debit / credit to account
 
+            // hand it the label as well.
             boolean isValid = FinanceDriver.isTransferAmtValid(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,
-                    manageExistingTellerCheckingAccount,manageExistingTellerSavingsAccount);
+                    manageExistingTellerCheckingAccount,manageExistingTellerSavingsAccount,manageDispDataErrLabel);
 
             System.out.println("is valid: "+isValid);
 

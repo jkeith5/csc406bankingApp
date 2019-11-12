@@ -1,6 +1,7 @@
 package BankingApp;
 
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
@@ -17,8 +18,8 @@ public class FinanceDriver {
 
 
 
-    public static boolean isTransferAmtValid(TextField transferAmt, CheckBox transferFundsCheckBox, RadioButton checkingAccRadio,RadioButton savingsAccRadio){
-        boolean returnVal = false;
+    public static boolean isTransferAmtValid(TextField transferAmt, CheckBox transferFundsCheckBox, RadioButton checkingAccRadio, RadioButton savingsAccRadio, Label errLabel){
+        boolean returnVal = true;
         String transferAmtString = transferAmt.getText();
         double transferAmtDouble=0.0;
         CustomerAccount ca = Main.customerAccount;
@@ -31,41 +32,69 @@ public class FinanceDriver {
         } catch (NumberFormatException e) {
             transferAmtDouble = 0.0;
         }
-        System.out.println("transferAmt double: "+transferAmtDouble);
+        //System.out.println("transferAmt double: "+transferAmtDouble);
 
 
-        if(transferFundsCheckBox.isSelected()){
-            System.out.println("transfer funds: true");
+        if(transferFundsCheckBox.isSelected()){ // transferring funds from account
+            double checkingBalance = ca.getCheckingAccount().getAccountBalance();
+            double simpleSavingsBalance = ca.getSimpleSavingsAccount().getAccountBalance();
 
-            if(checkingAccRadio.isSelected()){
-                System.out.println("transfer from checking to savings");
+            //double newBal = checkingBalance+transferAmtDouble;
+
+            if(checkingAccRadio.isSelected()){ // transfer from checking APPLY FEE TO CHECKING
+                double newBal = checkingBalance-transferAmtDouble;
+                if(transferAmtDouble>checkingBalance){
+                    returnVal = false;
+                    errLabel.setText("There is not enough money in Checking Account to Complete Transaction! new balance: "+newBal);
+                }else{
+                    errLabel.setText("transfer "+ transferAmtDouble +" from checking to savings new balance: "+newBal);
+                }
+
             }else{
-                System.out.println("transfer from savings to checkings");
+                double newBal = simpleSavingsBalance-transferAmtDouble;
+                if(transferAmtDouble>simpleSavingsBalance){
+                    returnVal=false;
+                    errLabel.setText("There is not enough money in Savings account to Complete Transaction! new balance: "+newBal);
+                }else{
+                    errLabel.setText("transfer "+transferAmtDouble +" from savings to checkings new balance: "+newBal);
+                }
             }
 
         }else{
-            System.out.println("transfer funds: false");
-
+            //System.out.println("transfer funds: false");
             if(checkingAccRadio.isSelected()){
-                System.out.println("credit/debit checking account");
+
+                double checkingBalance = ca.getCheckingAccount().getAccountBalance();
+                double newBal = checkingBalance+transferAmtDouble;
+
+                if(transferAmtDouble<0.0){
+                    if(transferAmtDouble>checkingBalance){
+                        errLabel.setText("This Transaction will overdraw the Checking account by "+newBal);
+                    }else{
+                        errLabel.setText("debit "+transferAmtDouble+" from Checking Account new balance: "+newBal);
+                    }
+                }else{
+                    errLabel.setText("Credit "+transferAmtDouble+" to Checking Account new balance: "+newBal);
+                }
             }
             if(savingsAccRadio.isSelected()){
-                System.out.println("credit/debit savings account");
+                double savingsBalance = ca.getSimpleSavingsAccount().getAccountBalance();
+                double newBal = savingsBalance + transferAmtDouble;
+
+                if(transferAmtDouble<0.0){
+                    if(transferAmtDouble>savingsBalance){
+                        errLabel.setText("This transaction will overdraw the Savings Account by "+newBal);
+                    }else{
+                        errLabel.setText("Debit "+transferAmtDouble+" from Savings Account new balance: "+newBal);
+                    }
+
+                }else{
+                    errLabel.setText("Credit "+transferAmtDouble+" to Savings Account new balance: "+newBal);
+                }
+
             }
 
         }
-
-//        if(checkingAccRadio.isSelected()){
-//            System.out.println("checking acc: true");
-//        }else{
-//            System.out.println("checking acc: false");
-//        }
-//
-//        if(savingsAccRadio.isSelected()){
-//            System.out.println("savings acc: true");
-//        }else{
-//            System.out.println("savings acc: false");
-//        }
 
 
 

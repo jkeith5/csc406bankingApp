@@ -3251,3 +3251,31 @@ Error in connect to db: Error
 2019-11-11T20:36:00.647 Database Already Existed. Read into list.
 2019-11-11T20:36:52.280 ArrayList was written to File.
 2019-11-11T20:36:52.280 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T20:51:15.202  Initializing in Main
+2019-11-11T20:51:15.299 Database Already Existed. Read into list.
+2019-11-11T20:54:49.720 ArrayList was written to File.
+2019-11-11T20:54:49.721 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T20:56:40.880  Initializing in Main
+2019-11-11T20:56:40.999 Database Already Existed. Read into list.
+2019-11-11T20:57:25.365 ArrayList was written to File.
+2019-11-11T20:57:25.365 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T20:59:11.035  Initializing in Main
+2019-11-11T20:59:11.144 Database Already Existed. Read into list.
+2019-11-11T20:59:45.235 ArrayList was written to File.
+2019-11-11T20:59:45.235 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T21:00:23.518  Initializing in Main
+2019-11-11T21:00:23.617 Database Already Existed. Read into list.
+2019-11-11T21:01:39.789 ArrayList was written to File.
+2019-11-11T21:01:39.789 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T21:19:25.527  Initializing in Main
+2019-11-11T21:19:25.628 Database Already Existed. Read into list.
+2019-11-11T21:20:28.286 ArrayList was written to File.
+2019-11-11T21:20:28.286 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T21:20:46.635  Initializing in Main
+2019-11-11T21:20:46.747 Database Already Existed. Read into list.
+2019-11-11T21:24:24.533 ArrayList was written to File.
+2019-11-11T21:24:24.533 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-11T21:24:29.932  Initializing in Main
+2019-11-11T21:24:30.042 Database Already Existed. Read into list.
+2019-11-11T21:27:56.660 ArrayList was written to File.
+2019-11-11T21:27:56.660 The Customer Accounts Database Was sucessfully Written to the File
