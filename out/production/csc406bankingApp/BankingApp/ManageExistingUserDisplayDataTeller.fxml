@@ -48,10 +48,11 @@
                   <ToggleGroup fx:id="toggle1" />
                </toggleGroup></RadioButton>
             <RadioButton fx:id="manageExistingTellerSavingsAccount" layoutX="255.0" layoutY="230.0" mnemonicParsing="false" onAction="#displayDataRadioButtonEvent" onKeyPressed="#displayDataRadioButtonEvent" onKeyReleased="#displayDataRadioButtonEvent" text="Savings" toggleGroup="$toggle1" />
-            <TextField fx:id="manageExistingTellerFundsTransferAmount" layoutX="325.0" layoutY="268.0" promptText="Enter Amount" />
+            <TextField fx:id="manageExistingTellerFundsTransferAmount" layoutX="325.0" layoutY="268.0" onKeyReleased="#transferFundsKeyEvent" promptText="Enter Amount" />
             <Button fx:id="manageExistingTellerDebitCreditAccountButton" layoutX="484.0" layoutY="268.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Debit/Credit Account" />
             <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
             <Button fx:id="manageExistingDispDataPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageLookupScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Label fx:id="manageDispDataErrLabel" layoutX="252.0" layoutY="298.0" prefHeight="134.0" prefWidth="386.0" wrapText="true" />
          </children>
       </Pane>
    </children>

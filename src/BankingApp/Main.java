@@ -31,6 +31,7 @@ public class Main extends Application {
     public static ArrayList<CustomerAccount> customerAccounts; //= DataEntryDriver.readFileToCustomerAccountsArrayList();
     public static String currentCustomerID;
     public static EmployeeAccount loggedInEmployee;
+    public static CustomerAccount loggedInCustomer;
 
     @Override
     public void start(Stage primaryStage) throws Exception{

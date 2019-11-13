@@ -9,6 +9,7 @@ public class CustomerAccount implements Serializable {
     // NOTE!!! CHANGING DATA HERE LIKE ADDING METHODS OR VARIABLES REQUIRES TO DELETE CUSTOMERDATABASE FILE IN
     // RESOURCES SO THE OBJECT INPUT STREAM WILL CORRECTLY READ IN THE NEW DATA INTO OBJECTS
 
+
     public String custID;
     public String firstName;
     public String lastName;
@@ -18,6 +19,7 @@ public class CustomerAccount implements Serializable {
     public String zip;
     public String atmCardNumber;
     public String dateCreated; // date of initial customer account
+
 
     public boolean hasSavingsAccount=false;
     public boolean hasCheckingAccount=false;

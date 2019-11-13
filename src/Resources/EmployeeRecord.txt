@@ -856,3 +856,70 @@
 2019-11-11T21:20:50.828 Employee UserName: asdf Looked Up account: CustomerAccount{custID='423-45-3245', firstName='Ronald', lastName='Jones', streetAddr='114 North 4th', city='Clarkesdale', state='MO', zip='64493', atmCardNumber='2899653222933490', dateCreated='11/11/2019', hasSavingsAccount=true, hasCheckingAccount=true, hasShortTermLoan=true, hasLongTermLoan=false, hasCreditCardAcct=true, hasLoanAccount=true, savingsAccount=[SavingsAccount{custID='423-45-3245', savingsAcctID='1', accountBalance=200.0, interestRate=0.022, dateOpened='12/1/2002', isCdAccount=false, cdCloseDate='null'}], checkingAccount=CheckingAccount{custID='423-45-3245', checkingAcctID='1', accountBalance=6.23, dateOpened='12/1/2002', isGoldAccount=false, backupSavingsEnabled=true, overdraftsOnAcct=3}, transactions=[], loanAccounts=[LoanAccount{loanAccountType='STL', custID='423-45-3245', initialLoanAmt=8000.0, currentBalance=6149.0, interestRate=0.08, paymentDueDate='10/27/2019', paymentNoticeDate='10/1/2019', amountDue=144.0, lastPaymentDate='9/16/2019', hasMissedPayment=false}, LoanAccount{loanAccountType='CCL', custID='423-45-3245', initialLoanAmt=10000.0, currentBalance=6149.0, interestRate=0.08, paymentDueDate='10/27/2019', paymentNoticeDate='10/1/2019', amountDue=132.82, lastPaymentDate='9/16/2019', hasMissedPayment=false}], checks=[Check{checkNumber='100', checkingAcctID=1, checkDate='4/3/2005', checkAmount=123.62, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='101', checkingAcctID=1, checkDate='8/17/2007', checkAmount=145.67, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='102', checkingAcctID=1, checkDate='9/14/2009', checkAmount=5.06, checkProcessed=false, checkStatus='normal'}], isNull=false}
 2019-11-11T21:24:33.270 Teller Account UserName: asdf logged into account.
 2019-11-11T21:24:34.848 Employee UserName: asdf Looked Up account: CustomerAccount{custID='423-45-3245', firstName='Ronald', lastName='Jones', streetAddr='114 North 4th', city='Clarkesdale', state='MO', zip='64493', atmCardNumber='2899653222933490', dateCreated='11/11/2019', hasSavingsAccount=true, hasCheckingAccount=true, hasShortTermLoan=true, hasLongTermLoan=false, hasCreditCardAcct=true, hasLoanAccount=true, savingsAccount=[SavingsAccount{custID='423-45-3245', savingsAcctID='1', accountBalance=200.0, interestRate=0.022, dateOpened='12/1/2002', isCdAccount=false, cdCloseDate='null'}], checkingAccount=CheckingAccount{custID='423-45-3245', checkingAcctID='1', accountBalance=6.23, dateOpened='12/1/2002', isGoldAccount=false, backupSavingsEnabled=true, overdraftsOnAcct=3}, transactions=[], loanAccounts=[LoanAccount{loanAccountType='STL', custID='423-45-3245', initialLoanAmt=8000.0, currentBalance=6149.0, interestRate=0.08, paymentDueDate='10/27/2019', paymentNoticeDate='10/1/2019', amountDue=144.0, lastPaymentDate='9/16/2019', hasMissedPayment=false}, LoanAccount{loanAccountType='CCL', custID='423-45-3245', initialLoanAmt=10000.0, currentBalance=6149.0, interestRate=0.08, paymentDueDate='10/27/2019', paymentNoticeDate='10/1/2019', amountDue=132.82, lastPaymentDate='9/16/2019', hasMissedPayment=false}], checks=[Check{checkNumber='100', checkingAcctID=1, checkDate='4/3/2005', checkAmount=123.62, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='101', checkingAcctID=1, checkDate='8/17/2007', checkAmount=145.67, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='102', checkingAcctID=1, checkDate='9/14/2009', checkAmount=5.06, checkProcessed=false, checkStatus='normal'}], isNull=false}
+2019-11-12T16:14:40.919 Teller Account UserName: sf logged into account.
+2019-11-12T16:14:45.245 Employee UserName: sf Looked Up account: CustomerAccount{custID='423-45-3245', firstName='Ronald', lastName='Jones', streetAddr='114 North 4th', city='Clarkesdale', state='MO', zip='64493', atmCardNumber='2899653222933490', dateCreated='11/12/2019', hasSavingsAccount=true, hasCheckingAccount=true, hasShortTermLoan=true, hasLongTermLoan=false, hasCreditCardAcct=true, hasLoanAccount=true, savingsAccount=[SavingsAccount{custID='423-45-3245', savingsAcctID='1', accountBalance=200.0, interestRate=0.022, dateOpened='12/1/2002', isCdAccount=false, cdCloseDate='null'}], checkingAccount=CheckingAccount{custID='423-45-3245', checkingAcctID='1', accountBalance=6.23, dateOpened='12/1/2002', isGoldAccount=false, backupSavingsEnabled=true, overdraftsOnAcct=3}, transactions=[], loanAccounts=[LoanAccount{loanAccountType='STL', custID='423-45-3245', initialLoanAmt=8000.0, currentBalance=6149.0, interestRate=0.08, paymentDueDate='10/27/2019', paymentNoticeDate='10/1/2019', amountDue=144.0, lastPaymentDate='9/16/2019', hasMissedPayment=false}, LoanAccount{loanAccountType='CCL', custID='423-45-3245', initialLoanAmt=10000.0, currentBalance=6149.0, interestRate=0.08, paymentDueDate='10/27/2019', paymentNoticeDate='10/1/2019', amountDue=132.82, lastPaymentDate='9/16/2019', hasMissedPayment=false}], checks=[Check{checkNumber='100', checkingAcctID=1, checkDate='4/3/2005', checkAmount=123.62, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='101', checkingAcctID=1, checkDate='8/17/2007', checkAmount=145.67, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='102', checkingAcctID=1, checkDate='9/14/2009', checkAmount=5.06, checkProcessed=false, checkStatus='normal'}], isNull=false}
+2019-11-12T16:35:01.647 Teller Account UserName: sdv logged into account.
+2019-11-12T16:35:25.512 Employee UserName: sdv Looked Up account: CustomerAccount{custID='436-78-9213', firstName='John', lastName='Munzer', streetAddr='4156 N. Mulbury', city='St. Joseph', state='MO', zip='64502', atmCardNumber='null', dateCreated='11/12/2019', hasSavingsAccount=false, hasCheckingAccount=true, hasShortTermLoan=false, hasLongTermLoan=true, hasCreditCardAcct=false, hasLoanAccount=true, savingsAccount=[], checkingAccount=CheckingAccount{custID='436-78-9213', checkingAcctID='11', accountBalance=8779.55, dateOpened='12/29/2010', isGoldAccount=false, backupSavingsEnabled=false, overdraftsOnAcct=0}, transactions=[], loanAccounts=[LoanAccount{loanAccountType='LTL', custID='436-78-9213', initialLoanAmt=90000.0, currentBalance=44763.0, interestRate=0.1, paymentDueDate='11/27/2019', paymentNoticeDate='11/1/2019', amountDue=1650.0, lastPaymentDate='10/9/2019', hasMissedPayment=false}], checks=[Check{checkNumber='1100', checkingAcctID=11, checkDate='10/19/2019', checkAmount=593.99, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='1101', checkingAcctID=11, checkDate='10/21/2019', checkAmount=839.69, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='1102', checkingAcctID=11, checkDate='10/22/2019', checkAmount=453.25, checkProcessed=false, checkStatus='normal'}], isNull=false}
+2019-11-12T16:13:53.736 Teller Account UserName: dwfe logged into account.
+2019-11-12T16:49:57.032 Teller Account UserName: ewfw logged into account.
+2019-11-12T16:58:04.059 Teller Account UserName: ads logged into account.
+2019-11-12T17:01:36.105 Teller Account UserName: asdf logged into account.
+2019-11-12T17:30:38.460 Teller Account UserName: asdf logged into account.
+2019-11-12T17:44:36.774 Manager Account UserName: asdf logged into account.
+2019-11-12T17:59:14.564 Manager Account UserName: asdf logged into account.
+2019-11-12T18:21:27.352 Manager Account UserName: asdf logged into account.
+2019-11-12T18:45:24.605 Customer Account UserName: Customer logged into account.
+2019-11-12T18:35:18.694 in customer login button
+2019-11-12T19:08:34.157 Teller Account UserName: asdf logged into account.
+2019-11-12T19:08:34.212 Customer Account UserName: Customer logged into account.
+2019-11-12T19:12:37.698 Customer Account UserName: Customer logged into account.
+2019-11-12T19:13:07.453 Customer Account UserName: Customer logged into account.
+2019-11-12T19:14:14.774 Customer Account UserName: Customer logged into account.
+2019-11-12T19:14:19.288 Customer Account UserName: Customer logged into account.
+2019-11-12T19:10:50.171 Customer Account UserName: Customer logged into account.
+2019-11-12T19:09:32.312 Customer Account UserName: Customer logged into account.
+2019-11-12T19:15:24.733 Customer Account UserName: Customer logged into account.
+2019-11-12T19:15:56.482 Customer Account UserName: Customer logged into account.
+2019-11-12T19:26:25.727 Customer Account UserName: Customer logged into account.
+2019-11-12T19:28:18.032 Customer Account UserName: Customer logged into account.
+2019-11-12T20:00:24.523 Customer Account UserName: Customer logged into account.
+2019-11-12T20:03:44.930 Customer Account UserName: Customer logged into account.
+2019-11-12T20:11:36.457 Customer Account UserName: Customer logged into account.
+2019-11-12T20:07:01.003 Customer Account UserName: Customer logged into account.
+2019-11-12T20:04:35.865 Customer Account UserName: Customer logged into account.
+2019-11-12T20:05:12.257 Customer Account UserName: Customer logged into account.
+2019-11-12T20:21:49.914 Customer Account UserName: Customer logged into account.
+2019-11-12T20:14:59.759 Customer Account UserName: Customer logged into account.
+2019-11-12T20:22:30.407 Teller Account UserName: ad logged into account.
+2019-11-12T20:31:06.817 Customer Account UserName: Customer logged into account.
+2019-11-12T20:31:55.161 Customer Account UserName: Customer logged into account.
+2019-11-12T20:23:27.004 Teller Account UserName: jkg logged into account.
+2019-11-12T20:23:30.329 Employee UserName: jkg Looked Up account: CustomerAccount{custID='423-45-3245', firstName='Ronald', lastName='Jones', streetAddr='114 North 4th', city='Clarkesdale', state='MO', zip='64493', atmCardNumber='2899653222933490', dateCreated='11/12/2019', hasSavingsAccount=true, hasCheckingAccount=true, hasShortTermLoan=true, hasLongTermLoan=false, hasCreditCardAcct=true, hasLoanAccount=true, savingsAccount=[SavingsAccount{custID='423-45-3245', savingsAcctID='1', accountBalance=200.0, interestRate=0.022, dateOpened='12/1/2002', isCdAccount=false, cdCloseDate='null'}], checkingAccount=CheckingAccount{custID='423-45-3245', checkingAcctID='1', accountBalance=6.23, dateOpened='12/1/2002', isGoldAccount=false, backupSavingsEnabled=true, overdraftsOnAcct=3}, transactions=[], loanAccounts=[LoanAccount{loanAccountType='STL', custID='423-45-3245', initialLoanAmt=8000.0, currentBalance=6149.0, interestRate=0.08, paymentDueDate='10/27/2019', paymentNoticeDate='10/1/2019', amountDue=144.0, lastPaymentDate='9/16/2019', hasMissedPayment=false}, LoanAccount{loanAccountType='CCL', custID='423-45-3245', initialLoanAmt=10000.0, currentBalance=6149.0, interestRate=0.08, paymentDueDate='10/27/2019', paymentNoticeDate='10/1/2019', amountDue=132.82, lastPaymentDate='9/16/2019', hasMissedPayment=false}], checks=[Check{checkNumber='100', checkingAcctID=1, checkDate='4/3/2005', checkAmount=123.62, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='101', checkingAcctID=1, checkDate='8/17/2007', checkAmount=145.67, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='102', checkingAcctID=1, checkDate='9/14/2009', checkAmount=5.06, checkProcessed=false, checkStatus='normal'}], isNull=false}
+2019-11-12T20:33:31.762 Customer Account UserName: Customer logged into account.
+2019-11-12T20:35:47.415 Customer Account UserName: Customer logged into account.
+2019-11-12T20:53:23.507 Customer Account UserName: Customer logged into account.
+2019-11-12T20:55:32.931 Customer Account UserName: Customer logged into account.
+2019-11-12T20:55:50.420 Customer Account UserName: Customer logged into account.
+2019-11-12T20:54:11.357 Customer Account UserName: Customer logged into account.
+2019-11-12T20:56:25.093 Customer Account UserName: Customer logged into account.
+2019-11-12T21:11:57.604 Customer Account UserName: Customer logged into account.
+2019-11-12T21:06:33.952 Customer Account UserName: Customer logged into account.
+2019-11-12T21:22:51.036 Customer Account UserName: Customer logged into account.
+2019-11-12T21:21:10.584 Customer Account UserName: Customer logged into account.
+2019-11-12T21:14:16.789 Customer Account UserName: Customer logged into account.
+2019-11-12T21:36:04.986 Customer Account UserName: Customer logged into account.
+2019-11-12T21:36:26.155 Customer Account UserName: Customer logged into account.
+2019-11-13T13:24:32.138 Customer Account UserName: Customer logged into account.
+2019-11-13T13:27:01.595 Customer Account UserName: Customer logged into account.
+2019-11-13T13:28:01.814 Customer Account UserName: Customer logged into account.
+2019-11-13T13:28:54.826 Customer Account UserName: Customer logged into account.
+2019-11-13T13:30:04.972 Customer Account UserName: Customer logged into account.
+2019-11-13T13:30:44.372 Customer Account UserName: Customer logged into account.
+2019-11-13T13:35:01.441 Customer Account UserName: Customer logged into account.
+2019-11-13T13:36:26.452 Customer Account UserName: Customer logged into account.
+2019-11-13T13:37:45.527 Customer Account UserName: Customer logged into account.
+2019-11-13T13:45:23.822 Customer Account UserName: Customer logged into account.
+2019-11-13T13:42:41.543 Customer Account UserName: Customer logged into account.
+2019-11-13T13:38:32.412 Customer Account UserName: Customer logged into account.
+2019-11-13T13:49:20.366 Customer Account UserName: Customer logged into account.
+2019-11-13T13:50:35.197 Customer Account UserName: Customer logged into account.

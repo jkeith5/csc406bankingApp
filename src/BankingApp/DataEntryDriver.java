@@ -324,6 +324,32 @@ public class DataEntryDriver {
         return result;
     }
 
+    public static CustomerAccount getCustomerAccountFromCustomerAtmCardNum(String cardNum){
+        System.out.println("start of get customer acct from id");
+        ArrayList<CustomerAccount> accountsList = Main.customerAccounts;
+
+        CustomerAccount result = new CustomerAccount("null");
+
+        String searchCardNumStripped = stripSSN(cardNum);
+
+        for(CustomerAccount ca:accountsList){
+          String custCardNumStripped = stripSSN(ca.atmCardNumber);
+            if(searchCardNumStripped.equals(custCardNumStripped)){
+                result = ca;
+                break;
+            }
+        }
+
+        if(result.isNull()){
+            System.out.println("no results found in getCustAcctFromID");
+        }
+
+
+        return result;
+    }
+
+
+
     public static void printCustomerDatabase(){
         System.out.println("Printing customer Database\n");
         for(CustomerAccount ca:Main.customerAccounts){

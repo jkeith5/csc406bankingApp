@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
+    <children>
+        <Pane prefHeight="500.0" prefWidth="700.0">
+            <children>
+                <Label fx:id="customerDispDataFirst" layoutX="290.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+                <Label fx:id="customerDispDataLast" layoutX="365.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+                <Label layoutX="300.0" layoutY="120.0" prefHeight="17.0" prefWidth="97.0" text="Balance: " />
+                <Label fx:id="customerDispDataAccountBalance" layoutX="360.0" layoutY="120.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+                <Button fx:id="customerInterAtmWithdrawal" layoutX="280.0" layoutY="150.0" mnemonicParsing="false" onAction="#CustomerInterAtmWithdrawalButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="150.0" text="Withdrawal" />
+                <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToMainScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+                <Text layoutX="277.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Interface" wrappingWidth="145.13671875" />
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

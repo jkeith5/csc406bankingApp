@@ -14,7 +14,7 @@
             <Text layoutX="185.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Banking Application Please Select A User" wrappingWidth="330.13671875" />
             <Button fx:id="tellerScreen" layoutX="290.0" layoutY="111.0" mnemonicParsing="false" onAction="#mainInterfaceTellerButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="32.0" prefWidth="120.0" text="Bank Teller" />
             <Button fx:id="bankManagerScreen" layoutX="290.0" layoutY="179.0" mnemonicParsing="false" onAction="#mainInterfaceManagerButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="32.0" prefWidth="120.0" text="Bank Manager" />
-            <Button fx:id="customerScreen" layoutX="290.0" layoutY="247.0" mnemonicParsing="false" onAction="#mainInterfaceTellerButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="32.0" prefWidth="120.0" text="Customer/ATM" />
+            <Button fx:id="customerScreen" layoutX="290.0" layoutY="247.0" mnemonicParsing="false" onAction="#mainInterfaceCustomerButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="32.0" prefWidth="120.0" text="Customer/ATM" />
             <Button fx:id="mainScreenTestButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#mainInterfaceTestButton" onKeyPressed="#enterKeyDefaultEvent" text="Test" />
             <Button layoutX="264.0" layoutY="449.0" mnemonicParsing="false" onAction="#generalTestButtonAction" text="Test2" />
          </children>

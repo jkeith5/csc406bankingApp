@@ -36,8 +36,10 @@ public class Controller implements Initializable{
 
     public static boolean tellerLogIn;
     public static boolean managerLogIn;
+    public static boolean customerLogIn;
     public static boolean tellerPendingLogin;
     public static boolean managerPendingLogin;
+    public static boolean customerPendingLogin;
     public static ToggleGroup accTypeToggleGroup;
 
     public ArrayList<String> states = DataEntryDriver.createStatesArray();
@@ -113,6 +115,11 @@ public class Controller implements Initializable{
     @FXML Label manageDispDataAcctType;
     @FXML Label manageDispDataErrLabel;
 
+    @FXML Button customerInterAtmBalance;
+    @FXML Button customerInterAtmWithdrawal;
+    @FXML Label customerDispDataFirst;
+    @FXML Label customerDispDataLast;
+    @FXML Label customerDispDataAccountBalance;
 
 
     // Note when I say ManageExistingTeller I mean the ManageExistingUser interface for the Teller account
@@ -186,6 +193,8 @@ public class Controller implements Initializable{
         // so either create a seperate Controller for interfaces that need to pull dynamic data
         // or just make a bunch of if statement blocks here with the location filename and
         // initialize the data for the interface. I'll go with the second method.
+
+
 
         if(locationString.equals("AddNewUser.fxml")){
 
@@ -280,6 +289,7 @@ public class Controller implements Initializable{
             DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount);
 
             tellerManageDispData();
+
         }
 
         if(locationString.equals("ManageExistingUserUpdateData.fxml")){
@@ -325,10 +335,9 @@ public class Controller implements Initializable{
 
         }
 
-
-
-
-
+        if(locationString.equals("CustomerInterface.fxml")){
+            customerDispData();
+        }
 
         //
 
@@ -713,6 +722,51 @@ public class Controller implements Initializable{
     }
 
 
+    public void CustomerInterAtmBalanceButton() {
+
+    }
+
+    public void CustomerInterAtmWithdrawalButton() {
+
+    }
+
+
+    public void mainInterfaceCustomerButton(){
+        Parent root = null;
+        Parent login = null;
+        try {
+            if(customerLogIn){
+                customerPendingLogin = false;
+                root = FXMLLoader.load(getClass().getResource("CustomerInterface.fxml"));
+                Main.primaryStage.setTitle("Customer Interface");
+                Main.primaryStage.setScene(new Scene(root, 700, 500));
+                Main.primaryStage.show();
+                Main.activeStage=Main.primaryStage;
+                System.out.println("set active stage to primary in Customer button");
+            }else{
+                customerPendingLogin =true;
+                System.out.println("checking in");
+                login = FXMLLoader.load(getClass().getResource("CustomerLogin.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Customer Login");
+                stage.setScene(new Scene(login,382,420));
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+
+                stage.setOnCloseRequest(event -> loginInterfaceExitButton());
+
+                Main.activeStage=stage;
+                System.out.println("set active stage to Customer login");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+
 
 
     // Main Screen Buttons and Login Methods
@@ -819,6 +873,14 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    public void CustomerLoginButton(){
+        customerPendingLogin=true;
+        loginInterfaceLoginButton();
+        System.out.println("checking in in CustomerLogin");
+        Main.loggedInCustomer = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
+    }
+
+    @FXML
     public void loginInterfaceLoginButton(){
         System.out.println("logininterloginbutton pending: "+tellerPendingLogin);
 
@@ -851,6 +913,17 @@ public class Controller implements Initializable{
 
         }
 
+        if(customerPendingLogin){
+            customerLogIn = validateLoginCreds("Customer");
+            System.out.println("in verify");
+            if(customerLogIn){
+                customerPendingLogin=false;
+                Main.outEmployee.println(Main.getDateTimeString()+"Customer Account UserName: Customer logged into account.");
+                closeWindow();
+                mainInterfaceCustomerButton();
+            }
+        }
+
 
         // now the tellerLogIn and managerLogIn booleans let us know if, and of what type, a user is logged in as.
     }
@@ -861,6 +934,8 @@ public class Controller implements Initializable{
         managerLogIn=false;
         tellerPendingLogin=false;
         managerPendingLogin=false;
+        customerLogIn=false;
+        customerPendingLogin=false;
 
         //Stage stage = (Stage) loginInterExitButton.getScene().getWindow();
         Stage stage = Main.activeStage;
@@ -1161,6 +1236,22 @@ public class Controller implements Initializable{
     public static String lastEventTypeName="";
 
 
+    //CUSTOMER INTERFACE METHODS
+
+    public void customerDispData(){
+        CustomerAccount ca = Main.loggedInCustomer;
+        System.out.println("display data");
+        System.out.println(ca.toString());
+        String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
+
+        customerDispDataFirst.setText(ca.getFirstName());
+        customerDispDataLast.setText(ca.getLastName());
+        customerDispDataAccountBalance.setText(balanceFormatted);
+
+    }
+
+
+
     // GENERAL VALIDATION TYPE METHODS
 
     public void validateSSNField(KeyEvent e,TextField textField){ // fixes ssn and adds - when needed. bulletproof method of data validation
@@ -1353,6 +1444,17 @@ public class Controller implements Initializable{
             }
         }
 
+        if(userType == "Customer") {
+           if(loginInterUser.getText() == "customer" || loginInterUser.getText().length()>0){
+               if(loginInterPass.getText().length()>0){
+                   returnVal =true;
+               }else{
+                   returnVal = false;
+               }
+           }
+        }
+
+
         return returnVal;
     }
 
@@ -1495,6 +1597,7 @@ public class Controller implements Initializable{
 
             tellerLogIn = false;
             managerLogIn = false;
+            customerLogIn = false;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -1655,6 +1758,8 @@ public class Controller implements Initializable{
             return "Controller{" +
                     "tellerLogIn=" + tellerLogIn +
                     ", managerLogIn=" + managerLogIn +
+                    ", customerLogIn=" + customerLogIn +
+                    ", customerPendingLogin=" + customerPendingLogin +
                     ", tellerPendingLogin=" + tellerPendingLogin +
                     ", managerPendingLogin=" + managerPendingLogin +
                     ", fName=" + fName + ", lName=" + lName + ", socialSec='" + socialSec + '\'' +
@@ -1672,6 +1777,8 @@ public class Controller implements Initializable{
     public String toString() {
         return "Controller{" +
                 "tellerLogIn=" + tellerLogIn +
+                ", CustomerInterAtmBalance=" + customerInterAtmBalance +
+                ", CustomerInterAtmWithdrawal=" + customerInterAtmWithdrawal +
                 ", managerLogIn=" + managerLogIn +
                 ", tellerPendingLogin=" + tellerPendingLogin +
                 ", managerPendingLogin=" + managerPendingLogin +
