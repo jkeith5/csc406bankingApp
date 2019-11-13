@@ -877,7 +877,16 @@ public class Controller implements Initializable{
         customerPendingLogin=true;
         loginInterfaceLoginButton();
         System.out.println("checking in in CustomerLogin");
-        Main.loggedInCustomer = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
+
+        if(!loginInterUser.getText().isEmpty()){
+            Main.loggedInCustomer = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
+            CustomerAccount current = Main.loggedInCustomer;
+            Main.customerAccount = current;
+        }else{
+            System.out.println("Empty field enter a card number");
+        }
+
+
     }
 
     @FXML
