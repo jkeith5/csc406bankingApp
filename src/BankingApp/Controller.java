@@ -1270,6 +1270,7 @@ public class Controller implements Initializable{
 
     public void customerDispData(){
         CustomerAccount ca = Main.loggedInCustomer;
+        // test
         System.out.println("display data");
 
         System.out.println("Testing tostring");
