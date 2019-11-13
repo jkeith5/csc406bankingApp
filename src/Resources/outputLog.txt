@@ -40,6 +40,12 @@
 2019-11-13T16:55:36.980 Database Already Existed. Read into list.
 2019-11-13T16:56:12.638 ArrayList was written to File.
 2019-11-13T16:56:12.638 The Customer Accounts Database Was sucessfully Written to the File
+<<<<<<< HEAD
+2019-11-13T17:26:58.422  Initializing in Main
+2019-11-13T17:26:58.543 Database Already Existed. Read into list.
+2019-11-13T17:27:25.922 ArrayList was written to File.
+2019-11-13T17:27:25.923 The Customer Accounts Database Was sucessfully Written to the File
+=======
 2019-11-13T17:28:39.845  Initializing in Main
 2019-11-13T17:28:40.028 Database Already Existed. Read into list.
 2019-11-13T17:28:45.525 ArrayList was written to File.
@@ -48,3 +54,4 @@
 2019-11-13T17:41:58.153 Database Already Existed. Read into list.
 2019-11-13T17:42:03.485 ArrayList was written to File.
 2019-11-13T17:42:03.485 The Customer Accounts Database Was sucessfully Written to the File
+>>>>>>> 9597b9d674172bb80ba9034a18ded2a752b33bf5
