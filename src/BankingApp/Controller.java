@@ -1271,6 +1271,8 @@ public class Controller implements Initializable{
     public void customerDispData(){
         CustomerAccount ca = Main.loggedInCustomer;
         // test
+        // test2
+        // test 3 after git rm --cached -r .idea/
         System.out.println("display data");
 
         System.out.println("Testing tostring");
