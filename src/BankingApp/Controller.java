@@ -1272,7 +1272,16 @@ public class Controller implements Initializable{
         CustomerAccount ca = Main.loggedInCustomer;
         // test
         // test2
-        // test 3 after git rm --cached -r .idea/
+        // test 3 after git rm --cached -r out/
+        // test 4 after git rm --cached -r out/production
+        // test 5 git rm --cached -r out/production/csc406BankingApp
+        // test 6 delete the out folder
+        // test 7
+        // test 8
+        // 9
+
+
+
         System.out.println("display data");
 
         System.out.println("Testing tostring");
