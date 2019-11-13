@@ -327,7 +327,7 @@ public class Controller implements Initializable{
             //   ^-?\d{0,7}([\.]\d{0,4})?
             DataEntryDriver.validateTransferField(tf1);
             DataEntryDriver.validateZipField(tf2);
-
+            System.out.println("test ");
 
 
 
@@ -1270,19 +1270,7 @@ public class Controller implements Initializable{
 
     public void customerDispData(){
         CustomerAccount ca = Main.loggedInCustomer;
-        // test
-        // test2
-        // test 3 after git rm --cached -r out/
-        // test 4 after git rm --cached -r out/production
-        // test 5 git rm --cached -r out/production/csc406BankingApp
-        // test 6 delete the out folder
-        // test 7
-        // test 8
-        // 9
-        // sdlfkasjl
-        // test againnnn
-
-
+        System.out.println("Is it gone");
 
         System.out.println("display data");
 
