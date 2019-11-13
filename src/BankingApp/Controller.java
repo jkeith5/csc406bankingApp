@@ -735,29 +735,38 @@ public class Controller implements Initializable{
         Parent root = null;
         Parent login = null;
         try {
-            if(customerLogIn){
-                customerPendingLogin = false;
-                root = FXMLLoader.load(getClass().getResource("CustomerInterface.fxml"));
-                Main.primaryStage.setTitle("Customer Interface");
-                Main.primaryStage.setScene(new Scene(root, 700, 500));
-                Main.primaryStage.show();
-                Main.activeStage=Main.primaryStage;
-                System.out.println("set active stage to primary in Customer button");
+
+            if(!customerPendingLogin){
+                if(customerLogIn){ // if method was called and customer was already logged in .
+                    //customerPendingLogin = false;
+                    root = FXMLLoader.load(getClass().getResource("CustomerInterface.fxml"));
+                    Main.primaryStage.setTitle("Customer Interface");
+                    Main.primaryStage.setScene(new Scene(root, 700, 500));
+                    Main.primaryStage.show();
+                    Main.activeStage=Main.primaryStage;
+                    System.out.println("set active stage to primary in Customer button");
+                }else{// if method called and customer isn't logged in. THIS WILL ALWAYS RUN ON FIRST CALL
+                    customerPendingLogin =true; // set pending login to true because the login interface is launched
+                    System.out.println("checking in");
+                    login = FXMLLoader.load(getClass().getResource("CustomerLogin.fxml"));
+                    Stage stage = new Stage();
+                    stage.setTitle("Customer Login");
+                    stage.setScene(new Scene(login,382,420));
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.show();
+
+                    stage.setOnCloseRequest(event -> loginInterfaceExitButton());
+
+                    Main.activeStage=stage;
+                    System.out.println("set active stage to Customer login");
+                }
             }else{
-                customerPendingLogin =true;
-                System.out.println("checking in");
-                login = FXMLLoader.load(getClass().getResource("CustomerLogin.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Customer Login");
-                stage.setScene(new Scene(login,382,420));
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.show();
-
-                stage.setOnCloseRequest(event -> loginInterfaceExitButton());
-
-                Main.activeStage=stage;
-                System.out.println("set active stage to Customer login");
+                System.out.println("login already pending");
             }
+
+
+
+            // so now this method is done and the program is waiting for the login interface to finish
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -874,24 +883,30 @@ public class Controller implements Initializable{
 
     @FXML
     public void CustomerLoginButton(){
-        customerPendingLogin=true;
+        //customerPendingLogin=true;
+        // I'll admit these are not really needed.
+        System.out.println("CustomerLoginButton clicked launching loginInterfaceLoginButton method");
         loginInterfaceLoginButton();
-        System.out.println("checking in in CustomerLogin");
+        //System.out.println("checking in in CustomerLogin");
 
-        if(!loginInterUser.getText().isEmpty()){
-            Main.loggedInCustomer = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
-            CustomerAccount current = Main.loggedInCustomer;
-            Main.customerAccount = current;
-        }else{
-            System.out.println("Empty field enter a card number");
-        }
+//        if(!loginInterUser.getText().isEmpty()){
+//            Main.loggedInCustomer = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
+//            CustomerAccount current = Main.loggedInCustomer;
+//            Main.customerAccount = current;
+//        }else{
+//            System.out.println("Empty field enter a card number");
+//        }
 
 
+        // just launch the loginInterfaceLoginButton method and finish let it handle the rest
     }
 
     @FXML
     public void loginInterfaceLoginButton(){
-        System.out.println("logininterloginbutton pending: "+tellerPendingLogin);
+        System.out.println("login inter login pending teller : "+tellerPendingLogin);
+        System.out.println("login inter login button pending customer "+customerPendingLogin);
+
+
 
         if(tellerPendingLogin){ // if pending but not complete login
             tellerLogIn = validateLoginCreds("Teller");
@@ -922,12 +937,18 @@ public class Controller implements Initializable{
 
         }
 
-        if(customerPendingLogin){
-            customerLogIn = validateLoginCreds("Customer");
+        if(customerPendingLogin){ // customer pending login is true
+            customerLogIn = validateLoginCreds("Customer"); // validate and determine if they are logged in or not
             System.out.println("in verify");
-            if(customerLogIn){
+
+            System.out.println("Customer logged in after validate method called is: "+customerLogIn);
+            if(customerLogIn){ // if validate was true and they are now logged in then call the main login button again
                 customerPendingLogin=false;
                 Main.outEmployee.println(Main.getDateTimeString()+"Customer Account UserName: Customer logged into account.");
+                CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
+                Main.loggedInCustomer = ca;
+                Main.customerAccount = ca;
+
                 closeWindow();
                 mainInterfaceCustomerButton();
             }
@@ -1250,7 +1271,11 @@ public class Controller implements Initializable{
     public void customerDispData(){
         CustomerAccount ca = Main.loggedInCustomer;
         System.out.println("display data");
-        System.out.println(ca.toString());
+
+        System.out.println("Testing tostring");
+        System.out.println(Main.customerAccount.getCustID());
+
+        //System.out.println(ca.toString());
         String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
 
         customerDispDataFirst.setText(ca.getFirstName());
