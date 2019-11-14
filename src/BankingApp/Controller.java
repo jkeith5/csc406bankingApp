@@ -866,41 +866,6 @@ public class Controller implements Initializable{
     }
 
 
-
-
-    @FXML
-    public void tellerLoginButton(){
-        tellerPendingLogin = true;
-        loginInterfaceLoginButton();
-    }
-
-    @FXML
-    public void ManagerLoginButton(){
-        //
-        managerPendingLogin=true;
-        loginInterfaceLoginButton();
-    }
-
-    @FXML
-    public void CustomerLoginButton(){
-        //customerPendingLogin=true;
-        // I'll admit these are not really needed.
-        System.out.println("CustomerLoginButton clicked launching loginInterfaceLoginButton method");
-        loginInterfaceLoginButton();
-        //System.out.println("checking in in CustomerLogin");
-
-//        if(!loginInterUser.getText().isEmpty()){
-//            Main.loggedInCustomer = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
-//            CustomerAccount current = Main.loggedInCustomer;
-//            Main.customerAccount = current;
-//        }else{
-//            System.out.println("Empty field enter a card number");
-//        }
-
-
-        // just launch the loginInterfaceLoginButton method and finish let it handle the rest
-    }
-
     @FXML
     public void loginInterfaceLoginButton(){
         System.out.println("login inter login pending teller : "+tellerPendingLogin);
