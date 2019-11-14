@@ -25,6 +25,12 @@ public class FinanceDriver {
         double transferAmtDouble=0.0;
         CustomerAccount ca = Main.customerAccount;
 
+        boolean backupSavingEnabled = false;
+
+        if(ca.hasCheckingAccount()){
+            backupSavingEnabled = ca.getCheckingAccount().isBackupSavingsEnabled();
+        }
+
         System.out.println(ca.toString());
 
 
@@ -67,6 +73,7 @@ public class FinanceDriver {
                 double checkingBalance = ca.getCheckingAccount().getAccountBalance();
                 double newBal = checkingBalance+transferAmtDouble;
 
+
                 System.out.println("Transfer amt double: "+transferAmtDouble);
                 System.out.println("checking balance: "+checkingBalance);
 
@@ -77,8 +84,17 @@ public class FinanceDriver {
                     // so taking money from account if new balance is less than 0 then NO
 
                     if(newBal<0.0){// if new balance would put account under 0 then false // can change to min balance
-                        returnVal = false;
-                        errLabel.setText("This transaction will overdraw the account by: "+newBal);
+
+                        if(backupSavingEnabled){
+                            if(ca.getSimpleSavingsAccount().getAccountBalance()+newBal>0.00){ // if amt overdrawn on checking by
+                                // transaction is more than what is in backup saving account then take it from savings
+                                errLabel.setText("Backup Savings Warning. Take $"+newBal+ " from Savings. New Savings balance: "
+                                +ca.getSimpleSavingsAccount().getAccountBalance()+newBal+" checking Balance $0.00");
+                            }else{
+                                returnVal = false;
+                                errLabel.setText("This Transaction would overdraw the account by: "+newBal+ " And No Backup Savings Enabled.");
+                            }
+                        }
                     }else{// if new balance is over 0 then it's good
                         errLabel.setText("Debit "+transferAmtDouble+" from Checking Account with new Balance of: "+newBal);
                     }
@@ -121,6 +137,12 @@ public class FinanceDriver {
         double transferAmtDouble=0.0;
         CustomerAccount ca = Main.customerAccount;
 
+        boolean backupSavingEnabled = false;
+
+        if(ca.hasCheckingAccount()){
+            backupSavingEnabled = ca.getCheckingAccount().isBackupSavingsEnabled();
+        }
+
         System.out.println(ca.toString());
 
 
@@ -152,18 +174,48 @@ public class FinanceDriver {
 
         }else{
             //System.out.println("transfer funds: false");
-            if(checkingAccRadio.isSelected()){
+            if(checkingAccRadio.isSelected()){ // credit debit checking account
 
                 double checkingBalance = ca.getCheckingAccount().getAccountBalance();
                 double newBal = checkingBalance+transferAmtDouble;
 
-                if(transferAmtDouble<0.0){ // remember to implement the transaction fee on correct type of account
-                    if(transferAmtDouble<checkingBalance){
-                        creditDebitCheckingAccount(ca.getCheckingAccount(),transferAmtDouble);
-                        errLabel.setText("debit "+transferAmtDouble+" from Checking Account new balance: "+newBal);
+                System.out.println("Transfer amount: "+transferAmtDouble);
+                System.out.println("checking bal: "+checkingBalance);
+                System.out.println("new bal: "+newBal);
+                System.out.println("backup enabled: "+backupSavingEnabled);
+
+                if(transferAmtDouble<0.0){  // we are making a debit
+                    // remember to implement the transaction fee on correct type of account
+
+                    if(newBal<0.00){// if new balance would put account at less than 0.00
+                        // check backup savings
+
+                        if(backupSavingEnabled){// if they have backup savings enabled
+                            if(ca.getSimpleSavingsAccount().getAccountBalance()+newBal>0.00){ // if amt overdrawn on checking by
+                                // transaction is more than what is in backup saving account then take it from savings
+                                errLabel.setText("Backup Savings Warning. Take $"+newBal+ " from Savings. New Savings balance: "
+                                        +ca.getSimpleSavingsAccount().getAccountBalance()+newBal+" checking Balance $0.00");
+
+                                // transfer the amount that is negative in checking account from savings
+                                creditDebitSavingsAccount(ca.getSimpleSavingsAccount(),newBal,"Transfer to Checking Backup Savings");
+                                System.out.println("newbal 1: "+newBal);
+                                double transferAmountTemp = Math.abs(newBal); // take the absolute value of newbal which was a negative
+                                // then put it in the checking account.
+                                System.out.println("transfer amt temp: "+transferAmountTemp);
+                                creditDebitCheckingAccount(ca.getCheckingAccount(),transferAmountTemp,"Transfer from Savings Backup Savings");
+                                // then take it out again for now until I make a transfer method and put this into one transaction object
+                                creditDebitCheckingAccount(ca.getCheckingAccount(),transferAmtDouble,"");
+                                System.out.println("newbal 2: "+newBal);
+
+                            }
+                        }// otherwise the button is disabled and you can't complete transaction
+
+                    }else{// else there is enough money in checking account to make debit
+                        creditDebitCheckingAccount(ca.getCheckingAccount(),transferAmtDouble,"");
                     }
+
                 }else{
-                    creditDebitCheckingAccount(ca.getCheckingAccount(),transferAmtDouble);
+                    creditDebitCheckingAccount(ca.getCheckingAccount(),transferAmtDouble,"");
                     errLabel.setText("Credit "+transferAmtDouble+" to Checking Account new balance: "+newBal);
                 }
             }
@@ -172,12 +224,13 @@ public class FinanceDriver {
                 double newBal = savingsBalance + transferAmtDouble;
 
                 if(transferAmtDouble<0.0){
-                    if(transferAmtDouble<savingsBalance){
-                        creditDebitSavingsAccount(ca.getSimpleSavingsAccount(),transferAmtDouble);
+                    if(newBal>0.00){// if new balance is not negative
+                        creditDebitSavingsAccount(ca.getSimpleSavingsAccount(),transferAmtDouble,"");
                         errLabel.setText("Debit "+transferAmtDouble+" from Savings Account new balance: "+newBal);
                     }
-                }else{
-                    creditDebitSavingsAccount(ca.getSimpleSavingsAccount(),transferAmtDouble);
+
+                }else{// we are adding money so it doesn't matter at all. Add as much as you want $$$
+                    creditDebitSavingsAccount(ca.getSimpleSavingsAccount(),transferAmtDouble,"");
                     errLabel.setText("Credit "+transferAmtDouble+" to Savings Account new balance: "+newBal);
                 }
 
@@ -192,18 +245,31 @@ public class FinanceDriver {
 
     // just for simple withdraw and deposit on savings account. No Transaction fee from what I read
     // auto adds transaction object to customerAccount
-    public static void creditDebitSavingsAccount(SavingsAccount savingsAccount, double transactionAmount){
+    public static void creditDebitSavingsAccount(SavingsAccount savingsAccount, double transactionAmount,String desc){
+
+
         System.out.println("Crediting a savings account: "+savingsAccount.toString());
         Transaction transaction = new Transaction();
         transaction.setTransactionAccount("S"); // a transaction on the Savings Account
 
         if(transactionAmount>0.00){
             transaction.setTransactionType("D"); // this is a deposit
-            transaction.setDescription("Deposit on Savings Account");
         }else{
             transaction.setTransactionType("W");// a withdraw
-            transaction.setDescription("Withdraw on Savings Account");
         }
+
+        if(desc.length()>0){
+            transaction.setDescription(desc);
+        }else{
+            if(transactionAmount>0.00){
+                transaction.setDescription("Deposit on Savings Account");
+            }else{
+                transaction.setDescription("Withdraw on Savings Account");
+            }
+        }
+
+
+
         savingsAccount.setAccountBalance(savingsAccount.getAccountBalance()+transactionAmount); // just add + or - will work correctly
         transaction.setAmount(transactionAmount); // should only be positive
 
@@ -211,10 +277,11 @@ public class FinanceDriver {
 
         Main.customerAccount.addTransactionObject(transaction);
         System.out.println("Transaction added: "+savingsAccount.toString());
+        System.out.println("taking: "+transactionAmount +" on Savings account");
 
     }
 
-    public static void creditDebitCheckingAccount(CheckingAccount checkingAccount, double transactionAmount){
+    public static void creditDebitCheckingAccount(CheckingAccount checkingAccount, double transactionAmount,String desc){
         System.out.println("Credit debit checking account: "+checkingAccount.toString());
         Transaction transaction = new Transaction();
         transaction.setTransactionAccount("C");
@@ -224,11 +291,21 @@ public class FinanceDriver {
 
         if(transactionAmount>0.00){
             transaction.setTransactionType("D");
-            transaction.setDescription("Deposit on Checking Account");
         }else{
             transaction.setTransactionType("W");
-            transaction.setDescription("Withdraw on Checking Account");
         }
+
+        if(desc.length()>0){
+            transaction.setDescription(desc);
+        }else{
+            if(transactionAmount>0.00){
+                transaction.setDescription("Deposit on Checking Account");
+            }else{
+                transaction.setDescription("Withdraw on Checking Account");
+            }
+        }
+
+
         checkingAccount.setAccountBalance(checkingAccount.getAccountBalance()+transactionAmount);
         transaction.setAmount(transactionAmount);
 
@@ -236,7 +313,7 @@ public class FinanceDriver {
         System.out.println("Transaction added: "+checkingAccount.toString());
 
 
-
+        System.out.println("Taking: "+transactionAmount+ " on checking account");
 
 
     }
