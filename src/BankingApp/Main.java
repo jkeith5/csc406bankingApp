@@ -53,6 +53,14 @@ public class Main extends Application {
         System.err.println("WARNING If program does not run. Go to Resources in the source directory and \n" +
                 "Delete THE 'customerDatabase' FILE  NOT The CustomerBase.csv. Run Program Again.");
 
+        double[] total = {0.00,0.00};
+        for(CustomerAccount ca:customerAccounts){
+            double[] temp = ca.printStats();
+            total[0] = total[0]+temp[0];
+            total[1] = total[1]+temp[1];
+        }
+        System.out.println("Total bank balance is: "+total[0]+" and total unprocessed checks is: "+total[1]);
+        System.out.println("Total bank balance with unprocessed checks added is: "+(total[0]-total[1]));
 
         // here we will condense the arraylist of objects back into a text file
         boolean arrayWrittenToFile = DataEntryDriver.serializeArrayListToFile(customerAccounts);
@@ -63,6 +71,10 @@ public class Main extends Application {
         }else{
             out.println(getDateTimeString()+"There was an error writing the Accounts to a file.");
         }
+
+
+
+
 
         out.close();
         outEmployee.close();

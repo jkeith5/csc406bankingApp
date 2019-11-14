@@ -377,5 +377,30 @@ public class CustomerAccount implements Serializable {
     }
 
 
+    public double[] printStats(){
+        double[] returnVal = {0.00,0.00};
+        double total = 0.00;
+        double unprocessed = 0.00;
+
+        if(hasCheckingAccount()){
+            total += getCheckingAccount().getAccountBalance();
+        }
+        if(hasSavingsAccount()){
+            total += getSimpleSavingsAccount().getAccountBalance();
+        }
+        for(Check c:getChecks()){
+            if(c.isCheckProcessed()){
+                total = total - c.getCheckAmount();
+            }else{
+                unprocessed = unprocessed+c.getCheckAmount();
+            }
+        }
+        System.out.println("Customer Account: "+getCustID() +" has current balance of: "+total+" with "+unprocessed+" in unprocessed checks.");
+        returnVal[0] = total;
+        returnVal[1] = unprocessed;
+        return returnVal;
+    }
+
+
 
 }
