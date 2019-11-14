@@ -3,8 +3,9 @@ package BankingApp;
 import java.io.Serializable;
 
 public class Transaction implements Serializable {
+    // this class just records a fee it does not make the actual transfer of any money or fees
 
-    public String transactionType; // W=Withdrawal D=Deposit F=Fee
+    public String transactionType; // W=Withdrawal D=Deposit F=Fee I=Interest
     public double amount;
     public String description;
     public String transactionAccount; // S=Savings C=Checking CC= Credit Card F=Fee

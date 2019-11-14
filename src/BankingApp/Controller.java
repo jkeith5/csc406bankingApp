@@ -466,10 +466,6 @@ public class Controller implements Initializable{
     public void transferFundsCheckBoxEvent(){
         System.out.println("transfer funds block event");
 
-
-
-
-
         if(!manageExistingTellerTransferFunds.isDisabled()){
             if(manageExistingTellerTransferFunds.isSelected()){
                 System.out.println("selected");
@@ -496,6 +492,7 @@ public class Controller implements Initializable{
         // GENERATE FINAL ALERT WINDOW TO CONFIRM TRANSACTION
 
         System.out.println("\n\n");
+        manageExistingTellerDebitCreditAccountButton.setDisable(true);
 
         if(manageExistingTellerTransferFunds.isSelected()){
             String transferString = manageExistingTellerFundsTransferAmount.getText();
@@ -508,21 +505,46 @@ public class Controller implements Initializable{
         if(manageExistingTellerFundsTransferAmount.getText().length()<1){
             manageExistingTellerDebitCreditAccountButton.setDisable(true);
         }else{
-            manageExistingTellerDebitCreditAccountButton.setDisable(false);
-            // set to value from method in FinanceDriver
+            // hand it the label as well.
+            boolean isValid = FinanceDriver.isTransferAmtValid(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,
+                    manageExistingTellerCheckingAccount,manageExistingTellerSavingsAccount,manageDispDataErrLabel);
 
             // need to know transfer amt, if transfer is checked, to and from
             // if not checked then debit / credit to account
 
-            // hand it the label as well.
-            boolean isValid = FinanceDriver.isTransferAmtValid(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,
-                    manageExistingTellerCheckingAccount,manageExistingTellerSavingsAccount,manageDispDataErrLabel);
+            // set to value from method in FinanceDriver
+            manageExistingTellerDebitCreditAccountButton.setDisable(!isValid); // !isValid because is valid returns True for
+            // meaning it is valid and we want to set disable to false if isValid is true
+
+
+
 
             System.out.println("is valid: "+isValid);
 
 
 
         }
+    }
+
+    public void completeTransaction(){ // ONLY USE THIS METHOD FOR A TELLER OR MANAGER ACCOUNT because I can refresh those
+        System.out.println("Complete Transaction");
+
+
+        if(Main.loggedInEmployee.getType().equalsIgnoreCase("T")){
+            FinanceDriver.completeTransaction(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,manageExistingTellerCheckingAccount,
+                    manageExistingTellerSavingsAccount,manageDispDataErrLabel);
+            System.out.println("Account Stats savings: "+Main.customerAccount.getSimpleSavingsAccount().toString());
+            System.out.println("Account Stats Checking: "+Main.customerAccount.getCheckingAccount().toString());
+            System.out.println("Account Transactions: "+Main.customerAccount.getTransactions().toString());
+            System.out.println("Main Customer Account: "+Main.customerAccount.toString());
+            tellerManageDispData();
+            transferFundsKeyEvent();
+        }
+
+        if(Main.loggedInEmployee.getType().equalsIgnoreCase("M")){
+            // DISPLAY DATA METHOD FOR MANAGER DISPLAY
+        }
+        //
     }
 
 
