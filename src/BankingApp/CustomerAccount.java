@@ -19,6 +19,7 @@ public class CustomerAccount implements Serializable {
     public String zip;
     public String atmCardNumber;
     public String dateCreated; // date of initial customer account
+    public String Pin = "";
 
 
     public boolean hasSavingsAccount=false;
@@ -342,6 +343,16 @@ public class CustomerAccount implements Serializable {
 
     public void setNull(boolean aNull) {
         isNull = aNull;
+    }
+
+    public String getPin(){
+        if(this.atmCardNumber.length()<1){
+            return "null";
+        }else{
+            String pin = this.custID.substring(7);
+            System.out.println(pin);
+            return pin;
+        }
     }
 
     //testing
