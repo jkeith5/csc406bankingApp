@@ -131,6 +131,32 @@ public class FinanceDriver {
         return returnVal;
     }
 
+    public static void completeAtmTransaction(TextField withdrawalAmount){
+        String withdrawalAmtString = withdrawalAmount.getText();
+        Double withdrawalAmtDouble = 0.0;
+        CustomerAccount ca = Main.loggedInCustomer;
+        Double newBal = 0.0;
+
+        try {
+            withdrawalAmtDouble = Double.parseDouble(withdrawalAmtString);
+        } catch (NumberFormatException e) {
+            withdrawalAmtDouble = 0.0;
+        }
+
+        double checkingBalance = ca.getCheckingAccount().getAccountBalance();
+
+        if(checkingBalance - withdrawalAmtDouble > 0) {
+             newBal = checkingBalance - withdrawalAmtDouble;
+            creditDebitCheckingAccountAtm(ca.getCheckingAccount(),withdrawalAmtDouble);
+        }else{
+            System.out.println("insufficient funds");
+        }
+
+        System.out.println("newBal = " + newBal);
+
+
+    }
+
 
     public static void completeTransaction(TextField transferAmt, CheckBox transferFundsCheckBox, RadioButton checkingAccRadio, RadioButton savingsAccRadio, Label errLabel){
         String transferAmtString = transferAmt.getText();
@@ -305,7 +331,6 @@ public class FinanceDriver {
             }
         }
 
-
         checkingAccount.setAccountBalance(checkingAccount.getAccountBalance()+transactionAmount);
         transaction.setAmount(transactionAmount);
 
@@ -318,10 +343,25 @@ public class FinanceDriver {
 
     }
 
+    public static void creditDebitCheckingAccountAtm(CheckingAccount checkingAccount, double transactionAmount) {
+        System.out.println("Credit debit checking account from ATM: "+checkingAccount.toString());
+        Transaction transaction = new Transaction();
+        transaction.setTransactionAccount("C");
+
+        if(transactionAmount>0.00){
+            transaction.setTransactionType("D");
+        }else{
+            transaction.setTransactionType("W");
+        }
+
+        checkingAccount.setAccountBalance(checkingAccount.getAccountBalance()-transactionAmount);
+        transaction.setAmount(transactionAmount);
+
+        Main.customerAccount.addTransactionObject(transaction);
+        System.out.println("Transaction added: "+checkingAccount.toString());
 
 
-
-
-
+        System.out.println("Taking: "+transactionAmount + " on checking account");
+    }
 
 }

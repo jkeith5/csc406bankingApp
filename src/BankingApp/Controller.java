@@ -124,6 +124,7 @@ public class Controller implements Initializable{
     @FXML TextField customerInterAtmWithdrawalAmt;
     @FXML TextField customerInterAtmCheckNum;
     @FXML TextField customerInterAtmCheckAmt;
+    @FXML TextField ATMInterErrLabel;
 
     // Note when I say ManageExistingTeller I mean the ManageExistingUser interface for the Teller account
     @FXML Button manageExistingTellerUpdateDataButton;
@@ -550,6 +551,12 @@ public class Controller implements Initializable{
         //
     }
 
+    public void completeAtmTransaction(){
+        System.out.println("Complete ATM Transaction");
+        FinanceDriver.completeAtmTransaction(customerInterAtmWithdrawalAmt);
+        customerDispData();
+    }
+
 
     public void enterKeyDefaultEvent(KeyEvent e){
         // This allows us to reuse this for key release events on all Nodes to fire the focused node on action event.
@@ -734,6 +741,10 @@ public class Controller implements Initializable{
             }
         }
 
+    }
+
+    public void setAtmErrMsg(){
+        ATMInterErrLabel.setText("Insufficient Funds");
     }
 
 
