@@ -63,9 +63,9 @@ public class Main extends Application {
 //        System.out.println("Total bank balance with unprocessed checks added is: "+(total[0]-total[1]));
 
 
-        for(CustomerAccount ca:customerAccounts){
-            System.out.println(ca.getPin());
-        }
+//        for(CustomerAccount ca:customerAccounts){
+//            System.out.println(ca.getPin());
+//        }
         // here we will condense the arraylist of objects back into a text file
         boolean arrayWrittenToFile = DataEntryDriver.serializeArrayListToFile(customerAccounts);
         //DataEntryDriver.serializeArrayListToFile(customerAccounts);
