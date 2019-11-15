@@ -144,6 +144,11 @@ public class CheckingAccount implements Serializable {
     }
 
 
+    public void debitCreditAccount(double amount){
+        this.accountBalance = this.accountBalance+amount;
+    }
+
+
     public void setAllNull(){
 
         this.custID = "null";

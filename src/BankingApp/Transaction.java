@@ -5,17 +5,18 @@ import java.io.Serializable;
 public class Transaction implements Serializable {
     // this class just records a fee it does not make the actual transfer of any money or fees
 
-    public String transactionType; // W=Withdrawal D=Deposit F=Fee I=Interest
+    public String transactionType; // W=Withdrawal D=Deposit F=Fee I=Interest TW=Transfer Withdrawal TD=Transfer Deposit
     public double amount;
     public String description;
     public String transactionAccount; // S=Savings C=Checking CC= Credit Card F=Fee
+    public String dateTime = Main.getDateTimeString();
 
     // make methods to complete the actual transaction using variable such as
     // Main.customerAccount
 
 
     public Transaction(){
-        //
+
     }
 
     public Transaction(String transactionType,double amount,String desc,String transactionAcct){

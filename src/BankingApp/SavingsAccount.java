@@ -127,6 +127,11 @@ public class SavingsAccount implements Serializable {
         calcNullValue();
     }
 
+    // use this to debit and credit the account using negative for debit
+    public void debitCreditAccount(double amount){
+        this.accountBalance = this.accountBalance+amount;
+    }
+
 
     public void setAllNull(){
         this.custID = "null";
