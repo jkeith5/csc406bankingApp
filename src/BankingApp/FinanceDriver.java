@@ -486,6 +486,7 @@ public class FinanceDriver {
             ca.addTransactionObject(transactionDeposit); // add the transaction objects
 
             // then Put fee here
+            // double commit to make sure
 
 
 
