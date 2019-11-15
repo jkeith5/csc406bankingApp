@@ -18,6 +18,10 @@ public class FinanceDriver {
 
 
 
+    public void sayHi(){
+        System.out.println("hello!");
+    }
+
     // returns true or false on if the combination of settings and amount are valid options if false use to disable transfer button
     public static boolean isTransferAmtValid(TextField transferAmt, CheckBox transferFundsCheckBox, RadioButton checkingAccRadio, RadioButton savingsAccRadio, Label errLabel){
         boolean returnVal = true;
@@ -200,9 +204,13 @@ public class FinanceDriver {
 
         double checkingBalance = ca.getCheckingAccount().getAccountBalance();
 
-        if(checkingBalance - withdrawalAmtDouble > 0) {
-             newBal = checkingBalance - withdrawalAmtDouble;
-            creditDebitCheckingAccountAtm(ca.getCheckingAccount(),withdrawalAmtDouble);
+        if(checkingBalance - withdrawalAmtDouble > 0) { // if enough money to make transaction
+            // apply fee
+            newBal = checkingBalance - withdrawalAmtDouble;
+            creditDebitCheckingAccount(ca.getCheckingAccount(),withdrawalAmtDouble,"Atm Withdrawal");
+            //creditDebitCheckingAccountAtm(ca.getCheckingAccount(),withdrawalAmtDouble);
+
+
         }else{
             System.out.println("insufficient funds");
         }
@@ -446,6 +454,8 @@ public class FinanceDriver {
         } else {
             transaction.setTransactionType("W");
         }
+
+
 
 
     }

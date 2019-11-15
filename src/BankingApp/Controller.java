@@ -125,6 +125,7 @@ public class Controller implements Initializable{
     @FXML TextField customerInterAtmCheckNum;
     @FXML TextField customerInterAtmCheckAmt;
     @FXML TextField ATMInterErrLabel;
+    @FXML Label customerInterErrLabel;
 
     // Note when I say ManageExistingTeller I mean the ManageExistingUser interface for the Teller account
     @FXML Button manageExistingTellerUpdateDataButton;

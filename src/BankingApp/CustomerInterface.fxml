@@ -15,13 +15,14 @@
                 <Label fx:id="customerDispDataLast" layoutX="365.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
                 <Label layoutX="300.0" layoutY="120.0" prefHeight="17.0" prefWidth="97.0" text="Balance: " />
                 <Label fx:id="customerDispDataAccountBalance" layoutX="360.0" layoutY="120.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
-                <TextField fx:id="customerInterAtmWithdrawalAmt" layoutX="400.0" layoutY="170.0" prefWidth="150.0" promptText= "Enter Amount" />
+                <TextField fx:id="customerInterAtmWithdrawalAmt" layoutX="400.0" layoutY="170.0" prefWidth="150.0" promptText="Enter Amount" />
                 <Button fx:id="customerInterAtmWithdrawalButton" layoutX="200.0" layoutY="170.0" mnemonicParsing="false" onAction="#completeAtmTransaction" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="150.0" text="Withdrawal" />
                 <Button fx:id="customerInterAtmDepositButton" layoutX="200.0" layoutY="250.0" mnemonicParsing="false" onAction="#CustomerInterAtmDepositButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="150.0" text="Deposit" />
-                <TextField fx:id="customerInterAtmCheckNum" layoutX="400.0" layoutY="250.0" prefWidth="150.0" promptText= "Enter Check Num" />
-                <TextField fx:id="customerInterAtmCheckAmt" layoutX="400.0" layoutY="290.0" prefWidth="150.0" promptText= "Enter Amount" />
+                <TextField fx:id="customerInterAtmCheckNum" layoutX="400.0" layoutY="250.0" prefWidth="150.0" promptText="Enter Check Num" />
+                <TextField fx:id="customerInterAtmCheckAmt" layoutX="400.0" layoutY="290.0" prefWidth="150.0" promptText="Enter Amount" />
                 <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToMainScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
                 <Text layoutX="277.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Interface" wrappingWidth="145.13671875" />
+            <Label fx:id="customerInterErrLabel" layoutX="186.0" layoutY="358.0" prefHeight="114.0" prefWidth="399.0" text="Label" wrapText="true" />
             </children>
         </Pane>
     </children>
