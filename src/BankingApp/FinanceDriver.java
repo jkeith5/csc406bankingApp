@@ -190,32 +190,54 @@ public class FinanceDriver {
         return returnVal;
     }
 
-    public static void completeAtmTransaction(TextField withdrawalAmount){
-        String withdrawalAmtString = withdrawalAmount.getText();
-        Double withdrawalAmtDouble = 0.0;
+    public static void completeAtmTransaction(TextField transactionAmount,String checkNumber){
+        String transactionAmountString = transactionAmount.getText();
+        Double transactionAmountDouble = 0.0;
         CustomerAccount ca = Main.loggedInCustomer;
         Double newBal = 0.0;
-
-        try {
-            withdrawalAmtDouble = Double.parseDouble(withdrawalAmtString);
-        } catch (NumberFormatException e) {
-            withdrawalAmtDouble = 0.0;
-        }
-
         double checkingBalance = ca.getCheckingAccount().getAccountBalance();
 
-        if(checkingBalance - withdrawalAmtDouble > 0) { // if enough money to make transaction
-            // apply fee
-            newBal = checkingBalance - withdrawalAmtDouble;
-            creditDebitCheckingAccount(ca.getCheckingAccount(),withdrawalAmtDouble,"Atm Withdrawal");
-            //creditDebitCheckingAccountAtm(ca.getCheckingAccount(),withdrawalAmtDouble);
-
-
-        }else{
-            System.out.println("insufficient funds");
+        try {
+            transactionAmountDouble = Double.parseDouble(transactionAmountString);
+        } catch (NumberFormatException e) {
+            transactionAmountDouble = 0.0;
         }
 
-        System.out.println("newBal = " + newBal);
+
+        if(checkNumber.equalsIgnoreCase("null")){// check number null so we are just making a withdrawal. from checking
+            // remember the fee
+            if(checkingBalance - transactionAmountDouble > 0) { // if enough money to make transaction
+                // apply fee
+                newBal = checkingBalance - transactionAmountDouble;
+                creditDebitCheckingAccount(ca.getCheckingAccount(),(0.00-transactionAmountDouble),"Atm Withdrawal");
+                //creditDebitCheckingAccountAtm(ca.getCheckingAccount(),withdrawalAmtDouble);
+            }else{
+                System.out.println("insufficient funds");
+            }
+
+            System.out.println("newBal = " + newBal);
+        }else{ // there is a check number that isn't null so we are making a deposit
+//            public String checkNumber;
+//            public int checkingAcctID;
+//            public String checkDate;
+//            public double checkAmount;
+//            public boolean checkProcessed;
+
+
+            // create check object and make the transaction
+            Check depositCheck = new Check(checkNumber,ca.getCheckingAccount().getCheckingAcctIDString(),DataEntryDriver.getDateString(),transactionAmountDouble,true);
+
+            // make the transaction remember to add fee later and check if gold account and not. I might make a method that does this
+            creditDebitCheckingAccount(ca.getCheckingAccount(),transactionAmountDouble,"Atm Deposit");
+            ca.addCheckObj(depositCheck); // add the check object. and the creditDebit method handles the Transaction objects
+
+
+
+
+        }
+
+
+
 
 
     }

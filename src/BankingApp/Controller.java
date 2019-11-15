@@ -552,11 +552,6 @@ public class Controller implements Initializable{
         //
     }
 
-    public void completeAtmTransaction(){
-        System.out.println("Complete ATM Transaction");
-        FinanceDriver.completeAtmTransaction(customerInterAtmWithdrawalAmt);
-        customerDispData();
-    }
 
 
     public void enterKeyDefaultEvent(KeyEvent e){
@@ -759,12 +754,16 @@ public class Controller implements Initializable{
     }
 
 
-    public void CustomerInterAtmDepositButton() {
-
+    public void customerInterAtmWithdrawalButton() {
+        System.out.println("Complete ATM Transaction");
+        FinanceDriver.completeAtmTransaction(customerInterAtmWithdrawalAmt,"null");
+        customerDispData();
     }
 
-    public void CustomerInterAtmWithdrawalButton() {
-
+    public void customerInterAtmDepositButton() {
+        System.out.println("Complete ATM Transaction");
+        FinanceDriver.completeAtmTransaction(customerInterAtmCheckAmt,customerInterAtmCheckNum.getText());
+        customerDispData();
     }
 
 
