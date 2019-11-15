@@ -115,12 +115,15 @@ public class Controller implements Initializable{
     @FXML Label manageDispDataAcctType;
     @FXML Label manageDispDataErrLabel;
 
-    @FXML Button customerInterAtmBalance;
-    @FXML Button customerInterAtmWithdrawal;
+    @FXML Button customerInterAtmDepositButton;
+    @FXML Button customerInterAtmWithdrawalButton;
+    @FXML Button CustomerInterAtmDepositButton;
     @FXML Label customerDispDataFirst;
     @FXML Label customerDispDataLast;
     @FXML Label customerDispDataAccountBalance;
-
+    @FXML TextField customerInterAtmWithdrawalAmt;
+    @FXML TextField customerInterAtmCheckNum;
+    @FXML TextField customerInterAtmCheckAmt;
 
     // Note when I say ManageExistingTeller I mean the ManageExistingUser interface for the Teller account
     @FXML Button manageExistingTellerUpdateDataButton;
@@ -744,7 +747,7 @@ public class Controller implements Initializable{
     }
 
 
-    public void CustomerInterAtmBalanceButton() {
+    public void CustomerInterAtmDepositButton() {
 
     }
 
@@ -1800,8 +1803,8 @@ public class Controller implements Initializable{
     public String toString() {
         return "Controller{" +
                 "tellerLogIn=" + tellerLogIn +
-                ", CustomerInterAtmBalance=" + customerInterAtmBalance +
-                ", CustomerInterAtmWithdrawal=" + customerInterAtmWithdrawal +
+                ", CustomerInterAtmDepositButton=" + customerInterAtmDepositButton +
+                ", CustomerInterAtmWithdrawalButton=" + customerInterAtmWithdrawalButton +
                 ", managerLogIn=" + managerLogIn +
                 ", tellerPendingLogin=" + tellerPendingLogin +
                 ", managerPendingLogin=" + managerPendingLogin +
