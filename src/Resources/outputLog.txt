@@ -1,18 +1,28 @@
-2019-11-15T20:11:15.243  Initializing in Main
-2019-11-15T20:11:15.294 Reading in LoanAccounts.csv
-2019-11-15T20:11:15.376 ArrayList was written to File.
-2019-11-15T20:11:15.404 Created Customer Database and read into list.
-2019-11-15T20:11:23.805 ArrayList was written to File.
-2019-11-15T20:11:23.805 The Customer Accounts Database Was sucessfully Written to the File
-2019-11-15T20:12:46.247  Initializing in Main
-2019-11-15T20:12:46.294 Reading in LoanAccounts.csv
-2019-11-15T20:12:46.375 ArrayList was written to File.
-2019-11-15T20:12:46.400 Created Customer Database and read into list.
-2019-11-15T20:12:54.040 ArrayList was written to File.
-2019-11-15T20:12:54.040 The Customer Accounts Database Was sucessfully Written to the File
-2019-11-15T20:14:59.817  Initializing in Main
-2019-11-15T20:14:59.866 Reading in LoanAccounts.csv
-2019-11-15T20:14:59.965 ArrayList was written to File.
-2019-11-15T20:14:59.993 Created Customer Database and read into list.
-2019-11-15T20:15:02.814 ArrayList was written to File.
-2019-11-15T20:15:02.814 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-15T20:41:29.290  Initializing in Main
+2019-11-15T20:41:29.346 Reading in LoanAccounts.csv
+2019-11-15T20:41:29.441 ArrayList was written to File.
+2019-11-15T20:41:29.477 Created Customer Database and read into list.
+2019-11-15T20:41:53.349 ArrayList was written to File.
+2019-11-15T20:41:53.349 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-15T20:43:10.311  Initializing in Main
+2019-11-15T20:43:10.368 Reading in LoanAccounts.csv
+2019-11-15T20:43:10.462 ArrayList was written to File.
+2019-11-15T20:43:10.495 Created Customer Database and read into list.
+2019-11-15T20:43:14.417 ArrayList was written to File.
+2019-11-15T20:43:14.417 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-15T20:44:48.555  Initializing in Main
+2019-11-15T20:44:48.667 Database Already Existed. Read into list.
+2019-11-15T20:44:51.209 ArrayList was written to File.
+2019-11-15T20:44:51.209 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-15T20:47:23.373  Initializing in Main
+2019-11-15T20:47:23.419 Reading in LoanAccounts.csv
+2019-11-15T20:47:23.516 ArrayList was written to File.
+2019-11-15T20:47:23.554 Created Customer Database and read into list.
+2019-11-15T20:47:35.318 ArrayList was written to File.
+2019-11-15T20:47:35.318 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-15T20:49:14.843  Initializing in Main
+2019-11-15T20:49:14.888 Reading in LoanAccounts.csv
+2019-11-15T20:49:14.982 ArrayList was written to File.
+2019-11-15T20:49:15.014 Created Customer Database and read into list.
+2019-11-15T20:49:22.617 ArrayList was written to File.
+2019-11-15T20:49:22.617 The Customer Accounts Database Was sucessfully Written to the File

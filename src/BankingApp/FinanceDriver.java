@@ -362,6 +362,19 @@ public class FinanceDriver {
 
     }
 
+
+    // used to post process checks
+    public static void debitCheckingAccountWithCheckObject(CustomerAccount ca, Check checkObject){
+        Transaction transaction = new Transaction("W",checkObject.getCheckAmount(),"Check Debit","C");
+        transaction.setDate(checkObject.getCheckDate());
+        CheckingAccount checkingAccount=ca.getCheckingAccount();
+        double debitAmount = 0-checkObject.getCheckAmount();
+        checkingAccount.debitCreditAccount(debitAmount);
+        ca.addTransactionObject(transaction);
+
+
+    }
+
     public static void creditDebitCheckingAccount(CheckingAccount checkingAccount, double transactionAmount,String desc){
         //System.out.println("Credit debit checking account: "+checkingAccount.toString());
         Transaction transaction = new Transaction();

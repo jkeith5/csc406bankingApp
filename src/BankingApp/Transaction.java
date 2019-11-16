@@ -10,6 +10,7 @@ public class Transaction implements Serializable {
     public String description;
     public String transactionAccount; // S=Savings C=Checking CC= Credit Card F=Fee
     public String dateTime = Main.getDateTimeString();
+    public String date="";
 
     // make methods to complete the actual transaction using variable such as
     // Main.customerAccount
@@ -19,17 +20,45 @@ public class Transaction implements Serializable {
 
     }
 
+    // auto adds current date
     public Transaction(String transactionType,double amount,String desc,String transactionAcct){
         setTransactionType(transactionType);
         setAmount(amount);
         setDescription(desc);
         setTransactionAccount(transactionAcct);
+        setDate(DataEntryDriver.getDateString());
     }
+    // auto adds current date
     public Transaction(String transactionType,String amount,String desc,String transactionAcct){
         setTransactionType(transactionType);
         setAmount(amount);
         setDescription(desc);
         setTransactionAccount(transactionAcct);
+        setDate(DataEntryDriver.getDateString());
+    }
+
+    public Transaction(String transactionType,String amount,String desc,String transactionAcct,String date){
+        setTransactionType(transactionType);
+        setAmount(amount);
+        setDescription(desc);
+        setTransactionAccount(transactionAcct);
+        setDate(date);
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTransactionType() {
