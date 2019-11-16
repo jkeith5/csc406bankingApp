@@ -9,12 +9,11 @@ public class Check implements Serializable {
     public String checkDate;
     public double checkAmount;
     public boolean checkProcessed;
-
-    public String checkStatus;
+    public String checkStatus; // we can use this to put a stop payment when we get that far so normal or hold
 
     public Check(){
         //
-        setCheckStatus();
+        setCheckStatusNormal();
     }
 
     public Check(String checkNumber, String checkingAcctID, String checkDate, double checkAmount, boolean checkProcessed) {
@@ -24,7 +23,7 @@ public class Check implements Serializable {
         setCheckAmount(checkAmount);
         setCheckProcessed(checkProcessed);
 
-        setCheckStatus();
+        setCheckStatusNormal();
     }
 
     public Check(String checkNumber, String checkingAcctID, String checkDate, String checkAmount, String checkProcessed) {
@@ -34,7 +33,7 @@ public class Check implements Serializable {
         setCheckAmount(checkAmount);
         setCheckProcessed(checkProcessed);
 
-        setCheckStatus();
+        setCheckStatusNormal();
     }
 
 
@@ -58,7 +57,7 @@ public class Check implements Serializable {
         }
     }
 
-    private void setCheckStatus(){
+    private void setCheckStatusNormal(){
         this.checkStatus="normal";
     }
 

@@ -149,6 +149,7 @@ public class CheckingAccount implements Serializable {
     }
 
 
+
     public void setAllNull(){
 
         this.custID = "null";

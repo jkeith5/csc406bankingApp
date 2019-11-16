@@ -538,10 +538,6 @@ public class Controller implements Initializable{
         if(Main.loggedInEmployee.getType().equalsIgnoreCase("T")){
             FinanceDriver.completeTransaction(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,manageExistingTellerCheckingAccount,
                     manageExistingTellerSavingsAccount,manageDispDataErrLabel);
-            System.out.println("Account Stats savings: "+Main.customerAccount.getSimpleSavingsAccount().toString());
-            System.out.println("Account Stats Checking: "+Main.customerAccount.getCheckingAccount().toString());
-            System.out.println("Account Transactions: "+Main.customerAccount.getTransactions().toString());
-            System.out.println("Main Customer Account: "+Main.customerAccount.toString());
             tellerManageDispData();
             transferFundsKeyEvent();
         }
@@ -984,7 +980,7 @@ public class Controller implements Initializable{
     public void tellerManageDispData(){
         CustomerAccount ca = Main.customerAccount;
         System.out.println("display data");
-        System.out.println(ca.toString());
+        //System.out.println(ca.toString());
 
         //System.out.println(ca.getSavingsAccount().getCdCloseDate());
 
@@ -1207,14 +1203,6 @@ public class Controller implements Initializable{
 
         DataEntryDriver.updateCustomerAccount(ca,ssn);
 
-        //ArrayList<String> testArrListOfState = DataEntryDriver.createStatesArray();
-
-
-
-        String[] testCityState = DataEntryDriver.getCityStateFromZip("64505");
-
-        System.out.println(Arrays.toString(testCityState));
-
 
 
         try {
@@ -1271,12 +1259,7 @@ public class Controller implements Initializable{
 
     public void customerDispData(){
         CustomerAccount ca = Main.loggedInCustomer;
-        System.out.println("Is it gone");
-
-        System.out.println("display data");
-
-        System.out.println("Testing tostring");
-        System.out.println(Main.customerAccount.getCustID());
+        System.out.println("customer disp data ca: "+Main.customerAccount.getCustID());
 
         //System.out.println(ca.toString());
         String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());

@@ -17,11 +17,6 @@ public class FinanceDriver {
     }
 
 
-
-    public void sayHi(){
-        System.out.println("hello! again");
-    }
-
     // returns true or false on if the combination of settings and amount are valid options if false use to disable transfer button
     public static boolean isTransferAmtValid(TextField transferAmt, CheckBox transferFundsCheckBox, RadioButton checkingAccRadio, RadioButton savingsAccRadio, Label errLabel){
         boolean returnVal = true;
@@ -34,8 +29,6 @@ public class FinanceDriver {
         if(ca.hasCheckingAccount()){
             backupSavingEnabled = ca.getCheckingAccount().isBackupSavingsEnabled();
         }
-
-        //System.out.println(ca.toString());
 
 
         try {
@@ -73,11 +66,12 @@ public class FinanceDriver {
                         errLabel.setText("transfer "+ transferAmtDouble +" from checking to savings with .75 fee \nNew Checking balance: "+newBal
                                 +"\nNew Savings Balance: "+newSavingBal);
                     }else{ // this is a gold diamond account and minimum balance must be met to avoid fee min bal is 1,000 if not I'll apply .75 fee
-                        if(checkingBalance<1000.00){// if minimum balance not met on gold diamond apply fee
+
+                        if(isFeeApplicable(ca)){ // set label for new balance with fee
                             newBal = newBal-0.75; // apply fee because min balance not met
                             errLabel.setText("transfer "+ transferAmtDouble +" from checking to savings with .75 fee.\nNew Checking balance: "+newBal+
-                            "\nNew Savings Balance: "+newSavingBal);
-                        }else{
+                                    "\nNew Savings Balance: "+newSavingBal);
+                        }else{ // set label without fee
                             errLabel.setText("transfer "+ transferAmtDouble +" from checking to savings\nNew Checking balance: "+newBal+
                                     "\nNew Savings Balance: "+newSavingBal);
                         }
@@ -91,102 +85,81 @@ public class FinanceDriver {
                     returnVal=false;
                     errLabel.setText("There is not enough money in Savings account to Complete Transaction! new balance: "+newBal);
                 }else{ // so what apply the .50 fee for transactions to checking account if not gold diamond and if gold diamond min bal not met?
-                    if(isGold){ // this can only turn ture if it's a gold account and min bal not met
-                        if(checkingBalance<1000){
-                            minBalNotMet = true;
-                        }
-                    }
-
-                    if(!isGold || minBalNotMet){ // if standard checking or gold account not meeting min balance
+                    if(isFeeApplicable(ca)){// if account is type with fee
                         newCheckingBal = newCheckingBal -0.75;
                         errLabel.setText("Transfer "+transferAmtDouble+" from Savings to Checking with 0.75 fee on Checking. " +
                                 "\nNew Savings Balance: "+newBal+"\nNew Checking Balance: "+newCheckingBal);
-                        // might set to red if fee brings acc to under 0
-//                        errLabel.setTextFill(Color.web("#ff0000"));
-                    }else{ // if gold account meeting min bal
+                    }else{
                         errLabel.setText("transfer "+transferAmtDouble +" from Savings to checking.\nNew Savings balance: "+newBal+
-                        "\nNew Checking Balance: "+newCheckingBal);
+                                "\nNew Checking Balance: "+newCheckingBal);
                     }
                 }
             }
 
-        }else{
-            //Transfer funds is not selected.
+        }else{//Transfer funds is not selected.
             if(checkingAccRadio.isSelected()){
                 double checkingBalance = ca.getCheckingAccount().getAccountBalance();
                 double newBal = checkingBalance+transferAmtDouble;
-
-
-                //System.out.println("Transfer amt double: "+transferAmtDouble);
-                //System.out.println("checking balance: "+checkingBalance);
+                double savingsBalance = 0.0;
+                if(ca.hasSavingsAccount()){
+                    savingsBalance = ca.getSimpleSavingsAccount().getAccountBalance();
+                }
 
                 if(transferAmtDouble<0.0){ // If we are making a debit
-                    // remember to implement the transaction fee on correct type of account
-                    //System.out.println("Transfer amt < 0.00");
-
-                    // so taking money from account if new balance is less than 0 then NO
-
                     if(newBal<0.0){// if new balance would put account under 0 then false // can change to min balance
-
-                        if(backupSavingEnabled){
-                            if(ca.getSimpleSavingsAccount().getAccountBalance()+newBal>0.00){ // if amt overdrawn on checking by
+                        if(backupSavingEnabled){ // means there is a savings account and its enabled
+                            if(savingsBalance+newBal>0.00){ // if amt overdrawn on checking by
                                 // transaction is more than what is in backup saving account then take it from savings
-                                if(!isGold || minBalNotMet){
-                                    // fee of .50 for all transactions
+
+                                if(isFeeApplicable(ca)){// if fee account
                                     errLabel.setText("Backup Savings Warning. Take $"+newBal+ " from Savings. Plus .50 Transaction Fee\nNew Savings balance: "
                                             +(ca.getSimpleSavingsAccount().getAccountBalance()+newBal-0.50)+" checking Balance $0.00");
-
+                                }else{
+                                    errLabel.setText("Backup Savings Warning. Take $"+newBal+ " from Savings. \nNew Savings balance: "
+                                            +(ca.getSimpleSavingsAccount().getAccountBalance()+newBal-0.50)+"\nchecking Balance $0.00");
                                 }
-                            }else{
+                            }else{ // if backup saving enabled but still not enough money in either account give SOL message
                                 returnVal = false;
-                                errLabel.setText("This Transaction would overdraw the account by: "+newBal+ " And No Backup Savings Enabled.");
+                                errLabel.setText("This Transaction would overdraw the account by: "+newBal);
                             }
+                        }else{ // else no backup savings enabled
+                            returnVal =false;
+                            errLabel.setText("This transaction would overdraw the account by: "+newBal+" and there is no Backup Savings Enabled.");
                         }
+
                     }else{// if new balance is over 0 then it's good
-                        if(!isGold || minBalNotMet){
-                            // fee
+                        if(isFeeApplicable(ca)){
                             errLabel.setText("Debit "+transferAmtDouble+" from Checking Account plus 0.50 Fee with new Balance of: "+(newBal-0.50));
                         }else{
                             errLabel.setText("Debit "+transferAmtDouble+" from Checking Account with new Balance of: "+newBal);
                         }
 
                     }
-
-                }else{ // we are making a deposit everything is cool here no problem.
-
-                    if(!isGold || minBalNotMet){
-                        //fee
+                }else{ // we are making a credit everything is cool here no problem.
+                    if(isFeeApplicable(ca)){
                         errLabel.setText("Credit "+transferAmtDouble+" to Checking Account Plus 0.50 Fee new balance: "+(newBal-0.75));
-                    }else{// no fee
+                    }else{
                         errLabel.setText("Credit "+transferAmtDouble+" to Checking Account new balance: "+newBal);
                     }
-
                 }
             }
-            if(savingsAccRadio.isSelected()){
+            if(savingsAccRadio.isSelected()){ // debit credit to savings account
                 double savingsBalance = ca.getSimpleSavingsAccount().getAccountBalance();
-                double newBal = savingsBalance + transferAmtDouble;
+                double newBal = savingsBalance + transferAmtDouble; // new bal after transaction
 
-                if(transferAmtDouble<0.0){
-                    //System.out.println("Transfer amt < 0.00 so its a debit");
-
-                    if(newBal<0.00){
+                if(transferAmtDouble<0.0){ // making a debit to savings account
+                    if(newBal<0.00){// if new balance would be under 0
                         returnVal = false;
                         errLabel.setText("There is not enough money in Savings Account to complete transaction");
                     }else{// savings account has no transaction fee.
                         errLabel.setText("Debit "+transferAmtDouble+" from Savings Account with new Savings Balance of: "+newBal);
                     }
-
-                }else{
+                }else{ // making a credit to savings so all good and no fee
                     errLabel.setText("Credit "+transferAmtDouble+" to Savings Account new balance: "+newBal);
                 }
-
             }
-
         }
-
         System.out.println("Return value is: "+returnVal);
-
         return returnVal;
     }
 
@@ -202,43 +175,35 @@ public class FinanceDriver {
         } catch (NumberFormatException e) {
             transactionAmountDouble = 0.0;
         }
-
-
         if(checkNumber.equalsIgnoreCase("null")){// check number null so we are just making a withdrawal. from checking
-            // remember the fee
             if(checkingBalance - transactionAmountDouble > 0) { // if enough money to make transaction
-                // apply fee
                 newBal = checkingBalance - transactionAmountDouble;
                 creditDebitCheckingAccount(ca.getCheckingAccount(),(0.00-transactionAmountDouble),"Atm Withdrawal");
-                //creditDebitCheckingAccountAtm(ca.getCheckingAccount(),withdrawalAmtDouble);
+
             }else{
                 System.out.println("insufficient funds");
             }
-
             System.out.println("newBal = " + newBal);
         }else{ // there is a check number that isn't null so we are making a deposit
-//            public String checkNumber;
-//            public int checkingAcctID;
-//            public String checkDate;
-//            public double checkAmount;
-//            public boolean checkProcessed;
-
-
             // create check object and make the transaction
             Check depositCheck = new Check(checkNumber,ca.getCheckingAccount().getCheckingAcctIDString(),DataEntryDriver.getDateString(),transactionAmountDouble,true);
 
+            System.out.println(depositCheck.toString());
             // make the transaction remember to add fee later and check if gold account and not. I might make a method that does this
             creditDebitCheckingAccount(ca.getCheckingAccount(),transactionAmountDouble,"Atm Deposit");
             ca.addCheckObj(depositCheck); // add the check object. and the creditDebit method handles the Transaction objects
 
-
-
-
         }
 
+        // both statements above are a transaction to or from the checking account so apply transaction fee as needed
+        // applying the fee if needed
+        if(isFeeApplicable(ca)){ // if the account meets the requirements for a fee
+            applyFeeOnAccount(ca,"transaction");// then apply the fee this adds a Transaction object
+        }
 
-
-
+        // print some debug data
+        ca.printChecks();
+        ca.printTransactions();
 
     }
 
@@ -254,81 +219,44 @@ public class FinanceDriver {
             backupSavingEnabled = ca.getCheckingAccount().isBackupSavingsEnabled();
         }
 
-        System.out.println(ca.toString());
-
-
         try {
             transferAmtDouble = Double.parseDouble(transferAmtString);
         } catch (NumberFormatException e) {
             transferAmtDouble = 0.0;
         }
 
-
         if(transferFundsCheckBox.isSelected()){ // transferring funds from account
             double checkingBalance = ca.getCheckingAccount().getAccountBalance();
             double simpleSavingsBalance = ca.getSimpleSavingsAccount().getAccountBalance();
-            boolean isGold = ca.getCheckingAccount().isGoldAccount();
-            boolean minBalNotMet = false;
-
-            if(isGold){ // this can only turn ture if it's a gold account and min bal not met
-                if(checkingBalance<1000){
-                    minBalNotMet = true;
-                }
-            }
 
             if(checkingAccRadio.isSelected()){ // transfer from checking to savings APPLY FEE TO CHECKING
                 if(transferAmtDouble<checkingBalance){
-                    if(!isGold || minBalNotMet){ // run on standard checking account
-                        double fee = 0.75;
-                        // transfer money from checking to savings and apply transfer fee to checking
-                        transferMoneyBetweenCheckingSaving(ca,transferAmtDouble,true);
-                        // apply fee
-                        creditDebitCheckingAccount(ca.getCheckingAccount(),-0.75,"Transfer Fee");
-                    }else{ // if it is a gold account and min balance is met
-                        transferMoneyBetweenCheckingSaving(ca,transferAmtDouble,true);
+                    transferMoneyBetweenCheckingSaving(ca,transferAmtDouble,true); // make the transfer
+                    // then apply fee using methods if needed
+                    if(isFeeApplicable(ca)){ // if the account meets the requirements for a fee
+                        applyFeeOnAccount(ca,"transfer");// then apply the transfer fee. Remember the String
+                        // value on feeType
                     }
                 }
 
             }else{ // transfer from savings  to checking
                 double newBal = simpleSavingsBalance-transferAmtDouble;
                 if(transferAmtDouble<simpleSavingsBalance){
+                    transferMoneyBetweenCheckingSaving(ca,transferAmtDouble,false); // transfer money from savings to checking
 
-                    if(!isGold || minBalNotMet){// run on standard account or gold account not meeting min bal
-                        double fee = -0.75;
-                        transferMoneyBetweenCheckingSaving(ca,transferAmtDouble,false);// transfer money from saving
-                        creditDebitCheckingAccount(ca.getCheckingAccount(),fee,"Transfer Fee");// apply 0.75 fee to checking
-                    }else{
-                        transferMoneyBetweenCheckingSaving(ca,transferAmtDouble,false); // just transfer no fee
+                    // check and apply fee as needed
+                    if(isFeeApplicable(ca)){ // if the account meets the requirements for a fee
+                        applyFeeOnAccount(ca,"transfer");// then apply the transfer fee
+                        System.out.println("Transfer fee");
                     }
-
                 }
             }
 
-        }else{
-            //System.out.println("transfer funds: false");
+        }else{// transfer funds is not selected so basic credit debit actions
             if(checkingAccRadio.isSelected()){ // credit debit checking account
                 double checkingBalance = ca.getCheckingAccount().getAccountBalance();
                 double newBal = checkingBalance+transferAmtDouble;
-                boolean isGold = ca.getCheckingAccount().isGoldAccount();
-                boolean minBalNotMet = false;
-
-                if(isGold){ // this can only turn ture if it's a gold account and min bal not met
-                    if(checkingBalance<1000){
-                        minBalNotMet = true;
-                    }
-                }
-
-
-
-
-                System.out.println("Transfer amount: "+transferAmtDouble);
-                System.out.println("checking bal: "+checkingBalance);
-                System.out.println("new bal: "+newBal);
-                System.out.println("backup enabled: "+backupSavingEnabled);
-
                 if(transferAmtDouble<0.0){  // we are making a debit
-                    // remember to implement the transaction fee on correct type of account
-
                     if(newBal<0.00){// if new balance would put account at less than 0.00
                         // check backup savings
 
@@ -347,46 +275,54 @@ public class FinanceDriver {
                                 creditDebitCheckingAccount(ca.getCheckingAccount(),transferAmtDouble,"");
                                 System.out.println("newbal 2: "+newBal);
 
+                                System.out.println("debit to checking account but backup saving used no fee yet");
+
                             }
                         }// otherwise the button is disabled and you can't complete transaction
 
                     }else{// else there is enough money in checking account to make debit
-
                         creditDebitCheckingAccount(ca.getCheckingAccount(),transferAmtDouble,""); // make the transaction
 
-                        if(!isGold || minBalNotMet){ // if standard or gold not meeting min bal then apply a fee
-                            creditDebitCheckingAccount(ca.getCheckingAccount(),-.50,"Transaction Fee");
+                        // check and apply fee as needed
+                        if(isFeeApplicable(ca)){ // if the account meets the requirements for a fee
+                            applyFeeOnAccount(ca,"transaction");// then apply the transaction fee
+                            System.out.println("Transaction fee");
                         }
-
                     }
-
                 }else{ // we are making a credit to checking account .50 fee
                     creditDebitCheckingAccount(ca.getCheckingAccount(),transferAmtDouble,"");
-                    if(!isGold || minBalNotMet){
-                        creditDebitCheckingAccount(ca.getCheckingAccount(),-.50,"Transaction Fee");
+
+                    // check and apply fee as needed
+                    if(isFeeApplicable(ca)){ // if the account meets the requirements for a fee
+                        applyFeeOnAccount(ca,"transaction");// then apply the transaction fee
+                        System.out.println("Transaction fee");
                     }
 
                 }
             }
-            if(savingsAccRadio.isSelected()){
+            if(savingsAccRadio.isSelected()){ // making an action on savings account
                 double savingsBalance = ca.getSimpleSavingsAccount().getAccountBalance();
                 double newBal = savingsBalance + transferAmtDouble;
 
-                if(transferAmtDouble<0.0){
+                // no fee on savings accounts
+                if(transferAmtDouble<0.0){ // making a debit to savings account
                     if(newBal>0.00){// if new balance is not negative
                         creditDebitSavingsAccount(ca.getSimpleSavingsAccount(),transferAmtDouble,"");
-                        //errLabel.setText("Debit "+transferAmtDouble+" from Savings Account new balance: "+newBal);
+                        System.out.println("debit on savings account ");
                     }
 
-                }else{// we are adding money so it doesn't matter at all. Add as much as you want $$$
+                }else{// making a credit to savings account Add as much as you want $$$
                     creditDebitSavingsAccount(ca.getSimpleSavingsAccount(),transferAmtDouble,"");
-                    //errLabel.setText("Credit "+transferAmtDouble+" to Savings Account new balance: "+newBal);
+                    System.out.println("credit on savings account");
                 }
 
             }
 
         }
 
+        // some debug data
+        ca.printChecks();
+        ca.printTransactions();
 
     }
 
@@ -395,9 +331,7 @@ public class FinanceDriver {
     // just for simple withdraw and deposit on savings account. No Transaction fee from what I read
     // auto adds transaction object to customerAccount
     public static void creditDebitSavingsAccount(SavingsAccount savingsAccount, double transactionAmount,String desc){
-
-
-        System.out.println("Crediting a savings account: "+savingsAccount.toString());
+        //System.out.println("Crediting a savings account: "+savingsAccount.toString());
         Transaction transaction = new Transaction();
         transaction.setTransactionAccount("S"); // a transaction on the Savings Account
 
@@ -425,25 +359,21 @@ public class FinanceDriver {
         // record transaction in log
 
         Main.customerAccount.addTransactionObject(transaction);
-        System.out.println("Transaction added: "+savingsAccount.toString());
-        System.out.println("taking: "+transactionAmount +" on Savings account");
+        //System.out.println("Transaction added: "+savingsAccount.toString());
+        //System.out.println("taking: "+transactionAmount +" on Savings account");
 
     }
 
     public static void creditDebitCheckingAccount(CheckingAccount checkingAccount, double transactionAmount,String desc){
-        System.out.println("Credit debit checking account: "+checkingAccount.toString());
+        //System.out.println("Credit debit checking account: "+checkingAccount.toString());
         Transaction transaction = new Transaction();
         transaction.setTransactionAccount("C");
-
-        // need to find fee and apply to either account and find if account balance is met
-        // also need to be able to take from savings if backup enabled.
 
         if(transactionAmount>0.00){
             transaction.setTransactionType("D");
         }else{
             transaction.setTransactionType("W");
         }
-
         if(desc.length()>0){
             transaction.setDescription(desc);
         }else{
@@ -458,26 +388,57 @@ public class FinanceDriver {
         transaction.setAmount(transactionAmount);
 
         Main.customerAccount.addTransactionObject(transaction);
-        System.out.println("Transaction added: "+checkingAccount.toString());
-
-
-        System.out.println("Taking: "+transactionAmount+ " on checking account");
-
-
     }
 
-    public static void creditDebitCheckingAccountAtm(CheckingAccount checkingAccount, double transactionAmount) {
-        System.out.println("Credit debit checking account from ATM: " + checkingAccount.toString());
+
+
+    public static void applyFeeOnAccount(CustomerAccount ca,String feeType){
+        // feeType shall be: transaction, transfer, stop, over
+        // so from reading instructions the fees are as listed
+        // Transaction Fee for basic accounts of .50
+        // Transfer Fee of 0.75 per transfer
+        // Stop Payment fee of $15.00
+        // OverDraft fee of $20
+
+        CheckingAccount checkingAccount = ca.getCheckingAccount();
+        double originalCheckingBalance = ca.getCheckingAccount().getAccountBalance();
+
         Transaction transaction = new Transaction();
+        transaction.setTransactionType("F");
         transaction.setTransactionAccount("C");
 
-        if (transactionAmount > 0.00) {
-            transaction.setTransactionType("D");
-        } else {
-            transaction.setTransactionType("W");
+        if(feeType.equalsIgnoreCase("transaction")){
+            // apply the transaction fee
+            transaction.setAmount(0.50);
+            transaction.setDescription("Transaction Fee");
+            checkingAccount.debitCreditAccount(-0.50);
+        }
+        if(feeType.equalsIgnoreCase("transfer")){
+            // apply transfer fee
+            transaction.setAmount(0.75);
+            transaction.setDescription("Transfer Fee");
+            checkingAccount.debitCreditAccount(-0.75);
+        }
+        if(feeType.equalsIgnoreCase("stop")){
+            // apply stop payment fee
+            transaction.setAmount(15.00);
+            transaction.setDescription("Stop Payment Fee");
+            checkingAccount.debitCreditAccount(-15.00);
+        }
+        if(feeType.equalsIgnoreCase("over")){
+            // apply overdraft fee
+            transaction.setAmount(20.00);
+            transaction.setDescription("Overdraft Fee");
+            checkingAccount.debitCreditAccount(-20.00);
         }
 
+        ca.addTransactionObject(transaction);
 
+        double endingCheckingBalance = ca.getCheckingAccount().getAccountBalance();
+        if(originalCheckingBalance>0.00 && endingCheckingBalance<0.00){ // if the fee we just placed overdraws account apply another fee :)
+            // the fee on checking account overdrew the account so now we slap on overdraft fee
+            applyFeeOnAccount(ca,"over");
+        }
 
 
     }
@@ -485,7 +446,7 @@ public class FinanceDriver {
 
 
     // This only transfers between simple saving and checking The validity of the transfer should have been verified
-    // before this method is called.
+    // before this method is called. and fee applied externally not in this method use the applyFee method
     public static void transferMoneyBetweenCheckingSaving(CustomerAccount ca,double amount, boolean fromChecking){
         amount = Math.abs(amount);
         System.out.println("transfer money between accounts ca: "+ca.toString());
@@ -517,11 +478,6 @@ public class FinanceDriver {
             ca.addTransactionObject(transactionWithdrawal);
             ca.addTransactionObject(transactionDeposit); // add the transaction objects
 
-            // then Put fee here
-            // double commit to make sure
-
-
-
         }else{ // transfer from savings to checking
             System.out.println("Making a transfer of "+amount+" from Savings to Checking account");
             transactionWithdrawal.setDescription("Transfer to Checking");
@@ -542,22 +498,36 @@ public class FinanceDriver {
             ca.addTransactionObject(transactionWithdrawal);
             ca.addTransactionObject(transactionDeposit); // add the transaction objects
 
-            // then Put fee here
         }
-
-
-//        checkingAccount.setAccountBalance(checkingAccount.getAccountBalance()-transactionAmount);
-//        transaction.setAmount(transactionAmount);
-//
-//        Main.customerAccount.addTransactionObject(transaction);
-//        System.out.println("Transaction added: "+checkingAccount.toString());
-//
-//
-//        System.out.println("Taking: "+transactionAmount + " on checking account");
 
     }
 
 
+
+
+    // returns true if the account is a standard checking account or if Gold Diamond that isn't meeting min balance
+    // if Gold diamond not meeting min bal, treat as if its a standard account.
+    public static boolean isFeeApplicable(CustomerAccount ca){
+        boolean returnVal = false;
+        double checkingBalance = ca.getCheckingAccount().getAccountBalance();
+
+        boolean isGold = ca.getCheckingAccount().isGoldAccount();
+        boolean minBalNotMet = false;
+
+        if(isGold){ // this can only turn true if it's a gold account and min bal not met
+            if(checkingBalance<1000){
+                minBalNotMet = true;
+            }
+        }
+
+
+        if(!isGold || minBalNotMet){
+            returnVal = true;
+        }
+
+
+        return returnVal;
+    }
 
 
 

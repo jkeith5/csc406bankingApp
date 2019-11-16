@@ -35,7 +35,6 @@ public class CustomerAccount implements Serializable {
 
 
     public CheckingAccount checkingAccount;
-
     public ArrayList<Transaction> transactions= new ArrayList<Transaction>();
     public ArrayList<LoanAccount> loanAccounts= new ArrayList<LoanAccount>();
     public ArrayList<Check> checks = new ArrayList<Check>();
@@ -355,10 +354,6 @@ public class CustomerAccount implements Serializable {
         }
     }
 
-    //testing
-    public void printChecks(){
-        System.out.println("custID: "+custID+"chekck Numbers: "+checks);
-    }
 
     @Override
     public String toString() {
@@ -388,6 +383,7 @@ public class CustomerAccount implements Serializable {
     }
 
 
+    // prints some stats on the checks
     public double[] printStats(){
         double[] returnVal = {0.00,0.00};
         double total = 0.00;
@@ -411,6 +407,72 @@ public class CustomerAccount implements Serializable {
         returnVal[1] = unprocessed;
         return returnVal;
     }
+
+
+    // some void methods to print the specific customer Account data
+
+
+    public void printBasicDataShort(){// prints the customer first last name and acc id
+        printLineBreak();
+        System.out.println("Customer Account: "+getFirstName()+" "+getLastName()+" CustId: "+getCustID());
+    }
+
+    public String getBasicDataShort(){
+        String result = "Customer Account: "+getFirstName()+" "+getLastName()+" CustId: "+getCustID();
+        return result;
+    }
+
+    public void printLineBreak(){
+        System.out.println("\n\n");
+    }
+
+
+    public void printTransactions(){
+        printLineBreak();
+        System.out.println("Transactions "+getBasicDataShort());
+        for(Transaction t:this.transactions){
+            System.out.println(t.toString());
+        }
+    }
+
+
+    public void printChecks(){
+        printLineBreak();
+        System.out.println("Checks "+getBasicDataShort());
+        for(Check c:this.checks){
+            System.out.println(c.toString());
+        }
+    }
+
+
+    public void printLoanAccounts(){
+        printLineBreak();
+        System.out.println("Loan Accounts "+getBasicDataShort());
+        if(hasLoanAccount()){
+            for(LoanAccount la:this.loanAccounts){
+                System.out.println(la.toString());
+            }
+        }else{
+            System.out.println("No loan accounts");
+        }
+    }
+
+    public void printCheckingAccount(){
+        printLineBreak();
+        System.out.println("Checking Account "+getBasicDataShort());
+        System.out.println(this.checkingAccount.toString());
+    }
+
+    public void printSavingsAccount(){
+        printLineBreak();
+        System.out.println("Savings Accounts "+getBasicDataShort());
+        for(SavingsAccount sa:this.savingsAccounts){
+            System.out.println(sa.toString());
+        }
+    }
+
+
+
 
 
 
