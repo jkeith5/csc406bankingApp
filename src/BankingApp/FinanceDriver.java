@@ -36,14 +36,12 @@ public class FinanceDriver {
         } catch (NumberFormatException e) {
             transferAmtDouble = 0.0;
         }
-        //System.out.println("transferAmt double: "+transferAmtDouble);
-        boolean isGold = ca.getCheckingAccount().isGoldAccount();
-        boolean minBalNotMet = false;
 
-        if(isGold){ // this can only turn ture if it's a gold account and min bal not met
-            if(ca.getCheckingAccount().getAccountBalance()<1000){
-                minBalNotMet = true;
-            }
+        if(transferAmtDouble <0.001 && transferAmtDouble>-0.001){
+            System.out.println("less than zero or it is zero");
+            returnVal=false;
+            errLabel.setText("Please Enter an Amount.");
+            return returnVal;
         }
 
 
