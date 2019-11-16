@@ -119,10 +119,17 @@ public class Transaction implements Serializable {
                 ", description='" + description + '\'' +
                 ", transactionAccount='" + transactionAccount + '\'' +
                 ", dateTime='" + dateTime + '\'' +
+                ", date='" + date + '\'' +
                 '}';
     }
 
-
+    public String toStringPrettyPrint(){
+        return "Transaction Type: "+transactionType+
+                " Amount: "+amount+
+                " Description: "+description+
+                " Account: "+transactionAccount+
+                " Date: "+date;
+    }
 
 
 

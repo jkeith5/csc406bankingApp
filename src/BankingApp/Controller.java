@@ -138,6 +138,7 @@ public class Controller implements Initializable{
     @FXML Label manageExistingTellerSavingsLabel;
 
     @FXML TextField manageExistingTellerFundsTransferAmount;
+    @FXML Button manageExistingDispActivityPrevButton;
 
 
     // Update data interface
@@ -150,6 +151,8 @@ public class Controller implements Initializable{
     @FXML TextField updateDataCity;
     @FXML TextField updateDataState;
     @FXML TextField updateDataZip;
+
+    @FXML TextArea displayActivityTextArea;
 
 
 
@@ -342,6 +345,10 @@ public class Controller implements Initializable{
 
         if(locationString.equals("CustomerInterface.fxml")){
             customerDispData();
+        }
+
+        if(locationString.equals("ManageExistingUserDispActivity.fxml")){
+            viewRecentActivityDispData();
         }
 
         //
@@ -977,6 +984,34 @@ public class Controller implements Initializable{
 
     // TELLER INTERFACE BLOCK
 
+    public void viewRecentActivityDispData(){
+        CustomerAccount ca = Main.customerAccount;// still set from the lookup interface
+        manageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
+        manageDispDataFirst.setText(ca.getFirstName());
+        manageDispDataLast.setText(ca.getLastName());
+        manageDispDataStreetAddr.setText(ca.getStreetAddr());
+        manageDispDataCity.setText(ca.getCity());
+        manageDispDataState.setText(ca.getState());
+        manageDispDataZip.setText(ca.getZip());
+        displayActivityTextArea.setText("");
+        // now add part to display the activity
+
+        // print all checks
+        // print all transactions
+
+        displayActivityTextArea.appendText("Checks:\n");
+        for(Check check:ca.getChecks()){
+            displayActivityTextArea.appendText(check.toStringPrettyPrint()+"\n");
+        }
+
+        displayActivityTextArea.appendText("\n\nTransactions: \n");
+        for(Transaction transaction:ca.getTransactions()){
+            displayActivityTextArea.appendText(transaction.toStringPrettyPrint()+"\n");
+        }
+
+    }
+
+
     public void tellerManageDispData(){
         CustomerAccount ca = Main.customerAccount;
         System.out.println("display data");
@@ -1248,6 +1283,29 @@ public class Controller implements Initializable{
         }
 
     }
+
+
+
+    @FXML
+    public void viewRecentActivityButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDispActivity.fxml"));
+            Main.primaryStage.setTitle("View Recent Activity");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to primary in manager lookup");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
 
 
 
@@ -1662,6 +1720,32 @@ public class Controller implements Initializable{
     }
 
 
+    public void goToDisplayDataScene(){
+        Parent root = null;
+        try {
+
+            if(Main.loggedInEmployee.getType().equalsIgnoreCase("T")){// load teller scene
+                root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
+
+                Main.primaryStage.setTitle("Customer Account Data Management Interface");
+                Main.primaryStage.setScene(new Scene(root,700,500));
+                Main.primaryStage.show();
+                Main.activeStage=Main.primaryStage;
+                System.out.println("set active stage to primary in lookup ssn button");
+            }
+
+            if(Main.loggedInEmployee.getType().equalsIgnoreCase("M")){
+                // load the manager display screen
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+    }
+
+
 
     // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY
 
@@ -1684,6 +1768,8 @@ public class Controller implements Initializable{
         }
 
     }
+
+
 
 
 

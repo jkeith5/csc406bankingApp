@@ -130,4 +130,14 @@ public class Check implements Serializable {
                 '}';
     }
 
+    public String toStringPrettyPrint(){
+        return "Check Number: "+checkNumber+
+                " Checking ID: "+checkingAcctID+
+                " Check Date: "+checkDate+
+                " Check Amount: "+checkAmount+
+                " Processed: "+checkProcessed+
+                " Check Status: "+checkStatus;
+    }
+
+
 }
