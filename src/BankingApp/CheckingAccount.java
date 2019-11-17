@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class CheckingAccount implements Serializable {
 
     public String custID;//ssn
-    public int checkingAcctID; //change to int
+    public String checkingAcctID; //We want this as a string object because its in format 000-00
     public double accountBalance;
     public String dateOpened;
     public boolean isGoldAccount;
@@ -51,24 +51,35 @@ public class CheckingAccount implements Serializable {
 
     }
 
-    public int getCheckingAcctID() {
+    public String getCheckingAcctID() {
         return checkingAcctID;
     }
 
-    public String getCheckingAcctIDString(){
-        return String.valueOf(checkingAcctID);
+    public int getCheckingAcctIDInt(){
+        int returnVal = -1;
+
+        if(this.checkingAcctID!=null){
+            if(this.checkingAcctID.contains("-")){
+                String[] split = this.checkingAcctID.split("-");
+                returnVal = Integer.parseInt(split[0]);
+            }else{
+                returnVal = Integer.parseInt(this.checkingAcctID);
+            }
+        }
+        return returnVal;
     }
 
 
     public void setCheckingAcctID(String checkingAcctID) {
+        this.checkingAcctID=checkingAcctID;
+    }
 
-        try {
-            this.checkingAcctID = Integer.parseInt(checkingAcctID);
-        } catch (NumberFormatException e) {
-            this.checkingAcctID = -1;
-        }
 
-        calcNullValue();
+    public void setIDAuto(int CustomerAccountID){// adds 01 to end
+        String customerIDString = String.valueOf(CustomerAccountID);
+        String checkingAccountIdFix = customerIDString+"-01";
+        this.checkingAcctID = checkingAccountIdFix;
+
     }
 
     public double getAccountBalance() {
@@ -153,7 +164,7 @@ public class CheckingAccount implements Serializable {
     public void setAllNull(){
 
         this.custID = "null";
-        this.checkingAcctID = -1;
+        this.checkingAcctID = "null";
         this.dateOpened = "null";
         this.accountBalance = 0.0;
         this.overdraftsOnAcct = -1;
@@ -173,9 +184,14 @@ public class CheckingAccount implements Serializable {
             this.isNull=true;
         }
 
-        if(checkingAcctID==-1){
+        if(checkingAcctID!=null){
+            if(checkingAcctID.equalsIgnoreCase("null")){
+                this.isNull=true;
+            }
+        }else{
             this.isNull=true;
         }
+
 
         if(dateOpened!=null){
             if(dateOpened.equalsIgnoreCase("null")){
@@ -221,8 +237,7 @@ public class CheckingAccount implements Serializable {
                 ", isGoldAccount=" + isGoldAccount +
                 ", backupSavingsEnabled=" + backupSavingsEnabled +
                 ", overdraftsOnAcct=" + overdraftsOnAcct +
+                ", isNull=" + isNull +
                 '}';
     }
-
-
 }

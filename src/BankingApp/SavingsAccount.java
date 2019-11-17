@@ -12,6 +12,7 @@ public class SavingsAccount implements Serializable {
     public boolean isCdAccount;
     public String cdCloseDate; // if cd date it closes
 
+
     public boolean isNull = false; // is the whole Object null
 
     public SavingsAccount(){
@@ -59,11 +60,15 @@ public class SavingsAccount implements Serializable {
     public String getSavingsAcctID() {
         return savingsAcctID;
     }
+    public String getSavingsAccIDString(){
+        return String.valueOf(this.savingsAcctID);
+    }
 
     public void setSavingsAcctID(String savingsAcctID) {
         this.savingsAcctID = savingsAcctID;
         calcNullValue();
     }
+
 
     public double getAccountBalance() {
         return accountBalance;
@@ -156,6 +161,7 @@ public class SavingsAccount implements Serializable {
             this.isNull=true;
         }
 
+
         if(savingsAcctID!=null){
             if(savingsAcctID.equalsIgnoreCase("null")){
                 this.isNull=true;
@@ -163,6 +169,8 @@ public class SavingsAccount implements Serializable {
         }else{
             this.isNull=true;
         }
+
+
 
         if(dateOpened!=null){
             if(dateOpened.equalsIgnoreCase("null")){
@@ -183,6 +191,13 @@ public class SavingsAccount implements Serializable {
             }
 
         }
+    }
+
+    public void setID(int CustomerAccountID){// adds 01 to end
+        String customerIDString = String.valueOf(CustomerAccountID);
+        String savingsAccountIdFix = customerIDString+"-01";
+        this.savingsAcctID = savingsAccountIdFix;
+
     }
 
 
@@ -210,6 +225,7 @@ public class SavingsAccount implements Serializable {
                 ", dateOpened='" + dateOpened + '\'' +
                 ", isCdAccount=" + isCdAccount +
                 ", cdCloseDate='" + cdCloseDate + '\'' +
+                ", isNull=" + isNull +
                 '}';
     }
 }

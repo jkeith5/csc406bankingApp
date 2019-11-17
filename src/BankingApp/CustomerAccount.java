@@ -20,6 +20,7 @@ public class CustomerAccount implements Serializable {
     public String atmCardNumber;
     public String dateCreated; // date of initial customer account
     public String Pin = "";
+    public int financialAccountID;
 
 
     public boolean hasSavingsAccount=false;
@@ -64,7 +65,6 @@ public class CustomerAccount implements Serializable {
         setCity(city);
         setState(state);
         setZip(zip);
-        //this.atmCardNumber=atmCardNumber;
         setAtmCardNumber(atmCardNumber);
         setDateCreatedAuto();
     }
@@ -354,33 +354,15 @@ public class CustomerAccount implements Serializable {
         }
     }
 
-
-    @Override
-    public String toString() {
-        return "CustomerAccount{" +
-                "custID='" + custID + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", streetAddr='" + streetAddr + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip='" + zip + '\'' +
-                ", atmCardNumber='" + atmCardNumber + '\'' +
-                ", dateCreated='" + dateCreated + '\'' +
-                ", hasSavingsAccount=" + hasSavingsAccount +
-                ", hasCheckingAccount=" + hasCheckingAccount +
-                ", hasShortTermLoan=" + hasShortTermLoan +
-                ", hasLongTermLoan=" + hasLongTermLoan +
-                ", hasCreditCardAcct=" + hasCreditCardAcct +
-                ", hasLoanAccount=" + hasLoanAccount +
-                ", savingsAccount=" + savingsAccounts +
-                ", checkingAccount=" + checkingAccount +
-                ", transactions=" + transactions +
-                ", loanAccounts=" + loanAccounts +
-                ", checks=" + checks +
-                ", isNull=" + isNull +
-                '}';
+    public int getFinancialAccountID() {
+        return financialAccountID;
     }
+
+    public void setFinancialAccountID(int financialAccountID) {
+        this.financialAccountID = financialAccountID;
+    }
+
+
 
 
     // prints some stats on the checks
@@ -472,7 +454,34 @@ public class CustomerAccount implements Serializable {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "CustomerAccount{" +
+                "custID='" + custID + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", streetAddr='" + streetAddr + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                ", atmCardNumber='" + atmCardNumber + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", Pin='" + Pin + '\'' +
+                ", financialAccountID=" + financialAccountID +
+                ", hasSavingsAccount=" + hasSavingsAccount +
+                ", hasCheckingAccount=" + hasCheckingAccount +
+                ", hasShortTermLoan=" + hasShortTermLoan +
+                ", hasLongTermLoan=" + hasLongTermLoan +
+                ", hasCreditCardAcct=" + hasCreditCardAcct +
+                ", hasLoanAccount=" + hasLoanAccount +
+                ", savingsAccounts=" + savingsAccounts +
+                ", checkingAccount=" + checkingAccount +
+                ", transactions=" + transactions +
+                ", loanAccounts=" + loanAccounts +
+                ", checks=" + checks +
+                ", isNull=" + isNull +
+                '}';
+    }
 
 
 

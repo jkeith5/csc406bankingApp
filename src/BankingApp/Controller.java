@@ -136,6 +136,7 @@ public class Controller implements Initializable{
     @FXML CheckBox manageExistingTellerTransferFunds;
     @FXML Label manageExistingTellerCheckingLabel;
     @FXML Label manageExistingTellerSavingsLabel;
+    @FXML Button manageExistingTellerAddFinanceAccountButton;
 
     @FXML TextField manageExistingTellerFundsTransferAmount;
     @FXML Button manageExistingDispActivityPrevButton;
@@ -153,6 +154,17 @@ public class Controller implements Initializable{
     @FXML TextField updateDataZip;
 
     @FXML TextArea displayActivityTextArea;
+
+    @FXML Button addCheckingAccB; // b for button
+    @FXML Button addSavingsAccB;
+    @FXML Button addLoanAccB;
+
+
+    // prev buttons here
+    @FXML Button addFinancePrevButton;
+    @FXML Button addCheckingPrevB;
+    @FXML Button addSavingsPrevB;
+    @FXML Button addLoanAccPrevB;
 
 
 
@@ -351,7 +363,55 @@ public class Controller implements Initializable{
             viewRecentActivityDispData();
         }
 
-        //
+        if(locationString.equals("ManageExistingUserAddFinanceAcc.fxml")){
+            dispDataUpper();
+        }
+
+        if(locationString.equals("AddChecking.fxml")){
+            dispDataUpper();
+        }
+
+        if(locationString.equals("AddLoan.fxml")){
+            // Enter code to run on initialization of the FXML Scene
+            dispDataUpper();
+        }
+
+        if(locationString.equals("AddSavings.fxml")){
+            // Enter code to run on initialization of the FXML Scene
+            dispDataUpper();
+        }
+
+        if(locationString.equals("AddFXMLFileNameHere.fxml")){
+            // Enter code to run on initialization of the FXML Scene
+            // .... like the methods to populate data
+        }
+        if(locationString.equals("AddFXMLFileNameHere.fxml")){
+            // Enter code to run on initialization of the FXML Scene
+            // .... like the methods to populate data
+        }
+        if(locationString.equals("AddFXMLFileNameHere.fxml")){
+            // Enter code to run on initialization of the FXML Scene
+            // .... like the methods to populate data
+        }
+        if(locationString.equals("AddFXMLFileNameHere.fxml")){
+            // Enter code to run on initialization of the FXML Scene
+            // .... like the methods to populate data
+        }
+        if(locationString.equals("AddFXMLFileNameHere.fxml")){
+            // Enter code to run on initialization of the FXML Scene
+            // .... like the methods to populate data
+        }
+        if(locationString.equals("AddFXMLFileNameHere.fxml")){
+            // Enter code to run on initialization of the FXML Scene
+            // .... like the methods to populate data
+        }
+        if(locationString.equals("AddFXMLFileNameHere.fxml")){
+            // Enter code to run on initialization of the FXML Scene
+            // .... like the methods to populate data
+        }
+
+
+
 
     }
 
@@ -986,13 +1046,7 @@ public class Controller implements Initializable{
 
     public void viewRecentActivityDispData(){
         CustomerAccount ca = Main.customerAccount;// still set from the lookup interface
-        manageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
-        manageDispDataFirst.setText(ca.getFirstName());
-        manageDispDataLast.setText(ca.getLastName());
-        manageDispDataStreetAddr.setText(ca.getStreetAddr());
-        manageDispDataCity.setText(ca.getCity());
-        manageDispDataState.setText(ca.getState());
-        manageDispDataZip.setText(ca.getZip());
+        dispDataUpper();
         displayActivityTextArea.setText("");
         // now add part to display the activity
 
@@ -1011,6 +1065,17 @@ public class Controller implements Initializable{
 
     }
 
+    // used to display the top data in the manage user scenes
+    public void dispDataUpper(){
+        CustomerAccount ca = Main.customerAccount;// still set from the lookup interface
+        manageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
+        manageDispDataFirst.setText(ca.getFirstName());
+        manageDispDataLast.setText(ca.getLastName());
+        manageDispDataStreetAddr.setText(ca.getStreetAddr());
+        manageDispDataCity.setText(ca.getCity());
+        manageDispDataState.setText(ca.getState());
+        manageDispDataZip.setText(ca.getZip());
+    }
 
     public void tellerManageDispData(){
         CustomerAccount ca = Main.customerAccount;
@@ -1293,6 +1358,86 @@ public class Controller implements Initializable{
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserDispActivity.fxml"));
             Main.primaryStage.setTitle("View Recent Activity");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to primary in manager lookup");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+    @FXML
+    public void addFinanceAccountButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserAddFinanceAcc.fxml"));
+            Main.primaryStage.setTitle("Add Finance Account");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to primary in manager lookup");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+    @FXML
+    public void addCheckingAccountButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("AddChecking.fxml"));
+            Main.primaryStage.setTitle("Add Checking Account");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to primary in manager lookup");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+    @FXML
+    public void addSavingsAccountButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("AddSavings.fxml"));
+            Main.primaryStage.setTitle("Add Savings Account");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("active to primary in manager lookup");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+    @FXML
+    public void addLoanAccountButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("AddLoan.fxml"));
+            Main.primaryStage.setTitle("Add Loan Account");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
@@ -1745,6 +1890,11 @@ public class Controller implements Initializable{
         }
     }
 
+
+
+    public void goToAddFinanceAcc(){
+        addFinanceAccountButton();// just simulate the button press
+    }
 
 
     // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY

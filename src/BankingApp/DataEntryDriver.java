@@ -88,7 +88,7 @@ public class DataEntryDriver {
             if(ca.hasCheckingAccount()){// don't process ca in loop if it has no checking account
                 double checkingBalance = ca.getCheckingAccount().getAccountBalance();
                 for(Check check:checkObjectsRead){
-                    if(ca.getCheckingAccount().getCheckingAcctID() == check.getCheckingAcctID()){
+                    if(ca.getCheckingAccount().getCheckingAcctIDInt() == check.getCheckingAcctID()){
                         if(check.isCheckProcessed()){// if the check is processed add check and make transaction
                             ca.addCheckObj(check);// add check object
                             FinanceDriver.debitCheckingAccountWithCheckObject(ca,check);// make transaction and record
@@ -101,18 +101,6 @@ public class DataEntryDriver {
             }
         }
 
-
-
-//        // alternate method
-//        for(Check checkRead:checkObjectsRead){
-//            for(CustomerAccount ca:result){
-//                if(ca.hasCheckingAccount()){// only read if they have a checking account
-//                    if(ca.getCheckingAccount().getCheckingAcctID() == checkRead.getCheckingAcctID()){
-//                        ca.addCheckObj(checkRead);
-//                    }
-//                }
-//            }
-//        }
 
 
         // this writes the accounts to the Resources customerDatabase file
@@ -135,6 +123,8 @@ public class DataEntryDriver {
                 System.out.println(Arrays.toString(lineSplit));
                 CustomerAccount ca = new CustomerAccount(lineSplit[0],lineSplit[1],lineSplit[2],lineSplit[3],lineSplit[4],
                         lineSplit[5],lineSplit[6],lineSplit[7]);
+
+                ca.setFinancialAccountID(Main.generateCustomerId());
 
                 result.add(ca);
 
@@ -164,16 +154,30 @@ public class DataEntryDriver {
 
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
-                System.out.println(Arrays.toString(split));
-                CheckingAccount ca = new CheckingAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
+                System.out.println("readchecktest: "+Arrays.toString(split));
+                String checkingAccIdString = split[1];
+                System.out.println("Checking ID Split: "+checkingAccIdString);
+                boolean isNull = false;
 
-                try {
-                    result.add(ca);
-                } catch (NullPointerException e){
-                    System.out.println("Null pointer for: "+ca.toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if(checkingAccIdString.equals("null")){
+                    isNull=true;
                 }
+                System.out.println("isnull: "+isNull);
+                if(!isNull){
+                    // if not null
+                    CheckingAccount ca = new CheckingAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
+                    try {
+                        result.add(ca);
+                    } catch (NullPointerException e){
+                        System.out.println("Null pointer for: "+ca.toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    System.out.println("Check data for null accounts. Checking Account with null value are discarded!!");
+                }
+
+
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -294,6 +298,7 @@ public class DataEntryDriver {
                 CustomerAccount customerAccountRead = (CustomerAccount) read;
                 result.add(customerAccountRead);
             }
+
 
         } catch (EOFException e) {
             System.out.println("");

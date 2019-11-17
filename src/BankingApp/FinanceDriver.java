@@ -184,9 +184,9 @@ public class FinanceDriver {
             System.out.println("newBal = " + newBal);
         }else{ // there is a check number that isn't null so we are making a deposit
             // create check object and make the transaction
-            Check depositCheck = new Check(checkNumber,ca.getCheckingAccount().getCheckingAcctIDString(),DataEntryDriver.getDateString(),transactionAmountDouble,true);
+            Check depositCheck = new Check(checkNumber,ca.getCheckingAccount().getCheckingAcctID(),DataEntryDriver.getDateString(),transactionAmountDouble,true);
 
-            System.out.println(depositCheck.toString());
+            //System.out.println(depositCheck.toString());
             // make the transaction remember to add fee later and check if gold account and not. I might make a method that does this
             creditDebitCheckingAccount(ca.getCheckingAccount(),transactionAmountDouble,"Atm Deposit");
             ca.addCheckObj(depositCheck); // add the check object. and the creditDebit method handles the Transaction objects
@@ -199,9 +199,6 @@ public class FinanceDriver {
             applyFeeOnAccount(ca,"transaction");// then apply the fee this adds a Transaction object
         }
 
-        // print some debug data
-        ca.printChecks();
-        ca.printTransactions();
 
     }
 
@@ -318,9 +315,9 @@ public class FinanceDriver {
 
         }
 
-        // some debug data
-        ca.printChecks();
-        ca.printTransactions();
+//        // some debug data
+//        ca.printChecks();
+//        ca.printTransactions();
 
     }
 
