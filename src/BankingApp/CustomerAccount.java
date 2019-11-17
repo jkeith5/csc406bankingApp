@@ -56,6 +56,7 @@ public class CustomerAccount implements Serializable {
         setDateCreatedAuto();
     }
 
+    // manually set cust id
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String atmCardNumber) {
         // auto sets the date created to the current date created.
         setCustID(custID);
@@ -69,9 +70,7 @@ public class CustomerAccount implements Serializable {
         setDateCreatedAuto();
     }
 
-    public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city,
-                           String state, String zip,String dateCreated, String atmCardNumber) {
-        //this.custID = custID;
+    public CustomerAccount(String custID,String firstName,String lastName,String streetAddr,String city,String state,String zip,boolean generateAtmAndFinAccountID){
         setCustID(custID);
         setFirstName(firstName);
         setLastName(lastName);
@@ -79,8 +78,7 @@ public class CustomerAccount implements Serializable {
         setCity(city);
         setState(state);
         setZip(zip);
-        setDateCreatedAuto();
-        setAtmCardNumber(atmCardNumber);
+        //setAtmCardNumber(atmCardNumber);
         setDateCreatedAuto();
     }
 
@@ -388,6 +386,11 @@ public class CustomerAccount implements Serializable {
         returnVal[0] = total;
         returnVal[1] = unprocessed;
         return returnVal;
+    }
+
+
+    public void generateATMCardNumber(){
+        char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
     }
 
 

@@ -166,6 +166,18 @@ public class Controller implements Initializable{
     @FXML Button addSavingsPrevB;
     @FXML Button addLoanAccPrevB;
 
+    // data for the add financial accounts
+    @FXML CheckBox goldCheckBox;
+    @FXML CheckBox backupSavingsCheckBox;
+    @FXML TextField startingBalance;
+    @FXML Button addCheckingAccSaveB;
+
+    @FXML CheckBox cdCheckBox;
+    @FXML Button addSavingsAccSaveB;
+    @FXML TextField savingInterestRate;
+    @FXML TextField savingCDTerm;
+
+
 
 
     @FXML Button testButton;
@@ -1964,6 +1976,7 @@ public class Controller implements Initializable{
     public void mainScreenTestButton(){
         //
         System.out.println("test");
+        Main.testRandomnes();
     }
 
     @FXML

@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Main extends Application {
@@ -67,6 +68,8 @@ public class Main extends Application {
         }
 
 
+
+
         // testing data start here
 
         System.out.println("\n\n\n\nSTART DEBUG TEST DATA:");
@@ -76,6 +79,18 @@ public class Main extends Application {
         }
 
         System.out.println("END DEBUG TEST DATA");
+
+
+        for(CustomerAccount ca:customerAccounts){
+            System.out.println(ca.getFinancialAccountID()+"");
+
+            if(ca.hasCheckingAccount()){
+                System.out.println(ca.getCheckingAccount().getCheckingAcctID());
+            }
+        }
+
+
+
 
 
 
@@ -102,6 +117,12 @@ public class Main extends Application {
 
         out.close();
         outEmployee.close();
+
+
+
+
+
+
 
     }
 
@@ -182,6 +203,35 @@ public class Main extends Application {
     }
 
 
+    public static String generateNumber(int length){
+        char[] digits = "0123456789".toCharArray();
+        Random random = new Random();
+        String result = "";
+
+        for(int i=0;i<length;i++){
+            int randomInt = random.nextInt(digits.length);
+            result=result+digits[randomInt];
+        }
+
+
+        return result;
+
+    }
+
+
+    public static void testRandomnes(){
+        int n = 5;
+        String test = generateNumber(n);
+        String test2= generateNumber(n);
+
+        int tries = 0;
+
+        while(!test.equals(test2)){
+            test2 = generateNumber(n);
+            tries++;
+        }
+        System.err.println("Combinations required to Randomly generate two numbers with length of "+n+" is: "+tries);
+    }
 
 }
 
