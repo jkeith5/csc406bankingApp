@@ -1371,45 +1371,13 @@ public class Controller implements Initializable{
     @FXML
     public void addCheckingAccountSaveButton() throws InterruptedException {
         // add checking account object to current customer can only have one checking account per user
-        addCheckingAccSaveB.setDisable(true);
         CustomerAccount customerAccount = Main.customerAccount;
         boolean isGoldAccountSelected = goldCheckBox.isSelected();
         boolean backupSavingSelected = backupSavingsCheckBox.isSelected();
         double startingBalanceDouble = DataEntryDriver.getDoubleFromTextField(startingBalance);
-        System.out.println("test1");
-
         CheckingAccount checkingAccount = new CheckingAccount(customerAccount,isGoldAccountSelected,backupSavingSelected,startingBalanceDouble);
-        //customerAccount.addCheckingAccount(checkingAccount);
-
-        System.out.println("Test2");
-
-        addCheckingAcctErrLabel.setText("Checking Account Added");
-
-        Task<Void> task = Main.getFXSleepTask(3000);
-        new Thread(task).start();
-        System.out.println("task is running: "+Main.taskRunning);
-        System.out.println("task is done: "+Main.taskFinished);
-        boolean finished = Main.taskFinished;
-        int flag = -1;
-
-        while(Main.taskRunning){ // wait until task is finished
-            finished= Main.taskFinished;
-            System.out.println("running");
-
-            if(Main.taskFinished){
-                System.out.println("Task finished in controller from main");
-            }else{
-                System.out.println("Task f: "+Main.taskFinished);
-            }
-            flag=-1;
-        }
-
-
-        addCheckingAccSaveB.setDisable(false);
-        //goToAddFinanceAcc(); // then go back to last screen.
-
-
-
+        customerAccount.addCheckingAccount(checkingAccount);
+        goToAddFinanceAcc(); // then go back to last screen.
     }
 
 
