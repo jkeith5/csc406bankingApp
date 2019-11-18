@@ -167,6 +167,8 @@ public class Controller implements Initializable{
     @FXML Button addSavingsAccSaveB;
     @FXML TextField savingInterestRate;
     @FXML TextField savingCDTerm;
+    @FXML ChoiceBox<String> loanAccountTypeChoiceBox;
+
 
 
 

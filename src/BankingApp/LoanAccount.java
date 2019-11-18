@@ -76,7 +76,7 @@ public class LoanAccount implements Serializable {
         setCurrentBalance(initialLoanAmt);
         setInterestRate(interestRate);
         setLoanAccountType(loanAccountType);
-        setLoanAccountIDAuto(customerAccount.getFinancialAccountID());
+        setLoanAccountIDAuto(customerAccount);
         setHasMissedPayment(false);
         setLastPaymentDate(DataEntryDriver.getDateString());
         setPaymentNoticeDate(DataEntryDriver.getDateString());
@@ -160,17 +160,18 @@ public class LoanAccount implements Serializable {
         this.loanAccountID = loanAccountID;
     }
 
-    public void setLoanAccountIDAuto(int CustomerAccountID){// adds 01 to end
-        String loanAcctIDString = String.valueOf(CustomerAccountID);
+    public void setLoanAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end and sub id
+        String loanAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
         String loanAccountIdFix = "";
 
         if(this.loanAccountType.equals("STL")){ // 03 short term loan
-            loanAccountIdFix = loanAcctIDString+"-03";
+            String subId = customerAccount.generateNextLoanAcctSubId("STL");
+            loanAccountIdFix = loanAcctIDString+"-03"+"-"+subId;
         }
         if(this.loanAccountType.equals("LTL")){ // 04 long term loan
-            loanAccountIdFix = loanAcctIDString+"-04";
+            String subId = customerAccount.generateNextLoanAcctSubId("LTL");
+            loanAccountIdFix = loanAcctIDString+"-04"+"-"+subId;
         }
-
         if(this.loanAccountType.equals("CCL")){ // 05 Credit Card loan
             loanAccountIdFix = loanAcctIDString+"-05";
         }

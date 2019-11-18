@@ -642,6 +642,33 @@ public class DataEntryDriver {
         return localDate;
     }
 
+    public static String addMonthsToDateString(String inputDate,int monthsToAdd){
+        String returnVal = "null";
+        String inputDateFixed = fixDateString(inputDate);
+
+        if(!inputDateFixed.equals("null")){ // if not equal to null
+            LocalDate localDate = getDateObjectFromString(inputDateFixed);
+            LocalDate newDate = localDate.plusMonths(monthsToAdd);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // formatter for date output
+            returnVal = newDate.format(formatter);
+        }
+
+        return returnVal;
+    }
+
+    public static String addDaysToDateString(String inputDate,int daysToAdd){
+        String returnVal = "null";
+        String inputDateFixed = fixDateString(inputDate);
+
+        if(!inputDateFixed.equals("null")){ // if not equal to null
+            LocalDate localDate = getDateObjectFromString(inputDateFixed);
+            LocalDate newDate = localDate.plusDays(daysToAdd);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // formatter for date output
+            returnVal = newDate.format(formatter);
+        }
+
+        return returnVal;
+    }
 
     public static LocalDate getDateObjectFromString(String inputDate){
         LocalDate returnVal = LocalDate.now();

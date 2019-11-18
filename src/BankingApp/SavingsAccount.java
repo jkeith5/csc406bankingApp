@@ -1,5 +1,6 @@
 package BankingApp;
 
+import javax.xml.crypto.Data;
 import java.io.Serializable;
 
 public class SavingsAccount implements Serializable {
@@ -19,25 +20,8 @@ public class SavingsAccount implements Serializable {
         setAllNull();
     }
 
-    public SavingsAccount(String custID, String savingsAcctID, double accountBalance, double interestRate, String dateOpened, boolean isCdAccount) {
-        setCustID(custID);
-        setSavingsAcctID(savingsAcctID);
-        setAccountBalance(accountBalance);
-        setInterestRate(interestRate);
-        setDateOpened(dateOpened);
-        setCdAccount(isCdAccount);
-        this.cdCloseDate="null";
-    }
 
-    public SavingsAccount(String custID, String savingsAcctID, double accountBalance, double interestRate, String dateOpened, boolean isCdAccount, String cdCloseDate) {
-        setCustID(custID);
-        setSavingsAcctID(savingsAcctID);
-        setAccountBalance(accountBalance);
-        setInterestRate(interestRate);
-        setDateOpened(dateOpened);
-        setCdAccount(isCdAccount);
-        setCdCloseDate(cdCloseDate);
-    }
+    // used for reading in the savings account csv file
     public SavingsAccount(String custID, String savingsAcctID, String accountBalance, String interestRate, String dateOpened, String isCdAccount, String cdCloseDate) {
         setCustID(custID);
         setSavingsAcctID(savingsAcctID);
@@ -47,6 +31,23 @@ public class SavingsAccount implements Serializable {
         setCdAccount(isCdAccount);
         setCdCloseDate(cdCloseDate);
     }
+
+    // use for adding new savings accounts. NOTE if isCdAccount is false, then it doesn't matter what you put for term
+    public SavingsAccount(CustomerAccount customerAccount, boolean isCdAccount, String startingBalance,String interestRate,int termInYears) {
+        setCustID(customerAccount.getCustID());
+        setCdAccount(isCdAccount);
+        setAccountBalance(startingBalance);
+        setInterestRate(interestRate);
+        setDateOpened(DataEntryDriver.getDateString());
+        setSavingsAccountIDAuto(customerAccount);
+
+        if(!isCdAccount){ // if its not a cd just set null values
+            setCdCloseDate("null");
+        }else{
+            setCdCloseDate(DataEntryDriver.addMonthsToDateString(getDateOpened(),(termInYears*12)));
+        }
+    }
+
 
     public String getCustID() {
         return custID;
@@ -193,11 +194,12 @@ public class SavingsAccount implements Serializable {
         }
     }
 
-    public void setSavingsAccountIDAuto(int CustomerAccountID){// adds 01 to end
-        String savingsAcctIDString = String.valueOf(CustomerAccountID);
+    public void setSavingsAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end
+        String savingsAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
         String savingsAccountIdFix = "";
         if(this.isCdAccount){// savings cd
-            savingsAccountIdFix = savingsAcctIDString+"-02";
+            String subId = customerAccount.generateNextSavingsCDSubID();
+            savingsAccountIdFix = savingsAcctIDString+"-02"+"-"+subId;
         }else{ // simple savings
             savingsAccountIdFix = savingsAcctIDString+"-01";
         }

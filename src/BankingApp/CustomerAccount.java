@@ -22,8 +22,10 @@ public class CustomerAccount implements Serializable {
     public String Pin = "";
 
     // this is just a base number like 5. but the different accounts will append a - and a number that
-    // identifies the account type
-    public int financialAccountID; // x-00=checking x-01=simple saving x-02=savingCD x-03=ShortTermLoan x-04=LongTermLoan x-05=CreditCardLoan
+    // identifies the account type and another - and number for multiple accounts. For multiple accounts of same
+    // type append an incrementing number like x-020 x-021 x-0212
+    // for this system you can only have ONE checking, simple saving account, and one credit card loan. Multiple of other accounts
+    public int financialAccountID; // checking= x-00  simple saving= x-01  savingCD=x-02-00  ShortTermLoan= x-03-00 LongTermLoan= x-04-00 CreditCardLoan= x-05
 
 
     public boolean hasSavingsAccount=false;
@@ -445,6 +447,53 @@ public class CustomerAccount implements Serializable {
             System.out.println(sa.toString());
         }
     }
+
+    public String generateNextLoanAcctSubId(String loanAcctType){ // loanAccount type of the account to generate sub number for
+        String returnVal = "null";
+        int numberOfAccounts = 0;// because 00 is our starting number
+        // ^^^^ Tracks the number of accounts of specified type and returns the next available account ID
+
+        if(hasLoanAccount()){ // if they have a loan account of any type
+
+            if(loanAcctType.equals("STL")){ // if input acct type is STL
+                for(LoanAccount la:this.loanAccounts){ // Loop through the accounts
+                    if(la.getLoanAccountType().equals("STL")){// finding only the STL
+                        numberOfAccounts++;// and increment the number
+                    }
+                }
+            }
+            // only search these two types because theyre the only loan account we will allow multiple of.
+            if(loanAcctType.equals("LTL")){
+                for(LoanAccount la:this.loanAccounts){
+                    if(la.getLoanAccountType().equals("LTL")){
+                        numberOfAccounts++;
+                    }
+                }
+            }
+        }
+
+        returnVal = String.format("%02d",numberOfAccounts); // pad the number as such 00 01 02 99
+
+        return returnVal;
+    }
+
+
+    public String generateNextSavingsCDSubID(){
+        String returnVal = "null";
+        int numberOfAccounts = 0;// because 00 is our starting number
+        if(hasSavingsAccount()){
+
+            for(SavingsAccount sa:this.savingsAccounts){
+                if(sa.isCdAccount()){ // searching the cd accounts
+                    numberOfAccounts++;
+                }
+            }
+        }
+        returnVal = String.format("%02d",numberOfAccounts); // pad the number as such 00 01 02 99
+        return returnVal;
+    }
+
+
 
 
     @Override

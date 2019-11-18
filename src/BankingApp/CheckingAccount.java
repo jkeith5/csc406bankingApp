@@ -20,16 +20,8 @@ public class CheckingAccount implements Serializable {
 
     }
 
-    public CheckingAccount(String custID, String checkingAcctID, double accountBalance, String dateOpened, boolean isGoldAccount, boolean backupSavingsEnabled) {
-        setCustID(custID);
-        setCheckingAcctID(checkingAcctID);
-        setAccountBalance(accountBalance);
-        setDateOpened(dateOpened);
-        setGoldAccount(isGoldAccount);
-        setBackupSavingsEnabled(backupSavingsEnabled);
-        setOverdraftsOnAcct(0);
-    }
 
+    // used for reading in data
     public CheckingAccount(String custID, String checkingAcctID, String accountBalance, String dateOpened, String isGoldAccount, String backupSavingsEnabled, String overdraftsOnAcct) {
         setCustID(custID);
         setCheckingAcctID(checkingAcctID);
@@ -38,6 +30,17 @@ public class CheckingAccount implements Serializable {
         setGoldAccount(isGoldAccount);
         setBackupSavingsEnabled(backupSavingsEnabled);
         setOverdraftsOnAcct(overdraftsOnAcct);
+    }
+
+    // use for adding new accounts
+    public CheckingAccount(CustomerAccount customerAccount,boolean isGoldAccount, boolean backupSavingsEnabled, double startingBalance) {
+        setCustID(customerAccount.getCustID());
+        setGoldAccount(isGoldAccount);
+        setCheckingAccountIDAuto(customerAccount);
+        setAccountBalance(startingBalance);
+        setDateOpened(DataEntryDriver.getDateString());
+        setBackupSavingsEnabled(backupSavingsEnabled);
+        setOverdraftsOnAcct(0);
     }
 
 
@@ -76,8 +79,8 @@ public class CheckingAccount implements Serializable {
 
 
     // ID should come from the CustomerAccount Object financialAccountID.
-    public void setCheckingAccountIDAuto(int CustomerAccountID){// adds 01 to end
-        String checkingAccIDString = String.valueOf(CustomerAccountID);
+    public void setCheckingAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end
+        String checkingAccIDString = String.valueOf(customerAccount.getFinancialAccountID());
         String checkingAccountIdFix = checkingAccIDString+"-00";
         this.checkingAcctID = checkingAccountIdFix;
 
