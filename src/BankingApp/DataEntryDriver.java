@@ -541,7 +541,7 @@ public class DataEntryDriver {
     }
 
 
-    public static void validateTransferField(TextField transferField){ // negative true = -55 false = 55
+    public static void validateTransferFieldNeg(TextField transferField) {
         System.out.println("\nvalidate transfer field");
 
         transferField.textProperty().addListener(new ChangeListener<String>() {
@@ -552,14 +552,21 @@ public class DataEntryDriver {
                 }
             }
         });
-
-
-
-
-
     }
 
 
+    public static void validateTransferFieldNoNegative(TextField transferField) {
+        System.out.println("\nvalidate transfer field No negative");
+
+        transferField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d{0,7}([\\.]\\d{0,2})?")) {
+                    transferField.setText(oldValue);
+                }
+            }
+        });
+    }
 
 
     public static String makeSSNValid(String ssn){

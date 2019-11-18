@@ -81,14 +81,6 @@ public class Main extends Application {
         System.out.println("END DEBUG TEST DATA");
 
 
-        for(CustomerAccount ca:customerAccounts){
-            System.out.println(ca.getFinancialAccountID()+"");
-
-            if(ca.hasCheckingAccount()){
-                System.out.println(ca.getCheckingAccount().getCheckingAcctID());
-            }
-        }
-
 
 
 
@@ -232,6 +224,22 @@ public class Main extends Application {
         }
         System.err.println("Combinations required to Randomly generate two numbers with length of "+n+" is: "+tries);
     }
+
+
+    public static double stringToDouble(String inputString){
+        double returnVal=0.00;
+
+        try {
+            returnVal = Double.parseDouble(inputString);
+        } catch (NumberFormatException e) {
+            returnVal = 0.0;
+        }
+
+
+        return returnVal;
+    }
+
+
 
 }
 

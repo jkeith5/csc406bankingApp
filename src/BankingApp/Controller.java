@@ -1,14 +1,9 @@
 package BankingApp;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 
-import java.util.*;
 import java.util.Random;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,17 +12,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
@@ -318,7 +309,7 @@ public class Controller implements Initializable{
             manageExistingTellerDebitCreditAccountButton.setDisable(true);
 
             // sets a changed listener to this object
-            DataEntryDriver.validateTransferField(manageExistingTellerFundsTransferAmount);
+            DataEntryDriver.validateTransferFieldNeg(manageExistingTellerFundsTransferAmount);
 
             tellerManageDispData();
 
@@ -357,7 +348,7 @@ public class Controller implements Initializable{
 
 
             //   ^-?\d{0,7}([\.]\d{0,4})?
-            DataEntryDriver.validateTransferField(tf1);
+            DataEntryDriver.validateTransferFieldNeg(tf1);
             DataEntryDriver.validateZipField(tf2);
             System.out.println("test ");
 
@@ -368,6 +359,8 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("CustomerInterface.fxml")){
+            DataEntryDriver.validateTransferFieldNoNegative(customerInterAtmWithdrawalAmt);
+            DataEntryDriver.validateTransferFieldNoNegative(customerInterAtmCheckAmt);
             customerDispData();
         }
 
@@ -831,14 +824,30 @@ public class Controller implements Initializable{
 
     public void customerInterAtmWithdrawalButton() {
         System.out.println("Complete ATM Transaction");
-        FinanceDriver.completeAtmTransaction(customerInterAtmWithdrawalAmt,"null");
-        customerDispData();
+
+        if(Main.stringToDouble(customerInterAtmWithdrawalAmt.getText()) >0.001){
+            FinanceDriver.completeAtmTransaction(customerInterAtmWithdrawalAmt,"null");
+            customerDispData();
+        }else{
+            customerInterErrLabel.setText("Plese enter a valid amount");
+        }
+
+
     }
 
     public void customerInterAtmDepositButton() {
         System.out.println("Complete ATM Transaction");
-        FinanceDriver.completeAtmTransaction(customerInterAtmCheckAmt,customerInterAtmCheckNum.getText());
-        customerDispData();
+
+        double checkDepositAmount = Main.stringToDouble(customerInterAtmCheckAmt.getText());
+        String checkNumber = customerInterAtmCheckNum.getText();
+
+        if(checkDepositAmount >0.001 && checkNumber.length()>0){
+            FinanceDriver.completeAtmTransaction(customerInterAtmCheckAmt,checkNumber);
+            customerDispData();
+        }else{
+            customerInterErrLabel.setText("Please enter a valid amount and check number");
+        }
+
     }
 
 
