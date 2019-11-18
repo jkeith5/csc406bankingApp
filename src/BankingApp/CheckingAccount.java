@@ -30,6 +30,7 @@ public class CheckingAccount implements Serializable {
         setGoldAccount(isGoldAccount);
         setBackupSavingsEnabled(backupSavingsEnabled);
         setOverdraftsOnAcct(overdraftsOnAcct);
+        this.isNull=false;
     }
 
     // use for adding new accounts
@@ -41,6 +42,7 @@ public class CheckingAccount implements Serializable {
         setDateOpened(DataEntryDriver.getDateString());
         setBackupSavingsEnabled(backupSavingsEnabled);
         setOverdraftsOnAcct(0);
+        this.isNull=false;
     }
 
 

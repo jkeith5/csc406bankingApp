@@ -1,10 +1,12 @@
 package BankingApp;
 
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 
-import java.util.Random;
+import java.util.*;
+
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -15,11 +17,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.Timer;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
+
 
 public class Controller implements Initializable{
     //public static Stage primaryStage = Main.primaryStage;
@@ -161,14 +163,26 @@ public class Controller implements Initializable{
     @FXML CheckBox goldCheckBox;
     @FXML CheckBox backupSavingsCheckBox;
     @FXML TextField startingBalance;
-    @FXML Button addCheckingAccSaveB;
-
     @FXML CheckBox cdCheckBox;
-    @FXML Button addSavingsAccSaveB;
+
     @FXML TextField savingInterestRate;
     @FXML TextField savingCDTerm;
     @FXML ChoiceBox<String> loanAccountTypeChoiceBox;
+    @FXML Label savingsCDTermLabel;
 
+    @FXML TextField loanInterestRate;
+    @FXML TextField loanTermYears;
+    @FXML Label loanTermLabel;
+
+    @FXML Label addCheckingAcctErrLabel;
+    @FXML Label addSavingsAcctErrLabel;
+    @FXML Label addLoanAcctErrLabel;
+
+
+    // save buttons for financial accounts
+    @FXML Button addCheckingAccSaveB;
+    @FXML Button addSavingsAccSaveB;
+    @FXML Button addLoanAccSaveB;
 
 
 
@@ -311,7 +325,7 @@ public class Controller implements Initializable{
             manageExistingTellerDebitCreditAccountButton.setDisable(true);
 
             // sets a changed listener to this object
-            DataEntryDriver.validateTransferFieldNeg(manageExistingTellerFundsTransferAmount);
+            DataEntryDriver.validateBalanceAmountField(manageExistingTellerFundsTransferAmount,true);
 
             tellerManageDispData();
 
@@ -350,7 +364,7 @@ public class Controller implements Initializable{
 
 
             //   ^-?\d{0,7}([\.]\d{0,4})?
-            DataEntryDriver.validateTransferFieldNeg(tf1);
+            DataEntryDriver.validateBalanceAmountField(tf1,true); // allow negative
             DataEntryDriver.validateZipField(tf2);
             System.out.println("test ");
 
@@ -361,8 +375,8 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("CustomerInterface.fxml")){
-            DataEntryDriver.validateTransferFieldNoNegative(customerInterAtmWithdrawalAmt);
-            DataEntryDriver.validateTransferFieldNoNegative(customerInterAtmCheckAmt);
+            DataEntryDriver.validateBalanceAmountField(customerInterAtmWithdrawalAmt,false);
+            DataEntryDriver.validateBalanceAmountField(customerInterAtmCheckAmt,false);
             customerDispData();
         }
 
@@ -375,7 +389,11 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("AddChecking.fxml")){
+            // set the data validation on the fields.
             dispDataUpper();
+            addCheckingAcctErrLabel.setText("");
+            DataEntryDriver.validateBalanceAmountField(startingBalance,false);
+
         }
 
         if(locationString.equals("AddLoan.fxml")){
@@ -830,7 +848,7 @@ public class Controller implements Initializable{
     public void customerInterAtmWithdrawalButton() {
         System.out.println("Complete ATM Transaction");
 
-        if(Main.stringToDouble(customerInterAtmWithdrawalAmt.getText()) >0.001){
+        if(DataEntryDriver.getDoubleFromString(customerInterAtmWithdrawalAmt.getText()) >0.001){
             FinanceDriver.completeAtmTransaction(customerInterAtmWithdrawalAmt,"null");
             customerDispData();
         }else{
@@ -843,7 +861,7 @@ public class Controller implements Initializable{
     public void customerInterAtmDepositButton() {
         System.out.println("Complete ATM Transaction");
 
-        double checkDepositAmount = Main.stringToDouble(customerInterAtmCheckAmt.getText());
+        double checkDepositAmount = DataEntryDriver.getDoubleFromString(customerInterAtmCheckAmt.getText());
         String checkNumber = customerInterAtmCheckNum.getText();
 
         if(checkDepositAmount >0.001 && checkNumber.length()>0){
@@ -1347,6 +1365,61 @@ public class Controller implements Initializable{
 
 
 
+    // validation of checking account should be done before this is called.
+    // DISABLE add account button if they already have a checking account
+    // because you can only have one.
+    @FXML
+    public void addCheckingAccountSaveButton() throws InterruptedException {
+        // add checking account object to current customer can only have one checking account per user
+        addCheckingAccSaveB.setDisable(true);
+        CustomerAccount customerAccount = Main.customerAccount;
+        boolean isGoldAccountSelected = goldCheckBox.isSelected();
+        boolean backupSavingSelected = backupSavingsCheckBox.isSelected();
+        double startingBalanceDouble = DataEntryDriver.getDoubleFromTextField(startingBalance);
+        System.out.println("test1");
+
+        CheckingAccount checkingAccount = new CheckingAccount(customerAccount,isGoldAccountSelected,backupSavingSelected,startingBalanceDouble);
+        //customerAccount.addCheckingAccount(checkingAccount);
+
+        System.out.println("Test2");
+
+        addCheckingAcctErrLabel.setText("Checking Account Added");
+
+        Task<Void> task = Main.getFXSleepTask(3000);
+        new Thread(task).start();
+        System.out.println("task is running: "+Main.taskRunning);
+        System.out.println("task is done: "+Main.taskFinished);
+        boolean finished = Main.taskFinished;
+        int flag = -1;
+
+        while(Main.taskRunning){ // wait until task is finished
+            finished= Main.taskFinished;
+            System.out.println("running");
+
+            if(Main.taskFinished){
+                System.out.println("Task finished in controller from main");
+            }else{
+                System.out.println("Task f: "+Main.taskFinished);
+            }
+            flag=-1;
+        }
+
+
+        addCheckingAccSaveB.setDisable(false);
+        //goToAddFinanceAcc(); // then go back to last screen.
+
+
+
+    }
+
+
+
+
+
+
+
+
+
     // BANK MANAGER INTERFACES
 
     // will need this one because teller and bank manager can both see different items on user accounts
@@ -1480,8 +1553,21 @@ public class Controller implements Initializable{
 
 
 
-    public static int positionAtKeyPress = -1;
-    public static String lastEventTypeName="";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //CUSTOMER INTERFACE METHODS
@@ -1501,7 +1587,21 @@ public class Controller implements Initializable{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     // GENERAL VALIDATION TYPE METHODS
+
+    public static int positionAtKeyPress = -1;
+    public static String lastEventTypeName="";
 
     public void validateSSNField(KeyEvent e,TextField textField){ // fixes ssn and adds - when needed. bulletproof method of data validation
         // see DataEntryDriver
@@ -1809,7 +1909,7 @@ public class Controller implements Initializable{
 
 
 
-    // GENERAL NAVIGATION METHODS
+    // GENERAL NAVIGATION AND GOTO METHODS
 
 
     @FXML
@@ -1921,6 +2021,20 @@ public class Controller implements Initializable{
     public void goToAddFinanceAcc(){
         addFinanceAccountButton();// just simulate the button press
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY

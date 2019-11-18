@@ -68,7 +68,6 @@ public class LoanAccount implements Serializable {
     }
 
 
-    // test
     // used when adding a loan account
     public LoanAccount(CustomerAccount customerAccount, double initialLoanAmt, double interestRate,String loanAccountType,String loanTerm) {
         this.isNull=false;

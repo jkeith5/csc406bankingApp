@@ -1,6 +1,7 @@
 package BankingApp;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,9 +9,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -36,6 +35,8 @@ public class Main extends Application {
     public static EmployeeAccount loggedInEmployee;
     public static CustomerAccount loggedInCustomer;
     public static int lastAccId=1;
+    public static boolean taskFinished = false;
+    public static boolean taskRunning = false;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -241,19 +242,37 @@ public class Main extends Application {
     }
 
 
-    public static double stringToDouble(String inputString){
-        double returnVal=0.00;
 
-        try {
-            returnVal = Double.parseDouble(inputString);
-        } catch (NumberFormatException e) {
-            returnVal = 0.0;
-        }
-
-
-        return returnVal;
+    public static long getCurrentTimeMS(){
+        return System.currentTimeMillis();
     }
 
+    public static long getTimeDiffMS(long startTime){
+        long currentTime = getCurrentTimeMS();
+        return  currentTime - startTime;
+    }
+
+
+    // used to delay the ui of JavaFX for a specified amount of seconds without hanging the FX Thread
+    public static Task<Void> getFXSleepTask(long milliseconds){
+        Task task = new Task<Void>() {
+            @Override public Void call() throws Exception {
+                System.out.println("TASK START OR RUNNING");
+                taskRunning = true;
+                taskFinished=false;
+                try {
+                    Thread.sleep(milliseconds);
+                } catch (Exception e) {
+                }
+                System.out.println("FINISHED IN TASK");
+                taskFinished = true;
+                taskRunning=false;
+                return null;
+            }
+        };
+
+        return task;
+    }
 
 
 

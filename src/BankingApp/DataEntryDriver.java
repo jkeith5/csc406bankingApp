@@ -2,6 +2,7 @@ package BankingApp;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.*;
@@ -540,32 +541,43 @@ public class DataEntryDriver {
 
     }
 
+    public static void validateBalanceAmountField(TextField textField,boolean allowNegative) { // true to allow negative numbers
+        System.out.println("\nvalidate initial balance field no negative");
 
-    public static void validateTransferFieldNeg(TextField transferField) {
-        System.out.println("\nvalidate transfer field");
-
-        transferField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("-?\\d{0,7}([\\.]\\d{0,2})?")) {
-                    transferField.setText(oldValue);
+        if(allowNegative){ // if we want negative balance for some reason. like -5428.35
+            textField.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    if (!newValue.matches("-?\\d{0,7}([\\.]\\d{0,2})?")) {
+                        textField.setText(oldValue);
+                    }
                 }
-            }
-        });
+            });
+        }else{ // no negative. use this one for most if not all cases.
+            textField.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    if (!newValue.matches("\\d{0,7}([\\.]\\d{0,2})?")) {
+                        textField.setText(oldValue);
+                    }
+                }
+            });
+        }
     }
 
+    public static double getDoubleFromTextField(TextField textField){
+        double returnVal = getDoubleFromString(textField.getText());
+        return returnVal;
+    }
 
-    public static void validateTransferFieldNoNegative(TextField transferField) {
-        System.out.println("\nvalidate transfer field No negative");
-
-        transferField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d{0,7}([\\.]\\d{0,2})?")) {
-                    transferField.setText(oldValue);
-                }
-            }
-        });
+    public static double getDoubleFromString(String inputString){
+        double returnVal=0.00;
+        try {
+            returnVal = Double.parseDouble(inputString);
+        } catch (NumberFormatException e) {
+            returnVal = 0.0;
+        }
+        return returnVal;
     }
 
 
@@ -579,6 +591,9 @@ public class DataEntryDriver {
         return result;
     }
 
+    public static void setErrLabelText(Label textField, String text){
+        textField.setText(text);
+    }
 
     public static int getRandomInt(){
         Random random = new Random();

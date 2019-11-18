@@ -26,6 +26,11 @@ public class CustomerAccount implements Serializable {
     // type append an incrementing number like x-020 x-021 x-0212
     // for this system you can only have ONE checking, simple saving account, and one credit card loan. Multiple of other accounts
     public int financialAccountID; // checking= x-00  simple saving= x-01  savingCD=x-02-00  ShortTermLoan= x-03-00 LongTermLoan= x-04-00 CreditCardLoan= x-05
+    // so we can split the string by "-" if len = 2 then we can only have one of that type.
+    // in the id string for the accounts split [0] will be this financialID. split[1] will be the identifier of the sub type
+    // and for those that allow multiple accounts like loan accounts split[2] will be the index id of that customers account
+    // so If I have 3 Long term loan accounts and my base id is 12,
+    // the ID for the 3rd LTL will look like: 12-04-02 the second LTL account would be 12-04-01 and the first is always 12-04-00
 
 
     public boolean hasSavingsAccount=false;
