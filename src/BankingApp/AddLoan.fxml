@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
+   <children>
+      <Pane prefHeight="500.0" prefWidth="700.0">
+         <children>
+            <Label layoutX="172.0" layoutY="32.0" prefHeight="17.0" prefWidth="30.0" text="SSN:" />
+            <Label layoutX="172.0" layoutY="49.0" prefHeight="17.0" prefWidth="65.0" text="First Name:" />
+            <Label layoutX="172.0" layoutY="68.0" prefHeight="17.0" prefWidth="65.0" text="Last Name:" />
+            <Label layoutX="334.0" layoutY="32.0" prefHeight="17.0" prefWidth="83.0" text="Street Address:" />
+            <Label layoutX="334.0" layoutY="49.0" prefHeight="17.0" prefWidth="30.0" text="City:" />
+            <Label layoutX="334.0" layoutY="68.0" prefHeight="17.0" prefWidth="30.0" text="State:" />
+            <Label layoutX="402.0" layoutY="68.0" prefHeight="17.0" prefWidth="30.0" text="Zip: " />
+            <Label fx:id="manageDispDataSSN" layoutX="204.0" layoutY="32.0" prefHeight="17.0" prefWidth="97.0" text="000-00-0000" />
+            <Label fx:id="manageDispDataFirst" layoutX="233.0" layoutY="49.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+            <Label fx:id="manageDispDataLast" layoutX="237.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+            <Label fx:id="manageDispDataStreetAddr" layoutX="417.0" layoutY="32.0" prefHeight="17.0" prefWidth="133.0" text="Label" />
+            <Label fx:id="manageDispDataCity" layoutX="417.0" layoutY="49.0" prefHeight="17.0" prefWidth="133.0" text="Label" />
+            <Label fx:id="manageDispDataState" layoutX="366.0" layoutY="68.0" prefHeight="17.0" prefWidth="30.0" text="MO" />
+            <Label fx:id="manageDispDataZip" layoutX="423.0" layoutY="68.0" prefHeight="17.0" prefWidth="133.0" text="00000" />
+            <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
+            <Button fx:id="addLoanAccPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToAddFinanceAcc" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button layoutX="603.0" layoutY="461.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Save" />
+            <ChoiceBox fx:id="loanAccountTypeChoiceBox" layoutX="301.0" layoutY="112.0" prefWidth="150.0" />
+            <Label layoutX="172.0" layoutY="116.0" text="Select Loan Type:" />
+            <Label layoutX="172.0" layoutY="177.0" text="Initial Loan Amount:" />
+            <TextField layoutX="301.0" layoutY="173.0" />
+            <Label layoutX="172.0" layoutY="218.0" prefHeight="17.0" prefWidth="106.0" text="Interest Rate:" />
+            <TextField layoutX="301.0" layoutY="214.0" />
+            <Label layoutX="172.0" layoutY="260.0" prefHeight="17.0" prefWidth="106.0" text="Loan Term/Years:" />
+            <TextField layoutX="302.0" layoutY="256.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
