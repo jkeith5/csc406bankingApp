@@ -17,6 +17,21 @@ public class LoanAccount implements Serializable {
     public String loanAccountID;
     public boolean isNull = false;
 
+
+    // Notes:
+    // LTL = Long Term Mortgage Loan 15/30 year loan. Fixed interest Rate. Fixed Payment Plan (30 days).
+    // if payment late add $75 lateFee to that months payment.
+
+    // STL = Short Term Loan up to 5 year term. includes auto loans. Same specs as LTL
+
+    // CCL = Credit Card Loan. Init loan amount is the CREDIT LIMIT. Current Balance is how much is used including interest
+    // Bills sent on the first of month (NOTICE DATE). PAYMENT DUE DATE IS THE 10th of each month.
+    // Bills include finance charges and all charges made during month.
+    // Finance charge is calculated on average balance through the month.
+    // If total balance is paid each month then NO FINANCE CHARGE IS APPLIED.
+
+
+
     public LoanAccount(){
         //
         isNull=true;
@@ -29,40 +44,11 @@ public class LoanAccount implements Serializable {
     }
 
 
-    public LoanAccount(String custID, double initialLoanAmt, double currentBalance, double interestRate,boolean hasMissedPayment, String loanAccountType) {
-        this.custID = custID;
-        this.initialLoanAmt = initialLoanAmt;
-        this.currentBalance = currentBalance;
-        this.interestRate = interestRate;
-        this.paymentDueDate = "null";
-        this.paymentNoticeDate = "null";
-        this.amountDue = 0.0;
-        this.lastPaymentDate = "null";
-        this.hasMissedPayment=hasMissedPayment;
-        this.loanAccountType = loanAccountType;
-        this.loanAccountID="temp";
-    }
-
-    public LoanAccount(String custID, double initialLoanAmt, double currentBalance, double interestRate,
-                       String paymentDueDate, String paymentNoticeDate, double amountDue, String lastPaymentDate,
-                       boolean hasMissedPayment, String loanAccountType) {
-        setCustID(custID);
-        setInitialLoanAmt(initialLoanAmt);
-        setCurrentBalance(currentBalance);
-        setInterestRate(interestRate);
-        setPaymentDueDate(paymentDueDate);
-        setPaymentNoticeDate(paymentNoticeDate);
-        setAmountDue(amountDue);
-        setLastPaymentDate(lastPaymentDate);
-        setHasMissedPayment(hasMissedPayment);
-        setLoanAccountType(loanAccountType);
-    }
-
-
+    // used in DataEntryDriver readLoanAccountsToArrList() // manually set the loan account ID OLD SYSTEM
     //custID,initLoanAmt,CurrentBalance,InterestRate,PmtDueDate,DateOfNotice,AmtDue,LastPmtDate,HasMissedPmt,LoanAcctType
     public LoanAccount(String custID, String initialLoanAmt, String currentBalance, String interestRate,
-                       String paymentDueDate, String paymentNoticeDate, String amountDue, String lastPaymentDate,
-                       String hasMissedPayment, String loanAccountType, String loanAccountId) {
+                        String paymentDueDate, String paymentNoticeDate, String amountDue, String lastPaymentDate,
+                        String hasMissedPayment, String loanAccountType, String loanAccountId) {
         setCustID(custID);
         setInitialLoanAmt(initialLoanAmt);
         setCurrentBalance(currentBalance);
@@ -74,6 +60,24 @@ public class LoanAccount implements Serializable {
         setHasMissedPayment(hasMissedPayment);
         setLoanAccountType(loanAccountType);
         setLoanAccountID(loanAccountId);
+    }
+
+    public LoanAccount(CustomerAccount customerAccount, double initialLoanAmt, double interestRate,String loanAccountType) {
+        this.isNull=false;
+        setCustID(customerAccount.getCustID());
+        setInitialLoanAmt(initialLoanAmt);
+        setCurrentBalance(initialLoanAmt);
+        setInterestRate(interestRate);
+        setLoanAccountType(loanAccountType);
+        setLoanAccountIDAuto(customerAccount.getFinancialAccountID());
+        setHasMissedPayment(false);
+        setLastPaymentDate(DataEntryDriver.getDateString());
+        setPaymentNoticeDate(DataEntryDriver.getDateString());
+
+        // need to make methods to set the first due date and amount due based on interest
+
+        setPaymentDueDate(paymentDueDate);
+        setAmountDue(amountDue);
     }
 
     public String getLoanAccountType() {
@@ -117,6 +121,26 @@ public class LoanAccount implements Serializable {
         this.loanAccountID = loanAccountID;
     }
 
+    public void setLoanAccountIDAuto(int CustomerAccountID){// adds 01 to end
+        String loanAcctIDString = String.valueOf(CustomerAccountID);
+        String loanAccountIdFix = "";
+
+        if(this.loanAccountType.equals("STL")){ // 03 short term loan
+            loanAccountIdFix = loanAcctIDString+"-03";
+        }
+        if(this.loanAccountType.equals("LTL")){ // 04 long term loan
+            loanAccountIdFix = loanAcctIDString+"-04";
+        }
+
+        if(this.loanAccountType.equals("CCL")){ // 05 Credit Card loan
+            loanAccountIdFix = loanAcctIDString+"-05";
+        }
+
+        this.loanAccountID=loanAccountIdFix;
+
+    }
+
+
     public double getCurrentBalance() {
         return currentBalance;
     }
@@ -153,6 +177,10 @@ public class LoanAccount implements Serializable {
 
     public void setPaymentDueDate(String paymentDueDate) {
         this.paymentDueDate = paymentDueDate;
+    }
+
+    public void setNextPaymentDueDate(){
+        //
     }
 
     public String getPaymentNoticeDate() {

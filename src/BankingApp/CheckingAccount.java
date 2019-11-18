@@ -59,10 +59,10 @@ public class CheckingAccount implements Serializable {
         int returnVal = -1;
 
         if(this.checkingAcctID!=null){
-            if(this.checkingAcctID.contains("-")){
+            if(this.checkingAcctID.contains("-")){ // for the new and improved id system
                 String[] split = this.checkingAcctID.split("-");
                 returnVal = Integer.parseInt(split[0]);
-            }else{
+            }else{// for the old account id numbering system
                 returnVal = Integer.parseInt(this.checkingAcctID);
             }
         }
@@ -75,9 +75,10 @@ public class CheckingAccount implements Serializable {
     }
 
 
-    public void setIDAuto(int CustomerAccountID){// adds 01 to end
-        String customerIDString = String.valueOf(CustomerAccountID);
-        String checkingAccountIdFix = customerIDString+"-01";
+    // ID should come from the CustomerAccount Object financialAccountID.
+    public void setCheckingAccountIDAuto(int CustomerAccountID){// adds 01 to end
+        String checkingAccIDString = String.valueOf(CustomerAccountID);
+        String checkingAccountIdFix = checkingAccIDString+"-00";
         this.checkingAcctID = checkingAccountIdFix;
 
     }

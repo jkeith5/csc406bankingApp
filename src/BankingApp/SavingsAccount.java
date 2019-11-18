@@ -193,9 +193,14 @@ public class SavingsAccount implements Serializable {
         }
     }
 
-    public void setID(int CustomerAccountID){// adds 01 to end
-        String customerIDString = String.valueOf(CustomerAccountID);
-        String savingsAccountIdFix = customerIDString+"-01";
+    public void setSavingsAccountIDAuto(int CustomerAccountID){// adds 01 to end
+        String savingsAcctIDString = String.valueOf(CustomerAccountID);
+        String savingsAccountIdFix = "";
+        if(this.isCdAccount){// savings cd
+            savingsAccountIdFix = savingsAcctIDString+"-02";
+        }else{ // simple savings
+            savingsAccountIdFix = savingsAcctIDString+"-01";
+        }
         this.savingsAcctID = savingsAccountIdFix;
 
     }

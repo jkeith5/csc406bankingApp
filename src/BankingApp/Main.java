@@ -8,7 +8,9 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -173,12 +175,21 @@ public class Main extends Application {
 
     }
 
+    // used to generate a dataTime String for the log output
     public static String getDateTimeString(){
         String result = "";
         LocalDateTime ldt = LocalDateTime.now();
         result = ldt.toString()+" ";
         return result;
     }
+
+    // just adding this so I don't have to remember what class I put these methods in
+
+
+
+
+
+
 
 
     public static void printToConsoleAndLog(String message){
@@ -210,6 +221,10 @@ public class Main extends Application {
 
     }
 
+    public static String generateAtmCardNumber(){
+        return generateNumber(16);
+    }
+
 
     public static void testRandomnes(){
         int n = 5;
@@ -238,6 +253,7 @@ public class Main extends Application {
 
         return returnVal;
     }
+
 
 
 

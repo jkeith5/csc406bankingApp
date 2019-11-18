@@ -20,7 +20,10 @@ public class CustomerAccount implements Serializable {
     public String atmCardNumber;
     public String dateCreated; // date of initial customer account
     public String Pin = "";
-    public int financialAccountID;
+
+    // this is just a base number like 5. but the different accounts will append a - and a number that
+    // identifies the account type
+    public int financialAccountID; // x-00=checking x-01=simple saving x-02=savingCD x-03=ShortTermLoan x-04=LongTermLoan x-05=CreditCardLoan
 
 
     public boolean hasSavingsAccount=false;
@@ -80,6 +83,13 @@ public class CustomerAccount implements Serializable {
         setZip(zip);
         //setAtmCardNumber(atmCardNumber);
         setDateCreatedAuto();
+
+        if(generateAtmAndFinAccountID){
+            setFinancialAccountIDAuto();
+            setAtmCardNumber(Main.generateAtmCardNumber());
+        }
+
+
     }
 
 
@@ -299,25 +309,6 @@ public class CustomerAccount implements Serializable {
         }
     }
 
-    public void addLoanAccount( String custID, double initialLoanAmt, double currentBalance,
-                               double interestRate, String paymentDueDate, String paymentNoticeDate, double amountDue,
-                               String lastPaymentDate, boolean hasMissedPayment,String loanAccountType){
-        LoanAccount tempLoanAcct = new LoanAccount(custID,initialLoanAmt,currentBalance,interestRate,paymentDueDate,
-                paymentNoticeDate,amountDue,lastPaymentDate,hasMissedPayment,loanAccountType);
-        this.loanAccounts.add(tempLoanAcct);
-
-        setHasLoanAccount(true);
-        if(tempLoanAcct.loanAccountType.equals("STL")){
-            setHasShortTermLoan(true);
-        }
-        if(tempLoanAcct.loanAccountType.equals("LTL")){
-            setHasLongTermLoan(true);
-        }
-        if(tempLoanAcct.loanAccountType.equals("CCL")){
-            setHasCreditCardAcct(true);
-        }
-    }
-
 
     public ArrayList<Check> getChecks() {
         return checks;
@@ -360,6 +351,9 @@ public class CustomerAccount implements Serializable {
         this.financialAccountID = financialAccountID;
     }
 
+    public void setFinancialAccountIDAuto(){
+        this.financialAccountID = Main.generateCustomerId();
+    }
 
 
 
@@ -388,10 +382,6 @@ public class CustomerAccount implements Serializable {
         return returnVal;
     }
 
-
-    public void generateATMCardNumber(){
-        char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
-    }
 
 
     // some void methods to print the specific customer Account data

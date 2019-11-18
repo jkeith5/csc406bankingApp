@@ -634,6 +634,31 @@ public class DataEntryDriver {
         return result;
     }
 
+    public static LocalDate getCurrentDateObject(){
+        System.out.println("getCurrentDateObject");
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // formatter for date output
+        localDate.format(formatter);
+        return localDate;
+    }
+
+
+    public static LocalDate getDateObjectFromString(String inputDate){
+        LocalDate returnVal = LocalDate.now();
+        String inputDateFixed = DataEntryDriver.fixDateString(inputDate);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        if(!inputDateFixed.equals("null")){
+            returnVal = LocalDate.parse(inputDateFixed,outputFormatter);
+        }
+
+        return returnVal;
+
+    }
+
+
+
+
 
     // 7/8/2008
     public static String fixDateString(String inputDateString){ // returns the current date in mm/dd/yyyy format from input string

@@ -446,6 +446,9 @@ public class Controller implements Initializable{
         tempAccount.setState(state);
         tempAccount.setZip(zipCode);
         tempAccount.setCustID(DataEntryDriver.stripSSN(ssn));
+        tempAccount.setFinancialAccountIDAuto();
+        tempAccount.setAtmCardNumber(Main.generateAtmCardNumber());
+
 
         // need to tie into main to add data
 
