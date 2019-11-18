@@ -352,17 +352,9 @@ public class DataEntryDriver {
                   result = ca;
                   break;
               }
-          }else{
-              // no result
-              return result;// a null account
           }
 
-
         }
-
-//        if(result.isNull()){
-//            System.out.println("no results found in getCustAcctFromID");
-//        }
 
 
         return result;

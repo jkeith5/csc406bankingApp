@@ -1085,18 +1085,14 @@ public class Controller implements Initializable{
             if(customerLogIn){ // if validate was true and they are now logged in then call the main login button again
                 customerPendingLogin=false;
                 Main.outEmployee.println(Main.getDateTimeString()+"Customer Account UserName: Customer logged into account.");
-                CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
+                //CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
 
-                if(!ca.isNull()){
-                    //
-                    Main.loggedInCustomer = ca;
-                    Main.customerAccount = ca;
 
-                    closeWindow();
-                    mainInterfaceCustomerButton();
-                }else{
-                    System.out.println("NULL VALUE ENTER CORRECT INFO");
-                }
+                Main.loggedInCustomer = Main.customerAccount;
+                //Main.customerAccount = ca;
+
+                closeWindow();
+                mainInterfaceCustomerButton();
 
 
 
@@ -1779,7 +1775,7 @@ public class Controller implements Initializable{
     public boolean validateLoginCreds(String userType){// userType is either Teller or Manager
         boolean returnVal = false;
 
-        printAllData();//testing
+        //printAllData();//testing
 
         if(userType == "Teller"){
             if(loginInterUser.getText() == "teller" || loginInterUser.getText().length()>0){
@@ -1807,13 +1803,17 @@ public class Controller implements Initializable{
         }
 
         if(userType == "Customer") {
-           if(loginInterUser.getText().length()>0|| loginInterPass.getText().length()>0){
+           if(loginInterUser.getText().length()>0 && loginInterPass.getText().length()>0){
                CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
-               if(!ca.isNull()){
+               if(!ca.isNull()){ // if search was not null
                    Main.customerAccount = ca;
                    returnVal=true;
-               }else{
-                   returnVal=false;
+               }else{// if search was null
+                   Main.customerAccount=Main.customerAccounts.get(0);// statically set the first account
+                   returnVal=true;
+
+                   // DELETE ALL ABOVE THIS LINE AND CHANGE BACK TO BELOW THIS TO REMOVE THE STATIC SET ACCOUNT FOR ANY LOGIN
+                   //returnVal=false;
                }
            }else{
                returnVal=false;
