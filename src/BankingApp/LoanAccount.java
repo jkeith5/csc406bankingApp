@@ -16,6 +16,8 @@ public class LoanAccount implements Serializable {
     public String loanAccountType; // STL= short term loan LTL= long term loan CCL= credit card loan
     public String loanAccountID;
     public boolean isNull = false;
+    public int loanTerm; // -1 if not applicable
+    public String dateOpened;
 
 
     // Notes:
@@ -48,7 +50,8 @@ public class LoanAccount implements Serializable {
     //custID,initLoanAmt,CurrentBalance,InterestRate,PmtDueDate,DateOfNotice,AmtDue,LastPmtDate,HasMissedPmt,LoanAcctType
     public LoanAccount(String custID, String initialLoanAmt, String currentBalance, String interestRate,
                         String paymentDueDate, String paymentNoticeDate, String amountDue, String lastPaymentDate,
-                        String hasMissedPayment, String loanAccountType, String loanAccountId) {
+                        String hasMissedPayment, String loanAccountType, String loanAccountId,String loanTerm,String dateOpened) {
+        this.isNull=false;
         setCustID(custID);
         setInitialLoanAmt(initialLoanAmt);
         setCurrentBalance(currentBalance);
@@ -60,9 +63,13 @@ public class LoanAccount implements Serializable {
         setHasMissedPayment(hasMissedPayment);
         setLoanAccountType(loanAccountType);
         setLoanAccountID(loanAccountId);
+        setLoanTerm(loanTerm);
+        setDateOpened(dateOpened);
     }
 
-    public LoanAccount(CustomerAccount customerAccount, double initialLoanAmt, double interestRate,String loanAccountType) {
+
+    // used when adding a loan account
+    public LoanAccount(CustomerAccount customerAccount, double initialLoanAmt, double interestRate,String loanAccountType,String loanTerm) {
         this.isNull=false;
         setCustID(customerAccount.getCustID());
         setInitialLoanAmt(initialLoanAmt);
@@ -74,10 +81,17 @@ public class LoanAccount implements Serializable {
         setLastPaymentDate(DataEntryDriver.getDateString());
         setPaymentNoticeDate(DataEntryDriver.getDateString());
 
+        if(loanAccountType.equals("CCL")){
+            setLoanTerm(-1);
+        }else{
+            setLoanTerm(loanTerm);
+        }
+        setDateOpened(DataEntryDriver.getDateString()); // set to current date
+
         // need to make methods to set the first due date and amount due based on interest
 
-        setPaymentDueDate(paymentDueDate);
-        setAmountDue(amountDue);
+        setPaymentDueDate("12/12/2019");
+        setAmountDue(1.00);
     }
 
     public String getLoanAccountType() {
@@ -91,6 +105,31 @@ public class LoanAccount implements Serializable {
 
     public String getCustID() {
         return custID;
+    }
+
+    public int getLoanTerm() {
+        return loanTerm;
+    }
+
+    public void setLoanTerm(int loanTerm) {
+        this.loanTerm = loanTerm;
+    }
+
+    public void setLoanTerm(String loanTerm){
+        try {
+            this.loanTerm = Integer.parseInt(loanTerm);
+        } catch (NumberFormatException e) {
+            this.loanTerm = -1;
+        }
+    }
+
+    public String getDateOpened() {
+        return dateOpened;
+    }
+
+    public void setDateOpened(String dateOpened) {
+        String fixedDate = DataEntryDriver.fixDateString(dateOpened);
+        this.dateOpened = fixedDate;
     }
 
     public void setCustID(String custID) {
@@ -236,6 +275,9 @@ public class LoanAccount implements Serializable {
         this.interestRate = 0.0;
         this.amountDue = 0.0;
         this.hasMissedPayment = false;
+        this.loanTerm=-1;
+        this.loanAccountID="null";
+        this.dateOpened="null";
     }
 
     // will use these calcNullValue methods to find if the overall object is considered Null, so we can't try to
@@ -281,8 +323,7 @@ public class LoanAccount implements Serializable {
     @Override
     public String toString() {
         return "LoanAccount{" +
-                "loanAccountType='" + loanAccountType + '\'' +
-                ", custID='" + custID + '\'' +
+                "custID='" + custID + '\'' +
                 ", initialLoanAmt=" + initialLoanAmt +
                 ", currentBalance=" + currentBalance +
                 ", interestRate=" + interestRate +
@@ -291,9 +332,11 @@ public class LoanAccount implements Serializable {
                 ", amountDue=" + amountDue +
                 ", lastPaymentDate='" + lastPaymentDate + '\'' +
                 ", hasMissedPayment=" + hasMissedPayment +
+                ", loanAccountType='" + loanAccountType + '\'' +
+                ", loanAccountID='" + loanAccountID + '\'' +
+                ", isNull=" + isNull +
+                ", loanTerm=" + loanTerm +
+                ", dateOpened='" + dateOpened + '\'' +
                 '}';
     }
-
-
-
 }

@@ -228,7 +228,7 @@ public class DataEntryDriver {
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
                 System.out.println(Arrays.toString(split));
-                LoanAccount la = new LoanAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6],split[7],split[8],split[9],split[10]);
+                LoanAccount la = new LoanAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6],split[7],split[8],split[9],split[10],split[11],split[12]);
                 result.add(la);
 
             }
