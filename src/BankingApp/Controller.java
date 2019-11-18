@@ -386,6 +386,15 @@ public class Controller implements Initializable{
 
         if(locationString.equals("ManageExistingUserAddFinanceAcc.fxml")){
             dispDataUpper();
+            CustomerAccount customerAccount = Main.customerAccount;
+            if(customerAccount.hasCheckingAccount()){// if they have a checking account then disable
+                addCheckingAccB.setDisable(true);
+            }else{
+                addCheckingAccB.setDisable(false);
+            }
+
+
+
         }
 
         if(locationString.equals("AddChecking.fxml")){
@@ -404,6 +413,28 @@ public class Controller implements Initializable{
         if(locationString.equals("AddSavings.fxml")){
             // Enter code to run on initialization of the FXML Scene
             dispDataUpper();
+            addSavingsAcctErrLabel.setText("");
+            CustomerAccount customerAccount = Main.customerAccount;
+
+            if(customerAccount.hasSavingsAccount()){
+                ArrayList<SavingsAccount> savingsAccounts = customerAccount.getSavingsAccounts();
+                boolean hasSimple = false;
+                for(SavingsAccount savingsAccount:savingsAccounts){
+                    if(!savingsAccount.isCdAccount()){// they have a simple saving already
+                        hasSimple=true;
+                    }
+                }
+                // so check the cd account box and lock it
+
+                if(hasSimple){
+                    cdCheckBox.setSelected(true);
+                    cdCheckBox.setDisable(true);
+                    addSavingsAcctErrLabel.setText("User already has a simple savings account");
+                }
+
+            }
+
+
         }
 
         if(locationString.equals("AddFXMLFileNameHere.fxml")){
@@ -1046,6 +1077,7 @@ public class Controller implements Initializable{
         }
 
         if(customerPendingLogin){ // customer pending login is true
+
             customerLogIn = validateLoginCreds("Customer"); // validate and determine if they are logged in or not
             System.out.println("in verify");
 
@@ -1054,11 +1086,20 @@ public class Controller implements Initializable{
                 customerPendingLogin=false;
                 Main.outEmployee.println(Main.getDateTimeString()+"Customer Account UserName: Customer logged into account.");
                 CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
-                Main.loggedInCustomer = ca;
-                Main.customerAccount = ca;
 
-                closeWindow();
-                mainInterfaceCustomerButton();
+                if(!ca.isNull()){
+                    //
+                    Main.loggedInCustomer = ca;
+                    Main.customerAccount = ca;
+
+                    closeWindow();
+                    mainInterfaceCustomerButton();
+                }else{
+                    System.out.println("NULL VALUE ENTER CORRECT INFO");
+                }
+
+
+
             }
         }
 
@@ -1381,6 +1422,10 @@ public class Controller implements Initializable{
     }
 
 
+    @FXML
+    public void addSavingsAccountSaveButton(){
+        //
+    }
 
 
 
@@ -1762,12 +1807,16 @@ public class Controller implements Initializable{
         }
 
         if(userType == "Customer") {
-           if(loginInterUser.getText() == "customer" || loginInterUser.getText().length()>0){
-               if(loginInterPass.getText().length()>0){
-                   returnVal =true;
+           if(loginInterUser.getText().length()>0|| loginInterPass.getText().length()>0){
+               CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
+               if(!ca.isNull()){
+                   Main.customerAccount = ca;
+                   returnVal=true;
                }else{
-                   returnVal = false;
+                   returnVal=false;
                }
+           }else{
+               returnVal=false;
            }
         }
 

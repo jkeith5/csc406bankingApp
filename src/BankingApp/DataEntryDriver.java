@@ -347,15 +347,22 @@ public class DataEntryDriver {
 
         for(CustomerAccount ca:accountsList){
           String custCardNumStripped = stripSSN(ca.atmCardNumber);
-            if(searchCardNumStripped.equals(custCardNumStripped)){
-                result = ca;
-                break;
-            }
+          if(!custCardNumStripped.equals("")){
+              if(searchCardNumStripped.equals(custCardNumStripped)){
+                  result = ca;
+                  break;
+              }
+          }else{
+              // no result
+              return result;// a null account
+          }
+
+
         }
 
-        if(result.isNull()){
-            System.out.println("no results found in getCustAcctFromID");
-        }
+//        if(result.isNull()){
+//            System.out.println("no results found in getCustAcctFromID");
+//        }
 
 
         return result;
