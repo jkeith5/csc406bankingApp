@@ -1611,7 +1611,9 @@ public class Controller implements Initializable{
         customerDispDataFirst.setText(ca.getFirstName());
         customerDispDataLast.setText(ca.getLastName());
         customerDispDataAccountBalance.setText(balanceFormatted);
-
+        customerInterAtmWithdrawalAmt.setText("");
+        customerInterAtmCheckNum.setText("");
+        customerInterAtmCheckAmt.setText("");
     }
 
 
