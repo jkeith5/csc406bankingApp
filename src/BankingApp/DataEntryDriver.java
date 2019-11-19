@@ -628,6 +628,22 @@ public class DataEntryDriver {
         return returnVal;
     }
 
+    public static int getIntFromTextField(TextField textField){
+        return getIntFromString(textField.getText());
+    }
+
+    public static int getIntFromString(String inputString){
+        int returnVal = -1;
+        try {
+            returnVal= Integer.parseInt(inputString);
+        } catch (NumberFormatException e) {
+            returnVal=-1;
+        }
+
+        return returnVal;
+
+    }
+
 
     public static String makeSSNValid(String ssn){
         String result = ssn;

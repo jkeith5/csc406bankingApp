@@ -1447,12 +1447,25 @@ public class Controller implements Initializable{
     @FXML
     public void addSavingsAccountSaveButton(){
         System.out.println("savings save button");
+        CustomerAccount customerAccount=Main.customerAccount;
+        boolean isCdAccount = cdCheckBox.isSelected();
+        double startingBalanceDouble = DataEntryDriver.getDoubleFromTextField(startingBalance);
+        double interestRate = DataEntryDriver.getDoubleFromTextField(savingInterestRate);
+        int termInYears=-1;
 
         if(cdCheckBox.isSelected()){ // cd box selected
             System.out.println("selected");
+            termInYears= DataEntryDriver.getIntFromTextField(savingCDTerm);
         }else{ // cd box not selected
             System.out.println("not selected");
+            //termInYears=-1;
         }
+
+        SavingsAccount newSavings = new SavingsAccount(customerAccount,isCdAccount,startingBalanceDouble,interestRate,termInYears);
+
+        customerAccount.addSavingsAccount(newSavings);
+        goToAddFinanceAcc();
+
 
     }
 
