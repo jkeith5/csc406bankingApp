@@ -417,8 +417,11 @@ public class Controller implements Initializable{
             CustomerAccount customerAccount = Main.customerAccount;
 
             // data validation
+            DataEntryDriver.validateBalanceAmountField(startingBalance,false);
+            DataEntryDriver.validateInputField(savingInterestRate,true,true);
+            DataEntryDriver.validateInputField(savingCDTerm,false,false);
 
-            if(customerAccount.hasSavingsAccount()){
+            if(customerAccount.hasSavingsAccount()){ // if they have a savings account see if it's a simple saving
                 ArrayList<SavingsAccount> savingsAccounts = customerAccount.getSavingsAccounts();
                 boolean hasSimple = false;
                 for(SavingsAccount savingsAccount:savingsAccounts){
@@ -426,16 +429,16 @@ public class Controller implements Initializable{
                         hasSimple=true;
                     }
                 }
-                // so check the cd account box and lock it
-
+                // so check the cd account box and lock it so they can only add a cd type
                 if(hasSimple){
                     cdCheckBox.setSelected(true);
                     cdCheckBox.setDisable(true);
                     addSavingsAcctErrLabel.setText("User already has a simple savings account");
+                    //DataEntryDriver.validateInputField(savingCDTerm,false,false);
                 }
 
-            }else{
-                //
+            }else{// have no savings account
+                // set these to false until they check the cd box
                 savingCDTerm.setVisible(false);
                 savingsCDTermLabel.setVisible(false);
             }
@@ -573,10 +576,13 @@ public class Controller implements Initializable{
 
     public void isCdCheckBoxEvent(){
         //
-        if(!cdCheckBox.isDisabled()){
+
+        //DataEntryDriver.validateInputField(savingCDTerm,false,false);
+        if(!cdCheckBox.isDisabled()){ // if box was not disabled in initial method // disabled = false
             if(cdCheckBox.isSelected()){ // show the CD term label and field
                 savingsCDTermLabel.setVisible(true);
                 savingCDTerm.setVisible(true);
+
             }else{// the cd box is not selected so hide those items
                 savingsCDTermLabel.setVisible(false);
                 savingCDTerm.setVisible(false);
@@ -1441,6 +1447,13 @@ public class Controller implements Initializable{
     @FXML
     public void addSavingsAccountSaveButton(){
         System.out.println("savings save button");
+
+        if(cdCheckBox.isSelected()){ // cd box selected
+            System.out.println("selected");
+        }else{ // cd box not selected
+            System.out.println("not selected");
+        }
+
     }
 
 
