@@ -416,6 +416,8 @@ public class Controller implements Initializable{
             addSavingsAcctErrLabel.setText("");
             CustomerAccount customerAccount = Main.customerAccount;
 
+            // data validation
+
             if(customerAccount.hasSavingsAccount()){
                 ArrayList<SavingsAccount> savingsAccounts = customerAccount.getSavingsAccounts();
                 boolean hasSimple = false;
@@ -432,6 +434,10 @@ public class Controller implements Initializable{
                     addSavingsAcctErrLabel.setText("User already has a simple savings account");
                 }
 
+            }else{
+                //
+                savingCDTerm.setVisible(false);
+                savingsCDTermLabel.setVisible(false);
             }
 
 
@@ -562,6 +568,20 @@ public class Controller implements Initializable{
             //tellerUpdateDataSaveButton.setDisable(true);
         }
 
+    }
+
+
+    public void isCdCheckBoxEvent(){
+        //
+        if(!cdCheckBox.isDisabled()){
+            if(cdCheckBox.isSelected()){ // show the CD term label and field
+                savingsCDTermLabel.setVisible(true);
+                savingCDTerm.setVisible(true);
+            }else{// the cd box is not selected so hide those items
+                savingsCDTermLabel.setVisible(false);
+                savingCDTerm.setVisible(false);
+            }
+        }
     }
 
 
@@ -1420,7 +1440,7 @@ public class Controller implements Initializable{
 
     @FXML
     public void addSavingsAccountSaveButton(){
-        //
+        System.out.println("savings save button");
     }
 
 

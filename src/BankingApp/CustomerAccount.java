@@ -19,7 +19,7 @@ public class CustomerAccount implements Serializable {
     public String zip;
     public String atmCardNumber;
     public String dateCreated; // date of initial customer account
-    public String Pin = "";
+    public String pin = "";
 
     // this is just a base number like 5. but the different accounts will append a - and a number that
     // identifies the account type and another - and number for multiple accounts. For multiple accounts of same
@@ -57,6 +57,7 @@ public class CustomerAccount implements Serializable {
         // use setters and getters setting null pointer to null until at least a ssn is added
         this.isNull=true;
         setDateCreatedAuto();
+        setPinAuto();
     }
 
     public CustomerAccount(String isNullString){
@@ -64,6 +65,7 @@ public class CustomerAccount implements Serializable {
             this.isNull= true;
         }
         setDateCreatedAuto();
+        setPinAuto();
     }
 
     // manually set cust id
@@ -78,6 +80,8 @@ public class CustomerAccount implements Serializable {
         setZip(zip);
         setAtmCardNumber(atmCardNumber);
         setDateCreatedAuto();
+        setPinAuto();
+
     }
 
     public CustomerAccount(String custID,String firstName,String lastName,String streetAddr,String city,String state,String zip,boolean generateAtmAndFinAccountID){
@@ -94,6 +98,7 @@ public class CustomerAccount implements Serializable {
         if(generateAtmAndFinAccountID){
             setFinancialAccountIDAuto();
             setAtmCardNumber(Main.generateAtmCardNumber());
+            setPinAuto();
         }
 
 
@@ -341,13 +346,27 @@ public class CustomerAccount implements Serializable {
     }
 
     public String getPin(){
-        if(this.atmCardNumber.length()<1){
-            return "null";
+        return this.pin;
+    }
+
+    public void setPin(String pinInput){
+        this.pin=pinInput;
+    }
+
+    public void setPinAuto(){
+
+        if(this.atmCardNumber!=null){
+            if(!this.atmCardNumber.equals("null")){
+                String newPin = this.custID.substring(7);
+                this.pin=newPin;
+            }else{
+                this.pin="null";
+            }
         }else{
-            String pin = this.custID.substring(7);
-            System.out.println(pin);
-            return pin;
+            this.pin="null";
         }
+
+
     }
 
     public int getFinancialAccountID() {
@@ -513,7 +532,7 @@ public class CustomerAccount implements Serializable {
                 ", zip='" + zip + '\'' +
                 ", atmCardNumber='" + atmCardNumber + '\'' +
                 ", dateCreated='" + dateCreated + '\'' +
-                ", Pin='" + Pin + '\'' +
+                ", pin='" + pin + '\'' +
                 ", financialAccountID=" + financialAccountID +
                 ", hasSavingsAccount=" + hasSavingsAccount +
                 ", hasCheckingAccount=" + hasCheckingAccount +

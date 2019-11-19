@@ -564,6 +564,45 @@ public class DataEntryDriver {
         }
     }
 
+    // if interest rate type is false then its a cd type . if interest wholePercent true then 50 = .50. if false then input is in decimal 0.50
+    public static void validateInputField(TextField textField,boolean interestRateType,boolean interestWholePercent) {
+        System.out.println("\nvalidate initial balance field no negative");
+
+        if(interestRateType){ // if true then we are validating an interest rate field
+
+            if(interestWholePercent){// validate for whole percent like 85.568 = 0.85568
+                textField.textProperty().addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                        if (!newValue.matches("-?\\d{0,7}([\\.]\\d{0,2})?")) {
+                            textField.setText(oldValue);
+                        }
+                    }
+                });
+            }else{ // validate for decimal form like 0.85568
+                textField.textProperty().addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                        if (!newValue.matches("-?\\d{0,7}([\\.]\\d{0,2})?")) {
+                            textField.setText(oldValue);
+                        }
+                    }
+                });
+            }
+        }else{ // false we are validating a cd term in whole number form.
+            textField.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    if (!newValue.matches("\\d{0,7}([\\.]\\d{0,2})?")) {
+                        textField.setText(oldValue);
+                    }
+                }
+            });
+        }
+    }
+
+
+
     public static double getDoubleFromTextField(TextField textField){
         double returnVal = getDoubleFromString(textField.getText());
         return returnVal;
