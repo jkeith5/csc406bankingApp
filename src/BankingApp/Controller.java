@@ -190,6 +190,18 @@ public class Controller implements Initializable{
 
 
 
+    // manage financial accounts
+    @FXML Button manageInterManageFinancialAccountsButton;
+    @FXML Button manageCheckingAccB;
+    @FXML Button manageSavingsAccB;
+    @FXML Button manageLoanAccB;
+    @FXML Button manageLoanAccPrevB;
+    @FXML CheckBox deleteAllCheckingAcctCheckBox;
+    @FXML CheckBox deleteAllSavingsAcctCheckBox;
+    @FXML CheckBox deleteAllLoanAcctCheckBox;
+    @FXML Button manageFinancialAccountsDeleteAccountButton;
+
+
 
     @FXML Button testButton;
 
@@ -495,9 +507,13 @@ public class Controller implements Initializable{
 
         }
 
-        if(locationString.equals("AddFXMLFileNameHere.fxml")){
+        if(locationString.equals("ManageExistingUserManageFinanceAcc.fxml")){
             // Enter code to run on initialization of the FXML Scene
             // .... like the methods to populate data
+            dispDataUpper(); // displays the top frame data
+
+
+
         }
         if(locationString.equals("AddFXMLFileNameHere.fxml")){
             // Enter code to run on initialization of the FXML Scene
@@ -1708,15 +1724,97 @@ public class Controller implements Initializable{
     }
 
 
+    @FXML
+    public void manageFinancialAccountsButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserManageFinanceAcc.fxml"));
+            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+
+    @FXML
+    public void manageCheckingAccountsButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageCheckingAcct.fxml"));
+            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+    @FXML
+    public void manageSavingsAccountsButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageSavingsAcct.fxml"));
+            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+
+
+    @FXML
+    public void manageLoanAccountsButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageLoanAcct.fxml"));
+            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
 
 
 
 
+    public void deleteFinancialAccountsButton(){
+        System.out.println("deleting accounts");
+        CustomerAccount customerAccount=Main.customerAccount;
+        if(deleteAllCheckingAcctCheckBox.isSelected()){
+            customerAccount.deleteCheckingAccount();
+            // disable buttons
+        }
+        if(deleteAllSavingsAcctCheckBox.isSelected()){
+            customerAccount.deleteSavingsAccount();
+        }
+        if(deleteAllLoanAcctCheckBox.isSelected()){
+            customerAccount.deleteLoanAccounts();
+        }
 
 
 
-
-
+    }
 
 
 
@@ -2191,6 +2289,9 @@ public class Controller implements Initializable{
 
 
 
+    public void goToManageFinanceAcc(){
+        manageFinancialAccountsButton();
+    }
 
 
 

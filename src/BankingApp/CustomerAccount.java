@@ -381,6 +381,21 @@ public class CustomerAccount implements Serializable {
         this.financialAccountID = Main.generateCustomerId();
     }
 
+    public void deleteCheckingAccount(){
+        this.checkingAccount=null;
+        this.hasCheckingAccount=false;
+    }
+
+    public void deleteSavingsAccount(){
+        this.savingsAccounts = null;
+        this.hasSavingsAccount=false;
+    }
+
+    public void deleteLoanAccounts(){
+        this.loanAccounts=null;
+        this.hasLoanAccount=false;
+    }
+
 
 
     // prints some stats on the checks
