@@ -613,6 +613,8 @@ public class DataEntryDriver {
 
 
 
+
+
     public static double getDoubleFromTextField(TextField textField){
         double returnVal = getDoubleFromString(textField.getText());
         return returnVal;

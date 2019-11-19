@@ -542,3 +542,31 @@
 2019-11-18T22:10:56.218 Created Customer Database and read into list.
 2019-11-18T22:13:12.004 ArrayList was written to File.
 2019-11-18T22:13:12.004 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-18T22:21:42.174  Initializing in Main
+2019-11-18T22:21:42.287 Database Already Existed. Read into list.
+2019-11-18T22:21:51.979 ArrayList was written to File.
+2019-11-18T22:21:51.979 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-18T22:26:56.817  Initializing in Main
+2019-11-18T22:26:56.953 Database Already Existed. Read into list.
+2019-11-18T22:27:10.760 ArrayList was written to File.
+2019-11-18T22:27:10.760 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-18T22:34:01.279  Initializing in Main
+2019-11-18T22:34:01.389 Database Already Existed. Read into list.
+2019-11-18T22:34:36.202 ArrayList was written to File.
+2019-11-18T22:34:36.202 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-18T22:51:22.798  Initializing in Main
+2019-11-18T22:51:22.916 Database Already Existed. Read into list.
+2019-11-18T22:52:28.515 ArrayList was written to File.
+2019-11-18T22:52:28.515 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-18T22:55:55.645  Initializing in Main
+2019-11-18T22:55:55.777 Database Already Existed. Read into list.
+2019-11-18T22:56:13.229 ArrayList was written to File.
+2019-11-18T22:56:13.229 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-18T23:01:45.024  Initializing in Main
+2019-11-18T23:01:45.129 Database Already Existed. Read into list.
+2019-11-18T23:02:44.838 ArrayList was written to File.
+2019-11-18T23:02:44.838 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-18T23:11:41.640  Initializing in Main
+2019-11-18T23:11:41.755 Database Already Existed. Read into list.
+2019-11-18T23:13:37.093 ArrayList was written to File.
+2019-11-18T23:13:37.093 The Customer Accounts Database Was sucessfully Written to the File

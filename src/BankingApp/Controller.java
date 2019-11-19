@@ -1,5 +1,8 @@
 package BankingApp;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
@@ -167,7 +170,8 @@ public class Controller implements Initializable{
 
     @FXML TextField savingInterestRate;
     @FXML TextField savingCDTerm;
-    @FXML ChoiceBox<String> loanAccountTypeChoiceBox;
+    //@FXML ChoiceBox<String> loanAccountTypeChoiceBox;
+    @FXML ComboBox<String> loanAccountTypeComboBox;
     @FXML Label savingsCDTermLabel;
 
     @FXML TextField loanInterestRate;
@@ -408,6 +412,51 @@ public class Controller implements Initializable{
         if(locationString.equals("AddLoan.fxml")){
             // Enter code to run on initialization of the FXML Scene
             dispDataUpper();
+            CustomerAccount customerAccount= Main.customerAccount;
+            ArrayList<String> loanAccountTypes = new ArrayList<String>();
+            addLoanAcctErrLabel.setText("");
+
+            DataEntryDriver.validateBalanceAmountField(startingBalance,false);
+            DataEntryDriver.validateInputField(loanInterestRate,true,true);
+            DataEntryDriver.validateInputField(loanTermYears,false,false);
+
+
+
+            boolean hasCCL = customerAccount.hasCreditCardAcct();
+
+
+            loanAccountTypes.add("Long Term Loan");
+            loanAccountTypes.add("Short Term Loan");
+
+            if(!hasCCL){ // they do not already have a CCL loan
+                loanAccountTypes.add("Credit Card Loan"); // can only have one
+            }else{ // they already have a ccl
+                //
+            }
+
+            loanAccountTypeComboBox.getItems().clear();
+            loanAccountTypeComboBox.getItems().addAll(loanAccountTypes);
+
+            // add a change listener to fire the event method
+
+            loanAccountTypeComboBox.valueProperty().addListener(new ChangeListener<String>() {
+                @Override public void changed(ObservableValue ov, String t, String t1) {
+                    System.out.println(ov);
+                    System.out.println(t);
+                    System.out.println(t1);
+                    loanAccountTypeEvent();
+                }
+            });
+
+
+            // go ahead and hide the term box unless LTL or STL is selected
+            loanTermLabel.setVisible(false);
+            loanTermYears.setVisible(false);
+
+
+
+
+
         }
 
         if(locationString.equals("AddSavings.fxml")){
@@ -588,6 +637,24 @@ public class Controller implements Initializable{
                 savingCDTerm.setVisible(false);
             }
         }
+    }
+
+    public void loanAccountTypeEvent(){
+        System.out.println("loan account type key event");
+        String selectedItem = loanAccountTypeComboBox.getValue();
+        if(selectedItem.equals("Short Term Loan")){
+            loanTermLabel.setVisible(true);
+            loanTermYears.setVisible(true);
+        }
+        if(selectedItem.equals("Long Term Loan")){
+            loanTermLabel.setVisible(true);
+            loanTermYears.setVisible(true);
+        }
+        if(selectedItem.equals("Credit Card Loan")){
+            loanTermLabel.setVisible(false);
+            loanTermYears.setVisible(false);
+        }
+
     }
 
 
@@ -1465,6 +1532,41 @@ public class Controller implements Initializable{
 
         customerAccount.addSavingsAccount(newSavings);
         goToAddFinanceAcc();
+
+
+    }
+
+    @FXML
+    public void addLoanAccountSaveButton(){
+        System.out.println("Add a loan account save button click.");
+        CustomerAccount customerAccount = Main.customerAccount;
+        double initialLoanAmt = DataEntryDriver.getDoubleFromTextField(startingBalance);
+        double interestRate = DataEntryDriver.getDoubleFromTextField(loanInterestRate);
+        String selectedItem = loanAccountTypeComboBox.getValue();
+        String loanType = "";
+
+        if(selectedItem.equals("Short Term Loan")){
+            loanType="STL";
+        }
+        if(selectedItem.equals("Long Term Loan")){
+            loanType="LTL";
+        }
+        if(selectedItem.equals("Credit Card Loan")){
+            loanType="CCL";
+        }
+
+
+        String loanTermString = "-1";
+        if(loanType.equals("LTL") || loanType.equals("STL")){
+            loanTermString=loanTermYears.getText();
+        }
+
+        // now create a loan account object using the second constructor
+        LoanAccount loanAccount = new LoanAccount(customerAccount,initialLoanAmt,interestRate,loanType,loanTermString);
+        customerAccount.addLoanAccountObject(loanAccount);
+        goToAddFinanceAcc();
+
+
 
 
     }
