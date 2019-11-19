@@ -18,8 +18,8 @@
                 <TextField fx:id="loginInterPass" layoutX="191.0" layoutY="132.0" onAction="#loginInterfaceLoginButton" />
                 <Button fx:id="loginInterLoginButton" layoutX="285.0" layoutY="347.0" mnemonicParsing="false" onAction="#loginInterfaceLoginButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Login" />
                 <Button fx:id="loginInterExitButton" layoutX="14.0" layoutY="347.0" mnemonicParsing="false" onAction="#loginInterfaceExitButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Exit" />
-                <Text layoutX="78.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note: Enter anything in both fields and click Login" wrappingWidth="225.13671875" />
-                <Text layoutX="56.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teller Login:" wrappingWidth="83.0" />
+                <Text layoutX="78.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note: Enter a valid ATM card to retrieve specific account or enter anything for static account" wrappingWidth="225.13671875" />
+                <Text layoutX="56.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ATM Login:" wrappingWidth="83.0" />
             </children>
         </Pane>
     </children>
