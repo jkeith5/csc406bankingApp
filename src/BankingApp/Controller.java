@@ -1,5 +1,8 @@
 package BankingApp;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
@@ -167,7 +170,8 @@ public class Controller implements Initializable{
 
     @FXML TextField savingInterestRate;
     @FXML TextField savingCDTerm;
-    @FXML ChoiceBox<String> loanAccountTypeChoiceBox;
+    //@FXML ChoiceBox<String> loanAccountTypeChoiceBox;
+    @FXML ComboBox<String> loanAccountTypeComboBox;
     @FXML Label savingsCDTermLabel;
 
     @FXML TextField loanInterestRate;
@@ -184,6 +188,18 @@ public class Controller implements Initializable{
     @FXML Button addSavingsAccSaveB;
     @FXML Button addLoanAccSaveB;
 
+
+
+    // manage financial accounts
+    @FXML Button manageInterManageFinancialAccountsButton;
+    @FXML Button manageCheckingAccB;
+    @FXML Button manageSavingsAccB;
+    @FXML Button manageLoanAccB;
+    @FXML Button manageLoanAccPrevB;
+    @FXML CheckBox deleteAllCheckingAcctCheckBox;
+    @FXML CheckBox deleteAllSavingsAcctCheckBox;
+    @FXML CheckBox deleteAllLoanAcctCheckBox;
+    @FXML Button manageFinancialAccountsDeleteAccountButton;
 
 
 
@@ -408,6 +424,51 @@ public class Controller implements Initializable{
         if(locationString.equals("AddLoan.fxml")){
             // Enter code to run on initialization of the FXML Scene
             dispDataUpper();
+            CustomerAccount customerAccount= Main.customerAccount;
+            ArrayList<String> loanAccountTypes = new ArrayList<String>();
+            addLoanAcctErrLabel.setText("");
+
+            DataEntryDriver.validateBalanceAmountField(startingBalance,false);
+            DataEntryDriver.validateInputField(loanInterestRate,true,true);
+            DataEntryDriver.validateInputField(loanTermYears,false,false);
+
+
+
+            boolean hasCCL = customerAccount.hasCreditCardAcct();
+
+
+            loanAccountTypes.add("Long Term Loan");
+            loanAccountTypes.add("Short Term Loan");
+
+            if(!hasCCL){ // they do not already have a CCL loan
+                loanAccountTypes.add("Credit Card Loan"); // can only have one
+            }else{ // they already have a ccl
+                //
+            }
+
+            loanAccountTypeComboBox.getItems().clear();
+            loanAccountTypeComboBox.getItems().addAll(loanAccountTypes);
+
+            // add a change listener to fire the event method
+
+            loanAccountTypeComboBox.valueProperty().addListener(new ChangeListener<String>() {
+                @Override public void changed(ObservableValue ov, String t, String t1) {
+                    System.out.println(ov);
+                    System.out.println(t);
+                    System.out.println(t1);
+                    loanAccountTypeEvent();
+                }
+            });
+
+
+            // go ahead and hide the term box unless LTL or STL is selected
+            loanTermLabel.setVisible(false);
+            loanTermYears.setVisible(false);
+
+
+
+
+
         }
 
         if(locationString.equals("AddSavings.fxml")){
@@ -417,8 +478,11 @@ public class Controller implements Initializable{
             CustomerAccount customerAccount = Main.customerAccount;
 
             // data validation
+            DataEntryDriver.validateBalanceAmountField(startingBalance,false);
+            DataEntryDriver.validateInputField(savingInterestRate,true,true);
+            DataEntryDriver.validateInputField(savingCDTerm,false,false);
 
-            if(customerAccount.hasSavingsAccount()){
+            if(customerAccount.hasSavingsAccount()){ // if they have a savings account see if it's a simple saving
                 ArrayList<SavingsAccount> savingsAccounts = customerAccount.getSavingsAccounts();
                 boolean hasSimple = false;
                 for(SavingsAccount savingsAccount:savingsAccounts){
@@ -426,16 +490,16 @@ public class Controller implements Initializable{
                         hasSimple=true;
                     }
                 }
-                // so check the cd account box and lock it
-
+                // so check the cd account box and lock it so they can only add a cd type
                 if(hasSimple){
                     cdCheckBox.setSelected(true);
                     cdCheckBox.setDisable(true);
                     addSavingsAcctErrLabel.setText("User already has a simple savings account");
+                    //DataEntryDriver.validateInputField(savingCDTerm,false,false);
                 }
 
-            }else{
-                //
+            }else{// have no savings account
+                // set these to false until they check the cd box
                 savingCDTerm.setVisible(false);
                 savingsCDTermLabel.setVisible(false);
             }
@@ -443,9 +507,13 @@ public class Controller implements Initializable{
 
         }
 
-        if(locationString.equals("AddFXMLFileNameHere.fxml")){
+        if(locationString.equals("ManageExistingUserManageFinanceAcc.fxml")){
             // Enter code to run on initialization of the FXML Scene
             // .... like the methods to populate data
+            dispDataUpper(); // displays the top frame data
+
+
+
         }
         if(locationString.equals("AddFXMLFileNameHere.fxml")){
             // Enter code to run on initialization of the FXML Scene
@@ -573,15 +641,36 @@ public class Controller implements Initializable{
 
     public void isCdCheckBoxEvent(){
         //
-        if(!cdCheckBox.isDisabled()){
+
+        //DataEntryDriver.validateInputField(savingCDTerm,false,false);
+        if(!cdCheckBox.isDisabled()){ // if box was not disabled in initial method // disabled = false
             if(cdCheckBox.isSelected()){ // show the CD term label and field
                 savingsCDTermLabel.setVisible(true);
                 savingCDTerm.setVisible(true);
+
             }else{// the cd box is not selected so hide those items
                 savingsCDTermLabel.setVisible(false);
                 savingCDTerm.setVisible(false);
             }
         }
+    }
+
+    public void loanAccountTypeEvent(){
+        System.out.println("loan account type key event");
+        String selectedItem = loanAccountTypeComboBox.getValue();
+        if(selectedItem.equals("Short Term Loan")){
+            loanTermLabel.setVisible(true);
+            loanTermYears.setVisible(true);
+        }
+        if(selectedItem.equals("Long Term Loan")){
+            loanTermLabel.setVisible(true);
+            loanTermYears.setVisible(true);
+        }
+        if(selectedItem.equals("Credit Card Loan")){
+            loanTermLabel.setVisible(false);
+            loanTermYears.setVisible(false);
+        }
+
     }
 
 
@@ -1441,6 +1530,61 @@ public class Controller implements Initializable{
     @FXML
     public void addSavingsAccountSaveButton(){
         System.out.println("savings save button");
+        CustomerAccount customerAccount=Main.customerAccount;
+        boolean isCdAccount = cdCheckBox.isSelected();
+        double startingBalanceDouble = DataEntryDriver.getDoubleFromTextField(startingBalance);
+        double interestRate = DataEntryDriver.getDoubleFromTextField(savingInterestRate);
+        int termInYears=-1;
+
+        if(cdCheckBox.isSelected()){ // cd box selected
+            System.out.println("selected");
+            termInYears= DataEntryDriver.getIntFromTextField(savingCDTerm);
+        }else{ // cd box not selected
+            System.out.println("not selected");
+            //termInYears=-1;
+        }
+
+        SavingsAccount newSavings = new SavingsAccount(customerAccount,isCdAccount,startingBalanceDouble,interestRate,termInYears);
+
+        customerAccount.addSavingsAccount(newSavings);
+        goToAddFinanceAcc();
+
+
+    }
+
+    @FXML
+    public void addLoanAccountSaveButton(){
+        System.out.println("Add a loan account save button click.");
+        CustomerAccount customerAccount = Main.customerAccount;
+        double initialLoanAmt = DataEntryDriver.getDoubleFromTextField(startingBalance);
+        double interestRate = DataEntryDriver.getDoubleFromTextField(loanInterestRate);
+        String selectedItem = loanAccountTypeComboBox.getValue();
+        String loanType = "";
+
+        if(selectedItem.equals("Short Term Loan")){
+            loanType="STL";
+        }
+        if(selectedItem.equals("Long Term Loan")){
+            loanType="LTL";
+        }
+        if(selectedItem.equals("Credit Card Loan")){
+            loanType="CCL";
+        }
+
+
+        String loanTermString = "-1";
+        if(loanType.equals("LTL") || loanType.equals("STL")){
+            loanTermString=loanTermYears.getText();
+        }
+
+        // now create a loan account object using the second constructor
+        LoanAccount loanAccount = new LoanAccount(customerAccount,initialLoanAmt,interestRate,loanType,loanTermString);
+        customerAccount.addLoanAccountObject(loanAccount);
+        goToAddFinanceAcc();
+
+
+
+
     }
 
 
@@ -1580,15 +1724,97 @@ public class Controller implements Initializable{
     }
 
 
+    @FXML
+    public void manageFinancialAccountsButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserManageFinanceAcc.fxml"));
+            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+
+    @FXML
+    public void manageCheckingAccountsButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageCheckingAcct.fxml"));
+            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+    @FXML
+    public void manageSavingsAccountsButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageSavingsAcct.fxml"));
+            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+
+
+    @FXML
+    public void manageLoanAccountsButton(){
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageLoanAcct.fxml"));
+            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
 
 
 
 
+    public void deleteFinancialAccountsButton(){
+        System.out.println("deleting accounts");
+        CustomerAccount customerAccount=Main.customerAccount;
+        if(deleteAllCheckingAcctCheckBox.isSelected()){
+            customerAccount.deleteCheckingAccount();
+            // disable buttons
+        }
+        if(deleteAllSavingsAcctCheckBox.isSelected()){
+            customerAccount.deleteSavingsAccount();
+        }
+        if(deleteAllLoanAcctCheckBox.isSelected()){
+            customerAccount.deleteLoanAccounts();
+        }
 
 
 
-
-
+    }
 
 
 
@@ -2063,6 +2289,9 @@ public class Controller implements Initializable{
 
 
 
+    public void goToManageFinanceAcc(){
+        manageFinancialAccountsButton();
+    }
 
 
 

@@ -33,7 +33,7 @@ public class SavingsAccount implements Serializable {
     }
 
     // use for adding new savings accounts. NOTE if isCdAccount is false, then it doesn't matter what you put for term
-    public SavingsAccount(CustomerAccount customerAccount, boolean isCdAccount, String startingBalance,String interestRate,int termInYears) {
+    public SavingsAccount(CustomerAccount customerAccount, boolean isCdAccount, double startingBalance,double interestRate,int termInYears) {
         setCustID(customerAccount.getCustID());
         setCdAccount(isCdAccount);
         setAccountBalance(startingBalance);

@@ -566,40 +566,52 @@ public class DataEntryDriver {
 
     // if interest rate type is false then its a cd type . if interest wholePercent true then 50 = .50. if false then input is in decimal 0.50
     public static void validateInputField(TextField textField,boolean interestRateType,boolean interestWholePercent) {
-        System.out.println("\nvalidate initial balance field no negative");
+        System.out.println("\nvalidate input field.");
+        System.out.println("interestRateType: "+interestRateType);
+        System.out.println("interestWholePercent: "+interestWholePercent);
 
         if(interestRateType){ // if true then we are validating an interest rate field
-
-            if(interestWholePercent){// validate for whole percent like 85.568 = 0.85568
+            System.out.println("interest rate type");
+            if(interestWholePercent){ // validate for whole percent like 85.568 = 0.85568
+                System.out.println("interest rate WP");
                 textField.textProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                        if (!newValue.matches("-?\\d{0,7}([\\.]\\d{0,2})?")) {
+                        if (!newValue.matches("([123456789][0123456789]?([\\.]\\d{0,3})?)?")) {
+                            System.out.println("interest WP old: "+oldValue+" new: "+newValue);
+                            System.out.println("setting value to: "+oldValue);
                             textField.setText(oldValue);
                         }
                     }
                 });
             }else{ // validate for decimal form like 0.85568
+                System.out.println("interest rate DP");
                 textField.textProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                        if (!newValue.matches("-?\\d{0,7}([\\.]\\d{0,2})?")) {
+                        if (!newValue.matches("([0]?([\\.]\\d{0,5})?)?")) {
+                            System.out.println("interest DP old: "+oldValue+" new: "+newValue);
                             textField.setText(oldValue);
                         }
                     }
                 });
             }
         }else{ // false we are validating a cd term in whole number form.
+            System.out.println("Not of interest type so its a CD term in years");
             textField.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    if (!newValue.matches("\\d{0,7}([\\.]\\d{0,2})?")) {
+                    if (!newValue.matches("([123456789][\\d]?)?")) {
+                        System.out.println("CD WDN old: "+oldValue+" new: "+newValue);
                         textField.setText(oldValue);
                     }
                 }
             });
+
         }
     }
+
+
 
 
 
@@ -616,6 +628,22 @@ public class DataEntryDriver {
             returnVal = 0.0;
         }
         return returnVal;
+    }
+
+    public static int getIntFromTextField(TextField textField){
+        return getIntFromString(textField.getText());
+    }
+
+    public static int getIntFromString(String inputString){
+        int returnVal = -1;
+        try {
+            returnVal= Integer.parseInt(inputString);
+        } catch (NumberFormatException e) {
+            returnVal=-1;
+        }
+
+        return returnVal;
+
     }
 
 
