@@ -22,6 +22,7 @@
                 <TextField fx:id="customerInterAtmCheckNum" layoutX="400.0" layoutY="250.0" prefWidth="150.0" promptText="Enter Check Num" />
                 <TextField fx:id="customerInterAtmCheckAmt" layoutX="400.0" layoutY="290.0" prefWidth="150.0" promptText="Enter Amount" />
                 <Label layoutX="195.0" layoutY="350.0" prefHeight="17.0" prefWidth="350.0" text="A fee of 50 cents will be applied to all transactions" />
+                <Button fx:id="customerInterCCButton" layoutX="535.0" layoutY="461.0" mnemonicParsing="false" onAction="#customerInterCCButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="150.0" text="Credit Card" />
                 <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToMainScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
 
                 <Label fx:id="customerInterErrLabel" layoutX="186.0" layoutY="358.0" prefHeight="114.0" prefWidth="399.0" text="ERROR Messages somewhere eventually???" wrapText="true" />
