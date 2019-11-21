@@ -114,14 +114,26 @@ public class Controller implements Initializable{
     @FXML Button customerInterAtmDepositButton;
     @FXML Button customerInterAtmWithdrawalButton;
     @FXML Button CustomerInterAtmDepositButton;
+    @FXML Button customerScreen;
+    @FXML Button customerInterCCButton;
+    @FXML Button CustomerCcPurchaseButton;
     @FXML Label customerDispDataFirst;
     @FXML Label customerDispDataLast;
     @FXML Label customerDispDataAccountBalance;
+    @FXML Label customerInterErrLabel;
+    @FXML Label customerDispDataCCNumber;
     @FXML TextField customerInterAtmWithdrawalAmt;
     @FXML TextField customerInterAtmCheckNum;
     @FXML TextField customerInterAtmCheckAmt;
     @FXML TextField ATMInterErrLabel;
-    @FXML Label customerInterErrLabel;
+    @FXML TextField customerInterCCPurchaseAmt;
+    @FXML TextField customerInterCCpurchaseDesc;
+    @FXML TextField customerInterCCNum;
+    @FXML TextArea customerInterCCHistory;
+
+
+
+
 
     // Note when I say ManageExistingTeller I mean the ManageExistingUser interface for the Teller account
     @FXML Button manageExistingTellerUpdateDataButton;
@@ -260,6 +272,10 @@ public class Controller implements Initializable{
 
             Main.defaultSceneButton = addNewUserInterfaceEnterButton;
 
+        }
+
+        if(locationString.equals("customerCreditCard.fxml")){
+            customerAtmDispData();
         }
 
         if(locationString.equals("BankManagerInterface.fxml")){
@@ -1014,6 +1030,24 @@ public class Controller implements Initializable{
     }
 
 
+
+    public void customerInterCCButton(){
+
+        try {
+        Parent root = FXMLLoader.load(getClass().getResource("customerCreditCard.fxml"));
+        Main.primaryStage.setTitle("Customer Credit Card Interface");
+        Main.primaryStage.setScene(new Scene(root, 700, 500));
+        Main.primaryStage.show();
+        Main.activeStage=Main.primaryStage;
+        System.out.println("set active stage to primary in Customer Credit Card Button");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(Main.loggedInCustomer.toString());
+    }
+
+
     public void mainInterfaceCustomerButton(){
         Parent root = null;
         Parent login = null;
@@ -1202,8 +1236,6 @@ public class Controller implements Initializable{
 
                 closeWindow();
                 mainInterfaceCustomerButton();
-
-
 
             }
         }
@@ -1841,6 +1873,29 @@ public class Controller implements Initializable{
         customerInterAtmCheckNum.setText("");
         customerInterAtmCheckAmt.setText("");
     }
+
+    public void customerAtmDispData(){
+        CustomerAccount ca = Main.loggedInCustomer;
+        System.out.println("customer disp data ca: "+Main.customerAccount.getCustID());
+
+        customerDispDataFirst.setText(ca.getFirstName());
+        customerDispDataLast.setText(ca.getLastName());
+        customerInterCCNum.setText("1234567789008"); //Autofill with actual CC number
+
+        customerInterCCHistory.setText("");
+
+        customerInterCCHistory.appendText("Credit Card Transactions:" + "\n");
+
+        for(int i = 1; i < 5; i++){            //loop with real transactions when we have them
+            customerInterCCHistory.appendText("Here is a fake CC transaction 11-12-19, $55.00, Shoes" + "\n");
+        }
+
+    }
+
+    public void processCCPurchase(){
+
+    }
+
 
 
 

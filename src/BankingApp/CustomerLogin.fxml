@@ -11,7 +11,7 @@
     <children>
         <Pane prefHeight="420.0" prefWidth="382.0">
             <children>
-                <Text layoutX="110.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Login to Access System" wrappingWidth="180.13671875" />
+                <Text layoutX="110.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Enter Card Number and PIN" wrappingWidth="180.13671875" />
                 <Label layoutX="66.0" layoutY="92.0" prefHeight="17.0" prefWidth="89.0" text="Card Number:" />
                 <Label layoutX="66.0" layoutY="136.0" prefHeight="17.0" prefWidth="89.0" text="Pin:" />
                 <TextField fx:id="loginInterUser" layoutX="191.0" layoutY="88.0" />
