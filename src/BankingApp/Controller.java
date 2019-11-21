@@ -1798,6 +1798,8 @@ public class Controller implements Initializable{
 
 
 
+    //Test so that I can commit merge.
+
     public void deleteFinancialAccountsButton(){
         System.out.println("deleting accounts");
         CustomerAccount customerAccount=Main.customerAccount;
