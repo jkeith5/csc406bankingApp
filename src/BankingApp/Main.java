@@ -253,6 +253,8 @@ public class Main extends Application {
     }
 
 
+    // test commit 2
+
     // used to delay the ui of JavaFX for a specified amount of seconds without hanging the FX Thread
     public static Task<Void> getFXSleepTask(long milliseconds){
         Task task = new Task<Void>() {
