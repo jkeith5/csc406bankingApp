@@ -15,6 +15,7 @@ public class LoanAccount implements Serializable {
     public boolean hasMissedPayment=false;
     public String loanAccountType; // STL= short term loan LTL= long term loan CCL= credit card loan
     public String loanAccountID;
+    public String loanAccountIDFixed;
     public boolean isNull = false;
     public int loanTerm; // -1 if not applicable
     public String dateOpened;
@@ -177,8 +178,38 @@ public class LoanAccount implements Serializable {
         }
 
         this.loanAccountID=loanAccountIdFix;
+        this.loanAccountIDFixed=loanAccountIdFix;
 
     }
+
+    public String getLoanAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end and sub id
+        String loanAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
+        String loanAccountIdFix = "";
+
+        if(this.loanAccountType.equals("STL")){ // 03 short term loan
+            String subId = customerAccount.generateNextLoanAcctSubId("STL");
+            loanAccountIdFix = loanAcctIDString+"-03"+"-"+subId;
+        }
+        if(this.loanAccountType.equals("LTL")){ // 04 long term loan
+            String subId = customerAccount.generateNextLoanAcctSubId("LTL");
+            loanAccountIdFix = loanAcctIDString+"-04"+"-"+subId;
+        }
+        if(this.loanAccountType.equals("CCL")){ // 05 Credit Card loan
+            loanAccountIdFix = loanAcctIDString+"-05";
+        }
+
+        return loanAccountIdFix;
+    }
+
+    public void setLoanAccountIDFixed(CustomerAccount customerAccount){
+        String fixedId = getLoanAccountIDAuto(customerAccount);
+        this.loanAccountIDFixed = fixedId;
+    }
+
+    public String getLoanAccountIDFixed(){
+        return this.loanAccountIDFixed;
+    }
+
 
 
     public double getCurrentBalance() {
@@ -304,6 +335,10 @@ public class LoanAccount implements Serializable {
 
     }
 
+    public boolean isNull(){
+        calcNullValue();
+        return this.isNull;
+    }
 
 
     public String getType(){
@@ -335,6 +370,7 @@ public class LoanAccount implements Serializable {
                 ", hasMissedPayment=" + hasMissedPayment +
                 ", loanAccountType='" + loanAccountType + '\'' +
                 ", loanAccountID='" + loanAccountID + '\'' +
+                ", loanAccountIDFixed='" + loanAccountIDFixed + '\'' +
                 ", isNull=" + isNull +
                 ", loanTerm=" + loanTerm +
                 ", dateOpened='" + dateOpened + '\'' +

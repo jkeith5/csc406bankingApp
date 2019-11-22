@@ -337,6 +337,43 @@ public class DataEntryDriver {
         return result;
     }
 
+    public static void deleteCustomerAccountsFile(){
+        //
+    }
+
+    public static String getLoanFullTypeNameFromAbb(String shortLoanType){
+        String returnVal = "null";
+        if(shortLoanType.equals("LTL")){
+            returnVal="Long Term Loan";
+        }
+        if(shortLoanType.equals("STL")){
+            returnVal="Short Term Loan";
+        }
+        if(shortLoanType.equals("CCL")){
+            returnVal="Credit Card Loan";
+        }
+        return returnVal;
+    }
+
+
+    public static String getLoanTypeAbbFromFullName(String loanTypeFullName){
+        String returnVal = "null";
+        if(loanTypeFullName.equals("Long Term Loan")){
+            returnVal="LTL";
+        }
+        if(loanTypeFullName.equals("Short Term Loan")){
+            returnVal="STL";
+        }
+        if(loanTypeFullName.equals("Credit Card Loan")){
+            returnVal="CCL";
+        }
+        return returnVal;
+    }
+
+    public static String getStringFromInt(int input){
+        return String.valueOf(input);
+    }
+
     public static CustomerAccount getCustomerAccountFromCustomerAtmCardNum(String cardNum){
         System.out.println("start of get customer acct from id");
         ArrayList<CustomerAccount> accountsList = Main.customerAccounts;
@@ -346,7 +383,7 @@ public class DataEntryDriver {
         String searchCardNumStripped = stripSSN(cardNum);
 
         for(CustomerAccount ca:accountsList){
-          String custCardNumStripped = stripSSN(ca.atmCardNumber);
+          String custCardNumStripped = stripSSN(ca.getAtmCardNumber());
           if(!custCardNumStripped.equals("")){
               if(searchCardNumStripped.equals(custCardNumStripped)){
                   result = ca;
@@ -647,6 +684,17 @@ public class DataEntryDriver {
     }
 
 
+    public static String getStringFromDouble(double input){
+        try {
+            return String.valueOf(input);
+        } catch (Exception e) {
+            return "null";
+        }
+    }
+
+
+
+
     public static String makeSSNValid(String ssn){
         String result = ssn;
 
@@ -763,7 +811,6 @@ public class DataEntryDriver {
         return returnVal;
 
     }
-
 
 
 

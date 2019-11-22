@@ -6,6 +6,8 @@ public class CheckingAccount implements Serializable {
 
     public String custID;//ssn
     public String checkingAcctID; //We want this as a string object because its in format 000-00
+    public String checkingAcctIDFixed; // same as above but this one will be auto set in main and not touch the id that is
+    // read in by the csv files.
     public double accountBalance;
     public String dateOpened;
     public boolean isGoldAccount;
@@ -85,8 +87,26 @@ public class CheckingAccount implements Serializable {
         String checkingAccIDString = String.valueOf(customerAccount.getFinancialAccountID());
         String checkingAccountIdFix = checkingAccIDString+"-00";
         this.checkingAcctID = checkingAccountIdFix;
-
+        this.checkingAcctIDFixed=checkingAccountIdFix;
     }
+
+    public String getCheckingAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end
+        String checkingAccIDString = String.valueOf(customerAccount.getFinancialAccountID());
+        String checkingAccountIdFix = checkingAccIDString+"-00";
+        return checkingAccountIdFix;
+    }
+
+    public void setCheckingAcctIDFixed(CustomerAccount customerAccount){
+        String fixedID = getCheckingAccountIDAuto(customerAccount);
+        this.checkingAcctIDFixed=fixedID;
+    }
+
+
+    public String getCheckingAcctIDFixed(){
+        return this.checkingAcctIDFixed;
+    }
+
+
 
     public double getAccountBalance() {
         return accountBalance;
@@ -217,6 +237,11 @@ public class CheckingAccount implements Serializable {
     }
 
 
+    public boolean isNull(){
+        calcNullValue();
+        return this.isNull;
+    }
+
     public String getType(){
 
         if(!this.isNull){
@@ -238,6 +263,7 @@ public class CheckingAccount implements Serializable {
         return "CheckingAccount{" +
                 "custID='" + custID + '\'' +
                 ", checkingAcctID='" + checkingAcctID + '\'' +
+                ", checkingAcctIDFixed='" + checkingAcctIDFixed + '\'' +
                 ", accountBalance=" + accountBalance +
                 ", dateOpened='" + dateOpened + '\'' +
                 ", isGoldAccount=" + isGoldAccount +
@@ -246,11 +272,4 @@ public class CheckingAccount implements Serializable {
                 ", isNull=" + isNull +
                 '}';
     }
-
-
-
-
-
-
-
 }

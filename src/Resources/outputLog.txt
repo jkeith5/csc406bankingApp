@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2019-11-16T22:45:01.013  Initializing in Main
 2019-11-16T22:45:01.130 Database Already Existed. Read into list.
 2019-11-16T22:45:04.414 ArrayList was written to File.
@@ -896,3 +897,286 @@
 2019-11-20T20:26:37.501 Database Already Existed. Read into list.
 2019-11-20T20:28:08.939 ArrayList was written to File.
 2019-11-20T20:28:08.939 The Customer Accounts Database Was sucessfully Written to the File
+=======
+2019-11-21T14:59:40.605  Initializing in Main
+2019-11-21T14:59:40.657 Reading in LoanAccounts.csv
+2019-11-21T14:59:40.784 ArrayList was written to File.
+2019-11-21T14:59:40.818 Created Customer Database and read into list.
+2019-11-21T15:01:59.138 ArrayList was written to File.
+2019-11-21T15:01:59.138 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T16:01:00.702  Initializing in Main
+2019-11-21T16:01:01.837 Database Already Existed. Read into list.
+2019-11-21T16:03:45.700 ArrayList was written to File.
+2019-11-21T16:03:45.700 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T16:50:59.862  Initializing in Main
+2019-11-21T16:51:00.774 Database Already Existed. Read into list.
+2019-11-21T16:52:06.366 ArrayList was written to File.
+2019-11-21T16:52:06.366 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:05:01.733  Initializing in Main
+2019-11-21T17:05:01.877 Database Already Existed. Read into list.
+2019-11-21T17:05:38.969 ArrayList was written to File.
+2019-11-21T17:05:38.969 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:11:56.727  Initializing in Main
+2019-11-21T17:11:56.824 Database Already Existed. Read into list.
+2019-11-21T17:12:25.746 ArrayList was written to File.
+2019-11-21T17:12:25.747 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:13:00.682  Initializing in Main
+2019-11-21T17:13:00.780 Database Already Existed. Read into list.
+2019-11-21T17:13:33.765 ArrayList was written to File.
+2019-11-21T17:13:33.765 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:16:01.549  Initializing in Main
+2019-11-21T17:16:01.675 Database Already Existed. Read into list.
+2019-11-21T17:16:28.906 ArrayList was written to File.
+2019-11-21T17:16:28.906 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:26:44.560  Initializing in Main
+2019-11-21T17:26:44.693 Database Already Existed. Read into list.
+2019-11-21T17:27:26.756 ArrayList was written to File.
+2019-11-21T17:27:26.756 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:29:24.669  Initializing in Main
+2019-11-21T17:29:24.809 Database Already Existed. Read into list.
+2019-11-21T17:31:19.471 ArrayList was written to File.
+2019-11-21T17:31:19.471 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:32:17.420  Initializing in Main
+2019-11-21T17:32:17.532 Database Already Existed. Read into list.
+2019-11-21T17:33:11.422 ArrayList was written to File.
+2019-11-21T17:33:11.422 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:35:19.758  Initializing in Main
+2019-11-21T17:35:19.888 Database Already Existed. Read into list.
+2019-11-21T17:35:58.128 ArrayList was written to File.
+2019-11-21T17:35:58.128 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:36:49.570  Initializing in Main
+2019-11-21T17:36:49.709 Database Already Existed. Read into list.
+2019-11-21T17:37:16.911 ArrayList was written to File.
+2019-11-21T17:37:16.911 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:48:52.102  Initializing in Main
+2019-11-21T17:48:52.225 Database Already Existed. Read into list.
+2019-11-21T17:51:55.759 ArrayList was written to File.
+2019-11-21T17:51:55.759 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T17:55:58.682  Initializing in Main
+2019-11-21T17:55:58.798 Database Already Existed. Read into list.
+2019-11-21T18:00:03.920 ArrayList was written to File.
+2019-11-21T18:00:03.921 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T18:01:28.268  Initializing in Main
+2019-11-21T18:01:28.388 Database Already Existed. Read into list.
+2019-11-21T18:02:05.903 ArrayList was written to File.
+2019-11-21T18:02:05.904 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T18:02:59.047  Initializing in Main
+2019-11-21T18:02:59.167 Database Already Existed. Read into list.
+2019-11-21T18:03:22.632 ArrayList was written to File.
+2019-11-21T18:03:22.632 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T18:05:20.841  Initializing in Main
+2019-11-21T18:05:20.970 Database Already Existed. Read into list.
+2019-11-21T18:07:09.126 ArrayList was written to File.
+2019-11-21T18:07:09.126 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T18:11:26.283  Initializing in Main
+2019-11-21T18:11:26.400 Database Already Existed. Read into list.
+java.lang.NullPointerException
+2019-11-21T18:12:17.714 ArrayList was written to File.
+2019-11-21T18:12:17.715 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T18:17:55.925  Initializing in Main
+2019-11-21T18:17:56.028 Database Already Existed. Read into list.
+2019-11-21T18:18:18.025 ArrayList was written to File.
+2019-11-21T18:18:18.025 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T18:24:04.572  Initializing in Main
+2019-11-21T18:24:04.709 Database Already Existed. Read into list.
+java.lang.NullPointerException
+2019-11-21T18:28:20.050 ArrayList was written to File.
+2019-11-21T18:28:20.050 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T18:30:27.645  Initializing in Main
+2019-11-21T18:30:27.767 Database Already Existed. Read into list.
+2019-11-21T18:31:20.304 ArrayList was written to File.
+2019-11-21T18:31:20.304 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T18:36:17.801  Initializing in Main
+2019-11-21T18:36:17.923 Database Already Existed. Read into list.
+java.lang.NullPointerException
+2019-11-21T18:37:41.591 ArrayList was written to File.
+2019-11-21T18:37:41.591 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-21T18:48:21.775  Initializing in Main
+2019-11-21T18:48:21.892 Database Already Existed. Read into list.
+2019-11-21T18:53:32.713 ArrayList was written to File.
+2019-11-21T18:53:32.713 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T19:05:52.698  Initializing in Main
+2019-11-21T19:05:52.824 Database Already Existed. Read into list.
+2019-11-21T19:06:45.703 ArrayList was written to File.
+2019-11-21T19:06:45.703 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T19:13:22.683  Initializing in Main
+2019-11-21T19:13:22.811 Database Already Existed. Read into list.
+2019-11-21T19:20:41.740 ArrayList was written to File.
+2019-11-21T19:20:41.741 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T19:21:48.596  Initializing in Main
+2019-11-21T19:21:48.721 Reading in LoanAccounts.csv
+2019-11-21T19:21:48.925 ArrayList was written to File.
+2019-11-21T19:21:48.971 Created Customer Database and read into list.
+2019-11-21T19:21:53.059 ArrayList was written to File.
+2019-11-21T19:21:53.059 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T19:23:18.792  Initializing in Main
+2019-11-21T19:23:18.928 Database Already Existed. Read into list.
+2019-11-21T19:24:48.725 ArrayList was written to File.
+2019-11-21T19:24:48.725 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T19:25:27.365  Initializing in Main
+2019-11-21T19:25:27.471 Database Already Existed. Read into list.
+2019-11-21T19:27:53.231 ArrayList was written to File.
+2019-11-21T19:27:53.231 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T19:32:15.988  Initializing in Main
+2019-11-21T19:32:16.039 Reading in LoanAccounts.csv
+2019-11-21T19:32:16.169 ArrayList was written to File.
+2019-11-21T19:32:16.211 Created Customer Database and read into list.
+2019-11-21T19:34:46.181 ArrayList was written to File.
+2019-11-21T19:34:46.182 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T19:40:08.429  Initializing in Main
+2019-11-21T19:40:08.531 Database Already Existed. Read into list.
+2019-11-21T19:42:39.857 ArrayList was written to File.
+2019-11-21T19:42:39.857 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T19:56:18.791  Initializing in Main
+2019-11-21T19:56:18.898 Database Already Existed. Read into list.
+2019-11-21T19:57:20.923 ArrayList was written to File.
+2019-11-21T19:57:20.923 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T19:59:23.031  Initializing in Main
+2019-11-21T19:59:23.176 Database Already Existed. Read into list.
+2019-11-21T20:00:06.611 ArrayList was written to File.
+2019-11-21T20:00:06.611 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T20:25:18.355  Initializing in Main
+2019-11-21T20:25:18.410 Reading in LoanAccounts.csv
+2019-11-21T20:25:18.537 ArrayList was written to File.
+2019-11-21T20:25:18.573 Created Customer Database and read into list.
+2019-11-21T20:34:28.264 ArrayList was written to File.
+2019-11-21T20:34:28.265 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T20:34:55.189  Initializing in Main
+2019-11-21T20:34:55.248 Reading in LoanAccounts.csv
+2019-11-21T20:34:55.408 ArrayList was written to File.
+2019-11-21T20:34:55.442 Created Customer Database and read into list.
+2019-11-21T20:35:34.717 ArrayList was written to File.
+2019-11-21T20:35:34.717 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T20:42:42.885  Initializing in Main
+2019-11-21T20:42:42.948 Reading in LoanAccounts.csv
+2019-11-21T20:42:43.065 ArrayList was written to File.
+2019-11-21T20:42:43.108 Created Customer Database and read into list.
+2019-11-21T20:43:07.801 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T20:43:08.710 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T20:43:09.524 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T20:43:11.749 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T20:43:11.994 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T20:43:35.972 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T20:43:37.546 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T20:43:39.563 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T20:43:50.853 ArrayList was written to File.
+2019-11-21T20:43:50.853 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T21:54:24.494  Initializing in Main
+2019-11-21T21:54:24.563 Reading in LoanAccounts.csv
+2019-11-21T21:54:24.694 ArrayList was written to File.
+2019-11-21T21:54:24.733 Created Customer Database and read into list.
+2019-11-21T21:54:47.760 ArrayList was written to File.
+2019-11-21T21:54:47.761 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T22:05:02.486  Initializing in Main
+2019-11-21T22:05:02.542 Reading in LoanAccounts.csv
+2019-11-21T22:05:02.684 ArrayList was written to File.
+2019-11-21T22:05:02.716 Created Customer Database and read into list.
+2019-11-21T22:11:34.395 ArrayList was written to File.
+2019-11-21T22:11:34.395 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T22:12:54.368  Initializing in Main
+2019-11-21T22:12:54.427 Reading in LoanAccounts.csv
+2019-11-21T22:12:54.554 ArrayList was written to File.
+2019-11-21T22:12:54.591 Created Customer Database and read into list.
+2019-11-21T22:12:58.051 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T22:13:56.402 ArrayList was written to File.
+2019-11-21T22:13:56.403 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T23:00:51.834  Initializing in Main
+2019-11-21T23:00:51.932 Error in readFile. File not read in to array.
+2019-11-21T23:00:51.933 Database Already Existed. Read into list.
+2019-11-21T23:01:18.667 ArrayList was written to File.
+2019-11-21T23:01:18.667 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T23:01:32.961  Initializing in Main
+2019-11-21T23:01:33.030 Reading in LoanAccounts.csv
+2019-11-21T23:01:33.189 ArrayList was written to File.
+2019-11-21T23:01:33.231 Created Customer Database and read into list.
+2019-11-21T23:01:37.974 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T23:01:38.551 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T23:03:00.120 ArrayList was written to File.
+2019-11-21T23:03:00.120 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T23:37:27.510  Initializing in Main
+2019-11-21T23:37:27.649 Database Already Existed. Read into list.
+2019-11-21T23:37:31.502 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T23:37:31.967 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T23:40:07.375 ArrayList was written to File.
+2019-11-21T23:40:07.375 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T23:44:46.931  Initializing in Main
+2019-11-21T23:44:47.053 Database Already Existed. Read into list.
+2019-11-21T23:45:00.422 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T23:45:04.760 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T23:45:59.115 ArrayList was written to File.
+2019-11-21T23:45:59.116 The Customer Accounts Database Was successfully Written to the File
+2019-11-21T23:47:26.192  Initializing in Main
+2019-11-21T23:47:26.339 Database Already Existed. Read into list.
+2019-11-21T23:47:30.489 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T23:47:31.163 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-21T23:47:55.905 ArrayList was written to File.
+2019-11-21T23:47:55.905 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T00:34:33.606  Initializing in Main
+2019-11-22T00:34:33.684 Error in readFile. File not read in to array.
+2019-11-22T00:34:33.685 Database Already Existed. Read into list.
+2019-11-22T00:34:41.990 ArrayList was written to File.
+2019-11-22T00:34:41.990 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T00:36:21.931  Initializing in Main
+2019-11-22T00:36:21.950 Database Already Existed. Read into list.
+2019-11-22T00:36:25.091 ArrayList was written to File.
+2019-11-22T00:36:25.091 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T00:42:57.830  Initializing in Main
+2019-11-22T00:42:57.873 Reading in LoanAccounts.csv
+2019-11-22T00:42:58.001 ArrayList was written to File.
+2019-11-22T00:42:58.035 Created Customer Database and read into list.
+2019-11-22T00:43:03.479 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T00:43:08.967 ArrayList was written to File.
+2019-11-22T00:43:08.967 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T00:49:41.030  Initializing in Main
+2019-11-22T00:49:41.141 Database Already Existed. Read into list.
+2019-11-22T00:49:45.944 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T00:49:46.758 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T00:50:00.584 ArrayList was written to File.
+2019-11-22T00:50:00.584 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T01:05:51.507  Initializing in Main
+2019-11-22T01:05:51.635 Database Already Existed. Read into list.
+2019-11-22T01:06:03.743 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:06:04.291 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:06:44.475 ArrayList was written to File.
+2019-11-22T01:06:44.475 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T01:07:58.699  Initializing in Main
+2019-11-22T01:07:58.859 Database Already Existed. Read into list.
+2019-11-22T01:08:03.640 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:08:04.261 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:08:41.923 ArrayList was written to File.
+2019-11-22T01:08:41.923 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T01:41:50.990  Initializing in Main
+2019-11-22T01:41:51.038 Reading in LoanAccounts.csv
+2019-11-22T01:41:51.260 ArrayList was written to File.
+2019-11-22T01:41:51.297 Created Customer Database and read into list.
+2019-11-22T01:42:52.179 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:42:52.577 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:43:03.993 ArrayList was written to File.
+2019-11-22T01:43:03.994 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T01:43:50.868  Initializing in Main
+2019-11-22T01:43:50.981 Database Already Existed. Read into list.
+2019-11-22T01:43:55.571 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:43:55.913 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:44:44.198 ArrayList was written to File.
+2019-11-22T01:44:44.198 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T01:51:07.298  Initializing in Main
+2019-11-22T01:51:07.406 Database Already Existed. Read into list.
+2019-11-22T01:51:38.275 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:51:38.800 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:52:01.392 ArrayList was written to File.
+2019-11-22T01:52:01.392 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T02:07:27.314  Initializing in Main
+2019-11-22T02:07:27.464 Database Already Existed. Read into list.
+2019-11-22T02:07:32.543 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T02:07:33.233 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T02:08:11.812 Error in fixDateString with input: 1 Error: java.time.format.DateTimeParseException: Text '1' could not be parsed at index 1
+2019-11-22T02:08:32.126 Error in fixDateString with input: -1 Error: java.time.format.DateTimeParseException: Text '-1' could not be parsed at index 2
+2019-11-22T02:08:41.676 ArrayList was written to File.
+2019-11-22T02:08:41.676 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T02:09:19.749  Initializing in Main
+2019-11-22T02:09:19.877 Database Already Existed. Read into list.
+2019-11-22T02:09:23.635 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T02:09:23.827 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T02:10:06.979 ArrayList was written to File.
+2019-11-22T02:10:06.979 The Customer Accounts Database Was successfully Written to the File
+>>>>>>> 89c20dff2c3d682e46cb42fcbba6adcc5bc941bb

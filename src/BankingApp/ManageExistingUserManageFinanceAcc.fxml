@@ -26,7 +26,7 @@
             <Label fx:id="manageDispDataState" layoutX="366.0" layoutY="68.0" prefHeight="17.0" prefWidth="30.0" text="MO" />
             <Label fx:id="manageDispDataZip" layoutX="423.0" layoutY="68.0" prefHeight="17.0" prefWidth="133.0" text="00000" />
             <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
-            <Button fx:id="manageLoanAccPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToDisplayDataScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button fx:id="manageFinancialAccountsPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToDisplayDataScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
             <Button fx:id="manageCheckingAccB" layoutX="271.0" layoutY="175.0" mnemonicParsing="false" onAction="#manageCheckingAccountsButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="158.0" text="Checking" />
             <Button fx:id="manageSavingsAccB" layoutX="271.0" layoutY="225.0" mnemonicParsing="false" onAction="#manageSavingsAccountsButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="158.0" text="Savings" />
             <Button fx:id="manageLoanAccB" layoutX="271.0" layoutY="275.0" mnemonicParsing="false" onAction="#manageLoanAccountsButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="158.0" text="Loan" />

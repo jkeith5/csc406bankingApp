@@ -25,6 +25,8 @@ public class CustomerAccount implements Serializable {
     // identifies the account type and another - and number for multiple accounts. For multiple accounts of same
     // type append an incrementing number like x-020 x-021 x-0212
     // for this system you can only have ONE checking, simple saving account, and one credit card loan. Multiple of other accounts
+
+
     public int financialAccountID; // checking= x-00  simple saving= x-01  savingCD=x-02-00  ShortTermLoan= x-03-00 LongTermLoan= x-04-00 CreditCardLoan= x-05
     // so we can split the string by "-" if len = 2 then we can only have one of that type.
     // in the id string for the accounts split [0] will be this financialID. split[1] will be the identifier of the sub type
@@ -34,12 +36,17 @@ public class CustomerAccount implements Serializable {
 
 
     public boolean hasSavingsAccount=false;
+    public boolean hasSimpleSavings=false;
+    public boolean hasCDSavings = false;
+
     public boolean hasCheckingAccount=false;
+
+    public boolean hasLoanAccount=false;
     public boolean hasShortTermLoan=false;
     public boolean hasLongTermLoan=false;
     public boolean hasCreditCardAcct=false;
 
-    public boolean hasLoanAccount=false;
+
 
     //public SavingsAccount savingsAccount;
     public ArrayList<SavingsAccount> savingsAccounts = new ArrayList<SavingsAccount>();
@@ -55,12 +62,15 @@ public class CustomerAccount implements Serializable {
 
     public CustomerAccount(){
         // use setters and getters setting null pointer to null until at least a ssn is added
+        System.out.println("construct 1");
         this.isNull=true;
         setDateCreatedAuto();
         setPinAuto();
+        setAtmCardNumber(""); // randomly generates one
     }
 
     public CustomerAccount(String isNullString){
+        System.out.println("construct 2");
         if(isNullString.toLowerCase().equals("null")){
             this.isNull= true;
         }
@@ -70,6 +80,7 @@ public class CustomerAccount implements Serializable {
 
     // manually set cust id
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String atmCardNumber) {
+        System.out.println("construct 3");
         // auto sets the date created to the current date created.
         setCustID(custID);
         setFirstName(firstName);
@@ -85,6 +96,7 @@ public class CustomerAccount implements Serializable {
     }
 
     public CustomerAccount(String custID,String firstName,String lastName,String streetAddr,String city,String state,String zip,boolean generateAtmAndFinAccountID){
+        System.out.println("construct 4");
         setCustID(custID);
         setFirstName(firstName);
         setLastName(lastName);
@@ -99,6 +111,7 @@ public class CustomerAccount implements Serializable {
             setFinancialAccountIDAuto();
             setAtmCardNumber(Main.generateAtmCardNumber());
             setPinAuto();
+            //generateAtmFinIDAndPin();
         }
 
 
@@ -108,25 +121,24 @@ public class CustomerAccount implements Serializable {
     public String getCustID() {
         return custID;
     }
-
     public void setCustID(String custID) {
         //this.custID = custID;
         this.custID = DataEntryDriver.fixSSN(custID);
         this.isNull=false;
     }
 
+
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -134,7 +146,6 @@ public class CustomerAccount implements Serializable {
     public String getStreetAddr() {
         return streetAddr;
     }
-
     public void setStreetAddr(String streetAddr) {
         this.streetAddr = streetAddr;
     }
@@ -142,7 +153,6 @@ public class CustomerAccount implements Serializable {
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
@@ -150,7 +160,6 @@ public class CustomerAccount implements Serializable {
     public String getState() {
         return state;
     }
-
     public void setState(String state) {
         if(state.length()>2){
             if(state.equals("null")){
@@ -167,7 +176,6 @@ public class CustomerAccount implements Serializable {
     public String getZip() {
         return zip;
     }
-
     public void setZip(String zip) {
         this.zip = zip;
     }
@@ -175,35 +183,51 @@ public class CustomerAccount implements Serializable {
     public String getAtmCardNumber() {
         return atmCardNumber;
     }
-
-    public void setAtmCardNumber(String atmCardNumber) {
-        this.atmCardNumber = atmCardNumber;
+    public void setAtmCardNumber(String atmCardNumber) { // if null random generate one if not then just set it
+        if(atmCardNumber.equals("null") || atmCardNumber.equals("")){
+            this.atmCardNumber=Main.generateAtmCardNumber();
+        }else{
+            this.atmCardNumber = atmCardNumber;
+        }
     }
 
     public String getDateCreated() {
         return dateCreated;
     }
-
     public void setDateCreated(String dateCreated) { // of customer account object
         this.dateCreated = dateCreated;
     }
-
     public void setDateCreatedAuto(){ // sets date to today
         this.dateCreated=DataEntryDriver.getDateString();
     }
 
+
     public boolean hasSavingsAccount() {
         return hasSavingsAccount;
     }
-
     public void setHasSavingsAccount(boolean hasSavingsAccount) {
         this.hasSavingsAccount = hasSavingsAccount;
+    }
+
+    public boolean hasSimpleSavings() {
+        return hasSimpleSavings;
+    }
+
+    public void setHasSimpleSavings(boolean hasSimpleSavings) {
+        this.hasSimpleSavings = hasSimpleSavings;
+    }
+
+    public boolean hasCDSavings() {
+        return hasCDSavings;
+    }
+
+    public void setHasCDSavings(boolean hasCDSavings) {
+        this.hasCDSavings = hasCDSavings;
     }
 
     public boolean hasCheckingAccount() {
         return hasCheckingAccount;
     }
-
     public void setHasCheckingAccount(boolean hasCheckingAccount) {
         this.hasCheckingAccount = hasCheckingAccount;
     }
@@ -211,7 +235,6 @@ public class CustomerAccount implements Serializable {
     public boolean hasShortTermLoan() {
         return hasShortTermLoan;
     }
-
     public void setHasShortTermLoan(boolean hasShortTermLoan) {
         this.hasShortTermLoan = hasShortTermLoan;
     }
@@ -219,7 +242,6 @@ public class CustomerAccount implements Serializable {
     public boolean hasLongTermLoan() {
         return hasLongTermLoan;
     }
-
     public void setHasLongTermLoan(boolean hasLongTermLoan) {
         this.hasLongTermLoan = hasLongTermLoan;
     }
@@ -227,7 +249,6 @@ public class CustomerAccount implements Serializable {
     public boolean hasCreditCardAcct() {
         return hasCreditCardAcct;
     }
-
     public void setHasCreditCardAcct(boolean hasCreditCardAcct) {
         this.hasCreditCardAcct = hasCreditCardAcct;
     }
@@ -235,69 +256,116 @@ public class CustomerAccount implements Serializable {
     public boolean hasLoanAccount() {
         return hasLoanAccount;
     }
-
     public void setHasLoanAccount(boolean hasLoanAccount) {
         this.hasLoanAccount = hasLoanAccount;
     }
 
+
+    // returns the arraylist of ALL savings accounts
     public ArrayList<SavingsAccount> getSavingsAccounts() {
         return savingsAccounts;
     }
 
-    public SavingsAccount getSavingsAccount(){
-        return this.savingsAccounts.get(0);
-    }
-
-    public SavingsAccount getSimpleSavingsAccount(){
+    public SavingsAccount getSimpleSavingsAccount(){ // return the one and only simple saving if it exists
         SavingsAccount result = new SavingsAccount();
-        for(SavingsAccount sa: savingsAccounts){
-            if(!sa.isCdAccount()){
-                result = sa;
+
+        if(hasSimpleSavings()){
+            for(SavingsAccount sa: savingsAccounts){
+                if(!sa.isCdAccount()){
+                    result = sa;
+                }
             }
+        }else{
+            System.err.println("Warning Null savings account Object Returned.");
         }
+
 
         return result;
     }
 
-    public SavingsAccount getCDSavingsAccount(){
-        SavingsAccount result = new SavingsAccount();
+    public ArrayList<SavingsAccount> getCDSavingsAccounts(){ // return arraylist of all the savings accounts that are not simple
+        ArrayList<SavingsAccount> result = new ArrayList<>();
 
-        for(SavingsAccount sa:savingsAccounts){
-            if(sa.isCdAccount()){
-                result =sa;
+        if(hasSavingsAccount()){
+            for(SavingsAccount sa:savingsAccounts){
+                if(sa.isCdAccount()){
+                    result.add(sa);
+                }
             }
         }
-
         return result;
     }
-
     public SavingsAccount getSavingsAccountByIndex(int index){
         return this.savingsAccounts.get(index);
     }
 
+    public int getSavingsAccountIndexByFixedID(String fixedId){
+        int returnIndex = 0;
+        if(hasSavingsAccount()){
+            for(int i=0;i<savingsAccounts.size()+1;i++){
+                if(savingsAccounts.get(i).getSavingsAcctIDFixed().equals(fixedId)){
+                    returnIndex=i;
+                    break;
+                }
+            }
+
+        }
+
+        return returnIndex;
+    }
+
+    public SavingsAccount getSavingsAccountByFixedID(String fixedID){
+        int index = getSavingsAccountIndexByFixedID(fixedID);
+        return getSavingsAccountByIndex(index);
+    }
+
+    public void deleteSavingsAccountByIndex(int index){
+        savingsAccounts.remove(index);
+    }
+
+
     public void addSavingsAccount(SavingsAccount savingsAccount) {
         //this.savingsAccount = savingsAccount;
-        this.savingsAccounts.add(savingsAccount);
-        setHasSavingsAccount(true);
+
+        if(!savingsAccount.isNull()){ // if the savings object is not considered null by my terms. like no balance or id set
+            this.savingsAccounts.add(savingsAccount);
+            setHasSavingsAccount(true);
+
+            if(savingsAccount.isCdAccount()){
+                setHasCDSavings(true);
+            }else{
+                setHasSimpleSavings(true);
+            }
+        }else{
+            System.err.println("Trying to add a null savings account to CustomerAccount: "+getCustID());
+        }
+
     }
+
 
     public CheckingAccount getCheckingAccount() {
         return checkingAccount;
     }
-
     public void addCheckingAccount(CheckingAccount checkingAccount) {
-        this.checkingAccount = checkingAccount;
-        setHasCheckingAccount(true);
+
+        if(!checkingAccount.isNull()){ // if checking acc is not null
+            this.checkingAccount = checkingAccount;
+            setHasCheckingAccount(true);
+        }else{
+            System.err.println("Trying to add a null Checking Account to Customer Account: "+getCustID());
+        }
+
+
     }
+
+
 
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
-
     public void addTransactionObject(Transaction transactionObj) {
         this.transactions.add(transactionObj);
     }
-
     public void addTransaction(String transactionType,double amount,String desc,String transactionAcct){
         this.transactions.add(new Transaction(transactionType,amount,desc,transactionAcct));
     }
@@ -306,21 +374,51 @@ public class CustomerAccount implements Serializable {
     public ArrayList<LoanAccount> getLoanAccounts() {
         return loanAccounts;
     }
-
     public void addLoanAccountObject(LoanAccount loanAccountObj) {
-        this.loanAccounts.add(loanAccountObj);
-        setHasLoanAccount(true);
-        if(loanAccountObj.loanAccountType.equals("STL")){
-            setHasShortTermLoan(true);
+
+        if(!loanAccountObj.isNull()){ // if loan account is not null
+            this.loanAccounts.add(loanAccountObj);
+            setHasLoanAccount(true);
+            if(loanAccountObj.loanAccountType.equals("STL")){
+                setHasShortTermLoan(true);
+            }
+            if(loanAccountObj.loanAccountType.equals("LTL")){
+                setHasLongTermLoan(true);
+            }
+            if(loanAccountObj.loanAccountType.equals("CCL")){
+                setHasCreditCardAcct(true);
+            }
+        }else{
+            System.err.println("Trying to add a null Loan Account to Customer Account: "+getCustID());
         }
-        if(loanAccountObj.loanAccountType.equals("LTL")){
-            setHasLongTermLoan(true);
-        }
-        if(loanAccountObj.loanAccountType.equals("CCL")){
-            setHasCreditCardAcct(true);
-        }
+
+
     }
 
+    public int getLoanAccountIndexByFixedID(String fixedId){
+        int returnIndex = 0;
+        if(hasLoanAccount()){
+            for(int i=0;i<loanAccounts.size()+1;i++){
+                if(loanAccounts.get(i).getLoanAccountIDFixed().equals(fixedId)){
+                    returnIndex=i;
+                    break;
+                }
+            }
+
+        }
+
+        return returnIndex;
+    }
+
+    public LoanAccount getLoanAccountByFixedID(String fixedID){
+        int index = getLoanAccountIndexByFixedID(fixedID);
+        return loanAccounts.get(index);
+    }
+
+
+    public void deleteLoanAccountByIndex(int index){
+        loanAccounts.remove(index);
+    }
 
     public ArrayList<Check> getChecks() {
         return checks;
@@ -354,18 +452,20 @@ public class CustomerAccount implements Serializable {
     }
 
     public void setPinAuto(){
+        // we can have a pin without a card number just need a cust id first
 
-        if(this.atmCardNumber!=null){
-            if(!this.atmCardNumber.equals("null")){
+        if(this.custID != null){ // check for not null custID object
+            if(!this.custID.equals("null")){ // then make sure string isn't null
                 String newPin = this.custID.substring(7);
                 this.pin=newPin;
-            }else{
+            }else{ // string was null
                 this.pin="null";
+                Main.out.println(Main.getDateTimeString()+"Attempting to generate pin number from a null String custID in CustomerAccount");
             }
-        }else{
-            this.pin="null";
+        }else{// object was null
+            this.pin=null;
+            Main.out.println(Main.getDateTimeString()+"Attempting to generate pin number from a null object for custID in CustomerAccount");
         }
-
 
     }
 
@@ -381,22 +481,43 @@ public class CustomerAccount implements Serializable {
         this.financialAccountID = Main.generateCustomerId();
     }
 
-    public void deleteCheckingAccount(){
-        this.checkingAccount=null;
+    public void deleteCheckingAccount(){ // object
+        this.checkingAccount= null;
         this.hasCheckingAccount=false;
     }
 
-    public void deleteSavingsAccount(){
-        this.savingsAccounts = null;
+
+    public void deleteAllSavingsAccounts(){ // arraylist
+        this.savingsAccounts = new ArrayList<SavingsAccount>();
         this.hasSavingsAccount=false;
     }
 
-    public void deleteLoanAccounts(){
-        this.loanAccounts=null;
+
+
+    public void deleteLoanAccounts(){ // arraylist
+        this.loanAccounts= new ArrayList<>();
         this.hasLoanAccount=false;
     }
 
 
+    public void fixIDforCustomerAccounts(CustomerAccount customerAccountIn){
+
+        if(hasCheckingAccount()){
+            this.checkingAccount.setCheckingAcctIDFixed(customerAccountIn);
+        }
+
+        if(hasSavingsAccount()){
+            for(SavingsAccount sa:savingsAccounts){
+                sa.setSavingsAcctIDFixed(customerAccountIn);
+            }
+        }
+        if(hasLoanAccount()){
+            for(LoanAccount la:loanAccounts){
+                la.setLoanAccountIDFixed(customerAccountIn);
+            }
+        }
+
+    }
 
     // prints some stats on the checks
     public double[] printStats(){
@@ -423,6 +544,11 @@ public class CustomerAccount implements Serializable {
         return returnVal;
     }
 
+    public void generateAtmFinIDAndPin(){
+        setFinancialAccountIDAuto();
+        setAtmCardNumber(Main.generateAtmCardNumber());
+        setPinAuto();
+    }
 
 
     // some void methods to print the specific customer Account data
@@ -441,6 +567,7 @@ public class CustomerAccount implements Serializable {
     public void printLineBreak(){
         System.out.println("\n\n");
     }
+
 
 
     public void printTransactions(){
