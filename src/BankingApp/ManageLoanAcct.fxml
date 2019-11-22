@@ -25,8 +25,18 @@
             <Label fx:id="manageDispDataCity" layoutX="417.0" layoutY="49.0" prefHeight="17.0" prefWidth="133.0" text="Label" />
             <Label fx:id="manageDispDataState" layoutX="366.0" layoutY="68.0" prefHeight="17.0" prefWidth="30.0" text="MO" />
             <Label fx:id="manageDispDataZip" layoutX="423.0" layoutY="68.0" prefHeight="17.0" prefWidth="133.0" text="00000" />
+            <Label layoutX="172.0" layoutY="116.0" text="Select Loan Type:" />
+            <Label layoutX="172.0" layoutY="177.0" text="Initial Loan Amount:" />
+            <Label layoutX="172.0" layoutY="218.0" prefHeight="17.0" prefWidth="106.0" text="Interest Rate:" />
+            <Label fx:id="loanTermLabel" layoutX="172.0" layoutY="260.0" prefHeight="17.0" prefWidth="106.0" text="Loan Term/Years:" />
+            <Label fx:id="addLoanAcctErrLabel" layoutX="171.0" layoutY="294.0" prefHeight="124.0" prefWidth="331.0" text="ErrLabel" textFill="RED" wrapText="true" />
             <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
-            <Button fx:id="manageExistingDispActivityPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageFinanceAcc" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <ComboBox fx:id="loanAccountTypeComboBox" layoutX="300.0" layoutY="112.0" onAction="#addFinanceAccountEvent" prefWidth="150.0" />
+            <TextField fx:id="startingBalance" layoutX="301.0" layoutY="173.0" onKeyReleased="#addFinanceAccountEvent" />
+            <TextField fx:id="loanInterestRate" layoutX="301.0" layoutY="214.0" onKeyReleased="#addFinanceAccountEvent" />
+            <TextField fx:id="loanTermYears" layoutX="302.0" layoutY="256.0" onKeyReleased="#addFinanceAccountEvent" />
+            <Button fx:id="manageLoanAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
+            <Button fx:id="manageLoanAccPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageFinanceAcc" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
          </children>
       </Pane>
    </children>

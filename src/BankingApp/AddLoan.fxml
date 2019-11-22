@@ -31,10 +31,10 @@
             <Label fx:id="loanTermLabel" layoutX="172.0" layoutY="260.0" prefHeight="17.0" prefWidth="106.0" text="Loan Term/Years:" />
             <Label fx:id="addLoanAcctErrLabel" layoutX="171.0" layoutY="294.0" prefHeight="124.0" prefWidth="331.0" text="ErrLabel" textFill="RED" wrapText="true" />
             <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
-            <ComboBox fx:id="loanAccountTypeComboBox" layoutX="300.0" layoutY="112.0" prefWidth="150.0" />
-            <TextField fx:id="startingBalance" layoutX="301.0" layoutY="173.0" />
-            <TextField fx:id="loanInterestRate" layoutX="301.0" layoutY="214.0" />
-            <TextField fx:id="loanTermYears" layoutX="302.0" layoutY="256.0" />
+            <ComboBox fx:id="loanAccountTypeComboBox" layoutX="300.0" layoutY="112.0" onAction="#addFinanceAccountEvent" prefWidth="150.0" />
+            <TextField fx:id="startingBalance" layoutX="301.0" layoutY="173.0" onKeyReleased="#addFinanceAccountEvent" />
+            <TextField fx:id="loanInterestRate" layoutX="301.0" layoutY="214.0" onKeyReleased="#addFinanceAccountEvent" />
+            <TextField fx:id="loanTermYears" layoutX="302.0" layoutY="256.0" onKeyReleased="#addFinanceAccountEvent" />
             <Button fx:id="addLoanAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#addLoanAccountSaveButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
             <Button fx:id="addLoanAccPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToAddFinanceAcc" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
          </children>

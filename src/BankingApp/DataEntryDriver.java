@@ -337,6 +337,10 @@ public class DataEntryDriver {
         return result;
     }
 
+    public static void deleteCustomerAccountsFile(){
+        //
+    }
+
     public static CustomerAccount getCustomerAccountFromCustomerAtmCardNum(String cardNum){
         System.out.println("start of get customer acct from id");
         ArrayList<CustomerAccount> accountsList = Main.customerAccounts;
@@ -346,7 +350,7 @@ public class DataEntryDriver {
         String searchCardNumStripped = stripSSN(cardNum);
 
         for(CustomerAccount ca:accountsList){
-          String custCardNumStripped = stripSSN(ca.atmCardNumber);
+          String custCardNumStripped = stripSSN(ca.getAtmCardNumber());
           if(!custCardNumStripped.equals("")){
               if(searchCardNumStripped.equals(custCardNumStripped)){
                   result = ca;
@@ -647,6 +651,17 @@ public class DataEntryDriver {
     }
 
 
+    public static String getStringFromDouble(double input){
+        try {
+            return String.valueOf(input);
+        } catch (Exception e) {
+            return "null";
+        }
+    }
+
+
+
+
     public static String makeSSNValid(String ssn){
         String result = ssn;
 
@@ -763,7 +778,6 @@ public class DataEntryDriver {
         return returnVal;
 
     }
-
 
 
 

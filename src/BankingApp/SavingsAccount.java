@@ -13,6 +13,8 @@ public class SavingsAccount implements Serializable {
     public boolean isCdAccount;
     public String cdCloseDate; // if cd date it closes
 
+    public String savingsAcctIDFixed;
+
 
     public boolean isNull = false; // is the whole Object null
 
@@ -182,7 +184,6 @@ public class SavingsAccount implements Serializable {
         }
 
         if(this.isCdAccount){
-
             if(cdCloseDate!=null){
                 if(cdCloseDate.equalsIgnoreCase("null")){
                     this.isNull=true;
@@ -194,6 +195,12 @@ public class SavingsAccount implements Serializable {
         }
     }
 
+    public boolean isNull() {
+        calcNullValue();
+        return isNull;
+    }
+
+
     public void setSavingsAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end
         String savingsAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
         String savingsAccountIdFix = "";
@@ -204,8 +211,35 @@ public class SavingsAccount implements Serializable {
             savingsAccountIdFix = savingsAcctIDString+"-01";
         }
         this.savingsAcctID = savingsAccountIdFix;
+        this.savingsAcctIDFixed=savingsAccountIdFix;
 
     }
+
+    // returns a string of what the correct saving id should be by my system from the customers financial id
+    public String getSavingsAccountIDAuto(CustomerAccount customerAccount){
+        String savingsAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
+        String savingsAccountIdFix = "";
+        if(this.isCdAccount){// savings cd
+            String subId = customerAccount.generateNextSavingsCDSubID();
+            savingsAccountIdFix = savingsAcctIDString+"-02"+"-"+subId;
+        }else{ // simple savings
+            savingsAccountIdFix = savingsAcctIDString+"-01";
+        }
+        return savingsAccountIdFix;
+    }
+
+
+    // used to set a different fixed ID because we can have multiple accounts. and I'm trying to still conform
+    // to the database I was handed.
+    public void setSavingsAcctIDFixed(CustomerAccount customerAccount){
+        String fixedId = getSavingsAccountIDAuto(customerAccount);
+        this.savingsAcctIDFixed = fixedId;
+    }
+
+    public String getSavingsAcctIDFixed(){
+        return this.savingsAcctIDFixed;
+    }
+
 
 
     public String getType(){
@@ -221,7 +255,6 @@ public class SavingsAccount implements Serializable {
         }
     }
 
-
     @Override
     public String toString() {
         return "SavingsAccount{" +
@@ -232,6 +265,7 @@ public class SavingsAccount implements Serializable {
                 ", dateOpened='" + dateOpened + '\'' +
                 ", isCdAccount=" + isCdAccount +
                 ", cdCloseDate='" + cdCloseDate + '\'' +
+                ", savingsAcctIDFixed='" + savingsAcctIDFixed + '\'' +
                 ", isNull=" + isNull +
                 '}';
     }

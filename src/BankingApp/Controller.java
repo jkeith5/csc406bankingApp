@@ -2,8 +2,6 @@ package BankingApp;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
@@ -20,15 +18,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.swing.Timer;
 import java.io.IOException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 
 public class Controller implements Initializable{
     //public static Stage primaryStage = Main.primaryStage;
     //public static Placeholder placeholder = new Placeholder();
+
+    public static String activeFXMLFileName="";
 
     public static boolean tellerLogIn;
     public static boolean managerLogIn;
@@ -207,7 +205,23 @@ public class Controller implements Initializable{
     @FXML Button manageCheckingAccB;
     @FXML Button manageSavingsAccB;
     @FXML Button manageLoanAccB;
+    @FXML Button manageCheckingAccPrevB;
+    @FXML Button manageSavingsAccPrevB;
     @FXML Button manageLoanAccPrevB;
+    @FXML Button manageCheckingAccSaveB;
+    @FXML Button manageSavingsAccSaveB;
+    @FXML Button manageLoanAccSaveB;
+
+    @FXML ComboBox<String> manageSavingsAccountsList;
+    @FXML ComboBox<String> manageLoanAccountsList;
+
+
+    @FXML Button manageFinancialAccountsPrevB;
+
+
+
+
+
     @FXML CheckBox deleteAllCheckingAcctCheckBox;
     @FXML CheckBox deleteAllSavingsAcctCheckBox;
     @FXML CheckBox deleteAllLoanAcctCheckBox;
@@ -229,9 +243,10 @@ public class Controller implements Initializable{
         System.out.println("\ninitializing controller");
         System.out.println("\n\n");
 
-        DataEntryDriver.printCustomerDatabase();
+        //DataEntryDriver.printCustomerDatabase();
 
         String locationString = DataEntryDriver.getLocationFileName(location);
+        activeFXMLFileName = locationString;
         System.out.println(locationString);
 
         // Okay so note to self. Each time an interface is created from one of the
@@ -283,7 +298,7 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("MainScreen.fxml")){
-            //
+            DataEntryDriver.printCustomerDatabase();
         }
 
         if(locationString.equals("ManageExistingUser.fxml")){
@@ -389,6 +404,7 @@ public class Controller implements Initializable{
 
 
         if(locationString.equals("TestWindow.fxml")){
+
             testComboBox.setTooltip(new Tooltip());
             testComboBox.getItems().clear();
             testComboBox.getItems().addAll(states);
@@ -432,6 +448,7 @@ public class Controller implements Initializable{
         if(locationString.equals("AddChecking.fxml")){
             // set the data validation on the fields.
             dispDataUpper();
+            addCheckingAccSaveB.setDisable(true);
             addCheckingAcctErrLabel.setText("");
             DataEntryDriver.validateBalanceAmountField(startingBalance,false);
 
@@ -440,6 +457,7 @@ public class Controller implements Initializable{
         if(locationString.equals("AddLoan.fxml")){
             // Enter code to run on initialization of the FXML Scene
             dispDataUpper();
+            addLoanAccSaveB.setDisable(true);
             CustomerAccount customerAccount= Main.customerAccount;
             ArrayList<String> loanAccountTypes = new ArrayList<String>();
             addLoanAcctErrLabel.setText("");
@@ -490,6 +508,7 @@ public class Controller implements Initializable{
         if(locationString.equals("AddSavings.fxml")){
             // Enter code to run on initialization of the FXML Scene
             dispDataUpper();
+            addSavingsAccSaveB.setDisable(true);
             addSavingsAcctErrLabel.setText("");
             CustomerAccount customerAccount = Main.customerAccount;
 
@@ -527,9 +546,52 @@ public class Controller implements Initializable{
             // Enter code to run on initialization of the FXML Scene
             // .... like the methods to populate data
             dispDataUpper(); // displays the top frame data
+        }
+        if(locationString.equals("ManageCheckingAcct.fxml")){
+            dispDataUpper();
+            displayDataManageFinancialAccounts();
+        }
+        if(locationString.equals("ManageLoanAcct.fxml")){
+            dispDataUpper();
+            displayDataManageFinancialAccounts();
+        }
+        if(locationString.equals("ManageSavingsAcct.fxml")){
+            dispDataUpper();
+            CustomerAccount ca = Main.customerAccount;
+            savingCDTerm.setVisible(false);
+            savingsCDTermLabel.setVisible(false);
+
+            if(ca.hasSavingsAccount()){ // ALWAYS DO THIS!!!!!!!!!!!!!!! OR GET NULL POINTER AND SPEND HOURS LOOKING FOR THE CAUSE
+                //
+                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
+
+                manageSavingsAccountsList.getItems().clear(); // clear the box or it will persist
+                ArrayList<String> savingsAccountFixedID = new ArrayList<>(); // string arraylist for the id
+
+                for(SavingsAccount sa:savingsAccounts){ // fill the string array
+                    savingsAccountFixedID.add(sa.getSavingsAcctIDFixed());
+                }
+
+                manageSavingsAccountsList.getItems().addAll(savingsAccountFixedID);
+
+                // add a change listener to fire the event method
+
+                manageSavingsAccountsList.valueProperty().addListener(new ChangeListener<String>() {
+                    @Override public void changed(ObservableValue ov, String t, String t1) {
+                        System.out.println(ov);
+                        System.out.println(t);
+                        System.out.println(t1);
+                        manageSavingsAccountTypeEvent();
+                    }
+                });
+            }
 
 
-
+        }
+        if(locationString.equals("AddFXMLFileNameHere.fxml")){
+            // Enter code to run on initialization of the FXML Scene
+            // .... like the methods to populate data
+            // or the ones to set listener events to a TextField
         }
         if(locationString.equals("AddFXMLFileNameHere.fxml")){
             // Enter code to run on initialization of the FXML Scene
@@ -551,11 +613,6 @@ public class Controller implements Initializable{
             // Enter code to run on initialization of the FXML Scene
             // .... like the methods to populate data
         }
-        if(locationString.equals("AddFXMLFileNameHere.fxml")){
-            // Enter code to run on initialization of the FXML Scene
-            // .... like the methods to populate data
-        }
-
 
 
 
@@ -589,13 +646,14 @@ public class Controller implements Initializable{
         tempAccount.setCustID(DataEntryDriver.stripSSN(ssn));
         tempAccount.setFinancialAccountIDAuto();
         tempAccount.setAtmCardNumber(Main.generateAtmCardNumber());
+        tempAccount.setPinAuto();
 
 
         // need to tie into main to add data
 
-        boolean sucess = DataEntryDriver.addCustomerAccountToArrayList(tempAccount);
+        boolean success = DataEntryDriver.addCustomerAccountToArrayList(tempAccount);
 
-        if(sucess){
+        if(success){
             successfulEntryLabel.setText("Data storage for " + fName + " " + lName + " was successful!");
             successfulEntryLabel.visibleProperty().setValue(true);
             Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+" added account: "+
@@ -669,6 +727,7 @@ public class Controller implements Initializable{
                 savingCDTerm.setVisible(false);
             }
         }
+        addFinanceAccountEvent();
     }
 
     public void loanAccountTypeEvent(){
@@ -689,6 +748,68 @@ public class Controller implements Initializable{
 
     }
 
+
+    // used to change the display of the savings account in the manage interface
+    public void manageSavingsAccountTypeEvent(){
+        CustomerAccount customerAccount = Main.customerAccount;
+        String selectedFixedId = manageSavingsAccountsList.getSelectionModel().getSelectedItem();
+        SavingsAccount selectedSavingAccount = customerAccount.getSavingsAccountByFixedID(selectedFixedId);
+
+        boolean isCd = selectedSavingAccount.isCdAccount();
+        double balance = selectedSavingAccount.getAccountBalance();
+        double interest = selectedSavingAccount.getInterestRate()*100.00;
+        String cdCloseDate = selectedSavingAccount.getCdCloseDate();
+
+        cdCheckBox.setSelected(isCd);
+        startingBalance.setText(DataEntryDriver.getStringFromDouble(balance));
+        savingInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
+
+
+        if(isCd){
+            savingsCDTermLabel.setVisible(true);
+            savingCDTerm.setVisible(true);
+            savingCDTerm.setText(cdCloseDate);
+        }else{
+            savingCDTerm.setVisible(false);
+            savingsCDTermLabel.setVisible(false);
+        }
+
+
+
+    }
+
+    public void manageLoanAccountTypeEvent(){
+        //
+    }
+
+
+    public void displayDataManageFinancialAccounts(){
+        String location = activeFXMLFileName;
+        CustomerAccount ca = Main.customerAccount;
+
+        if(location.equals("ManageCheckingAcct.fxml")){
+            CheckingAccount checkingAccount = ca.getCheckingAccount();
+            boolean isGold =checkingAccount.isGoldAccount();
+            boolean backupSaving = checkingAccount.isBackupSavingsEnabled();
+            double balance = checkingAccount.getAccountBalance();
+
+            goldCheckBox.setSelected(isGold);
+            backupSavingsCheckBox.setSelected(backupSaving);
+            startingBalance.setText(DataEntryDriver.getStringFromDouble(balance));
+
+
+        }
+
+        if(location.equals("ManageLoanAcct.fxml")){
+            //
+        }
+
+        if(location.equals("ManageSavingsAcct.fxml")){
+            //
+        }
+
+
+    }
 
     public void displayDataRadioButtonEvent(){
         // if no account of each type disable radio button for that account
@@ -832,6 +953,86 @@ public class Controller implements Initializable{
 
 
 
+    }
+
+
+
+
+    public void addFinanceAccountEvent(){
+        // going to use if statements for all the validation on the add accounts
+        // mainly to disable the add button unless it's valid.
+        //sort and figure out what scene is active and run validation on that
+        System.out.println(activeFXMLFileName);
+
+        if(activeFXMLFileName.equals("AddChecking.fxml")){
+            double bal = DataEntryDriver.getDoubleFromTextField(startingBalance);
+            System.out.println(bal);
+            if(bal<=0.001){
+                addCheckingAccSaveB.setDisable(true);
+            }else{
+                addCheckingAccSaveB.setDisable(false);
+            }
+        }
+
+        if(activeFXMLFileName.equals("AddLoan.fxml")){
+            boolean valid = true;
+
+            String selectedItem = loanAccountTypeComboBox.getValue();
+            double startingBalCredLimit = DataEntryDriver.getDoubleFromTextField(startingBalance);
+            double interestRate = DataEntryDriver.getDoubleFromTextField(loanInterestRate);
+            int term = -1;
+            boolean itemIsSelected =false;
+            boolean cclSelected = false;
+
+            if(selectedItem.equals("Short Term Loan")){
+                itemIsSelected=true;
+                term = DataEntryDriver.getIntFromTextField(loanTermYears);
+            }
+            if(selectedItem.equals("Long Term Loan")){
+                itemIsSelected=true;
+                term= DataEntryDriver.getIntFromTextField(loanTermYears);
+            }
+            if(selectedItem.equals("Credit Card Loan")){
+                cclSelected=true;
+                itemIsSelected=true;
+            }
+
+            if(!itemIsSelected || startingBalCredLimit<0.001 || interestRate<0.0001){
+                valid = false;
+            }
+
+            if(!cclSelected && itemIsSelected){ // if item selected but Not CCL
+                if(term<=0){
+                    valid=false;
+                }
+            }
+
+            addLoanAccSaveB.setDisable(!valid);
+
+
+        }
+
+        if(activeFXMLFileName.equals("AddSavings.fxml")){
+            double bal = DataEntryDriver.getDoubleFromTextField(startingBalance);
+            double interest = DataEntryDriver.getDoubleFromTextField(savingInterestRate);
+            int term = -1;
+            if(cdCheckBox.isSelected()){
+                term = DataEntryDriver.getIntFromTextField(savingCDTerm);
+            }
+
+            boolean valid = true;
+
+            if(bal<0.001){
+                valid=false;
+            }
+            if(interest<0.0001){
+                valid=false;
+            }
+            if(cdCheckBox.isSelected() && term <=0){
+                valid=false;
+            }
+            addSavingsAccSaveB.setDisable(!valid);
+        }
     }
 
 
@@ -1576,8 +1777,10 @@ public class Controller implements Initializable{
             //termInYears=-1;
         }
 
-        SavingsAccount newSavings = new SavingsAccount(customerAccount,isCdAccount,startingBalanceDouble,interestRate,termInYears);
+        // convert interest rate to decimal.
+        interestRate = interestRate/100.00;
 
+        SavingsAccount newSavings = new SavingsAccount(customerAccount,isCdAccount,startingBalanceDouble,interestRate,termInYears);
         customerAccount.addSavingsAccount(newSavings);
         goToAddFinanceAcc();
 
@@ -1590,6 +1793,10 @@ public class Controller implements Initializable{
         CustomerAccount customerAccount = Main.customerAccount;
         double initialLoanAmt = DataEntryDriver.getDoubleFromTextField(startingBalance);
         double interestRate = DataEntryDriver.getDoubleFromTextField(loanInterestRate);
+
+        // fix interest to decimal from whole number percent
+        interestRate = interestRate / 100.00;
+
         String selectedItem = loanAccountTypeComboBox.getValue();
         String loanType = "";
 
@@ -1621,6 +1828,33 @@ public class Controller implements Initializable{
 
 
 
+    public void manageCheckingAccountSaveButton(){
+        // value set to 30,000,000 bucks
+
+        System.out.println("save button on checking");
+        CustomerAccount customerAccount = Main.customerAccount;
+
+        boolean goldSelected = goldCheckBox.isSelected();
+        boolean backupSelected = backupSavingsCheckBox.isSelected();
+        double balance = DataEntryDriver.getDoubleFromTextField(startingBalance);
+
+        CheckingAccount ca = customerAccount.getCheckingAccount();
+
+        ca.setGoldAccount(goldSelected);
+        ca.setBackupSavingsEnabled(backupSelected);
+        ca.setAccountBalance(balance);
+
+        goToManageFinanceAcc();
+    }
+
+    public void manageSavingsAccountsSaveButton(){
+        //
+
+    }
+
+    public void manageLoanAccountsSaveButton(){
+        //
+    }
 
 
 
@@ -1780,7 +2014,7 @@ public class Controller implements Initializable{
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageCheckingAcct.fxml"));
-            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setTitle("Manage Checking Accounts");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
@@ -1797,7 +2031,7 @@ public class Controller implements Initializable{
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageSavingsAcct.fxml"));
-            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setTitle("Manage Savings Accounts");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
@@ -1816,7 +2050,7 @@ public class Controller implements Initializable{
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageLoanAcct.fxml"));
-            Main.primaryStage.setTitle("Manage Financial Accounts");
+            Main.primaryStage.setTitle("Manage Loan Accounts");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
@@ -1840,7 +2074,7 @@ public class Controller implements Initializable{
             // disable buttons
         }
         if(deleteAllSavingsAcctCheckBox.isSelected()){
-            customerAccount.deleteSavingsAccount();
+            customerAccount.deleteAllSavingsAccounts();
         }
         if(deleteAllLoanAcctCheckBox.isSelected()){
             customerAccount.deleteLoanAccounts();
@@ -1985,10 +2219,10 @@ public class Controller implements Initializable{
         String zipCode="";
         String state = "";
 
-        System.out.println("MAIN ACTIVE TITLE IS: "+Main.activeStage.getTitle());
+        //System.out.println("MAIN ACTIVE TITLE IS: "+Main.activeStage.getTitle());
         if(Main.activeStage.getTitle().contains("new")){
             interfaceID = "add";
-            System.out.println("new");
+            //System.out.println("new");
             fName = fNameTextField.getText();
             lName = lNameTextField.getText();
             ssn = socialSecTextField.getText();
@@ -1998,7 +2232,7 @@ public class Controller implements Initializable{
         }
         if(Main.activeStage.getTitle().contains("Update")){
             interfaceID = "update";
-            System.out.println("update");
+            //System.out.println("update");
             fName = updateDataFirstName.getText();
             lName = updateDataLastName.getText();
             ssn = Main.customerAccount.getCustID();
@@ -2430,6 +2664,26 @@ public class Controller implements Initializable{
         //
         System.out.println("test");
         Main.testRandomnes();
+
+        CustomerAccount testAccount = new CustomerAccount();
+        System.out.println("test acc: "+testAccount.toString());
+
+        System.out.println("\n\n");
+
+        for(CustomerAccount ca:Main.customerAccounts){
+            if(ca.hasSavingsAccount()){
+                System.out.println(ca.getBasicDataShort());
+                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
+                for(SavingsAccount sa:savingsAccounts){
+                    System.out.println(sa.toString());
+                }
+
+            }
+        }
+
+
+
+
     }
 
     @FXML

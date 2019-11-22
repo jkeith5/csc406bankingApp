@@ -37,6 +37,7 @@ public class Main extends Application {
     public static int lastAccId=1;
     public static boolean taskFinished = false;
     public static boolean taskRunning = false;
+    private static int retry =0;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -61,9 +62,9 @@ public class Main extends Application {
         for(CustomerAccount ca: customerAccounts){
 
             if(ca.hasCheckingAccount()){
-                System.out.println(ca.getBasicDataShort());
-                System.out.println("Checking bal: "+ca.getCheckingAccount().getAccountBalance());
-                System.out.println("is gold: "+ca.getCheckingAccount().isGoldAccount());
+                //System.out.println(ca.getBasicDataShort());
+                //System.out.println("Checking bal: "+ca.getCheckingAccount().getAccountBalance());
+                //System.out.println("is gold: "+ca.getCheckingAccount().isGoldAccount());
                 //System.out.println("checking bal: "+ca.getCheckingAccount().getAccountBalance()+" isGold: "+ca.getCheckingAccount().isGoldAccount());
                 //System.out.println(generateCustomerId());
             }
@@ -77,8 +78,8 @@ public class Main extends Application {
 
         System.out.println("\n\n\n\nSTART DEBUG TEST DATA:");
         for(CustomerAccount ca: customerAccounts){
-            ca.printTransactions();
-            ca.printChecks();
+            //ca.printTransactions();
+            //ca.printChecks();
         }
 
         System.out.println("END DEBUG TEST DATA");
@@ -101,7 +102,7 @@ public class Main extends Application {
         //DataEntryDriver.serializeArrayListToFile(customerAccounts);
 
         if(arrayWrittenToFile){
-            out.println(getDateTimeString()+"The Customer Accounts Database Was sucessfully Written to the File");
+            out.println(getDateTimeString()+"The Customer Accounts Database Was successfully Written to the File");
         }else{
             out.println(getDateTimeString()+"There was an error writing the Accounts to a file.");
         }
@@ -161,15 +162,37 @@ public class Main extends Application {
             // if it does not exist we need to create it from the csv files. AND populate Main.customerAccounts
             // NOTE just delete the file to recreate it if needed
             if(!customerDatabase.exists()){
-                DataEntryDriver.createCustomerAccountsArray();
-                customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
+                DataEntryDriver.createCustomerAccountsArray(); // writes to file
+                customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList(); // then reads the file
                 out.println(getDateTimeString()+"Created Customer Database and read into list.");
             }else{
                 customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
-                out.println(getDateTimeString()+"Database Already Existed. Read into list.");
+                System.out.println("Read file to arraylist");
+                System.out.println(customerAccounts.size());
+
+                if(customerAccounts.size()==0 && retry<3){
+                    // going to delete the file and recursive call initialize again.
+                    customerDatabase.delete(); // delete the file;
+                    System.err.println("THE CUSTOMER DATABASE FILE WAS DELETED DUE TO CHANGES IN THE CLASS FILES.\n" +
+                            "THE DATABASE HAS BEEN REBUILT.");
+                    retry++;
+                    initialize();// recall the initialize method
+
+                }else{// the file read in correctly and we can continue.
+                    out.println(getDateTimeString()+"Database Already Existed. Read into list.");
+                }
+
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        // fixes id for the financial accounts so I can more easily access them in the interface
+        for(CustomerAccount ca: customerAccounts){
+            System.out.println("test "+ca.toString());
+            ca.fixIDforCustomerAccounts(ca);
         }
 
 
@@ -252,8 +275,6 @@ public class Main extends Application {
         return  currentTime - startTime;
     }
 
-
-    // test commit 2
 
     // used to delay the ui of JavaFX for a specified amount of seconds without hanging the FX Thread
     public static Task<Void> getFXSleepTask(long milliseconds){
