@@ -651,3 +651,248 @@
 2019-11-19T00:19:18.129 ArrayList was written to File.
 2019-11-19T00:19:18.129 The Customer Accounts Database Was sucessfully Written to the File
 >>>>>>> 55714d4ad27a9bd69c6ee98c6c0bd2d6e8fc1623
+2019-11-19T19:47:07.065  Initializing in Main
+2019-11-19T19:47:07.146 Reading in LoanAccounts.csv
+2019-11-19T19:47:07.247 ArrayList was written to File.
+2019-11-19T19:47:07.295 Created Customer Database and read into list.
+2019-11-19T19:47:37.238 ArrayList was written to File.
+2019-11-19T19:47:37.238 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T19:46:27.345  Initializing in Main
+2019-11-19T19:46:27.405 Error in readFile. File not read in to array.
+2019-11-19T19:46:27.405 Database Already Existed. Read into list.
+2019-11-19T19:51:37.230 ArrayList was written to File.
+2019-11-19T19:51:37.230 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T19:52:50.143  Initializing in Main
+2019-11-19T19:52:50.172 Database Already Existed. Read into list.
+2019-11-19T19:53:17.293 ArrayList was written to File.
+2019-11-19T19:53:17.294 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T19:59:26.029  Initializing in Main
+2019-11-19T19:59:26.152 Database Already Existed. Read into list.
+2019-11-19T20:01:18.794 ArrayList was written to File.
+2019-11-19T20:01:18.794 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:02:23.878  Initializing in Main
+2019-11-19T20:02:23.990 Database Already Existed. Read into list.
+2019-11-19T20:07:29.849 ArrayList was written to File.
+2019-11-19T20:07:29.850 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T19:53:42.839  Initializing in Main
+2019-11-19T19:53:42.886 Reading in LoanAccounts.csv
+2019-11-19T19:53:42.985 ArrayList was written to File.
+2019-11-19T19:53:43.020 Created Customer Database and read into list.
+2019-11-19T20:07:31.949 ArrayList was written to File.
+2019-11-19T20:07:31.949 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T19:53:23.767  Initializing in Main
+2019-11-19T19:53:23.802 Database Already Existed. Read into list.
+2019-11-19T20:07:33.618 ArrayList was written to File.
+2019-11-19T20:07:33.618 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:07:55.998  Initializing in Main
+2019-11-19T20:07:56.040 Reading in LoanAccounts.csv
+2019-11-19T20:07:56.140 ArrayList was written to File.
+2019-11-19T20:07:56.185 Created Customer Database and read into list.
+2019-11-19T20:08:35.893 ArrayList was written to File.
+2019-11-19T20:08:35.893 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:07:37.602  Initializing in Main
+2019-11-19T20:07:37.638 Database Already Existed. Read into list.
+2019-11-19T20:08:37.659 ArrayList was written to File.
+2019-11-19T20:08:37.659 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:08:41.785  Initializing in Main
+2019-11-19T20:08:41.816 Database Already Existed. Read into list.
+2019-11-19T20:09:09.431 ArrayList was written to File.
+2019-11-19T20:09:09.431 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:09:14.578  Initializing in Main
+2019-11-19T20:09:14.599 Database Already Existed. Read into list.
+2019-11-19T20:09:32.863 ArrayList was written to File.
+2019-11-19T20:09:32.863 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:13:43.112  Initializing in Main
+2019-11-19T20:13:43.231 Database Already Existed. Read into list.
+2019-11-19T20:13:54.291 ArrayList was written to File.
+2019-11-19T20:13:54.291 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:24:28.940  Initializing in Main
+2019-11-19T20:24:29.064 Database Already Existed. Read into list.
+2019-11-19T20:30:13.844 ArrayList was written to File.
+2019-11-19T20:30:13.844 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:17:20.265  Initializing in Main
+2019-11-19T20:17:20.383 Database Already Existed. Read into list.
+2019-11-19T20:30:16.081 ArrayList was written to File.
+2019-11-19T20:30:16.081 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:11:03.871  Initializing in Main
+2019-11-19T20:11:03.993 Database Already Existed. Read into list.
+2019-11-19T20:30:18.229 ArrayList was written to File.
+2019-11-19T20:30:18.229 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:10:44.054  Initializing in Main
+2019-11-19T20:10:44.167 Database Already Existed. Read into list.
+2019-11-19T20:30:20.338 ArrayList was written to File.
+2019-11-19T20:30:20.338 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:10:02.479  Initializing in Main
+2019-11-19T20:10:02.527 Reading in LoanAccounts.csv
+2019-11-19T20:10:02.624 ArrayList was written to File.
+2019-11-19T20:10:02.664 Created Customer Database and read into list.
+2019-11-19T20:30:22.397 ArrayList was written to File.
+2019-11-19T20:30:22.398 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:09:40.192  Initializing in Main
+2019-11-19T20:09:40.220 Database Already Existed. Read into list.
+2019-11-19T20:30:26.399 ArrayList was written to File.
+2019-11-19T20:30:26.400 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:34:28.027  Initializing in Main
+2019-11-19T20:34:28.136 Database Already Existed. Read into list.
+2019-11-19T20:34:40.548 ArrayList was written to File.
+2019-11-19T20:34:40.548 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:31:05.755  Initializing in Main
+2019-11-19T20:31:05.802 Reading in LoanAccounts.csv
+2019-11-19T20:31:05.920 ArrayList was written to File.
+2019-11-19T20:31:05.966 Created Customer Database and read into list.
+2019-11-19T20:39:48.191 ArrayList was written to File.
+2019-11-19T20:39:48.191 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:30:36.056  Initializing in Main
+2019-11-19T20:30:36.093 Database Already Existed. Read into list.
+2019-11-19T20:39:51.869 ArrayList was written to File.
+2019-11-19T20:39:51.869 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:39:57.626  Initializing in Main
+2019-11-19T20:39:57.654 Database Already Existed. Read into list.
+2019-11-19T20:40:08.891 ArrayList was written to File.
+2019-11-19T20:40:08.892 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-19T20:40:17.628  Initializing in Main
+2019-11-19T20:40:17.683 Reading in LoanAccounts.csv
+2019-11-19T20:40:17.802 ArrayList was written to File.
+2019-11-19T20:40:17.848 Created Customer Database and read into list.
+2019-11-19T20:41:39.545 ArrayList was written to File.
+2019-11-19T20:41:39.545 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T18:40:43.357  Initializing in Main
+2019-11-20T18:40:43.482 Database Already Existed. Read into list.
+2019-11-20T18:42:08.245 ArrayList was written to File.
+2019-11-20T18:42:08.245 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T18:20:54.290  Initializing in Main
+2019-11-20T18:20:54.420 Database Already Existed. Read into list.
+2019-11-20T18:44:26.385 ArrayList was written to File.
+2019-11-20T18:44:26.385 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T18:14:58.257  Initializing in Main
+2019-11-20T18:14:58.367 Database Already Existed. Read into list.
+2019-11-20T18:44:28.606 ArrayList was written to File.
+2019-11-20T18:44:28.607 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T18:44:36.659  Initializing in Main
+2019-11-20T18:44:36.789 Database Already Existed. Read into list.
+2019-11-20T18:48:06.018 ArrayList was written to File.
+2019-11-20T18:48:06.018 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T18:48:16.099  Initializing in Main
+2019-11-20T18:48:16.231 Database Already Existed. Read into list.
+2019-11-20T18:55:22.075 ArrayList was written to File.
+2019-11-20T18:55:22.075 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T18:55:25.654  Initializing in Main
+2019-11-20T18:55:25.783 Database Already Existed. Read into list.
+2019-11-20T18:57:01.234 ArrayList was written to File.
+2019-11-20T18:57:01.234 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T18:57:08.924  Initializing in Main
+2019-11-20T18:57:09.031 Database Already Existed. Read into list.
+2019-11-20T18:58:20.939 ArrayList was written to File.
+2019-11-20T18:58:20.939 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T18:58:28.156  Initializing in Main
+2019-11-20T18:58:28.278 Database Already Existed. Read into list.
+2019-11-20T19:01:01.355 ArrayList was written to File.
+2019-11-20T19:01:01.356 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:01:13.668  Initializing in Main
+2019-11-20T19:01:13.780 Database Already Existed. Read into list.
+2019-11-20T19:02:56.583 ArrayList was written to File.
+2019-11-20T19:02:56.583 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:06:05.469  Initializing in Main
+2019-11-20T19:06:05.588 Database Already Existed. Read into list.
+2019-11-20T19:20:17.582 ArrayList was written to File.
+2019-11-20T19:20:17.582 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:03:01.079  Initializing in Main
+2019-11-20T19:03:01.210 Database Already Existed. Read into list.
+2019-11-20T19:21:06.089 ArrayList was written to File.
+2019-11-20T19:21:06.090 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:21:12.951  Initializing in Main
+2019-11-20T19:21:13.072 Database Already Existed. Read into list.
+2019-11-20T19:23:04.886 ArrayList was written to File.
+2019-11-20T19:23:04.886 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:23:10.283  Initializing in Main
+2019-11-20T19:23:10.397 Database Already Existed. Read into list.
+2019-11-20T19:24:36.487 ArrayList was written to File.
+2019-11-20T19:24:36.487 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:24:41.055  Initializing in Main
+2019-11-20T19:24:41.171 Database Already Existed. Read into list.
+2019-11-20T19:30:09.553 ArrayList was written to File.
+2019-11-20T19:30:09.553 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:30:12.915  Initializing in Main
+2019-11-20T19:30:13.024 Database Already Existed. Read into list.
+2019-11-20T19:31:00.956 ArrayList was written to File.
+2019-11-20T19:31:00.956 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:31:05.951  Initializing in Main
+2019-11-20T19:31:06.065 Database Already Existed. Read into list.
+2019-11-20T19:31:29.887 ArrayList was written to File.
+2019-11-20T19:31:29.887 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:31:34.739  Initializing in Main
+2019-11-20T19:31:34.859 Database Already Existed. Read into list.
+2019-11-20T19:32:38.139 ArrayList was written to File.
+2019-11-20T19:32:38.139 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:36:18.924  Initializing in Main
+2019-11-20T19:36:19.040 Database Already Existed. Read into list.
+2019-11-20T19:42:46.964 ArrayList was written to File.
+2019-11-20T19:42:46.965 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:32:46.100  Initializing in Main
+2019-11-20T19:32:46.226 Database Already Existed. Read into list.
+2019-11-20T19:42:51.811 ArrayList was written to File.
+2019-11-20T19:42:51.811 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:42:58.557  Initializing in Main
+2019-11-20T19:42:58.689 Database Already Existed. Read into list.
+2019-11-20T19:43:51.214 ArrayList was written to File.
+2019-11-20T19:43:51.214 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:43:59.854  Initializing in Main
+2019-11-20T19:43:59.975 Database Already Existed. Read into list.
+2019-11-20T19:44:33.129 ArrayList was written to File.
+2019-11-20T19:44:33.129 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:44:36.449  Initializing in Main
+2019-11-20T19:44:36.548 Database Already Existed. Read into list.
+2019-11-20T19:46:41.474 ArrayList was written to File.
+2019-11-20T19:46:41.474 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:46:44.859  Initializing in Main
+2019-11-20T19:46:44.974 Database Already Existed. Read into list.
+2019-11-20T19:47:23.354 ArrayList was written to File.
+2019-11-20T19:47:23.354 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:47:26.378  Initializing in Main
+2019-11-20T19:47:26.501 Database Already Existed. Read into list.
+2019-11-20T19:53:54.830 ArrayList was written to File.
+2019-11-20T19:53:54.830 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:54:03.093  Initializing in Main
+2019-11-20T19:54:03.205 Database Already Existed. Read into list.
+2019-11-20T19:55:15.899 ArrayList was written to File.
+2019-11-20T19:55:15.899 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:55:23.301  Initializing in Main
+2019-11-20T19:55:23.416 Database Already Existed. Read into list.
+2019-11-20T19:57:43.574 ArrayList was written to File.
+2019-11-20T19:57:43.574 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:57:50.679  Initializing in Main
+2019-11-20T19:57:50.807 Database Already Existed. Read into list.
+2019-11-20T19:59:37.684 ArrayList was written to File.
+2019-11-20T19:59:37.684 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T19:59:46.980  Initializing in Main
+2019-11-20T19:59:47.095 Database Already Existed. Read into list.
+2019-11-20T20:02:02.143 ArrayList was written to File.
+2019-11-20T20:02:02.143 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T20:02:11.592  Initializing in Main
+2019-11-20T20:02:11.713 Database Already Existed. Read into list.
+2019-11-20T20:03:09.404 ArrayList was written to File.
+2019-11-20T20:03:09.405 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T20:03:13.689  Initializing in Main
+2019-11-20T20:03:13.802 Database Already Existed. Read into list.
+2019-11-20T20:10:04.935 ArrayList was written to File.
+2019-11-20T20:10:04.935 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T20:10:08.626  Initializing in Main
+2019-11-20T20:10:08.750 Database Already Existed. Read into list.
+2019-11-20T20:14:23.826 ArrayList was written to File.
+2019-11-20T20:14:23.826 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T20:14:27.197  Initializing in Main
+2019-11-20T20:14:27.307 Database Already Existed. Read into list.
+2019-11-20T20:15:30.398 ArrayList was written to File.
+2019-11-20T20:15:30.398 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T20:15:33.896  Initializing in Main
+2019-11-20T20:15:34.007 Database Already Existed. Read into list.
+2019-11-20T20:16:39.150 ArrayList was written to File.
+2019-11-20T20:16:39.150 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T20:16:43.774  Initializing in Main
+2019-11-20T20:16:43.887 Database Already Existed. Read into list.
+2019-11-20T20:17:04.903 ArrayList was written to File.
+2019-11-20T20:17:04.903 The Customer Accounts Database Was sucessfully Written to the File
+2019-11-20T20:26:37.389  Initializing in Main
+2019-11-20T20:26:37.501 Database Already Existed. Read into list.
+2019-11-20T20:28:08.939 ArrayList was written to File.
+2019-11-20T20:28:08.939 The Customer Accounts Database Was sucessfully Written to the File

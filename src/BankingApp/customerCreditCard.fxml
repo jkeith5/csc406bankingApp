@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
+    <children>
+        <Pane prefHeight="500.0" prefWidth="700.0">
+            <children>
+                <Text layoutX="277.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Credit Card Interface" wrappingWidth="145.13671875" />
+                <Label fx:id="customerDispDataFirst" layoutX="290.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+                <Label fx:id="customerDispDataLast" layoutX="365.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+                <Label fx:id="CCRecentActivity" layoutX="50.0" layoutY="68.0" prefHeight="17.0" prefWidth="200.0" text="Recent Credit Card Activity" />
+                <TextArea fx:id="customerInterCCHistory" editable="false" focusTraversable="false" layoutX="50.0" layoutY="100.0" prefHeight="250.0" prefWidth="400.0" promptText="Auto-fill CC num" />
+                <Label layoutX="480.0" layoutY="105.0" prefHeight="17.0" prefWidth="130.0" text="Card Number:" />
+                <TextField fx:id="customerInterCCNum" layoutX="480.0" layoutY="130.0" prefWidth="150.0" promptText="Auto-fill CC num" />
+                <Label layoutX="480.0" layoutY="165.0" prefHeight="17.0" prefWidth="130.0" text="Amount:" />
+                <TextField fx:id="customerInterCCPurchaseAmt" layoutX="480.0" layoutY="190.0" prefWidth="150.0" promptText="Enter Amount" />
+                <Label layoutX="480.0" layoutY="225.0" prefHeight="17.0" prefWidth="130.0" text="Description:" />
+                <TextField fx:id="customerInterCCpurchaseDesc" layoutX="480.0" layoutY="250.0" prefWidth="150.0" promptText="Enter Description" />
+                <Button fx:id="CustomerCcPurchaseButton" layoutX="547.0" layoutY="290.0" mnemonicParsing="false" onAction="#processCCPurchase" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Purchase" />
+
+
+                <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToMainScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+
+                <Label fx:id="customerInterErrLabel" layoutX="186.0" layoutY="358.0" prefHeight="114.0" prefWidth="399.0" text="ERROR Messages somewhere eventually???" wrapText="true" />
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
+
