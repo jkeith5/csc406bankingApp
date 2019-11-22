@@ -14,7 +14,7 @@
                 <Text layoutX="277.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Credit Card Interface" wrappingWidth="145.13671875" />
                 <Label fx:id="customerDispDataFirst" layoutX="290.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
                 <Label fx:id="customerDispDataLast" layoutX="365.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
-                <Label fx:id="CCRecentActivity" layoutX="50.0" layoutY="68.0" prefHeight="17.0" prefWidth="200.0" text="Recent Credit Card Activity" />
+                <Label fx:id="CCRecentActivity" layoutX="50.0" layoutY="68.1" prefHeight="17.0" prefWidth="200.0" text="Recent Credit Card Activity" />
                 <TextArea fx:id="customerInterCCHistory" editable="false" focusTraversable="false" layoutX="50.0" layoutY="100.0" prefHeight="250.0" prefWidth="400.0" promptText="Auto-fill CC num" />
                 <Label layoutX="480.0" layoutY="105.0" prefHeight="17.0" prefWidth="130.0" text="Card Number:" />
                 <TextField fx:id="customerInterCCNum" layoutX="480.0" layoutY="130.0" prefWidth="150.0" promptText="Auto-fill CC num" />
