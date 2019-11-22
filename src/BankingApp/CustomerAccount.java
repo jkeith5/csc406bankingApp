@@ -410,6 +410,12 @@ public class CustomerAccount implements Serializable {
         return returnIndex;
     }
 
+    public LoanAccount getLoanAccountByFixedID(String fixedID){
+        int index = getLoanAccountIndexByFixedID(fixedID);
+        return loanAccounts.get(index);
+    }
+
+
     public void deleteLoanAccountByIndex(int index){
         loanAccounts.remove(index);
     }

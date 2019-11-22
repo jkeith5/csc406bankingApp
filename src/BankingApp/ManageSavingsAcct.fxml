@@ -35,7 +35,7 @@
             <Label fx:id="savingsCDTermLabel" layoutX="191.0" layoutY="257.0" text="CD Close Date:" />
             <TextField fx:id="savingInterestRate" layoutX="307.0" layoutY="204.0" onKeyReleased="#addFinanceAccountEvent" />
             <TextField fx:id="savingCDTerm" layoutX="307.0" layoutY="253.0" onKeyReleased="#addFinanceAccountEvent" />
-            <Button fx:id="manageSavingsAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
+            <Button fx:id="manageSavingsAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#manageSavingsAccountsSaveButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
             <Label fx:id="addSavingsAcctErrLabel" layoutX="127.0" layoutY="438.0" prefHeight="17.0" prefWidth="420.0" text="ErrLabel" textFill="RED" wrapText="true" />
             <ComboBox fx:id="manageSavingsAccountsList" layoutX="22.0" layoutY="105.0" prefWidth="150.0" />
          </children>

@@ -553,11 +553,56 @@ public class Controller implements Initializable{
         }
         if(locationString.equals("ManageLoanAcct.fxml")){
             dispDataUpper();
-            displayDataManageFinancialAccounts();
+            CustomerAccount ca = Main.customerAccount;
+            manageLoanAccSaveB.setDisable(true);
+            loanTermYears.setVisible(false);
+            loanTermLabel.setVisible(false);
+
+            if(ca.hasLoanAccount()){
+                ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
+                manageLoanAccountsList.getItems().clear();
+                ArrayList<String> loanAccountsFixedID = new ArrayList<>();
+
+                for(LoanAccount loanAccount:loanAccounts){
+                    loanAccountsFixedID.add(loanAccount.getLoanAccountIDFixed());
+                }
+
+                ArrayList<String> loanAccountTypes = new ArrayList<>();
+
+                loanAccountTypes.add("Long Term Loan");
+                loanAccountTypes.add("Short Term Loan");
+                loanAccountTypes.add("Credit Card Loan"); // can only have one
+                loanAccountTypeComboBox.getItems().clear();
+                loanAccountTypeComboBox.getItems().addAll(loanAccountTypes);
+
+                manageLoanAccountsList.getItems().addAll(loanAccountsFixedID);
+
+                manageLoanAccountsList.valueProperty().addListener(new ChangeListener<String>() {
+                    @Override public void changed(ObservableValue ov, String t, String t1) {
+                        System.out.println(ov);
+                        System.out.println(t);
+                        System.out.println(t1);
+                        manageLoanAccountTypeEvent();
+                    }
+                });
+
+                loanAccountTypeComboBox.valueProperty().addListener(new ChangeListener<String>() {
+                    @Override public void changed(ObservableValue ov, String t, String t1) {
+                        System.out.println(ov);
+                        System.out.println(t);
+                        System.out.println(t1);
+                        loanAccountTypeEvent();
+                    }
+                });
+
+            }
+
+
         }
         if(locationString.equals("ManageSavingsAcct.fxml")){
             dispDataUpper();
             CustomerAccount ca = Main.customerAccount;
+            manageSavingsAccSaveB.setDisable(true);
             savingCDTerm.setVisible(false);
             savingsCDTermLabel.setVisible(false);
 
@@ -773,13 +818,54 @@ public class Controller implements Initializable{
             savingCDTerm.setVisible(false);
             savingsCDTermLabel.setVisible(false);
         }
-
+        int selIndex = manageSavingsAccountsList.getSelectionModel().getSelectedIndex();
+        if(selIndex>=0){
+            manageSavingsAccSaveB.setDisable(false);
+        }else{
+            manageSavingsAccSaveB.setDisable(true);
+        }
 
 
     }
 
     public void manageLoanAccountTypeEvent(){
-        //
+        CustomerAccount customerAccount = Main.customerAccount;
+        String selectedFixedId = manageLoanAccountsList.getSelectionModel().getSelectedItem();
+        LoanAccount selectedLoanAccount = customerAccount.getLoanAccountByFixedID(selectedFixedId);
+
+        String loanAccountType = selectedLoanAccount.getLoanAccountType(); // short name
+
+        double balance = selectedLoanAccount.getCurrentBalance();
+        double interest = selectedLoanAccount.getInterestRate()*100.00;
+
+        String loanAccountTypeFullName = DataEntryDriver.getLoanFullTypeNameFromAbb(loanAccountType);
+
+        loanAccountTypeComboBox.getSelectionModel().select(loanAccountTypeFullName);
+
+
+
+
+        int loanTerm = selectedLoanAccount.getLoanTerm();
+        startingBalance.setText(DataEntryDriver.getStringFromDouble(balance));
+        loanInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
+
+
+        if(loanAccountType.equals("LTL") || loanAccountType.equals("STL")){
+            loanTermLabel.setVisible(true);
+            loanTermYears.setVisible(true);
+            loanTermYears.setText(DataEntryDriver.getStringFromInt(loanTerm));
+        }else{
+            loanTermYears.setVisible(false);
+            loanTermLabel.setVisible(false);
+        }
+
+
+        int selIndex = manageLoanAccountsList.getSelectionModel().getSelectedIndex();
+        if(selIndex>=0){
+            manageLoanAccSaveB.setDisable(false);
+        }else{
+            manageLoanAccSaveB.setDisable(true);
+        }
     }
 
 
@@ -800,13 +886,6 @@ public class Controller implements Initializable{
 
         }
 
-        if(location.equals("ManageLoanAcct.fxml")){
-            //
-        }
-
-        if(location.equals("ManageSavingsAcct.fxml")){
-            //
-        }
 
 
     }
@@ -1848,12 +1927,49 @@ public class Controller implements Initializable{
     }
 
     public void manageSavingsAccountsSaveButton(){
-        //
+        CustomerAccount customerAccount = Main.customerAccount;
+        SavingsAccount savingsAccount = customerAccount.getSavingsAccountByFixedID(
+                manageSavingsAccountsList.getSelectionModel().getSelectedItem());
+        boolean isCd = cdCheckBox.isSelected();
+        double balance = DataEntryDriver.getDoubleFromTextField(startingBalance);
+        double interest = DataEntryDriver.getDoubleFromTextField(savingInterestRate)*100.0;
+        String closeDate = "null";
+        if(savingsAccount.isCdAccount()){
+            closeDate= savingCDTerm.getText();
+            savingsAccount.setCdCloseDate(DataEntryDriver.fixDateString(closeDate));
+        }
+
+        savingsAccount.setCdAccount(isCd);
+        savingsAccount.setAccountBalance(balance);
+        savingsAccount.setInterestRate(interest/100.0);
+
+
+
+
+        goToManageFinanceAcc();
 
     }
 
     public void manageLoanAccountsSaveButton(){
-        //
+        CustomerAccount ca = Main.customerAccount;
+        String loanAccountFixedID = manageLoanAccountsList.getSelectionModel().getSelectedItem();
+        LoanAccount selectedLoanAccount = ca.getLoanAccountByFixedID(loanAccountFixedID);
+        String loanTypeShort = DataEntryDriver.getLoanTypeAbbFromFullName(loanAccountTypeComboBox.getSelectionModel().getSelectedItem());
+        double balance = DataEntryDriver.getDoubleFromTextField(startingBalance);
+        double interestRate = DataEntryDriver.getDoubleFromTextField(loanInterestRate)/100.0;
+        String loanTermString = "";
+        if(loanTypeShort.equals("LTL") || loanTypeShort.equals("STL")){
+            loanTermString = DataEntryDriver.fixDateString(loanTermYears.getText());
+        }
+
+        selectedLoanAccount.setLoanAccountType(loanTypeShort);
+        selectedLoanAccount.setCurrentBalance(balance);
+        selectedLoanAccount.setInterestRate(interestRate);
+        selectedLoanAccount.setLoanTerm(loanTermString);
+
+        goToManageFinanceAcc();
+
+
     }
 
 

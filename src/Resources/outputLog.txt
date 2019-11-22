@@ -227,3 +227,55 @@ java.lang.NullPointerException
 2019-11-22T00:43:03.479 Attempting to generate pin number from a null object for custID in CustomerAccount
 2019-11-22T00:43:08.967 ArrayList was written to File.
 2019-11-22T00:43:08.967 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T00:49:41.030  Initializing in Main
+2019-11-22T00:49:41.141 Database Already Existed. Read into list.
+2019-11-22T00:49:45.944 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T00:49:46.758 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T00:50:00.584 ArrayList was written to File.
+2019-11-22T00:50:00.584 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T01:05:51.507  Initializing in Main
+2019-11-22T01:05:51.635 Database Already Existed. Read into list.
+2019-11-22T01:06:03.743 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:06:04.291 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:06:44.475 ArrayList was written to File.
+2019-11-22T01:06:44.475 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T01:07:58.699  Initializing in Main
+2019-11-22T01:07:58.859 Database Already Existed. Read into list.
+2019-11-22T01:08:03.640 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:08:04.261 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:08:41.923 ArrayList was written to File.
+2019-11-22T01:08:41.923 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T01:41:50.990  Initializing in Main
+2019-11-22T01:41:51.038 Reading in LoanAccounts.csv
+2019-11-22T01:41:51.260 ArrayList was written to File.
+2019-11-22T01:41:51.297 Created Customer Database and read into list.
+2019-11-22T01:42:52.179 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:42:52.577 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:43:03.993 ArrayList was written to File.
+2019-11-22T01:43:03.994 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T01:43:50.868  Initializing in Main
+2019-11-22T01:43:50.981 Database Already Existed. Read into list.
+2019-11-22T01:43:55.571 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:43:55.913 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:44:44.198 ArrayList was written to File.
+2019-11-22T01:44:44.198 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T01:51:07.298  Initializing in Main
+2019-11-22T01:51:07.406 Database Already Existed. Read into list.
+2019-11-22T01:51:38.275 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:51:38.800 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T01:52:01.392 ArrayList was written to File.
+2019-11-22T01:52:01.392 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T02:07:27.314  Initializing in Main
+2019-11-22T02:07:27.464 Database Already Existed. Read into list.
+2019-11-22T02:07:32.543 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T02:07:33.233 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T02:08:11.812 Error in fixDateString with input: 1 Error: java.time.format.DateTimeParseException: Text '1' could not be parsed at index 1
+2019-11-22T02:08:32.126 Error in fixDateString with input: -1 Error: java.time.format.DateTimeParseException: Text '-1' could not be parsed at index 2
+2019-11-22T02:08:41.676 ArrayList was written to File.
+2019-11-22T02:08:41.676 The Customer Accounts Database Was successfully Written to the File
+2019-11-22T02:09:19.749  Initializing in Main
+2019-11-22T02:09:19.877 Database Already Existed. Read into list.
+2019-11-22T02:09:23.635 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T02:09:23.827 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-22T02:10:06.979 ArrayList was written to File.
+2019-11-22T02:10:06.979 The Customer Accounts Database Was successfully Written to the File
