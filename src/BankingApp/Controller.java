@@ -665,6 +665,7 @@ public class Controller implements Initializable{
 
 
 
+    // asdfkla
 
     // KEY EVENTS BLOCK
     @FXML
@@ -2461,7 +2462,14 @@ public class Controller implements Initializable{
            if(loginInterUser.getText().length()>0 && loginInterPass.getText().length()>0){
                CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
                if(!ca.isNull()){ // if search was not null
+                   String caPin = ca.getPin();
+
+                   if(loginInterPass.getText().equals(caPin)){
+                       // put the code here to validate pin
+                   }
+
                    Main.customerAccount = ca;
+                   System.out.println("Selected ca from atm card is: "+ca.toString());
                    returnVal=true;
                }else{// if search was null
                    Main.customerAccount=Main.customerAccounts.get(0);// statically set the first account
@@ -2786,16 +2794,27 @@ public class Controller implements Initializable{
 
         System.out.println("\n\n");
 
-        for(CustomerAccount ca:Main.customerAccounts){
-            if(ca.hasSavingsAccount()){
-                System.out.println(ca.getBasicDataShort());
-                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
-                for(SavingsAccount sa:savingsAccounts){
-                    System.out.println(sa.toString());
-                }
+        CustomerAccount ca1 = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum("6559456476345444");
+        CustomerAccount ca2 = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum("6381074826840537");
+        CustomerAccount ca3 = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum("2669835839645524");
+        CustomerAccount ca4 = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum("8343891648427859");
 
-            }
-        }
+        System.out.println(ca1.toString());
+        System.out.println(ca2.toString());
+        System.out.println(ca3.toString());
+        System.out.println(ca4.toString());
+
+
+//        for(CustomerAccount ca:Main.customerAccounts){
+//            if(ca.hasSavingsAccount()){
+//                System.out.println(ca.getBasicDataShort());
+//                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
+//                for(SavingsAccount sa:savingsAccounts){
+//                    System.out.println(sa.toString());
+//                }
+//
+//            }
+//        }
 
 
 
