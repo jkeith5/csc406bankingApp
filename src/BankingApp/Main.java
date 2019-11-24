@@ -16,6 +16,34 @@ import java.util.Random;
 
 public class Main extends Application {
 
+    /*
+    * My notes go here
+    * Need to finish the loan accounts
+    * set validation on manage loan accounts Must select loan account before other fields take data
+    *
+    * in loan class find and set the payment due
+    * add methods to credit and debit any loan type
+    * methods to refresh the payment dates
+    * figure interest for CCL
+    *
+    * SAVINGS ACCOUNTS cd and simple
+    * find and set interest for the savings accounts
+    * methods to credit debit savings CD
+    * add fee for early withdrawal
+    * add methods to do the roll over
+    *
+    * validate the manage financial accounts window disable buttons for account types that are not there
+    *
+    *
+    *
+    *
+    * */
+
+
+
+
+
+
     //private static String customerDataDir = "src/Resources/customerData";
     //private static File customerFile = new File(customerDataDir);
     //private static DataEntryDriver customerData = new DataEntryDriver(customerFile);
@@ -181,6 +209,7 @@ public class Main extends Application {
                 }else{// the file read in correctly and we can continue.
                     out.println(getDateTimeString()+"Database Already Existed. Read into list.");
                 }
+
 
 
 

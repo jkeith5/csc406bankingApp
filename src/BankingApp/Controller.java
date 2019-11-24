@@ -14,10 +14,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 
@@ -228,6 +231,8 @@ public class Controller implements Initializable{
     @FXML Button manageFinancialAccountsDeleteAccountButton;
 
 
+    @FXML
+    ImageView help;
 
     @FXML Button testButton;
 
@@ -248,6 +253,14 @@ public class Controller implements Initializable{
         String locationString = DataEntryDriver.getLocationFileName(location);
         activeFXMLFileName = locationString;
         System.out.println(locationString);
+
+        Image helpLogo = null;
+        if(DataEntryDriver.runningFromIDE()){
+            helpLogo = new Image("file:src/Resources/help.png");
+            System.out.println(helpLogo.getHeight());
+        }else{
+            helpLogo = new Image("file:"+System.getProperty("user.dir")+"/Resources/help.png");
+        }
 
         // Okay so note to self. Each time an interface is created from one of the
         // many buttons in this program, The
@@ -551,31 +564,36 @@ public class Controller implements Initializable{
             dispDataUpper();
             displayDataManageFinancialAccounts();
         }
+
         if(locationString.equals("ManageLoanAcct.fxml")){
             dispDataUpper();
             CustomerAccount ca = Main.customerAccount;
             manageLoanAccSaveB.setDisable(true);
             loanTermYears.setVisible(false);
             loanTermLabel.setVisible(false);
+            help.setImage(helpLogo);
+
+
+
 
             if(ca.hasLoanAccount()){
                 ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
-                manageLoanAccountsList.getItems().clear();
+                manageLoanAccountsList.getItems().clear(); // clear all items
                 ArrayList<String> loanAccountsFixedID = new ArrayList<>();
 
-                for(LoanAccount loanAccount:loanAccounts){
+                for(LoanAccount loanAccount:loanAccounts){ // get and add the FixedID to the array
                     loanAccountsFixedID.add(loanAccount.getLoanAccountIDFixed());
                 }
 
-                ArrayList<String> loanAccountTypes = new ArrayList<>();
+                ArrayList<String> loanAccountTypes = new ArrayList<>(); // make array for the type combo box
 
                 loanAccountTypes.add("Long Term Loan");
                 loanAccountTypes.add("Short Term Loan");
                 loanAccountTypes.add("Credit Card Loan"); // can only have one
                 loanAccountTypeComboBox.getItems().clear();
-                loanAccountTypeComboBox.getItems().addAll(loanAccountTypes);
+                loanAccountTypeComboBox.getItems().addAll(loanAccountTypes); // add items to the type box
 
-                manageLoanAccountsList.getItems().addAll(loanAccountsFixedID);
+                manageLoanAccountsList.getItems().addAll(loanAccountsFixedID); // add items to the loan accounts box
 
                 manageLoanAccountsList.valueProperty().addListener(new ChangeListener<String>() {
                     @Override public void changed(ObservableValue ov, String t, String t1) {
@@ -597,6 +615,10 @@ public class Controller implements Initializable{
 
             }
 
+            Tooltip tooltip = new Tooltip();
+            tooltip.setText("Test");
+
+            manageLoanAccountsList.setTooltip(tooltip);
 
         }
         if(locationString.equals("ManageSavingsAcct.fxml")){
@@ -664,8 +686,6 @@ public class Controller implements Initializable{
     }
 
 
-
-    // asdfkla
 
     // KEY EVENTS BLOCK
     @FXML
@@ -846,15 +866,14 @@ public class Controller implements Initializable{
 
 
 
-        int loanTerm = selectedLoanAccount.getLoanTerm();
-        startingBalance.setText(DataEntryDriver.getStringFromDouble(balance));
-        loanInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
-
+        double monthlyPayment = selectedLoanAccount.getAmountDue();
+        startingBalance.setText(DataEntryDriver.getFormattedStringFromDouble(balance));
+        loanInterestRate.setText(DataEntryDriver.getFormattedStringFromDouble(monthlyPayment));
 
         if(loanAccountType.equals("LTL") || loanAccountType.equals("STL")){
             loanTermLabel.setVisible(true);
             loanTermYears.setVisible(true);
-            loanTermYears.setText(DataEntryDriver.getStringFromInt(loanTerm));
+            loanTermYears.setText(DataEntryDriver.getStringFromDouble(monthlyPayment));
         }else{
             loanTermYears.setVisible(false);
             loanTermLabel.setVisible(false);
@@ -990,6 +1009,7 @@ public class Controller implements Initializable{
         if(Main.loggedInEmployee.getType().equalsIgnoreCase("T")){
             FinanceDriver.completeTransaction(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,manageExistingTellerCheckingAccount,
                     manageExistingTellerSavingsAccount,manageDispDataErrLabel);
+            manageExistingTellerFundsTransferAmount.setText("");
             tellerManageDispData();
             transferFundsKeyEvent();
         }
@@ -2714,6 +2734,21 @@ public class Controller implements Initializable{
 
 
 
+    @FXML
+    public void loadHelpWindowAccountIDSystem(){ // loads a simple help window
+        Parent help = null;
+        try {
+            help = FXMLLoader.load(getClass().getResource("Help.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Help");
+            stage.setScene(new Scene(help,382,420));
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
@@ -2803,18 +2838,6 @@ public class Controller implements Initializable{
         System.out.println(ca2.toString());
         System.out.println(ca3.toString());
         System.out.println(ca4.toString());
-
-
-//        for(CustomerAccount ca:Main.customerAccounts){
-//            if(ca.hasSavingsAccount()){
-//                System.out.println(ca.getBasicDataShort());
-//                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
-//                for(SavingsAccount sa:savingsAccounts){
-//                    System.out.println(sa.toString());
-//                }
-//
-//            }
-//        }
 
 
 

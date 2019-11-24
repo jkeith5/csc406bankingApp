@@ -20,6 +20,8 @@ public class LoanAccount implements Serializable {
     public int loanTerm; // -1 if not applicable
     public String dateOpened;
 
+    public double totalLoanAmountPlusInterest; // this amount will not apply to CCL but will still exist
+
 
     // Notes:
     // LTL = Long Term Mortgage Loan 15/30 year loan. Fixed interest Rate. Fixed Payment Plan (30 days).
@@ -66,6 +68,7 @@ public class LoanAccount implements Serializable {
         setLoanAccountID(loanAccountId);
         setLoanTerm(loanTerm);
         setDateOpened(dateOpened);
+        setTotalLoanAmountPlusInterest();
     }
 
 
@@ -81,6 +84,7 @@ public class LoanAccount implements Serializable {
         setHasMissedPayment(false);
         setLastPaymentDate(DataEntryDriver.getDateString());
         setPaymentNoticeDate(DataEntryDriver.getDateString());
+        setTotalLoanAmountPlusInterest();
 
         if(loanAccountType.equals("CCL")){
             setLoanTerm(-1);
@@ -90,9 +94,32 @@ public class LoanAccount implements Serializable {
         setDateOpened(DataEntryDriver.getDateString()); // set to current date
 
         // need to make methods to set the first due date and amount due based on interest
+        // methods to debit and credit loan accounts
+
+        calculateInitialPaymentPlan();
+
 
         setPaymentDueDate("12/12/2019");
         setAmountDue(1.00);
+    }
+
+    public void calculateInitialPaymentPlan(){
+        setTotalLoanAmountPlusInterest();
+        int termMonths = getLoanTerm()*12;
+        double paymentPlanAmt = totalLoanAmountPlusInterest/termMonths;
+        setAmountDue(paymentPlanAmt);
+
+    }
+
+    public void setPaymentDueDate(){
+        // CCL due on the 10th
+        // all others on the 27th
+
+        // find this month and if past due date then increment month bit by 1
+    }
+
+    public void setTotalLoanAmountPlusInterest(){
+        this.totalLoanAmountPlusInterest=initialLoanAmt+(initialLoanAmt*interestRate);
     }
 
     public String getLoanAccountType() {
@@ -339,6 +366,11 @@ public class LoanAccount implements Serializable {
         calcNullValue();
         return this.isNull;
     }
+
+
+
+
+
 
 
     public String getType(){

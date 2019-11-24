@@ -692,6 +692,10 @@ public class DataEntryDriver {
         }
     }
 
+    public static String getFormattedStringFromDouble(double input){
+        String result = String.format("%.2f",input);
+        return result;
+    }
 
 
 

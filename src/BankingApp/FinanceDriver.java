@@ -38,7 +38,6 @@ public class FinanceDriver {
         }
 
         if(transferAmtDouble <0.001 && transferAmtDouble>-0.001){
-            System.out.println("less than zero or it is zero");
             returnVal=false;
             errLabel.setText("Please Enter an Amount.");
             return returnVal;
@@ -55,47 +54,45 @@ public class FinanceDriver {
                 double newBal = checkingBalance-transferAmtDouble;
                 double newSavingBal = simpleSavingsBalance + transferAmtDouble;
 
-                if(transferAmtDouble>checkingBalance){
+                if(transferAmtDouble>checkingBalance){ // not enough money to make transfer
                     returnVal = false;
                     errLabel.setText("There is not enough money in Checking Account to Complete Transaction! new balance: "+newBal);
                 }else{
-                    if(!ca.getCheckingAccount().isGoldAccount()){ // run on the That's my Bank account .75 transfer fee .50 transaction fee
-                        newBal = newBal-0.75;
-                        errLabel.setText("transfer "+ transferAmtDouble +" from checking to savings with .75 fee \nNew Checking balance: "+newBal
-                                +"\nNew Savings Balance: "+newSavingBal);
-                    }else{ // this is a gold diamond account and minimum balance must be met to avoid fee min bal is 1,000 if not I'll apply .75 fee
 
-                        if(isFeeApplicable(ca)){ // set label for new balance with fee
-                            newBal = newBal-0.75; // apply fee because min balance not met
-                            errLabel.setText("transfer "+ transferAmtDouble +" from checking to savings with .75 fee.\nNew Checking balance: "+newBal+
-                                    "\nNew Savings Balance: "+newSavingBal);
-                        }else{ // set label without fee
-                            errLabel.setText("transfer "+ transferAmtDouble +" from checking to savings\nNew Checking balance: "+newBal+
-                                    "\nNew Savings Balance: "+newSavingBal);
-                        }
+                    if(isFeeApplicable(ca)){ // Account type that gets the 0.75 transfer fee.
+                        newBal = newBal -0.75;
+                        String output = String.format("Transfer $%.2f from Checking to Savings with a $0.75 Transfer Fee.\n" +
+                                "New Checking Balance: $%.2f\nNew Savings Balance: $%.2f",transferAmtDouble,newBal,newSavingBal);
+                        errLabel.setText(output);
+                    }else{ // this is a gold account above min balance so no fee
+                        String output = String.format("Transfer $%.2f from Checking to Savings.\n" +
+                                "New Checking Balance: $%.2f\nNew Savings Balance: $%.2f",transferAmtDouble,newBal,newSavingBal);
+                        errLabel.setText(output);
                     }
                 }
-
             }else{ // transfer from savings  to checking
                 double newBal = simpleSavingsBalance-transferAmtDouble; // new savings bal
                 double newCheckingBal = checkingBalance+transferAmtDouble; // new checking bal
-                if(transferAmtDouble>simpleSavingsBalance){
+                if(transferAmtDouble>simpleSavingsBalance){ // not enough to make the transfer
                     returnVal=false;
-                    errLabel.setText("There is not enough money in Savings account to Complete Transaction! new balance: "+newBal);
+                    String output = String.format("There is not enough money in Savings Account to complete " +
+                            "transaction! new balance: $%.2f",newBal);
+                    errLabel.setText(output);
                 }else{ // so what apply the .50 fee for transactions to checking account if not gold diamond and if gold diamond min bal not met?
                     if(isFeeApplicable(ca)){// if account is type with fee
                         newCheckingBal = newCheckingBal -0.75;
-                        errLabel.setText("Transfer "+transferAmtDouble+" from Savings to Checking with 0.75 fee on Checking. " +
-                                "\nNew Savings Balance: "+newBal+"\nNew Checking Balance: "+newCheckingBal);
+                        String output = String.format("Transfer $%.2f from Savings to Checking with a $0.75 Transfer Fee.\n" +
+                                "New Checking Balance: $%.2f\nNew Savings Balance: $%.2f",transferAmtDouble,newCheckingBal,newBal);
+                        errLabel.setText(output);
                     }else{
-                        errLabel.setText("transfer "+transferAmtDouble +" from Savings to checking.\nNew Savings balance: "+newBal+
-                                "\nNew Checking Balance: "+newCheckingBal);
+                        String output = String.format("Transfer $%.2f from Savings to Checking.\n" +
+                                "New Checking Balance: $%.2f\nNew Savings Balance: $%.2f",transferAmtDouble,newCheckingBal,newBal);
+                        errLabel.setText(output);
                     }
                 }
             }
-
         }else{//Transfer funds is not selected.
-            if(checkingAccRadio.isSelected()){
+            if(checkingAccRadio.isSelected()){ // credit debit to checking account
                 double checkingBalance = ca.getCheckingAccount().getAccountBalance();
                 double newBal = checkingBalance+transferAmtDouble;
                 double savingsBalance = 0.0;
@@ -108,36 +105,53 @@ public class FinanceDriver {
                         if(backupSavingEnabled){ // means there is a savings account and its enabled
                             if(savingsBalance+newBal>0.00){ // if amt overdrawn on checking by
                                 // transaction is more than what is in backup saving account then take it from savings
-
                                 if(isFeeApplicable(ca)){// if fee account
-                                    errLabel.setText("Backup Savings Warning. Take $"+newBal+ " from Savings. Plus .50 Transaction Fee\nNew Savings balance: "
-                                            +(ca.getSimpleSavingsAccount().getAccountBalance()+newBal-0.50)+" checking Balance $0.00");
+                                    // so if checking has 10 and we take 20 then newbal is -10 so you can add that
+                                    // to the savings balance and then get the new savings balance then add fee if needed.
+                                    double newSavingsBal = ca.getSimpleSavingsAccount().getAccountBalance()+newBal-0.50;
+                                    String output = String.format("Backup Savings Warning!\nTake $%.2f from Savings." +
+                                            " Plus $0.50 Transaction Fee.\nNew Checking Balance: $0.00\nNew Savings Balance: $%.2f",
+                                            newBal, newSavingsBal);
+                                    errLabel.setText(output);
                                 }else{
-                                    errLabel.setText("Backup Savings Warning. Take $"+newBal+ " from Savings. \nNew Savings balance: "
-                                            +(ca.getSimpleSavingsAccount().getAccountBalance()+newBal-0.50)+"\nchecking Balance $0.00");
+                                    double newSavingsBal = ca.getSimpleSavingsAccount().getAccountBalance()+newBal;
+                                    String output = String.format("Backup Savings Warning!\nTake $%.2f from Savings." +
+                                                    "\nNew Checking Balance: $0.00\nNew Savings Balance: $%.2f",newBal,
+                                            newSavingsBal);
+                                    errLabel.setText(output);
                                 }
                             }else{ // if backup saving enabled but still not enough money in either account give SOL message
                                 returnVal = false;
-                                errLabel.setText("This Transaction would overdraw the account by: "+newBal);
+                                String output = String.format("This transaction would overdraw the account by: $%.2f",newBal);
+                                errLabel.setText(output);
                             }
                         }else{ // else no backup savings enabled
                             returnVal =false;
-                            errLabel.setText("This transaction would overdraw the account by: "+newBal+" and there is no Backup Savings Enabled.");
+                            String output = String.format("This transaction would overdraw the account by: $%.2f and there" +
+                                    "is no Backup Savings Enable.",newBal);
+                            errLabel.setText(output);
                         }
 
                     }else{// if new balance is over 0 then it's good
                         if(isFeeApplicable(ca)){
-                            errLabel.setText("Debit "+transferAmtDouble+" from Checking Account plus 0.50 Fee with new Balance of: "+(newBal-0.50));
+                            String output = String.format("Debit $%.2f from Checking Account Plus $0.50 Transactoin Fee.\n" +
+                                    "New Checking Balance: $%.2f",transferAmtDouble,(newBal-0.50));
+                            errLabel.setText(output);
                         }else{
-                            errLabel.setText("Debit "+transferAmtDouble+" from Checking Account with new Balance of: "+newBal);
+                            String output = String.format("Debit $%.2f from Checking Account.\n" +
+                                    "New Checking Balance: $%.2f",transferAmtDouble,(newBal-0.50));
+                            errLabel.setText(output);
                         }
-
                     }
                 }else{ // we are making a credit everything is cool here no problem.
-                    if(isFeeApplicable(ca)){
-                        errLabel.setText("Credit "+transferAmtDouble+" to Checking Account Plus 0.50 Fee new balance: "+(newBal-0.75));
+                    if(isFeeApplicable(ca)){ // transaction fee of 0.50
+                        String output = String.format("Credit $%.2f to Checking Account Plus $0.50 Transaction Fee.\n" +
+                                "New Checking Balance: $%.2f",transferAmtDouble,(newBal-0.50));
+                        errLabel.setText(output);
                     }else{
-                        errLabel.setText("Credit "+transferAmtDouble+" to Checking Account new balance: "+newBal);
+                        String output = String.format("Credit $%.2f to Checking Account.\n" +
+                                "New Checking Balance: $%.2f",transferAmtDouble,(newBal-0.50));
+                        errLabel.setText(output);
                     }
                 }
             }
@@ -150,14 +164,17 @@ public class FinanceDriver {
                         returnVal = false;
                         errLabel.setText("There is not enough money in Savings Account to complete transaction");
                     }else{// savings account has no transaction fee.
-                        errLabel.setText("Debit "+transferAmtDouble+" from Savings Account with new Savings Balance of: "+newBal);
+                        String output = String.format("Debit $%.2f from Simple Savings Account.\n" +
+                                "New Savings Balance: $%.2f",transferAmtDouble,newBal);
+                        errLabel.setText(output);
                     }
                 }else{ // making a credit to savings so all good and no fee
-                    errLabel.setText("Credit "+transferAmtDouble+" to Savings Account new balance: "+newBal);
+                    String output = String.format("Credit $%.2f to Simple Savings Account.\n" +
+                            "New Savings Balance: $%.2f",transferAmtDouble,newBal);
+                    errLabel.setText(output);
                 }
             }
         }
-        System.out.println("Return value is: "+returnVal);
         return returnVal;
     }
 
@@ -184,7 +201,7 @@ public class FinanceDriver {
             System.out.println("newBal = " + newBal);
         }else{ // there is a check number that isn't null so we are making a deposit
             // create check object and make the transaction
-            Check depositCheck = new Check(checkNumber,ca.getCheckingAccount().getCheckingAcctID(),DataEntryDriver.getDateString(),transactionAmountDouble,true);
+            Check depositCheck = new Check(checkNumber,ca.getCheckingAccount().getCheckingAcctID(),DataEntryDriver.getDateString(),transactionAmountDouble,false);
 
             //System.out.println(depositCheck.toString());
             // make the transaction remember to add fee later and check if gold account and not. I might make a method that does this
@@ -529,14 +546,13 @@ public class FinanceDriver {
         }
 
 
-        if(!isGold || minBalNotMet){
+        if(!isGold || minBalNotMet){ // if its not gold account or gold account under min balance
             returnVal = true;
         }
 
 
         return returnVal;
     }
-
 
 
 
