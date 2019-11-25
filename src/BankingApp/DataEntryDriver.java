@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 
 import java.io.*;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -42,25 +44,28 @@ public class DataEntryDriver {
     }
 
 
-    // this method will create and return an ArrayList of CustomerAccount objects from the csv files located
-    // in the Resources Directory and then save it as a file in the Resources folder
-    public static void createCustomerAccountsArray(){
+    // this method will create an ArrayList of CustomerAccount objects from the csv files located
+    // in the Resources Directory and then write it as a file in the Resources folder to the
+    // customerDatabase file. This does not set anything in Main it just reads the CSV files and then
+    // creates CustomerAccount Objects and then writes those to a file using the Serializable interface
+    public static void createCustomerDatabaseFileFromCSVBaseData(){
         ArrayList<CustomerAccount> result = new ArrayList<CustomerAccount>();
 
+        // call each read method for the base csv file data and create arraylist from them.
         ArrayList<CustomerAccount> customerAccountsRead = readCustomerAccountsCSV();
         ArrayList<CheckingAccount> checkingAccountsRead = readCheckingAccountsToArrList();
         ArrayList<SavingsAccount> savingsAccountsRead = readSavingsAccountsToArrList();
         ArrayList<LoanAccount> loanAccountsRead = readLoanAccountsToArrList();
         ArrayList<Check> checkObjectsRead = readChecksToArrList();
 
-
-        for(CustomerAccount customerAccount: customerAccountsRead){
+        // Then loop through each arraylist to create CustomerAccount Objects to add to the ArrayList
+        for(CustomerAccount customerAccount: customerAccountsRead){ // loop through each Customer account Object to add the accounts
             CustomerAccount ca = customerAccount;
             String customerAccountSSN = customerAccount.getCustID();
 
             for(CheckingAccount checkingAccount:checkingAccountsRead){
-                if(checkingAccount.getCustID().equals(customerAccountSSN)){
-                    ca.addCheckingAccount(checkingAccount);
+                if(checkingAccount.getCustID().equals(customerAccountSSN)){ // if the checking account custID is the same
+                    ca.addCheckingAccount(checkingAccount); // tie them together by adding that account to customer object
                 }
             }
 
@@ -75,22 +80,16 @@ public class DataEntryDriver {
                     ca.addLoanAccountObject(loanAccount);
                 }
             }
-
-            result.add(ca);
-
+            result.add(ca); // then add that entire fixed object to the result arraylist
         }
-
 
         // because the checks are not setup with a SSN we have to wait until this loop is finished to run over the
         // Array AGAIN to add the checks.
-
-
         for(CustomerAccount ca:result){
-            if(ca.hasCheckingAccount()){// don't process ca in loop if it has no checking account
-                double checkingBalance = ca.getCheckingAccount().getAccountBalance();
-                for(Check check:checkObjectsRead){
+            if(ca.hasCheckingAccount()){ // don't process ca in loop if it has no checking account
+                for(Check check:checkObjectsRead){ // loop through the checks that were read in
                     if(ca.getCheckingAccount().getCheckingAcctIDInt() == check.getCheckingAcctID()){
-                        if(check.isCheckProcessed()){// if the check is processed add check and make transaction
+                        if(check.isCheckProcessed()){ // if the check is processed add check and make transaction
                             ca.addCheckObj(check);// add check object
                             FinanceDriver.debitCheckingAccountWithCheckObject(ca,check);// make transaction and record
                         }else{// the check is not processed so just add it to the customerAccount
@@ -101,9 +100,6 @@ public class DataEntryDriver {
                 }
             }
         }
-
-
-
         // this writes the accounts to the Resources customerDatabase file
         serializeArrayListToFile(result);
     }
@@ -112,16 +108,16 @@ public class DataEntryDriver {
         ArrayList<CustomerAccount> result = new ArrayList<>();
 
         File customerBase = new File("src/Resources/CustomersBase.csv");
-        System.out.println("Reading in CustomerBase.csv");
+        //System.out.println("Reading in CustomerBase.csv");
+        Main.printToConsoleAndLog("Reading in CustomersBase.csv");
         try {
             BufferedReader br = new BufferedReader(new FileReader(customerBase));
             String line;
-
             br.readLine();
             CustomerAccount caTemp;
             while((line = br.readLine()) != null){
                 String[] lineSplit = line.split(",");
-                System.out.println(Arrays.toString(lineSplit));
+                //System.out.println(Arrays.toString(lineSplit));
                 CustomerAccount ca = new CustomerAccount(lineSplit[0],lineSplit[1],lineSplit[2],lineSplit[3],lineSplit[4],
                         lineSplit[5],lineSplit[6],lineSplit[7]);
 
@@ -130,9 +126,6 @@ public class DataEntryDriver {
                 result.add(ca);
 
             }
-            for(CustomerAccount caz:result){ // base data at this point
-                System.out.println(caz.toString());
-            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -143,42 +136,38 @@ public class DataEntryDriver {
         return result;
     }
 
+    // reads the CheckingAccounts CSV file and returns arraylist of CheckingAccount Objects
     public static ArrayList<CheckingAccount> readCheckingAccountsToArrList(){ // reads CheckingAccounts.csv
         ArrayList<CheckingAccount> result = new ArrayList<>();
         File checkingAccountsFile = new File("src/Resources/CheckingAccounts.csv");
-        System.out.println("Reading in CheckingAccounts.csv");
-
+        Main.printToConsoleAndLog("Reading in CheckingAccounts.csv"); // log to console and log file
         try {
             BufferedReader br = new BufferedReader(new FileReader(checkingAccountsFile));
             String line;
             br.readLine();
-
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
-                System.out.println("readchecktest: "+Arrays.toString(split));
+                //System.out.println("readchecktest: "+Arrays.toString(split));
                 String checkingAccIdString = split[1];
-                System.out.println("Checking ID Split: "+checkingAccIdString);
-                boolean isNull = false;
-
+                //System.out.println("Checking ID Split: "+checkingAccIdString);
+                boolean isNull = false; // tracks if the checking account id is null
                 if(checkingAccIdString.equals("null")){
                     isNull=true;
                 }
-                System.out.println("isnull: "+isNull);
-                if(!isNull){
-                    // if not null
+
+                if(!isNull){ // if checking id is not null
                     CheckingAccount ca = new CheckingAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
-                    try {
+                    try { // create and add object to arraylist
                         result.add(ca);
                     } catch (NullPointerException e){
-                        System.out.println("Null pointer for: "+ca.toString());
+                        //System.out.println("Null pointer for: "+ca.toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else{
-                    System.out.println("Check data for null accounts. Checking Account with null value are discarded!!");
+                }else{ // else the checking id in split array was null
+                    Main.printToConsoleAndLog("Checking Account for CustomerID: "+split[0]+" was null. Checking Accounts " +
+                            "with null values are discarded!");
                 }
-
-
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -188,23 +177,27 @@ public class DataEntryDriver {
         return result;
     }
 
+    // reads the SavingsAccounts.csv file and returns ArrayList of SavingsAccount objects
     public static ArrayList<SavingsAccount> readSavingsAccountsToArrList(){ // Reads the SavingsAccounts.csv
         ArrayList<SavingsAccount> result = new ArrayList<>();
-
         File savingsAccountFile = new File("src/Resources/SavingsAccounts.csv");
-        System.out.println("Reading in SavingsAccounts.csv");
+        Main.printToConsoleAndLog("Reading in SavingsAccounts.csv");
         try {
             BufferedReader br = new BufferedReader(new FileReader(savingsAccountFile));
             String line;
             br.readLine();
-
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
-                System.out.println(Arrays.toString(split));
-
-                SavingsAccount sa = new SavingsAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
-                result.add(sa);
-                //System.out.println("Testing: print double interest rate: "+sa.getInterestRate());
+                boolean isNull = false; // tracks if the savings account is null
+                if(split[0].equals("null") || split[1].equals("null") ){ // if cust id or savings id is null
+                    isNull=true;
+                }
+                if(!isNull){ // if the cust id or savings id was not null
+                    SavingsAccount sa = new SavingsAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6]);
+                    result.add(sa);
+                }else{ // else the savings id or cust id was null
+                    Main.printToConsoleAndLog("Savings Account Entry Was Null! Line was discarded. Please Check Data.");
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -214,24 +207,29 @@ public class DataEntryDriver {
         return result;
     }
 
-
+    // reads in the LoanAccounts.csv file and returns ArrayList of LoanAccount Objects.
     public static ArrayList<LoanAccount> readLoanAccountsToArrList(){ // Reads the LoanAccounts.csv
         ArrayList<LoanAccount> result = new ArrayList<>();
-
         File loanAccountFile = new File("src/Resources/LoanAccounts.csv");
-        //System.out.println("Reading in LoanAccounts.csv");
         Main.printToConsoleAndLog("Reading in LoanAccounts.csv");
         try {
             BufferedReader br = new BufferedReader(new FileReader(loanAccountFile));
             String line;
             br.readLine();
-
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
-                System.out.println(Arrays.toString(split));
-                LoanAccount la = new LoanAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6],split[7],split[8],split[9],split[10],split[11],split[12]);
-                result.add(la);
-
+                boolean isNull = false; // tracks if the loan account is null
+                // split 0 ssn should be 11 length. ID is [10]
+                if(split[0].length() != 11 || split[10].equals("null") ){ // if cust id is not formatted as 000-00-0000 or savings id is null
+                    isNull=true;
+                }
+                if(!isNull){ // if it was not null
+                    LoanAccount la = new LoanAccount(split[0],split[1],split[2],split[3],split[4],split[5],split[6],split[7],split[8],split[9],split[10],split[11],split[12]);
+                    result.add(la);
+                }else{ // it was null
+                    Main.printToConsoleAndLog("Loan Account CustomerID value was null or not formatted or Loan ID was null!" +
+                            "Item was Discarded! Please Check Data.");
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -241,12 +239,11 @@ public class DataEntryDriver {
         return result;
     }
 
-
+    // reads the Checks.csv file to an ArrayList of Check objects
     public static ArrayList<Check> readChecksToArrList(){ // Reads the Checks.csv
         ArrayList<Check> result = new ArrayList<>();
-
         File checkFile = new File("src/Resources/Checks.csv");
-        System.out.println("Reading in Checks.csv");
+        Main.printToConsoleAndLog("Reading in Checks.csv");
         try {
             BufferedReader br = new BufferedReader(new FileReader(checkFile));
             String line;
@@ -254,9 +251,17 @@ public class DataEntryDriver {
 
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
-                System.out.println("Split array: "+Arrays.toString(split));
-                Check check = new Check(split[0],split[1],split[2],split[3],split[4]);
-                result.add(check);
+
+                boolean isNull = false; // tracks if the Check object is null
+                if(split[0].equals("null") || split[1].equals("null") ){ // if check number or account id is null
+                    isNull=true;
+                }
+                if(!isNull){ // if not null
+                    Check check = new Check(split[0],split[1],split[2],split[3],split[4]);
+                    result.add(check);
+                }else{
+                    Main.printToConsoleAndLog("Check Object had null values! Item Discarded: "+split[0]+" "+split[1]+" "+split[2]);
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -266,49 +271,51 @@ public class DataEntryDriver {
         return result;
     }
 
-
-
-
+    // takes the ArrayList of CustomerAccount Objects and Using Object Output Stream, Writes it to a file
+    // called customerDatabase located under Resources.
     public static boolean serializeArrayListToFile(ArrayList<CustomerAccount> customerAccounts){
         try{
+            // create the ObjectOutputStream
+            // write each object in the ArrayList to the file rather than writing the actual ArrayList Object
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/Resources/customerDatabase"));
-
-            for(CustomerAccount ca:customerAccounts){
-                objectOutputStream.writeObject(ca);
+            for(CustomerAccount ca:customerAccounts){ // loop through the CustomerAccount Array
+                objectOutputStream.writeObject(ca); // Write each CustomerAccount to the File
             }
-            objectOutputStream.close();
-            Main.out.println(Main.getDateTimeString()+"ArrayList was written to File.");
-            return true;
-        } catch (IOException e){
-            e.printStackTrace();
-            Main.out.println(Main.getDateTimeString()+"Error in serializeArrayListToFile File was not written.");
-            return false;
+            objectOutputStream.close(); // Close the Stream
+            Main.out.println(Main.getDateTimeString()+"ArrayList was written to File."); // Log the action
+            return true; // return true for success in writing file
+        } catch (IOException e){ // something bad happened
+            e.printStackTrace(); // print error
+            Main.out.println(Main.getDateTimeString()+"Error in serializeArrayListToFile File was not written."); // log error
+            return false; // return false
         }
-
     }
 
+    // reads the customerDatabase file and Returns and Arraylist of CustomerAccounts using
+    // the Object Input Stream.
     public static ArrayList<CustomerAccount> readFileToCustomerAccountsArrayList() {
+        Main.printToConsoleAndLog("Start of Read customerDatabase to ArrayList");
         ArrayList<CustomerAccount> result = new ArrayList<CustomerAccount>();
-
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/Resources/customerDatabase"))) {
-            while (true) {
+            while(true){ // always loop
                 Object read = objectInputStream.readObject();
-                if(read == null){
-                    break;
+                if(read == null){ // but if read is null
+                    break; // then break loop
                 }
                 CustomerAccount customerAccountRead = (CustomerAccount) read;
                 result.add(customerAccountRead);
             }
-
-
-        } catch (EOFException e) {
-            System.out.println("");
+        } catch (EOFException e) { // or catch the End of File Exception
+            Main.printToConsoleAndLog("End of Read customerDatabase to ArrayList");
         } catch (ClassNotFoundException e) {
-            System.out.println(e.toString());
-        }catch (IOException e){
-            Main.out.println(Main.getDateTimeString()+"Error in readFile. File not read in to array.");
-            System.out.println(e.toString());
+            Main.printToConsoleAndLog("Error in readFileToCustomerAccountsArrayList Error: "+e.toString());
+        } catch(ObjectStreamException e){
+            Main.printToConsoleAndLog("Customer Database File Was Corrupted!");
+        } catch (IOException e){
+            Main.printToConsoleAndLog("Error in ReadFile. Error: "+e.toString());
         }
+
+
         return result;
     }
 
@@ -544,7 +551,7 @@ public class DataEntryDriver {
         for(CustomerAccount ca : Main.customerAccounts){
             String custIdStripped = stripSSN(ca.getCustID());
             if(custIdStripped.equals(ssnStripped)){
-                System.out.println("ssn is in the database");
+                //System.out.println("ssn is in the database");
                 returnVal = true;
             }
         }
@@ -578,7 +585,6 @@ public class DataEntryDriver {
     }
 
     public static void validateBalanceAmountField(TextField textField,boolean allowNegative) { // true to allow negative numbers
-        System.out.println("\nvalidate initial balance field no negative");
 
         if(allowNegative){ // if we want negative balance for some reason. like -5428.35
             textField.textProperty().addListener(new ChangeListener<String>() {
@@ -603,43 +609,43 @@ public class DataEntryDriver {
 
     // if interest rate type is false then its a cd type . if interest wholePercent true then 50 = .50. if false then input is in decimal 0.50
     public static void validateInputField(TextField textField,boolean interestRateType,boolean interestWholePercent) {
-        System.out.println("\nvalidate input field.");
-        System.out.println("interestRateType: "+interestRateType);
-        System.out.println("interestWholePercent: "+interestWholePercent);
+        //System.out.println("\nvalidate input field.");
+        //System.out.println("interestRateType: "+interestRateType);
+        //System.out.println("interestWholePercent: "+interestWholePercent);
 
         if(interestRateType){ // if true then we are validating an interest rate field
-            System.out.println("interest rate type");
+            //System.out.println("interest rate type");
             if(interestWholePercent){ // validate for whole percent like 85.568 = 0.85568
-                System.out.println("interest rate WP");
+                //System.out.println("interest rate WP");
                 textField.textProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                         if (!newValue.matches("([123456789][0123456789]?([\\.]\\d{0,3})?)?")) {
-                            System.out.println("interest WP old: "+oldValue+" new: "+newValue);
-                            System.out.println("setting value to: "+oldValue);
+                            //System.out.println("interest WP old: "+oldValue+" new: "+newValue);
+                            //System.out.println("setting value to: "+oldValue);
                             textField.setText(oldValue);
                         }
                     }
                 });
             }else{ // validate for decimal form like 0.85568
-                System.out.println("interest rate DP");
+                //System.out.println("interest rate DP");
                 textField.textProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                         if (!newValue.matches("([0]?([\\.]\\d{0,5})?)?")) {
-                            System.out.println("interest DP old: "+oldValue+" new: "+newValue);
+                            //System.out.println("interest DP old: "+oldValue+" new: "+newValue);
                             textField.setText(oldValue);
                         }
                     }
                 });
             }
         }else{ // false we are validating a cd term in whole number form.
-            System.out.println("Not of interest type so its a CD term in years");
+            //System.out.println("Not of interest type so its a CD term in years");
             textField.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     if (!newValue.matches("([123456789][\\d]?)?")) {
-                        System.out.println("CD WDN old: "+oldValue+" new: "+newValue);
+                        //System.out.println("CD WDN old: "+oldValue+" new: "+newValue);
                         textField.setText(oldValue);
                     }
                 }
@@ -741,7 +747,7 @@ public class DataEntryDriver {
         Locale locale = new Locale("en", "US");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-        System.out.println(currencyFormatter.format(fixedBalance));
+        //System.out.println(currencyFormatter.format(fixedBalance));
 
         result = currencyFormatter.format(fixedBalance);
 
@@ -755,20 +761,20 @@ public class DataEntryDriver {
 
     public static String getDateString(){ // returns the current date in mm/dd/yyyy format
         String result = "";
-        System.out.println("getDateString");
+        //System.out.println("getDateString");
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // formatter for date output
 
         result = localDate.format(formatter);
 
-        System.out.println("get date no format: "+localDate);
-        System.out.println("get date formatted: "+result);
+        //System.out.println("get date no format: "+localDate);
+        //System.out.println("get date formatted: "+result);
 
         return result;
     }
 
     public static LocalDate getCurrentDateObject(){
-        System.out.println("getCurrentDateObject");
+        //System.out.println("getCurrentDateObject");
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // formatter for date output
         localDate.format(formatter);
@@ -822,12 +828,12 @@ public class DataEntryDriver {
     // 7/8/2008
     public static String fixDateString(String inputDateString){ // returns the current date in mm/dd/yyyy format from input string
         String result = "";
-        System.out.println("fix dateString");
+        //System.out.println("fix dateString");
 
         if(inputDateString.equals("null")){ // can either return null or put current date in.
             return "null";
         }
-        System.out.println("fixDateString input: "+inputDateString);
+        //System.out.println("fixDateString input: "+inputDateString);
 
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // formatter for date output
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("M/d/yyyy"); // input formatter
@@ -842,7 +848,7 @@ public class DataEntryDriver {
 
             result = outputResult;
 
-            System.out.println("formatted: "+result);
+            //System.out.println("formatted: "+result);
 
 
         } catch (DateTimeParseException e) {
@@ -852,15 +858,6 @@ public class DataEntryDriver {
 
         return result;
     }
-
-
-
-
-
-
-
-
-
 
 
 

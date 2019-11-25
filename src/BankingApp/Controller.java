@@ -245,7 +245,8 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("\ninitializing controller");
+        //System.out.println("\ninitializing controller");
+        Main.printToConsoleAndLog("Initializing Controller");
         System.out.println("\n\n");
 
         //DataEntryDriver.printCustomerDatabase();
@@ -257,7 +258,7 @@ public class Controller implements Initializable{
         Image helpLogo = null;
         if(DataEntryDriver.runningFromIDE()){
             helpLogo = new Image("file:src/Resources/help.png");
-            System.out.println(helpLogo.getHeight());
+            //System.out.println(helpLogo.getHeight());
         }else{
             helpLogo = new Image("file:"+System.getProperty("user.dir")+"/Resources/help.png");
         }
@@ -500,9 +501,6 @@ public class Controller implements Initializable{
 
             loanAccountTypeComboBox.valueProperty().addListener(new ChangeListener<String>() {
                 @Override public void changed(ObservableValue ov, String t, String t1) {
-                    System.out.println(ov);
-                    System.out.println(t);
-                    System.out.println(t1);
                     loanAccountTypeEvent();
                 }
             });
@@ -597,18 +595,12 @@ public class Controller implements Initializable{
 
                 manageLoanAccountsList.valueProperty().addListener(new ChangeListener<String>() {
                     @Override public void changed(ObservableValue ov, String t, String t1) {
-                        System.out.println(ov);
-                        System.out.println(t);
-                        System.out.println(t1);
                         manageLoanAccountTypeEvent();
                     }
                 });
 
                 loanAccountTypeComboBox.valueProperty().addListener(new ChangeListener<String>() {
                     @Override public void changed(ObservableValue ov, String t, String t1) {
-                        System.out.println(ov);
-                        System.out.println(t);
-                        System.out.println(t1);
                         loanAccountTypeEvent();
                     }
                 });
@@ -645,9 +637,6 @@ public class Controller implements Initializable{
 
                 manageSavingsAccountsList.valueProperty().addListener(new ChangeListener<String>() {
                     @Override public void changed(ObservableValue ov, String t, String t1) {
-                        System.out.println(ov);
-                        System.out.println(t);
-                        System.out.println(t1);
                         manageSavingsAccountTypeEvent();
                     }
                 });
@@ -700,7 +689,6 @@ public class Controller implements Initializable{
         String zipCode = zipCodeTextField.getText();
         //String state = stateTextField.getText();
         String state = stateComboBox.getValue();
-        System.out.println("State is "+state);
 
         CustomerAccount tempAccount = new CustomerAccount();
         tempAccount.setFirstName(fName);
@@ -761,17 +749,18 @@ public class Controller implements Initializable{
         DataEntryDriver.validateZipField(updateDataZip);
 
         ArrayList<String[]> itemsValid = getNewUserInfoValidArrayList();
-        for(String[] el:itemsValid){
-            System.out.println(Arrays.toString(el));
-        }
+
+//        for(String[] el:itemsValid){
+//            System.out.println(Arrays.toString(el));
+//        }
 
 
         if(addNewUserInfoValid(itemsValid)){
-            System.out.println("valid");
+            //System.out.println("valid");
             Main.defaultSceneButton.setDisable(false);
             //tellerUpdateDataSaveButton.setDisable(false);
         }else{
-            System.out.println("notvalid");
+            //System.out.println("notvalid");
             Main.defaultSceneButton.setDisable(true);
             //tellerUpdateDataSaveButton.setDisable(true);
         }
@@ -1399,7 +1388,7 @@ public class Controller implements Initializable{
     // Main Screen Buttons and Login Methods
     @FXML
     public void mainInterfaceTellerButton(){
-        System.out.println("hi");
+        //System.out.println("hi");
         Parent root = null;
         Parent login = null;
         //System.out.println("tellerLogIn value: "+tellerLogIn);
@@ -2522,7 +2511,7 @@ public class Controller implements Initializable{
         }
 
         for(int i=0;i<itemsArray.size();i++){
-            System.out.println(Arrays.toString(itemsArray.get(i)));
+            //System.out.println(Arrays.toString(itemsArray.get(i)));
 
             if(itemsArray.get(i)[2].equals("false")){// if any other field shows false
                 //addNewUserInterfaceEnterButton.setDisable(true);
@@ -2820,24 +2809,20 @@ public class Controller implements Initializable{
 
     @FXML
     public void mainScreenTestButton(){
-        //
         System.out.println("test");
-        Main.testRandomnes();
+        System.out.println("Printing all loan Accounts");
 
-        CustomerAccount testAccount = new CustomerAccount();
-        System.out.println("test acc: "+testAccount.toString());
+        for(CustomerAccount ca:Main.customerAccounts){
+            if(ca.hasLoanAccount()){
+                System.out.println("\n\n"+ca.toStringPrettyPrint());
+                System.out.println("Loan Accounts:");
+                ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
+                for(LoanAccount la:loanAccounts){
+                    System.out.println(la.toStringPrettyPrint());
+                }
 
-        System.out.println("\n\n");
-
-        CustomerAccount ca1 = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum("6559456476345444");
-        CustomerAccount ca2 = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum("6381074826840537");
-        CustomerAccount ca3 = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum("2669835839645524");
-        CustomerAccount ca4 = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum("8343891648427859");
-
-        System.out.println(ca1.toString());
-        System.out.println(ca2.toString());
-        System.out.println(ca3.toString());
-        System.out.println(ca4.toString());
+            }
+        }
 
 
 
@@ -2853,20 +2838,6 @@ public class Controller implements Initializable{
         String testFixed = DataEntryDriver.fixDateString("7/8/2008");
         String test2 = DataEntryDriver.fixDateString("07/08/2008");
         String test3 = DataEntryDriver.fixDateString("null");
-
-        System.out.println(Main.activeStage.getTitle());
-        System.out.println(Main.activeStage.toString());
-        System.out.println(Main.primaryStage.getClass().getName());
-        System.out.println(Main.primaryStage.getScene().toString());
-        System.out.println(Main.activeStage.getClass().getCanonicalName());
-        System.out.println(Main.activeStage.getClass().getTypeName());
-        //System.out.println(Main.activeStage.getClass().getClassLoader().getParent().toString());
-        System.out.println(Main.activeStage.getClass().getSimpleName());
-        System.out.println(Main.activeStage.getClass().toGenericString());
-        System.out.println(Main.activeStage.getScene().getProperties().toString());
-        System.out.println(Main.activeStage.getTitle());
-        System.out.println(Main.activeStage.getScene().getFocusOwner().getId());
-
 
         for(CustomerAccount ca: Main.customerAccounts){
             if(ca.hasCheckingAccount()){

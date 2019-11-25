@@ -84,121 +84,39 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
         System.out.println("end");
-        System.err.println("WARNING If program does not run. Go to Resources in the source directory and \n" +
-                "Delete THE 'customerDatabase' FILE  NOT The CustomerBase.csv. Run Program Again.");
-
-        for(CustomerAccount ca: customerAccounts){
-
-            if(ca.hasCheckingAccount()){
-                //System.out.println(ca.getBasicDataShort());
-                //System.out.println("Checking bal: "+ca.getCheckingAccount().getAccountBalance());
-                //System.out.println("is gold: "+ca.getCheckingAccount().isGoldAccount());
-                //System.out.println("checking bal: "+ca.getCheckingAccount().getAccountBalance()+" isGold: "+ca.getCheckingAccount().isGoldAccount());
-                //System.out.println(generateCustomerId());
-            }
-
-        }
-
-
-
-
-        // testing data start here
-
-        System.out.println("\n\n\n\nSTART DEBUG TEST DATA:");
-        for(CustomerAccount ca: customerAccounts){
-            //ca.printTransactions();
-            //ca.printChecks();
-        }
-
-        System.out.println("END DEBUG TEST DATA");
-
-
-
-
-
-
-
-
-
-
-        // testing data end here
-
 
 
         // here we will condense the arraylist of objects back into a text file
         boolean arrayWrittenToFile = DataEntryDriver.serializeArrayListToFile(customerAccounts);
-        //DataEntryDriver.serializeArrayListToFile(customerAccounts);
 
-        if(arrayWrittenToFile){
+        if(arrayWrittenToFile){ // if successful then hash file and save has for next compare
             out.println(getDateTimeString()+"The Customer Accounts Database Was successfully Written to the File");
         }else{
             out.println(getDateTimeString()+"There was an error writing the Accounts to a file.");
         }
 
-
-
-
-
         out.close();
         outEmployee.close();
-
-
-
-
-
-
-
     }
 
     public void initialize() {
         // here we can initialize our database into the arrayList objects.
         System.out.println("initializing in Main");
+        initializeLogFiles(); // checks and creates log files if needed also loads the sqlite module.
 
-        try {
-            File sqliteModule = new File("src/Resources/sqlite-jdbc.jar");
-            ModuleLoader.addModule(sqliteModule);
-
-
-
-            // first initialize the PrintWriters of the log file and employee log file
-            outputFile = new File("src/Resources/outputLog.txt");
-            outputEmployeeRecord = new File("src/Resources/EmployeeRecord.txt");
-
-            if(!outputFile.exists()){
-                outputFile.createNewFile();
-            }
-            FileWriter ofw = new FileWriter(outputFile,true);
-            BufferedWriter ofbw = new BufferedWriter(ofw);
-            out = new PrintWriter(ofbw);
-
-            if(!outputEmployeeRecord.exists()){
-                outputEmployeeRecord.createNewFile();
-            }
-            FileWriter ofwEmployee = new FileWriter(outputEmployeeRecord,true);
-            BufferedWriter ofbwEmployee = new BufferedWriter(ofwEmployee);
-            outEmployee = new PrintWriter(ofbwEmployee);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        out.println(getDateTimeString()+" Initializing in Main");
-
-
-        try {
+        try { // try catch block for the customerDatabase file
             File customerDatabase = new File("src/Resources/customerDatabase");
             // if it does not exist we need to create it from the csv files. AND populate Main.customerAccounts
-            // NOTE just delete the file to recreate it if needed
-            if(!customerDatabase.exists()){
-                DataEntryDriver.createCustomerAccountsArray(); // writes to file
+            if(!customerDatabase.exists()){ // if customer database file does not exist
+                DataEntryDriver.createCustomerDatabaseFileFromCSVBaseData(); // read csv files and make database file
                 customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList(); // then reads the file
                 out.println(getDateTimeString()+"Created Customer Database and read into list.");
-            }else{
-                customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList();
-                System.out.println("Read file to arraylist");
+                System.err.println("The Customer Database File Was Created.");
+            }else{ // database file exist
+                customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList(); // just read it into arraylist
                 System.out.println(customerAccounts.size());
 
-                if(customerAccounts.size()==0 && retry<3){
+                if(customerAccounts.size()<=10 && retry<3){ // if at least 10 objects were not read in Declare the file corrupt and start again
                     // going to delete the file and recursive call initialize again.
                     customerDatabase.delete(); // delete the file;
                     System.err.println("THE CUSTOMER DATABASE FILE WAS DELETED DUE TO CHANGES IN THE CLASS FILES.\n" +
@@ -211,8 +129,6 @@ public class Main extends Application {
                 }
 
 
-
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -220,11 +136,8 @@ public class Main extends Application {
 
         // fixes id for the financial accounts so I can more easily access them in the interface
         for(CustomerAccount ca: customerAccounts){
-            System.out.println("test "+ca.toString());
-            ca.fixIDforCustomerAccounts(ca);
+            ca.fixIDforCustomerAccounts(ca); // sets the fixed id for the customer account objects
         }
-
-
 
     }
 
@@ -305,26 +218,66 @@ public class Main extends Application {
     }
 
 
-    // used to delay the ui of JavaFX for a specified amount of seconds without hanging the FX Thread
-    public static Task<Void> getFXSleepTask(long milliseconds){
-        Task task = new Task<Void>() {
-            @Override public Void call() throws Exception {
-                System.out.println("TASK START OR RUNNING");
-                taskRunning = true;
-                taskFinished=false;
-                try {
-                    Thread.sleep(milliseconds);
-                } catch (Exception e) {
-                }
-                System.out.println("FINISHED IN TASK");
-                taskFinished = true;
-                taskRunning=false;
-                return null;
-            }
-        };
 
-        return task;
+    // making initialization of log files separate so it's easier to read the main initialize block
+    private static void initializeLogFiles(){
+        try { // try catch block for the log files
+            File sqliteModule = new File("src/Resources/sqlite-jdbc.jar");
+            if(sqliteModule.exists()){
+                ModuleLoader.addModule(sqliteModule);
+            }else{
+                System.err.println("Please Check and add the sqlite-jdbc.jar file to Resources Folder!");
+                System.exit(0);
+            }
+
+            boolean outputFileExisted = true;
+            boolean employeeLogFileExisted = true;
+
+            // first initialize the PrintWriters of the log file and employee log file
+            outputFile = new File("src/Resources/outputLog.txt");
+            outputEmployeeRecord = new File("src/Resources/EmployeeRecord.txt");
+
+            if(!outputFile.exists()){ // if the output file does not exist
+                outputFile.createNewFile();
+                outputFileExisted = false;
+                System.out.println("output log file created");
+            }
+            FileWriter ofw = new FileWriter(outputFile,true);
+            BufferedWriter ofbw = new BufferedWriter(ofw);
+            out = new PrintWriter(ofbw);
+
+            if(!outputEmployeeRecord.exists()){// if it does not exist
+                outputEmployeeRecord.createNewFile();
+                employeeLogFileExisted = false;
+                System.out.println("Employee Log file Created");
+            }
+            FileWriter ofwEmployee = new FileWriter(outputEmployeeRecord,true);
+            BufferedWriter ofbwEmployee = new BufferedWriter(ofwEmployee);
+            outEmployee = new PrintWriter(ofbwEmployee);
+
+            if(!outputFileExisted){ // if the file was created for first time no line breaks
+                out.println(getDateTimeString()+"Initializing in Main First Run.");
+            }else{ // else put a new line to separate the program sessions
+                out.println("\n"+getDateTimeString()+"Initializing in Main.");
+            }
+            if(!employeeLogFileExisted){
+                outEmployee.println(getDateTimeString()+"New Log Session.");
+            }else{
+                outEmployee.println("\n"+getDateTimeString()+"New Log Session.");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
+
+
+
+
+
+
 
 
 

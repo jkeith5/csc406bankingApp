@@ -62,7 +62,7 @@ public class CustomerAccount implements Serializable {
 
     public CustomerAccount(){
         // use setters and getters setting null pointer to null until at least a ssn is added
-        System.out.println("construct 1");
+        //System.out.println("construct 1");
         this.isNull=true;
         setDateCreatedAuto();
         setPinAuto();
@@ -70,7 +70,7 @@ public class CustomerAccount implements Serializable {
     }
 
     public CustomerAccount(String isNullString){
-        System.out.println("construct 2");
+        //System.out.println("construct 2");
         if(isNullString.toLowerCase().equals("null")){
             this.isNull= true;
         }
@@ -78,9 +78,9 @@ public class CustomerAccount implements Serializable {
         setPinAuto();
     }
 
-    // manually set cust id
+    // manually set cust id used when reading in csv files
     public CustomerAccount(String custID, String firstName, String lastName, String streetAddr, String city, String state, String zip,String atmCardNumber) {
-        System.out.println("construct 3");
+        //System.out.println("construct 3");
         // auto sets the date created to the current date created.
         setCustID(custID);
         setFirstName(firstName);
@@ -96,7 +96,7 @@ public class CustomerAccount implements Serializable {
     }
 
     public CustomerAccount(String custID,String firstName,String lastName,String streetAddr,String city,String state,String zip,boolean generateAtmAndFinAccountID){
-        System.out.println("construct 4");
+        //System.out.println("construct 4");
         setCustID(custID);
         setFirstName(firstName);
         setLastName(lastName);
@@ -689,6 +689,14 @@ public class CustomerAccount implements Serializable {
                 ", checks=" + checks +
                 ", isNull=" + isNull +
                 '}';
+    }
+
+
+    public String toStringPrettyPrint(){
+        String result = "Customer ID: "+getCustID()+" First: "+getFirstName()+" Last: "+getLastName()+" " +
+                "Atm Card: "+getAtmCardNumber()+" pin: "+getPin()+" financialAccountID: "+getFinancialAccountID();
+
+        return result;
     }
 
 

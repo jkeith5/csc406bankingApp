@@ -406,6 +406,18 @@ public class LoanAccount implements Serializable {
                 ", isNull=" + isNull +
                 ", loanTerm=" + loanTerm +
                 ", dateOpened='" + dateOpened + '\'' +
+                ", totalLoanAmountPlusInterest=" + totalLoanAmountPlusInterest +
                 '}';
     }
+
+    public String toStringPrettyPrint(){
+        String result = "LoanIDFixed: "+loanAccountIDFixed+" LoanAccountType: "+loanAccountType+" DateOpened: "+dateOpened+
+                " initialAmount: "+initialLoanAmt+" TotalLoanAmount: "+totalLoanAmountPlusInterest+" Interest: "+interestRate+
+                " CurrentBal: "+currentBalance+" AmountDue: "+amountDue+" LoanTerm: "+loanTerm+" LastPmtDate: "+lastPaymentDate+
+                " PmtNoticeDate: "+paymentNoticeDate+" PmtDueDate: "+paymentDueDate;
+
+        return result;
+    }
+
+
 }
