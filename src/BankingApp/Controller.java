@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import javafx.fxml.FXMLLoader;
@@ -1072,29 +1073,36 @@ public class Controller implements Initializable{
             int term = -1;
             boolean itemIsSelected =false;
             boolean cclSelected = false;
+            System.out.println("sel item: "+selectedItem);
 
-            if(selectedItem.equals("Short Term Loan")){
-                itemIsSelected=true;
-                term = DataEntryDriver.getIntFromTextField(loanTermYears);
-            }
-            if(selectedItem.equals("Long Term Loan")){
-                itemIsSelected=true;
-                term= DataEntryDriver.getIntFromTextField(loanTermYears);
-            }
-            if(selectedItem.equals("Credit Card Loan")){
-                cclSelected=true;
-                itemIsSelected=true;
-            }
+            if(selectedItem!=null){
+                if(selectedItem.equals("Short Term Loan")){
+                    itemIsSelected=true;
+                    term = DataEntryDriver.getIntFromTextField(loanTermYears);
+                }
+                if(selectedItem.equals("Long Term Loan")){
+                    itemIsSelected=true;
+                    term= DataEntryDriver.getIntFromTextField(loanTermYears);
+                }
+                if(selectedItem.equals("Credit Card Loan")){
+                    cclSelected=true;
+                    itemIsSelected=true;
+                }
 
-            if(!itemIsSelected || startingBalCredLimit<0.001 || interestRate<0.0001){
+                if(!itemIsSelected || startingBalCredLimit<0.001 || interestRate<0.0001){
+                    valid = false;
+                }
+
+                if(!cclSelected && itemIsSelected){ // if item selected but Not CCL
+                    if(term<=0){
+                        valid=false;
+                    }
+                }
+            }else{
                 valid = false;
             }
 
-            if(!cclSelected && itemIsSelected){ // if item selected but Not CCL
-                if(term<=0){
-                    valid=false;
-                }
-            }
+
 
             addLoanAccSaveB.setDisable(!valid);
 
@@ -2811,6 +2819,24 @@ public class Controller implements Initializable{
     public void mainScreenTestButton(){
         System.out.println("test");
         System.out.println("Printing all loan Accounts");
+
+        LocalDate today = DataEntryDriver.getCurrentDateObject();
+        LocalDate yesterday = DataEntryDriver.getDateObjectFromString("11/23/2019");
+        LocalDate future = DataEntryDriver.getDateObjectFromString("11/28/2019");
+        LocalDate todayPlus30 = today.plusMonths(1);
+
+        System.out.println("today v yesterday: "+today.compareTo(yesterday)); //1
+        System.out.println("yesterday v today: "+yesterday.compareTo(today)); // -1
+        System.out.println("future v yesterday: "+future.compareTo(yesterday)); // 5
+        System.out.println("yesterday v future: "+yesterday.compareTo(future)); // -5
+        LocalDate test = future.withDayOfMonth(1);
+        System.out.println("future with day of month 1: "+DataEntryDriver.getStringFromLocalDateFormatted(test));
+        System.out.println("today plus 1 Month: "+DataEntryDriver.getStringFromLocalDateFormatted(todayPlus30));
+        LocalDate test2 = today.withDayOfMonth(15).plusMonths(1).withDayOfMonth(27);
+        System.out.println("test Date: "+DataEntryDriver.getStringFromLocalDateFormatted(test2));
+
+
+
 
         for(CustomerAccount ca:Main.customerAccounts){
             if(ca.hasLoanAccount()){

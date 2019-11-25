@@ -555,7 +555,7 @@ public class DataEntryDriver {
                 returnVal = true;
             }
         }
-        printCustomerDatabase();
+        //printCustomerDatabase();
         return returnVal;
     }
 
@@ -770,6 +770,13 @@ public class DataEntryDriver {
         //System.out.println("get date no format: "+localDate);
         //System.out.println("get date formatted: "+result);
 
+        return result;
+    }
+
+    public static String getStringFromLocalDateFormatted(LocalDate inputDateObject){
+        String result = "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // formatter for date output
+        result = inputDateObject.format(formatter);
         return result;
     }
 

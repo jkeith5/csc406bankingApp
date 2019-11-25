@@ -25,6 +25,7 @@ public class Main extends Application {
     * add methods to credit and debit any loan type
     * methods to refresh the payment dates
     * figure interest for CCL
+    * method to add fee to amount due for late payments etc
     *
     * SAVINGS ACCOUNTS cd and simple
     * find and set interest for the savings accounts
