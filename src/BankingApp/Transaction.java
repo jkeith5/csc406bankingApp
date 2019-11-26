@@ -8,7 +8,7 @@ public class Transaction implements Serializable {
     public String transactionType; // W=Withdrawal D=Deposit F=Fee I=Interest TW=Transfer Withdrawal TD=Transfer Deposit
     public double amount;
     public String description;
-    public String transactionAccount; // S=Savings C=Checking CC= Credit Card F=Fee
+    public String transactionAccount; // S=Savings C=Checking CCL= Credit Card STL=Short Term Loan LTL= Long Term Loan
     public String dateTime = Main.getDateTimeString();
     public String date="";
 

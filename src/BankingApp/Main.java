@@ -20,12 +20,11 @@ public class Main extends Application {
     * My notes go here
     * Need to finish the loan accounts
     * set validation on manage loan accounts Must select loan account before other fields take data
-    *
-    * in loan class find and set the payment due
-    * add methods to credit and debit any loan type
-    * methods to refresh the payment dates
-    * figure interest for CCL
     * method to add fee to amount due for late payments etc
+    * Manage loan accounts interface Show Current Balance in place of initial loan amt. inital loan amt is useless after
+    * payment plan is set
+    *
+    *
     *
     * SAVINGS ACCOUNTS cd and simple
     * find and set interest for the savings accounts
@@ -139,6 +138,9 @@ public class Main extends Application {
         for(CustomerAccount ca: customerAccounts){
             ca.fixIDforCustomerAccounts(ca); // sets the fixed id for the customer account objects
         }
+
+
+
 
     }
 

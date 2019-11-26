@@ -12,7 +12,7 @@ public class LoanAccount implements Serializable {
     public String paymentDueDate;
     public String paymentNoticeDate;
     public double amountDue;
-    public String lastPaymentDate;
+    public String lastPaymentDate; // don't update if making extra payments in a month
     public boolean hasMissedPayment=false;
     public String loanAccountType; // STL= short term loan LTL= long term loan CCL= credit card loan
     public String loanAccountID;
@@ -122,35 +122,168 @@ public class LoanAccount implements Serializable {
     // the formula just includes the interest and they must also pay a set amount of the balance
     // so I am using the standard of 2% of the balance as a minimum payment
     public void calculateCreditCardPayment(){
-        double payment = (currentBalance*0.8*interestRate/12.0)+currentBalance*0.02;
-        setAmountDue(payment);
+        if(loanAccountType.equals("CCL")){
+            double payment = (currentBalance*0.8*interestRate/12.0)+currentBalance*0.02;
+            setAmountDue(payment);
+        }
     }
 
-    // things this needs to do. Make a payment, TACK FEE OR LET FINANCE DRIVER HANDLE THE FEE FOR LATE PAYMENT
+    // things this needs to do. Make a payment, Return double on how much of the input payment was processed
+    // so assume currBal is 300. makePayment(200) returns 200. makePayment(500) returns 300
     // set the last payment date to current date. I think that's it. The Transaction and fees should be handled
     // in finance driver which is the ONLY class that should call this
-    public void makePayment(double paymentValue){
+    public double makePayment(double paymentValue){
+        double returnVal = paymentValue; // set it equal for now.
         double currentBal = currentBalance;
         if(paymentValue<=currentBal){// only allow to pay the balance off. NOT TO DO A CREDIT OF ANY KIND!
-            setCurrentBalance(currentBalance-paymentValue);
+            setCurrentBalance(currentBalance-Math.abs(paymentValue));// make sure payment value is not negative
             // set payment date
-            setLastPaymentDate(DataEntryDriver.getDateString()); // set payment date
-            setNextPaymentDueDate(); // sets it to the 10th or 27th of the next month based on loan type.
-            calculateCreditCardPayment();
-        }else{
-            System.err.println("DON'T CALL THIS METHOD WITH VALUE THAT BRINGS ACCOUNT TO A CREDIT. VALIDATE BEFORE CALLING");
+            // only set last payment date once per month can accept multiple payments but set once
+            if(!lastPaymentDate.equals("null")){ // this was not the first payment
+                LocalDate lastPaymentDateObj = DataEntryDriver.getDateObjectFromString(lastPaymentDate);
+                LocalDate today = DataEntryDriver.getCurrentDateObject();
+                int monthOfLast = lastPaymentDateObj.getMonthValue();
+                int monthOfToday = today.getMonthValue();
+
+                if(monthOfLast!=monthOfToday){ // if the month is not the same as the last payment then update the last pmt date
+                    setLastPaymentDate(DataEntryDriver.getDateString()); // set payment date
+                    setNextPaymentDueDate(); // sets to the 10th or 27th of next month based on loan type
+                    calculateCreditCardPayment(); // recalc credit card payment. the method checks to see if its CCL type
+                }
+            }else{ // this was the first payment
+                setLastPaymentDate(DataEntryDriver.getDateString());
+                setNextPaymentDueDate();
+                calculateCreditCardPayment();
+            }
+        }else{ // else trying to pay more that what is left on the balance
+            double paymentValueFixed = getCurrentBalance(); // get the current balance
+            double paymentNotAppliedToLoan = paymentValue-paymentValueFixed; // amount over paid. WILL BE REJECTED
+            // so pay off loan and inform user that portion of payment used to pay off loan and the rest was not processed
+            // example currentBal = 150 payment = 200 ==== currentBal = 0.0 inform user that 50 was not processed and loan is closed.
+            setCurrentBalance(0.0);
+            returnVal = paymentValueFixed; // return what was actually applied to the loan so we can correct the Transaction in FinanceDriver
+            System.err.printf("This Loan is now paid off. Note: $%.2f was overPaid and was not processed. Only $%.2f was " +
+                    "applied to the loan.\n",paymentNotAppliedToLoan,paymentValueFixed);
+
         }
+
+        return returnVal;
     }
 
     // Only used For Credit Card Purchases
     // POSSIBLE maybe recalc the payment due every time a debit is made so that the value for payment due is
     // always correct at any point.
-    public void debitAccount(double debitAmount){
+    // return double of amount processed
+    public double debitCCLAccount(double debitAmount){
+        double amountProcessed = Math.abs(debitAmount);
+        double debitAmtFixed = Math.abs(debitAmount);
         if(loanAccountType.equals("CCL")){ // only run on credit card loan
-            if(currentBalance+debitAmount<=initialLoanAmt){// if new balance is less than or equal to the credit limit
-                currentBalance = currentBalance+debitAmount;
+            if(currentBalance+debitAmtFixed<=initialLoanAmt){// if new balance is less than or equal to the credit limit
+                currentBalance = currentBalance+debitAmtFixed;
+            }else{ // reject transaction and return -1.0 to indicate rejected debit
+                amountProcessed=-1.0;
             }
         }
+
+        return amountProcessed;
+    }
+
+    public int isPaymentLate(){ // 0 not behind or int value of the months behind.
+        int returnVal = -1;
+        LocalDate today = DataEntryDriver.getCurrentDateObject();
+        LocalDate lastPaymentDateObj = DataEntryDriver.getDateObjectFromString(getLastPaymentDate());
+        LocalDate paymentDueDateObj = DataEntryDriver.getDateObjectFromString(getPaymentDueDate());
+        int lateMonths = 0;
+
+        if(currentBalance>0){ // first check if current balance is over 0 if not then they can't be late
+            if(!lastPaymentDate.equals("null")){ // if last payment date is not null
+                boolean beforeDueDate = today.isBefore(paymentDueDateObj);
+                if(loanAccountType.equals("CCL")){ // 10th
+                    if(lastPaymentDateObj.getDayOfMonth()>10){ // if last payment date was after the 10th
+                        lateMonths++;
+                    }
+
+                }else{ // 27th
+                    if(lastPaymentDateObj.getDayOfMonth()>27){ // last payment date was after 27 so that month was late
+                        lateMonths ++;
+                    }
+                }
+                // now because I've already accounted for the late payment in the last month they made a payment
+                // I will set the new last payment temp date to the 15th of the month they last paid
+                // to avoid skipping months when doing the math.
+                LocalDate lastPaymentDueDateFixed = paymentDueDateObj;
+
+                if(today.isBefore(paymentDueDateObj)){
+                    // already accounted for late payment after day of due date. So now figure the months behind if any
+                    // minus one because due date is one month ahead
+                    lastPaymentDueDateFixed = lastPaymentDueDateFixed.withDayOfMonth(15).minusMonths(1);
+                    int monthOfLastPmt = lastPaymentDateObj.getMonthValue(); // get the int value of the month
+                    int monthOfFixedLastDueDate = lastPaymentDueDateFixed.getMonthValue();
+                    int monthsBehind = monthOfFixedLastDueDate-monthOfLastPmt; // subtract them
+                    lateMonths += monthsBehind;
+                }
+
+            }else{// last payment date was null so hasn't made one yet
+                if(today.isAfter(paymentDueDateObj)){
+                    lateMonths++;
+                }
+            }
+
+        }
+        if(lateMonths>0){
+            returnVal = lateMonths;
+        }
+
+        System.out.println("late months "+lateMonths);
+
+        return returnVal;
+    }
+
+
+
+    // call this to recalculate the payment due date
+    // CCL due on 10th other on the 27th
+    // MOSTLY USED WHEN CREATING A LOAN OBJECT NOT FOR MAKING PAYMENTS
+    // FOR MAKING PAYMENT USE THE setNextPaymentDueDate
+    // can also use this to UPDATE the payment due dates or refresh them, but does not
+    // increment them. to increment them after making a payment use the method mentioned above.
+    // this is more of a general fix all method and will set the date regardless of if payment was made
+    public void calculateNextPaymentDueDate(){
+        LocalDate today = DataEntryDriver.getCurrentDateObject();
+        int todayDay = today.getDayOfMonth();
+        LocalDate nextPayment = null;
+        if(loanAccountType.equals("CCL")){ // ccl
+            if(todayDay>10){ // if its past the 10th for ccl then set to next month on the 10th
+                nextPayment = today.plusMonths(1).withDayOfMonth(10);
+            }else{
+                nextPayment = today.withDayOfMonth(10);
+            }
+        }else{ // STL LTL
+            if(todayDay>27){
+                nextPayment = today.plusMonths(1).withDayOfMonth(27);
+            }else{
+                nextPayment = today.withDayOfMonth(27);
+            }
+        }
+
+        this.paymentDueDate = DataEntryDriver.getStringFromLocalDateFormatted(nextPayment);
+
+    }
+
+    public void setNextPaymentDueDate(){
+        LocalDate today = DataEntryDriver.getCurrentDateObject();
+        LocalDate nextDueDate = null;
+        if(loanAccountType.equals("CCL")){
+            nextDueDate = today.withDayOfMonth(15).plusMonths(1).withDayOfMonth(10);
+            // using with day of month as 15 because we don't know what day they make the payment.
+            // so if payment is made on January 31st we would end up skipping the month of February
+            // when adding 30 days. so doing the calculations on the 15th of the month will fix this
+        }else{ // else its STL or LTL
+            nextDueDate = today.withDayOfMonth(15).plusMonths(1).withDayOfMonth(27);
+        }
+        // then set the next payment due date to the formatted mm/dd/yyyy date
+        this.paymentDueDate=DataEntryDriver.getStringFromLocalDateFormatted(nextDueDate);
+
     }
 
 
@@ -313,47 +446,7 @@ public class LoanAccount implements Serializable {
         this.paymentDueDate = DataEntryDriver.fixDateString(paymentDueDate);
     }
 
-    // call this to recalculate the payment due date
-    // CCL due on 10th other on the 27th
-    // MOSTLY USED WHEN CREATING A LOAN OBJECT NOT FOR MAKING PAYMENTS
-    // FOR MAKING PAYMENT USE THE setNextPaymentDueDate
-    public void calculateNextPaymentDueDate(){
-        LocalDate today = DataEntryDriver.getCurrentDateObject();
-        int todayDay = today.getDayOfMonth();
-        LocalDate nextPayment = null;
-        if(loanAccountType.equals("CCL")){ // ccl
-            if(todayDay>10){ // if its past the 10th for ccl then set to next month on the 10th
-                nextPayment = today.plusMonths(1).withDayOfMonth(10);
-            }else{
-                nextPayment = today.withDayOfMonth(10);
-            }
-        }else{ // STL LTL
-            if(todayDay>27){
-                nextPayment = today.plusMonths(1).withDayOfMonth(27);
-            }else{
-                nextPayment = today.withDayOfMonth(27);
-            }
-        }
 
-        this.paymentDueDate = DataEntryDriver.getStringFromLocalDateFormatted(nextPayment);
-
-    }
-
-    public void setNextPaymentDueDate(){
-        LocalDate today = DataEntryDriver.getCurrentDateObject();
-        LocalDate nextDueDate = null;
-        if(loanAccountType.equals("CCL")){
-            nextDueDate = today.withDayOfMonth(15).plusMonths(1).withDayOfMonth(10);
-            // using with day of month as 15 because we don't know what day they make the payment.
-            // so if payment is made on January 31st we would end up skipping the month of February
-            // when adding 30 days. so doing the calculations on the 15th of the month will fix this
-        }else{ // else its STL or LTL
-            nextDueDate = today.withDayOfMonth(15).plusMonths(1).withDayOfMonth(27);
-        }
-        // then set the next payment due date to the formatted mm/dd/yyyy date
-        this.paymentDueDate=DataEntryDriver.getStringFromLocalDateFormatted(nextDueDate);
-
-    }
 
 
     public String getPaymentNoticeDate() {
@@ -394,7 +487,7 @@ public class LoanAccount implements Serializable {
         this.lastPaymentDate = DataEntryDriver.fixDateString(lastPaymentDate);
     }
 
-    public boolean isHasMissedPayment() {
+    public boolean hasMissedPayment() {
         return hasMissedPayment;
     }
 

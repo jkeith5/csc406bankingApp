@@ -338,6 +338,53 @@ public class FinanceDriver {
 
     }
 
+    // makes a debit(-500) or credit(500) on LoanAccount Object
+    // create Transaction object and record fee if late payment $75 late fee for all
+    // returns the double of the amount actually processed. if -1.0 then transaction was REJECTED
+    // process fee on make payment
+    public static double creditDebitLoanAccount(LoanAccount loanAccount,double debitCreditAmt,String desc){
+        double amountProcessed = 0.0;
+        Transaction transaction = new Transaction();
+        transaction.setDate(DataEntryDriver.getDateString());
+        if(loanAccount.getLoanAccountType().equals("CCL")){ // action on CCL
+            transaction.setTransactionAccount("CCL");
+        }
+        if(loanAccount.getLoanAccountType().equals("LTL")){
+            transaction.setTransactionAccount("LTL");
+        }
+        if(loanAccount.getLoanAccountType().equals("STL")){
+            transaction.setTransactionAccount("STL");
+        }
+
+        if(debitCreditAmt<0){ // making a debit on loan account
+            if(loanAccount.getLoanAccountType().equals("CCL")){ // action on CCL
+                transaction.setDescription("Debit to Credit Card Account");
+                amountProcessed = loanAccount.debitCCLAccount(debitCreditAmt); // debit account
+                // process late fee if needed
+
+            }// you can only debit a credit card so nothing more here
+        }else{ // making a credit/payment on account
+            if(loanAccount.getLoanAccountType().equals("CCL")){ // action on CCL
+                transaction.setDescription("Payment on Credit Card Account");
+            }else{
+                transaction.setDescription("Payment on Loan Account");
+            }
+            amountProcessed = loanAccount.makePayment(debitCreditAmt);
+
+        }
+        if(desc.length()>0){
+            transaction.setDescription(desc);
+        }
+
+        if(amountProcessed>0.001){ // if amount was processed
+            transaction.setAmount(amountProcessed);
+            //Main.customerAccount.addTransactionObject(transaction);
+        }
+
+
+        return amountProcessed;
+    }
+
 
 
     // just for simple withdraw and deposit on savings account. No Transaction fee from what I read
@@ -465,6 +512,44 @@ public class FinanceDriver {
             applyFeeOnAccount(ca,"over");
         }
 
+
+    }
+
+
+    // needs to create transaction
+    // and add 75 to the next amount due for each month they are late
+    // two ways I can use this. 1. loop over all loan accounts in main or Controller initialize and
+    // then call this and find any late accounts
+    // or call it manually
+    public static void applyLateFeeOnLoanAccount(CustomerAccount ca,LoanAccount loanAccount){
+        int monthsLate = loanAccount.isPaymentLate();
+        System.out.println(monthsLate);
+        if(monthsLate>0){
+            for(int i=0;i<monthsLate;i++){ // loop over every month late and make fee
+                Transaction transaction = new Transaction();
+                transaction.setTransactionType("F");
+                transaction.setAmount(75.00);
+                transaction.setDescription("Late Fee");
+                if(loanAccount.getLoanAccountType().equals("LTL")){
+                    transaction.setTransactionAccount("LTL");
+                }
+                if(loanAccount.getLoanAccountType().equals("STL")){
+                    transaction.setTransactionAccount("STL");
+                }
+                if(loanAccount.getLoanAccountType().equals("CCL")){
+                    transaction.setTransactionAccount("CCL");
+                }
+                transaction.setDate(DataEntryDriver.getDateString());
+                loanAccount.setAmountDue(loanAccount.getAmountDue()+75.00); // set the fee
+
+                ca.addTransactionObject(transaction);
+
+
+
+            }
+
+
+        }
 
     }
 

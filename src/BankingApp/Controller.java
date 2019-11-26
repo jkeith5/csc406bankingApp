@@ -250,6 +250,18 @@ public class Controller implements Initializable{
         Main.printToConsoleAndLog("Initializing Controller");
         System.out.println("\n\n");
 
+
+
+        for(CustomerAccount ca: Main.customerAccounts){
+            if(ca.hasLoanAccount()){
+                ArrayList<LoanAccount> loanAccountsArr = ca.getLoanAccounts();
+                for(LoanAccount la:loanAccountsArr){
+                    FinanceDriver.applyLateFeeOnLoanAccount(ca,la);// should apply the late fee to the next payment if late
+                }
+            }
+        }
+
+
         //DataEntryDriver.printCustomerDatabase();
 
         String locationString = DataEntryDriver.getLocationFileName(location);
@@ -2823,17 +2835,11 @@ public class Controller implements Initializable{
         LocalDate today = DataEntryDriver.getCurrentDateObject();
         LocalDate yesterday = DataEntryDriver.getDateObjectFromString("11/23/2019");
         LocalDate future = DataEntryDriver.getDateObjectFromString("11/28/2019");
-        LocalDate todayPlus30 = today.plusMonths(1);
 
-        System.out.println("today v yesterday: "+today.compareTo(yesterday)); //1
-        System.out.println("yesterday v today: "+yesterday.compareTo(today)); // -1
-        System.out.println("future v yesterday: "+future.compareTo(yesterday)); // 5
-        System.out.println("yesterday v future: "+yesterday.compareTo(future)); // -5
-        LocalDate test = future.withDayOfMonth(1);
-        System.out.println("future with day of month 1: "+DataEntryDriver.getStringFromLocalDateFormatted(test));
-        System.out.println("today plus 1 Month: "+DataEntryDriver.getStringFromLocalDateFormatted(todayPlus30));
-        LocalDate test2 = today.withDayOfMonth(15).plusMonths(1).withDayOfMonth(27);
-        System.out.println("test Date: "+DataEntryDriver.getStringFromLocalDateFormatted(test2));
+        LocalDate dueDate = today.withDayOfMonth(27);
+
+        boolean todayBeforeDue = today.isBefore(dueDate);
+        System.out.println("test result: "+todayBeforeDue);
 
 
 
@@ -2849,6 +2855,15 @@ public class Controller implements Initializable{
 
             }
         }
+
+        int randomInt = DataEntryDriver.getRandomInt();
+
+        LoanAccount la = Main.customerAccounts.get(0).getLoanAccounts().get(0);
+        System.out.println(la.toStringPrettyPrint());
+        FinanceDriver.creditDebitLoanAccount(la,258.65,"");
+        System.out.println(la.toStringPrettyPrint());
+
+
 
 
 
