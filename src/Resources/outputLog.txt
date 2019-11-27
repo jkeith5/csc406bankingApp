@@ -2952,3 +2952,36 @@
 2019-11-27T15:37:37.909 Initializing Controller
 2019-11-27T15:37:46.714 ArrayList was written to File.
 2019-11-27T15:37:46.714 The Customer Accounts Database Was successfully Written to the File
+
+2019-11-27T15:43:25.980 Initializing in Main.
+2019-11-27T15:43:25.999 Start of Read customerDatabase to ArrayList
+2019-11-27T15:43:26.128 End of Read customerDatabase to ArrayList
+2019-11-27T15:43:26.129 Database Already Existed. Read into list.
+2019-11-27T15:43:27.799 Initializing Controller
+2019-11-27T15:43:29.191 Initializing Controller
+2019-11-27T15:43:30.515 Initializing Controller
+2019-11-27T15:43:30.965 Initializing Controller
+2019-11-27T15:43:32.668 Initializing Controller
+2019-11-27T15:43:33.801 Initializing Controller
+2019-11-27T15:43:33.817 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:34.203 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:35.022 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:35.060 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:35.098 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:35.137 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:35.157 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:35.456 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:35.518 Initializing Controller
+2019-11-27T15:43:39.023 Initializing Controller
+2019-11-27T15:43:39.036 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:39.388 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:40.027 Initializing Controller
+2019-11-27T15:43:41.052 Initializing Controller
+2019-11-27T15:43:41.667 Initializing Controller
+2019-11-27T15:43:42.714 Initializing Controller
+2019-11-27T15:43:43.023 Initializing Controller
+2019-11-27T15:43:43.041 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:43.516 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-11-27T15:43:43.655 Initializing Controller
+2019-11-27T15:44:55.957 ArrayList was written to File.
+2019-11-27T15:44:55.957 The Customer Accounts Database Was successfully Written to the File

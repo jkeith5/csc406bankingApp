@@ -162,6 +162,7 @@ public class Controller implements Initializable{
     @FXML TextField updateDataCity;
     @FXML TextField updateDataState;
     @FXML TextField updateDataZip;
+    @FXML Button deleteCustomerAccountButton;
 
     @FXML TextArea displayActivityTextArea;
 
@@ -342,11 +343,8 @@ public class Controller implements Initializable{
 
         }
 
-        if(locationString.equals("ManageExistingUserDisplayDataManager.fxml")){
-            //
-        }
-
         if(locationString.equals("ManageExistingUserDisplayDataTeller.fxml")){
+            System.out.println(Main.loggedInEmployee.getType());
             CustomerAccount ca = Main.customerAccount;
             accTypeToggleGroup = manageExistingTellerCheckingAccount.getToggleGroup();
             manageExistingTellerTransferFunds.setSelected(false);
@@ -398,6 +396,13 @@ public class Controller implements Initializable{
 
             // sets a changed listener to this object
             DataEntryDriver.validateBalanceAmountField(manageExistingTellerFundsTransferAmount,true);
+
+            // since the manager can see everything anyway just disable the stuff for the teller
+            if(Main.loggedInEmployee.getType().equals("T")){
+                deleteCustomerAccountButton.setDisable(true);
+            }
+
+
 
             tellerManageDispData();
 
