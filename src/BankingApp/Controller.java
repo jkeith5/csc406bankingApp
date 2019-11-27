@@ -71,6 +71,7 @@ public class Controller implements Initializable{
     @FXML
     public ComboBox<String> testCombo2;
 
+    @FXML Label interfaceName;
 
     @FXML TextField fNameTextField;
     @FXML TextField lNameTextField;
@@ -419,7 +420,9 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("TellerInterface.fxml")){
-            //
+            System.out.println(locationString);
+            System.out.println(Main.loggedInEmployee.getType());
+
         }
 
         if(locationString.equals("TellerLogin.fxml")){
@@ -1347,6 +1350,7 @@ public class Controller implements Initializable{
                     }
                     if(Main.loggedInEmployee.getType().equals("M")){
                         // PUT THE CODE FOR MANAGER INTERFACE LOOKUP BUTTON HERE
+                        tellerInterfaceManageLookupButton(); // go ahead and copy it
                     }
 
                 }
@@ -2806,6 +2810,13 @@ public class Controller implements Initializable{
 
             if(Main.loggedInEmployee.getType().equalsIgnoreCase("M")){
                 // load the manager display screen
+                root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
+
+                Main.primaryStage.setTitle("Customer Account Data Management Interface");
+                Main.primaryStage.setScene(new Scene(root,700,500));
+                Main.primaryStage.show();
+                Main.activeStage=Main.primaryStage;
+                System.out.println("set active stage to primary in lookup ssn button");
             }
 
 
