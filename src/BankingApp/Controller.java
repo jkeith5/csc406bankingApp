@@ -21,7 +21,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 
@@ -187,6 +186,8 @@ public class Controller implements Initializable{
     //@FXML ChoiceBox<String> loanAccountTypeChoiceBox;
     @FXML ComboBox<String> loanAccountTypeComboBox;
     @FXML Label savingsCDTermLabel;
+    @FXML DatePicker savingCdCloseDatePicker;
+    @FXML TextField savingCDCloseDate;
 
     @FXML TextField loanInterestRate;
     @FXML TextField loanTermYears;
@@ -216,6 +217,7 @@ public class Controller implements Initializable{
     @FXML Button manageSavingsAccSaveB;
     @FXML Button manageLoanAccSaveB;
 
+
     @FXML ComboBox<String> manageSavingsAccountsList;
     @FXML ComboBox<String> manageLoanAccountsList;
 
@@ -231,6 +233,8 @@ public class Controller implements Initializable{
     @FXML CheckBox deleteAllLoanAcctCheckBox;
     @FXML Button manageFinancialAccountsDeleteAccountButton;
 
+    @FXML Label earlyWithdrawl;
+    @FXML TextField earlyWithdrawlAmount;
 
     @FXML
     ImageView help;
@@ -252,14 +256,7 @@ public class Controller implements Initializable{
 
 
 
-        for(CustomerAccount ca: Main.customerAccounts){
-            if(ca.hasLoanAccount()){
-                ArrayList<LoanAccount> loanAccountsArr = ca.getLoanAccounts();
-                for(LoanAccount la:loanAccountsArr){
-                    FinanceDriver.applyLateFeeOnLoanAccount(ca,la);// should apply the late fee to the next payment if late
-                }
-            }
-        }
+
 
 
         //DataEntryDriver.printCustomerDatabase();
@@ -490,8 +487,8 @@ public class Controller implements Initializable{
             addLoanAcctErrLabel.setText("");
 
             DataEntryDriver.validateBalanceAmountField(startingBalance,false);
-            DataEntryDriver.validateInputField(loanInterestRate,true,true);
-            DataEntryDriver.validateInputField(loanTermYears,false,false);
+            DataEntryDriver.validateInterestField(loanInterestRate,true,true);
+            DataEntryDriver.validateInterestField(loanTermYears,false,false);
 
 
 
@@ -538,8 +535,8 @@ public class Controller implements Initializable{
 
             // data validation
             DataEntryDriver.validateBalanceAmountField(startingBalance,false);
-            DataEntryDriver.validateInputField(savingInterestRate,true,true);
-            DataEntryDriver.validateInputField(savingCDTerm,false,false);
+            DataEntryDriver.validateInterestField(savingInterestRate,true,true);
+            DataEntryDriver.validateInterestField(savingCDTerm,false,false);
 
             if(customerAccount.hasSavingsAccount()){ // if they have a savings account see if it's a simple saving
                 ArrayList<SavingsAccount> savingsAccounts = customerAccount.getSavingsAccounts();
@@ -554,7 +551,7 @@ public class Controller implements Initializable{
                     cdCheckBox.setSelected(true);
                     cdCheckBox.setDisable(true);
                     addSavingsAcctErrLabel.setText("User already has a simple savings account");
-                    //DataEntryDriver.validateInputField(savingCDTerm,false,false);
+                    //DataEntryDriver.validateInterestField(savingCDTerm,false,false);
                 }
 
             }else{// have no savings account
@@ -567,12 +564,22 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("ManageExistingUserManageFinanceAcc.fxml")){
-            // Enter code to run on initialization of the FXML Scene
-            // .... like the methods to populate data
             dispDataUpper(); // displays the top frame data
+            // validate interface. Can't manage a loan account you don't have
+            CustomerAccount ca = Main.customerAccount;
+            manageCheckingAccB.setDisable(!ca.hasCheckingAccount());
+            manageSavingsAccB.setDisable(!ca.hasSavingsAccount());
+            manageLoanAccB.setDisable(!ca.hasLoanAccount());
+            deleteAllCheckingAcctCheckBox.setDisable(!ca.hasCheckingAccount());
+            deleteAllSavingsAcctCheckBox.setDisable(!ca.hasSavingsAccount());
+            deleteAllLoanAcctCheckBox.setDisable(!ca.hasLoanAccount());
+            manageFinancialAccountsDeleteAccountButton.setDisable(true);
+
+
         }
         if(locationString.equals("ManageCheckingAcct.fxml")){
             dispDataUpper();
+            DataEntryDriver.validateBalanceAmountField(startingBalance,false);
             displayDataManageFinancialAccounts();
         }
 
@@ -583,9 +590,6 @@ public class Controller implements Initializable{
             loanTermYears.setVisible(false);
             loanTermLabel.setVisible(false);
             help.setImage(helpLogo);
-
-
-
 
             if(ca.hasLoanAccount()){
                 ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
@@ -618,19 +622,24 @@ public class Controller implements Initializable{
                     }
                 });
 
-            }
+                DataEntryDriver.validateBalanceAmountField(startingBalance,false);
+                DataEntryDriver.validateInterestField(loanInterestRate,true,true);
+                DataEntryDriver.validateBalanceAmountField(loanTermYears,false);
 
-            Tooltip tooltip = new Tooltip();
-            tooltip.setText("Test");
 
-            manageLoanAccountsList.setTooltip(tooltip);
+
+            }// end has loan account
+
 
         }
         if(locationString.equals("ManageSavingsAcct.fxml")){
             dispDataUpper();
+            help.setImage(helpLogo);
             CustomerAccount ca = Main.customerAccount;
             manageSavingsAccSaveB.setDisable(true);
-            savingCDTerm.setVisible(false);
+            //savingCDCloseDate.setVisible(false);
+            savingCdCloseDatePicker.setVisible(false);
+
             savingsCDTermLabel.setVisible(false);
 
             if(ca.hasSavingsAccount()){ // ALWAYS DO THIS!!!!!!!!!!!!!!! OR GET NULL POINTER AND SPEND HOURS LOOKING FOR THE CAUSE
@@ -653,6 +662,29 @@ public class Controller implements Initializable{
                         manageSavingsAccountTypeEvent();
                     }
                 });
+
+                DataEntryDriver.validateBalanceAmountField(startingBalance,false);
+                DataEntryDriver.validateInterestField(savingInterestRate,true,true);
+                //DataEntryDriver.validateDateField(savingCDCloseDate,true);
+                savingCdCloseDatePicker.valueProperty().addListener(new ChangeListener<LocalDate>() {
+                    @Override
+                    public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+
+                        if(newValue!=null){
+                            LocalDate today = DataEntryDriver.getCurrentDateObject();
+                            if(newValue.isBefore(today)){
+                                savingCdCloseDatePicker.setValue(today);
+                            }
+                        }
+
+                        //System.out.println("old: "+oldValue.toString());
+                        //System.out.println("new: "+newValue.toString());
+                    }
+                });
+
+
+
+
             }
 
 
@@ -781,20 +813,48 @@ public class Controller implements Initializable{
     }
 
 
+    // handles the event for any of the checkboxes and disables run button if not selected
+    public void manageFinanceAccountsCheckBoxEvent(){
+        ArrayList<CheckBox> checkBoxesArray = new ArrayList<>();
+        checkBoxesArray.add(deleteAllCheckingAcctCheckBox);
+        checkBoxesArray.add(deleteAllSavingsAcctCheckBox);
+        checkBoxesArray.add(deleteAllLoanAcctCheckBox);
+
+        boolean anyBoxSelected = DataEntryDriver.isAnyCheckBoxSelected(checkBoxesArray);
+
+        manageFinancialAccountsDeleteAccountButton.setDisable(!anyBoxSelected);
+
+
+    }
+
+
     public void isCdCheckBoxEvent(){
         //
+        if(activeFXMLFileName.equals("AddSavings.fxml")){
+            if(!cdCheckBox.isDisabled()){ // if box was not disabled in initial method // disabled = false
+                if(cdCheckBox.isSelected()){ // show the CD term label and field
+                    savingsCDTermLabel.setVisible(true);
+                    savingCDTerm.setVisible(true);
 
-        //DataEntryDriver.validateInputField(savingCDTerm,false,false);
-        if(!cdCheckBox.isDisabled()){ // if box was not disabled in initial method // disabled = false
-            if(cdCheckBox.isSelected()){ // show the CD term label and field
-                savingsCDTermLabel.setVisible(true);
-                savingCDTerm.setVisible(true);
+                }else{// the cd box is not selected so hide those items
+                    savingsCDTermLabel.setVisible(false);
+                    savingCDTerm.setVisible(false);
+                }
+            }
 
-            }else{// the cd box is not selected so hide those items
-                savingsCDTermLabel.setVisible(false);
-                savingCDTerm.setVisible(false);
+        }else{
+            if(!cdCheckBox.isDisabled()){ // if box was not disabled in initial method // disabled = false
+                if(cdCheckBox.isSelected()){ // show the CD close date label and field
+                    savingsCDTermLabel.setVisible(true);
+                    savingCdCloseDatePicker.setVisible(true);
+
+                }else{// the cd box is not selected so hide those items
+                    savingsCDTermLabel.setVisible(false);
+                    savingCdCloseDatePicker.setVisible(false);
+                }
             }
         }
+
         addFinanceAccountEvent();
     }
 
@@ -835,10 +895,16 @@ public class Controller implements Initializable{
 
         if(isCd){
             savingsCDTermLabel.setVisible(true);
-            savingCDTerm.setVisible(true);
-            savingCDTerm.setText(cdCloseDate);
+            //savingCDCloseDate.setVisible(true);
+            //savingCDCloseDate.setText(cdCloseDate);
+
+            savingCdCloseDatePicker.setVisible(true);
+            LocalDate cdCloseDateObj = DataEntryDriver.getDateObjectFromString(cdCloseDate);
+            savingCdCloseDatePicker.setValue(cdCloseDateObj);
         }else{
-            savingCDTerm.setVisible(false);
+            //savingCDCloseDate.setVisible(false);
+            savingCdCloseDatePicker.setVisible(false);
+
             savingsCDTermLabel.setVisible(false);
         }
         int selIndex = manageSavingsAccountsList.getSelectionModel().getSelectedIndex();
@@ -869,14 +935,19 @@ public class Controller implements Initializable{
 
 
         double monthlyPayment = selectedLoanAccount.getAmountDue();
-        startingBalance.setText(DataEntryDriver.getFormattedStringFromDouble(balance));
-        loanInterestRate.setText(DataEntryDriver.getFormattedStringFromDouble(monthlyPayment));
+        System.out.println(monthlyPayment);
+        startingBalance.setText(DataEntryDriver.getStringFromDouble(balance));
+        loanInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
 
         if(loanAccountType.equals("LTL") || loanAccountType.equals("STL")){
             loanTermLabel.setVisible(true);
             loanTermYears.setVisible(true);
-            loanTermYears.setText(DataEntryDriver.getStringFromDouble(monthlyPayment));
-        }else{
+            loanTermYears.setText("");
+            String paymentString = DataEntryDriver.getStringFromDouble(monthlyPayment);
+            loanTermYears.setText(paymentString);
+            System.out.println("MONTHLY PAYMENT: "+monthlyPayment);
+            System.out.println("MONTHLY PAYMENT DED: "+DataEntryDriver.getStringFromDouble(monthlyPayment));
+        }else{ // else its a credit card and hide the value
             loanTermYears.setVisible(false);
             loanTermLabel.setVisible(false);
         }
@@ -1142,6 +1213,24 @@ public class Controller implements Initializable{
             }
             addSavingsAccSaveB.setDisable(!valid);
         }
+
+        if(activeFXMLFileName.equals("ManageSavingsAcct.fxml")){
+            boolean disableButton = false;
+
+            ArrayList<TextField> textFields = new ArrayList<>();
+            textFields.add(startingBalance);
+            textFields.add(savingInterestRate);
+            boolean textFieldsHaveData = DataEntryDriver.allTextFieldsHaveData(textFields);
+            if(savingCdCloseDatePicker.getEditor().getText().isEmpty() || !textFieldsHaveData){
+                disableButton = true;
+            }
+
+
+            manageSavingsAccSaveB.setDisable(disableButton);
+        }
+
+
+
     }
 
 
@@ -1965,8 +2054,9 @@ public class Controller implements Initializable{
         double interest = DataEntryDriver.getDoubleFromTextField(savingInterestRate)*100.0;
         String closeDate = "null";
         if(savingsAccount.isCdAccount()){
-            closeDate= savingCDTerm.getText();
-            savingsAccount.setCdCloseDate(DataEntryDriver.fixDateString(closeDate));
+            String closeDateString = DataEntryDriver.getStringFromLocalDateFormatted(savingCdCloseDatePicker.getValue());
+            closeDate= closeDateString; // should be fixed already.
+            savingsAccount.setCdCloseDate(closeDate);
         }
 
         savingsAccount.setCdAccount(isCd);
@@ -2841,9 +2931,7 @@ public class Controller implements Initializable{
         boolean todayBeforeDue = today.isBefore(dueDate);
         System.out.println("test result: "+todayBeforeDue);
 
-
-
-
+        System.out.println("Print all loan accounts");
         for(CustomerAccount ca:Main.customerAccounts){
             if(ca.hasLoanAccount()){
                 System.out.println("\n\n"+ca.toStringPrettyPrint());
@@ -2856,12 +2944,17 @@ public class Controller implements Initializable{
             }
         }
 
-        int randomInt = DataEntryDriver.getRandomInt();
-
-        LoanAccount la = Main.customerAccounts.get(0).getLoanAccounts().get(0);
-        System.out.println(la.toStringPrettyPrint());
-        FinanceDriver.creditDebitLoanAccount(la,258.65,"");
-        System.out.println(la.toStringPrettyPrint());
+        System.out.println("Print all savings:");
+        for(CustomerAccount ca:Main.customerAccounts){
+            if(ca.hasSavingsAccount()){
+                System.out.println("\n\n"+ca.toStringPrettyPrint());
+                System.out.println("Savings Accounts:");
+                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
+                for(SavingsAccount sa:savingsAccounts){
+                    System.out.println(sa.toStringPrettyPrint());
+                }
+            }
+        }
 
 
 

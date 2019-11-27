@@ -58,7 +58,7 @@ public class Transaction implements Serializable {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date = DataEntryDriver.fixDateString(date);
     }
 
     public String getTransactionType() {

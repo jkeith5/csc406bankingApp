@@ -129,7 +129,7 @@ public class CheckingAccount implements Serializable {
     }
 
     public void setDateOpened(String dateOpened) {
-        this.dateOpened = dateOpened;
+        this.dateOpened = DataEntryDriver.fixDateString(dateOpened);
         calcNullValue();
     }
 

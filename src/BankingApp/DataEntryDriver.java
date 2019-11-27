@@ -2,6 +2,7 @@ package BankingApp;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -584,14 +585,16 @@ public class DataEntryDriver {
 
     }
 
-    public static void validateBalanceAmountField(TextField textField,boolean allowNegative) { // true to allow negative numbers
 
+    // USE FOR VALIDATION OF ALL BALANCE FIELDS
+    public static void validateBalanceAmountField(TextField textField,boolean allowNegative) { // true to allow negative numbers
         if(allowNegative){ // if we want negative balance for some reason. like -5428.35
             textField.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    if (!newValue.matches("-?\\d{0,7}([\\.]\\d{0,2})?")) {
+                    if (!newValue.matches("(-?\\d{0,7}([\\.]\\d{0,2})?)?")) {
                         textField.setText(oldValue);
+                        System.out.println("n "+newValue);
                     }
                 }
             });
@@ -599,16 +602,19 @@ public class DataEntryDriver {
             textField.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    if (!newValue.matches("\\d{0,7}([\\.]\\d{0,2})?")) {
+                    if (!newValue.matches("(\\d{0,7}([\\.]\\d{0,2})?)?")) {
                         textField.setText(oldValue);
+                        System.out.println("new: "+newValue);
+                        System.out.println("old "+oldValue);
                     }
                 }
             });
         }
     }
 
+    // USE TO VALIDATE INTEREST RATE AS DECIMAL OR WHOLE PERCENT OR AN INTEGER VALUE ONLY
     // if interest rate type is false then its a cd type . if interest wholePercent true then 50 = .50. if false then input is in decimal 0.50
-    public static void validateInputField(TextField textField,boolean interestRateType,boolean interestWholePercent) {
+    public static void validateInterestField(TextField textField, boolean interestRateType, boolean interestWholePercent) {
         //System.out.println("\nvalidate input field.");
         //System.out.println("interestRateType: "+interestRateType);
         //System.out.println("interestWholePercent: "+interestWholePercent);
@@ -654,8 +660,59 @@ public class DataEntryDriver {
         }
     }
 
+    // use to validate the Date Fields in mm/dd/yyyy format or m/d/YYYY like 9/14/2019 or 09/14/2019
+    public static void validateDateField(TextField textField,boolean allowShortDate) { // true to allow negative numbers
+
+        if(allowShortDate){ // allow format
+            textField.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    if (!newValue.matches("(\\d{1,2}/\\d{1,2}/(\\d{4}|\\d{2}))?")) {
+                        textField.setText(oldValue);
+                    }
+                }
+            });
+        }else{ // no negative. use this one for most if not all cases.
+            textField.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    if (!newValue.matches("(\\d{2}/\\d{2}/\\d{4})?")) { // mm/dd/yyyy
+                        textField.setText(oldValue);
+                    }
+                }
+            });
+        }
+    }
 
 
+    // Input an arrayList of CheckBoxes and will return true if any one of them is selected or false otherwise
+    public static boolean isAnyCheckBoxSelected(ArrayList<CheckBox> listOfCheckBoxes){
+        boolean returnVal = false;
+        if(listOfCheckBoxes!=null){ // make sure its not null
+            if(listOfCheckBoxes.size()>0){ // and that it has at least one item
+                for(CheckBox checkBox: listOfCheckBoxes){ // loop through the array
+                    if(checkBox.isSelected()){ // if checkbox is selected
+                        returnVal = true; // toggle the return value to true
+                    } // return value stays false otherwise
+                }
+            }
+        }
+        return returnVal;
+    }
+
+    public static boolean allTextFieldsHaveData(ArrayList<TextField> textFields){
+        boolean returnVal = true;
+
+        for(TextField textField:textFields){
+            if(textField.getText().length()<1){
+                returnVal=false;
+            }
+        }
+
+
+
+        return returnVal;
+    }
 
 
     public static double getDoubleFromTextField(TextField textField){
@@ -690,19 +747,28 @@ public class DataEntryDriver {
     }
 
 
+    // add a format to percision
     public static String getStringFromDouble(double input){
         try {
-            return String.valueOf(input);
+            double rounded = round(input);
+            rounded = Math.round(rounded*100.0)/100.0;
+
+            return String.valueOf(rounded);
         } catch (Exception e) {
             return "null";
         }
     }
 
-    public static String getFormattedStringFromDouble(double input){
-        String result = String.format("%.2f",input);
-        return result;
-    }
 
+    // takes a double such as 5.87999999999 and returns 5.89
+    // or 500.0000000001 and gives 500.0
+    public static double round(double input){
+        double returnVal = 0.0;
+        String formatted = String.format("%.5f",input);
+        double fixed = Double.parseDouble(formatted);
+        returnVal = fixed;
+        return returnVal;
+    }
 
 
     public static String makeSSNValid(String ssn){

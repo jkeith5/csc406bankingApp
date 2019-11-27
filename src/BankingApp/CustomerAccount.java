@@ -490,6 +490,7 @@ public class CustomerAccount implements Serializable {
     public void deleteAllSavingsAccounts(){ // arraylist
         this.savingsAccounts = new ArrayList<SavingsAccount>();
         this.hasSavingsAccount=false;
+        this.hasSimpleSavings=false;
     }
 
 
@@ -497,23 +498,32 @@ public class CustomerAccount implements Serializable {
     public void deleteLoanAccounts(){ // arraylist
         this.loanAccounts= new ArrayList<>();
         this.hasLoanAccount=false;
+        this.hasCreditCardAcct=false;
+        this.hasShortTermLoan=false;
+        this.hasLongTermLoan=false;
+
     }
 
 
+    // used to fix the old IDs to the new format
     public void fixIDforCustomerAccounts(CustomerAccount customerAccountIn){
-
         if(hasCheckingAccount()){
-            this.checkingAccount.setCheckingAcctIDFixed(customerAccountIn);
+            if(this.checkingAccount.getCheckingAcctIDFixed() == null){ // only run if its null
+                this.checkingAccount.setCheckingAcctIDFixed(customerAccountIn);
+            }
         }
-
         if(hasSavingsAccount()){
             for(SavingsAccount sa:savingsAccounts){
-                sa.setSavingsAcctIDFixed(customerAccountIn);
+                if(sa.getSavingsAcctIDFixed() == null){
+                    sa.setSavingsAcctIDFixed(customerAccountIn);
+                }
             }
         }
         if(hasLoanAccount()){
             for(LoanAccount la:loanAccounts){
-                la.setLoanAccountIDFixed(customerAccountIn);
+                if(la.getLoanAccountIDFixed() == null){
+                    la.setLoanAccountIDFixed(customerAccountIn);
+                }
             }
         }
 
@@ -645,13 +655,17 @@ public class CustomerAccount implements Serializable {
 
 
     public String generateNextSavingsCDSubID(){
+        System.out.println("IN generate Next savings cd sub id");
         String returnVal = "null";
         int numberOfAccounts = 0;// because 00 is our starting number
+        System.out.println("# of accts: "+numberOfAccounts);
+
         if(hasSavingsAccount()){
 
             for(SavingsAccount sa:this.savingsAccounts){
                 if(sa.isCdAccount()){ // searching the cd accounts
                     numberOfAccounts++;
+                    System.out.println("# of accts: "+numberOfAccounts);
                 }
             }
         }

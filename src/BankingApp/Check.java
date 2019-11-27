@@ -75,7 +75,7 @@ public class Check implements Serializable {
     }
 
     public void setCheckDate(String checkDate) {
-        this.checkDate = checkDate;
+        this.checkDate = DataEntryDriver.fixDateString(checkDate);
     }
 
     public double getCheckAmount() {

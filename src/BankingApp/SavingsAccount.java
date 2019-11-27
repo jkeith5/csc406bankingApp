@@ -109,7 +109,7 @@ public class SavingsAccount implements Serializable {
     }
 
     public void setDateOpened(String dateOpened) {
-        this.dateOpened = dateOpened;
+        this.dateOpened = DataEntryDriver.fixDateString(dateOpened);
         calcNullValue();
     }
 
@@ -131,7 +131,7 @@ public class SavingsAccount implements Serializable {
     }
 
     public void setCdCloseDate(String cdCloseDate) {
-        this.cdCloseDate = cdCloseDate;
+        this.cdCloseDate = DataEntryDriver.fixDateString(cdCloseDate);
         calcNullValue();
     }
 
@@ -201,12 +201,22 @@ public class SavingsAccount implements Serializable {
     }
 
 
-    public void setSavingsAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end
+    public void setSavingsAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end and index number
+        System.out.println("SetSavingsAccountID Auto");
         String savingsAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
+        System.out.println("savingsACCt ID string: "+savingsAcctIDString);
+
         String savingsAccountIdFix = "";
+
+
         if(this.isCdAccount){// savings cd
+            System.out.println("Is cd account");
             String subId = customerAccount.generateNextSavingsCDSubID();
+            System.out.println("subId: "+subId);
+
             savingsAccountIdFix = savingsAcctIDString+"-02"+"-"+subId;
+            System.out.println("savings acc id fixed: "+savingsAccountIdFix);
+
         }else{ // simple savings
             savingsAccountIdFix = savingsAcctIDString+"-01";
         }
@@ -269,4 +279,14 @@ public class SavingsAccount implements Serializable {
                 ", isNull=" + isNull +
                 '}';
     }
+
+    public String toStringPrettyPrint(){
+        String result = "CustID: "+custID+" FixedID: "+savingsAcctIDFixed+" balance: "+accountBalance+" interest: "+interestRate
+                +" dateOpened: "+dateOpened+" isCd: "+isCdAccount+" cdCloseDate: "+cdCloseDate;
+
+
+        return result;
+    }
+
+
 }

@@ -523,7 +523,6 @@ public class FinanceDriver {
     // or call it manually
     public static void applyLateFeeOnLoanAccount(CustomerAccount ca,LoanAccount loanAccount){
         int monthsLate = loanAccount.isPaymentLate();
-        System.out.println(monthsLate);
         if(monthsLate>0){
             for(int i=0;i<monthsLate;i++){ // loop over every month late and make fee
                 Transaction transaction = new Transaction();

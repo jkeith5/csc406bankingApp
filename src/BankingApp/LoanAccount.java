@@ -189,7 +189,7 @@ public class LoanAccount implements Serializable {
     }
 
     public int isPaymentLate(){ // 0 not behind or int value of the months behind.
-        int returnVal = -1;
+        int returnVal = 0;
         LocalDate today = DataEntryDriver.getCurrentDateObject();
         LocalDate lastPaymentDateObj = DataEntryDriver.getDateObjectFromString(getLastPaymentDate());
         LocalDate paymentDueDateObj = DataEntryDriver.getDateObjectFromString(getPaymentDueDate());
@@ -232,9 +232,12 @@ public class LoanAccount implements Serializable {
         }
         if(lateMonths>0){
             returnVal = lateMonths;
+        }else{
+            returnVal = 0;
         }
 
-        System.out.println("late months "+lateMonths);
+        //System.out.println("\n"+toStringPrettyPrint());
+        //System.out.println("late months "+lateMonths);
 
         return returnVal;
     }
