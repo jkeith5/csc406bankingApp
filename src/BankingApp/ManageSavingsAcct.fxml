@@ -40,8 +40,8 @@
             <DatePicker fx:id="savingCdCloseDatePicker" layoutX="307.0" layoutY="253.0" onKeyReleased="#addFinanceAccountEvent" prefHeight="25.0" prefWidth="149.0" />
             <Button fx:id="manageSavingsAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#manageSavingsAccountsSaveButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
             <ImageView fx:id="help" fitHeight="25.0" fitWidth="25.0" layoutX="14.0" layoutY="77.0" onMouseClicked="#loadHelpWindowAccountIDSystem" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="earlyWithdrawl" layoutX="187.0" layoutY="323.0" text="Make Early Withdrawl:" />
-            <TextField fx:id="earlyWithdrawlAmount" layoutX="322.0" layoutY="319.0" />
+            <Label fx:id="tempLabel" layoutX="191.0" layoutY="317.0" text="Withdrawal Amt:" />
+            <TextField fx:id="tempBalance" layoutX="307.0" layoutY="313.0" />
          </children>
       </Pane>
    </children>

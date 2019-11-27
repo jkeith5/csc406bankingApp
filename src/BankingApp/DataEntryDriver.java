@@ -685,6 +685,8 @@ public class DataEntryDriver {
     }
 
 
+
+
     // Input an arrayList of CheckBoxes and will return true if any one of them is selected or false otherwise
     public static boolean isAnyCheckBoxSelected(ArrayList<CheckBox> listOfCheckBoxes){
         boolean returnVal = false;
