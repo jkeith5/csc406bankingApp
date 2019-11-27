@@ -18,11 +18,6 @@ public class Main extends Application {
 
     /*
     * My notes go here
-    * Need to finish the loan accounts
-    * set validation on manage loan accounts Must select loan account before other fields take data
-    * method to add fee to amount due for late payments etc
-    * Manage loan accounts interface Show Current Balance in place of initial loan amt. inital loan amt is useless after
-    * payment plan is set
     *
     *
     *

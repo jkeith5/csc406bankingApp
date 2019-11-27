@@ -226,6 +226,7 @@ public class Controller implements Initializable{
 
     @FXML Button manageFinancialAccountsPrevB;
 
+    @FXML Label tempLabel; // use this on any scene when you might need to hide it.
 
 
 
@@ -294,6 +295,10 @@ public class Controller implements Initializable{
             }
         }
 
+        String loggedInEmployeeType = "null";
+        if(Main.loggedInEmployee!=null){
+            loggedInEmployeeType = Main.loggedInEmployee.getType();
+        }
 
 
         System.out.println("\nEnd Stack Trace\n");
@@ -582,6 +587,20 @@ public class Controller implements Initializable{
             deleteAllSavingsAcctCheckBox.setDisable(!ca.hasSavingsAccount());
             deleteAllLoanAcctCheckBox.setDisable(!ca.hasLoanAccount());
             manageFinancialAccountsDeleteAccountButton.setDisable(true);
+
+            if(loggedInEmployeeType.equals("T")){
+                tempLabel.setText("");
+                deleteAllCheckingAcctCheckBox.setVisible(false);
+                deleteAllSavingsAcctCheckBox.setVisible(false);
+                deleteAllLoanAcctCheckBox.setVisible(false);
+                manageFinancialAccountsDeleteAccountButton.setVisible(false);
+
+
+                manageCheckingAccB.setDisable(true);
+                manageSavingsAccB.setDisable(true);
+            }
+
+
 
 
         }
