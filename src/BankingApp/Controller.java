@@ -2529,11 +2529,15 @@ public class Controller implements Initializable{
     public void processCCPurchase(){
         double purchaseAMT = DataEntryDriver.getDoubleFromTextField(customerInterCCPurchaseAmt);
         String purchaseDesc = (customerInterCCpurchaseDesc.getText());
-        System.out.println("Ammount in: "+ purchaseAMT);
-        System.out.println("For: "+purchaseDesc);
-        System.out.println(Main.customerAccount.loanAccounts.get(0));
-        FinanceDriver.creditDebitLoanAccount(Main.customerAccount.loanAccounts.get(0),purchaseAMT,purchaseDesc);
+        ArrayList<LoanAccount> loanAccounts = Main.customerAccount.getLoanAccounts();
+        for(int i = 0;i <= loanAccounts.size();i++) {
 
+
+            System.out.println("Amount in: " + purchaseAMT);
+            System.out.println("For: " + purchaseDesc);
+
+            // FinanceDriver.creditDebitLoanAccount(Main.customerAccount.loanAccounts.get(0),purchaseAMT,purchaseDesc);
+            }
     }
 
 

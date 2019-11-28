@@ -753,3 +753,8 @@
 2019-11-27T21:36:53.211 New Log Session.
 2019-11-27T21:36:56.916 Manager Account UserName: asdf logged into account.
 2019-11-27T21:36:59.443 Employee UserName: asdf Looked Up account: CustomerAccount{custID='111-11-1111', firstName='klj', lastName='klj', streetAddr='kj;l', city='lkj', state='AL', zip='46465', atmCardNumber='7884976466885869', dateCreated='11/27/2019', pin='1111', financialAccountID=16, hasSavingsAccount=true, hasCheckingAccount=false, hasShortTermLoan=false, hasLongTermLoan=false, hasCreditCardAcct=false, hasLoanAccount=false, savingsAccounts=[SavingsAccount{custID='111-11-1111', savingsAcctID='16-02-00', accountBalance=5000.0, interestRate=0.155, dateOpened='05/05/2005', isCdAccount=true, cdCloseDate='11/27/2069', savingsAcctIDFixed='16-02-00', isNull=false}, SavingsAccount{custID='111-11-1111', savingsAcctID='16-02-01', accountBalance=10000.0, interestRate=0.185, dateOpened='05/05/2005', isCdAccount=true, cdCloseDate='11/27/2069', savingsAcctIDFixed='16-02-01', isNull=false}], checkingAccount=null, transactions=[], loanAccounts=[], checks=[], isNull=false}
+
+2019-11-27T21:45:18.847 New Log Session.
+
+2019-11-27T21:57:17.501 New Log Session.
+2019-11-27T21:57:25.012 Customer Account UserName: Customer logged into account.
