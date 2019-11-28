@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 
+import java.io.StreamCorruptedException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -240,6 +241,7 @@ public class Controller implements Initializable{
 
     @FXML Label earlyWithdrawl;
     @FXML TextField earlyWithdrawlAmount;
+    @FXML Label errLabel; // used as a generic error label not tied to any one account
 
     @FXML
     ImageView help;
@@ -790,12 +792,7 @@ public class Controller implements Initializable{
             Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+" added account: "+
             tempAccount.toString());
 
-            if(Main.loggedInEmployee.getType().equals("T")){
-                goToTellerScene();
-            }
-            if(Main.loggedInEmployee.getType().equals("M")){
-                //goto manager interface
-            }
+            goToTellerScene();
 
         }else{
             unsuccessfulEntryLabel.setText("ERROR CUSTOMER DATA WAS NOT SAVED!!!! PLEASE CONTACT TECH SUPPORT");
@@ -911,43 +908,134 @@ public class Controller implements Initializable{
 
     // used to change the display of the savings account in the manage interface
     public void manageSavingsAccountTypeEvent(){
+        System.out.println("manage savings account type event");
         CustomerAccount customerAccount = Main.customerAccount;
         String selectedFixedId = manageSavingsAccountsList.getSelectionModel().getSelectedItem();
         SavingsAccount selectedSavingAccount = customerAccount.getSavingsAccountByFixedID(selectedFixedId);
-
-
         boolean isCd = selectedSavingAccount.isCdAccount();
         double balance = selectedSavingAccount.getAccountBalance();
         double interest = selectedSavingAccount.getInterestRate()*100.00;
         String cdCloseDate = selectedSavingAccount.getCdCloseDate();
-
         cdCheckBox.setSelected(isCd);
+
+        LocalDate cdCloseDateObj = DataEntryDriver.getDateObjectFromString(cdCloseDate);
+        startingBalance.setDisable(false);
+        startingBalance.setOpacity(1.0);
+        savingInterestRate.setDisable(false);
+        savingInterestRate.setOpacity(1.0);
+
+
         startingBalance.setText(DataEntryDriver.getStringFromDouble(balance));
+        System.out.println("test: "+DataEntryDriver.getStringFromDouble(interest));
+        //savingInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
+
+        //savingInterestRate.setText(DataEntryDriver.getStringFromInt(DataEntryDriver.getRandomInt()));
+        //savingInterestRate.setText(DataEntryDriver.getStringFromDouble(5.8));
         savingInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
 
-
-        if(isCd){
+        if(isCd){ // if the selected account is a CD account
             savingsCDTermLabel.setVisible(true);
+            savingCdCloseDatePicker.setDisable(false);
             savingCdCloseDatePicker.setVisible(true);
-            tempLabel.setVisible(true);
-            tempBalance.setVisible(true);
+            savingCdCloseDatePicker.setOpacity(1.0);
 
-            LocalDate cdCloseDateObj = DataEntryDriver.getDateObjectFromString(cdCloseDate);
+            tempLabel.setVisible(true);
+            tempBalance.setVisible(true); // withdrawal amount
             savingCdCloseDatePicker.setValue(cdCloseDateObj);
-        }else{
+        }else{ // not a cd account
             savingCdCloseDatePicker.setVisible(false);
             savingsCDTermLabel.setVisible(false);
             tempLabel.setVisible(false);
+            tempBalance.setText("");
             tempBalance.setVisible(false);
         }
         int selIndex = manageSavingsAccountsList.getSelectionModel().getSelectedIndex();
-        if(selIndex>=0){
-            manageSavingsAccSaveB.setDisable(false);
-        }else{
+        System.out.println("sel index: "+selIndex);
+        if(selIndex<0){
             manageSavingsAccSaveB.setDisable(true);
+        }else{
+            manageSavingsAccSaveB.setDisable(false);
         }
 
 
+
+
+    }
+
+    public void manageSavingsAccountCDWithdrawalKeyEvent(KeyEvent e){
+        System.out.println("manage savings key event");
+
+        String keyCodeName = e.getCode().getName();
+        double opacityDisabled = 0.60;
+        double opacityEnabled = 1.00;
+        CustomerAccount customerAccount = Main.customerAccount;
+        String selectedFixedId = manageSavingsAccountsList.getSelectionModel().getSelectedItem();
+        SavingsAccount selectedSavingAccount = customerAccount.getSavingsAccountByFixedID(selectedFixedId);
+
+        if(keyCodeName.equals("Tab") || keyCodeName.equals("Left") || keyCodeName.equals("Down")||keyCodeName.equals("Right")||keyCodeName.equals("Up")){
+            return;
+        }
+
+        if(tempBalance.getText().length()!=0){ // if something is typed in the field
+            Double withdrawalAmount = DataEntryDriver.getDoubleFromTextField(tempBalance);
+            Double currentSavingsCDBalance = selectedSavingAccount.getCurrentCDValue();
+            if(!startingBalance.isDisabled()){ // something in withdrawal field and starting bal was not disabled
+                manageSavingsAccSaveB.setText("Withdrawal");
+                manageSavingsAccountTypeEvent();
+                startingBalance.setDisable(true);
+                startingBalance.setOpacity(opacityDisabled);
+                savingInterestRate.setDisable(true);
+                savingInterestRate.setOpacity(opacityDisabled);
+                savingCdCloseDatePicker.setDisable(true);
+                savingCdCloseDatePicker.setOpacity(opacityDisabled);
+            }
+            double feeForWithdrawalNow = selectedSavingAccount.getFeeForWithdrawalOfCDonThisDay();
+            double savingsCDBalanceAfterFee = currentSavingsCDBalance - feeForWithdrawalNow;
+            double balanceAfterFeeAndWithdrawal = savingsCDBalanceAfterFee - withdrawalAmount;
+
+            System.out.println("\n");
+            System.out.println(selectedSavingAccount.toStringPrettyPrint());
+            System.out.println("savingsOriginalBalance: "+selectedSavingAccount.getAccountBalance());
+            System.out.println("cd years owned: "+selectedSavingAccount.getCurrentYearsOfCD());
+            System.out.println("Saving Curr Value: "+selectedSavingAccount.getCurrentCDValue());
+            System.out.println("savings open date: "+selectedSavingAccount.getDateOpened());
+            System.out.println("Fee for wd: "+feeForWithdrawalNow);
+            System.out.println("saving bal after fee: "+savingsCDBalanceAfterFee);
+
+            if(balanceAfterFeeAndWithdrawal>=0.0){ // enough in cd to make withdrawal
+                String message = String.format("This would Bring your CD account to $%.2f including a fee of $%.2f.",
+                        balanceAfterFeeAndWithdrawal,feeForWithdrawalNow);
+                System.out.println(message);
+                errLabel.setText(message);
+                manageSavingsAccSaveB.setDisable(false);
+            }else{ // not enough for withdrawal
+                errLabel.setText("Not Enough Money In CD account to make withdrawal");
+                manageSavingsAccSaveB.setDisable(true);
+            }
+
+
+        }else{ // nothing is typed in the field
+            manageSavingsAccSaveB.setDisable(false);
+            manageSavingsAccSaveB.setText("Save");
+            startingBalance.setDisable(false);
+            startingBalance.setOpacity(opacityEnabled);
+            savingInterestRate.setDisable(false);
+            savingInterestRate.setOpacity(opacityEnabled);
+
+            savingCdCloseDatePicker.setDisable(false);
+            savingCdCloseDatePicker.setOpacity(opacityEnabled);
+        }
+
+
+    }
+
+
+    public void manageCheckingAccountEvent(){
+        if(startingBalance.getText().length()==0){
+            manageCheckingAccSaveB.setDisable(true);
+        }else{
+            manageCheckingAccSaveB.setDisable(false);
+        }
     }
 
     public void manageLoanAccountTypeEvent(){
@@ -1111,18 +1199,19 @@ public class Controller implements Initializable{
     public void completeTransaction(){ // ONLY USE THIS METHOD FOR A TELLER OR MANAGER ACCOUNT because I can refresh those
         System.out.println("Complete Transaction");
 
+        FinanceDriver.completeTransaction(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,manageExistingTellerCheckingAccount,
+                manageExistingTellerSavingsAccount,manageDispDataErrLabel);
+        manageExistingTellerFundsTransferAmount.setText("");
+        tellerManageDispData();
+        transferFundsKeyEvent();
 
-        if(Main.loggedInEmployee.getType().equalsIgnoreCase("T")){
-            FinanceDriver.completeTransaction(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,manageExistingTellerCheckingAccount,
-                    manageExistingTellerSavingsAccount,manageDispDataErrLabel);
-            manageExistingTellerFundsTransferAmount.setText("");
-            tellerManageDispData();
-            transferFundsKeyEvent();
-        }
-
-        if(Main.loggedInEmployee.getType().equalsIgnoreCase("M")){
-            // DISPLAY DATA METHOD FOR MANAGER DISPLAY
-        }
+//        if(Main.loggedInEmployee.getType().equalsIgnoreCase("T")){
+//
+//        }
+//
+//        if(Main.loggedInEmployee.getType().equalsIgnoreCase("M")){
+//            // DISPLAY DATA METHOD FOR MANAGER DISPLAY
+//        }
         //
     }
 
@@ -1427,9 +1516,8 @@ public class Controller implements Initializable{
     public void deleteAccountButton(){
         DataEntryDriver.removeCustomerAccount(Main.customerAccount.getCustID());
 
-        if(Main.loggedInEmployee.getType().equals("T")){
-            goToTellerScene();
-        }
+        goToTellerScene();
+
 
     }
 
@@ -2015,6 +2103,16 @@ public class Controller implements Initializable{
         interestRate = interestRate/100.00;
 
         SavingsAccount newSavings = new SavingsAccount(customerAccount,isCdAccount,startingBalanceDouble,interestRate,termInYears);
+
+
+        // TESTING
+        if(customerAccount.getCustID().equals("111-11-1111")){
+            if(isCdAccount){
+                newSavings.setDateOpened("05/05/2005"); // for testing
+            }
+        }
+        // TESTING
+
         customerAccount.addSavingsAccount(newSavings);
         goToAddFinanceAcc();
 
@@ -2082,27 +2180,54 @@ public class Controller implements Initializable{
     }
 
     public void manageSavingsAccountsSaveButton(){
+
         CustomerAccount customerAccount = Main.customerAccount;
         SavingsAccount savingsAccount = customerAccount.getSavingsAccountByFixedID(
                 manageSavingsAccountsList.getSelectionModel().getSelectedItem());
         boolean isCd = cdCheckBox.isSelected();
         double balance = DataEntryDriver.getDoubleFromTextField(startingBalance);
-        double interest = DataEntryDriver.getDoubleFromTextField(savingInterestRate)*100.0;
-        String closeDate = "null";
-        if(savingsAccount.isCdAccount()){
-            String closeDateString = DataEntryDriver.getStringFromLocalDateFormatted(savingCdCloseDatePicker.getValue());
-            closeDate= closeDateString; // should be fixed already.
-            savingsAccount.setCdCloseDate(closeDate);
+        double interest = DataEntryDriver.getDoubleFromTextField(savingInterestRate)/100.0;
+
+
+        // going to try a hack here.
+        // instead of checking the cd values I've set the text to withdrawal on the type events
+        // so after wasting time explaining how to code in java...................................................
+        System.out.println("save button text: "+manageSavingsAccSaveB.getText());
+
+        if(manageSavingsAccSaveB.getText().equals("Save")){ // we are just changing data not making a cd withdrawal
+            String closeDate = "null";
+            if(savingsAccount.isCdAccount()){
+                String closeDateString = DataEntryDriver.getStringFromLocalDateFormatted(savingCdCloseDatePicker.getValue());
+                closeDate= closeDateString; // should be fixed already.
+                savingsAccount.setCdCloseDate(closeDate);
+            }
+
+            savingsAccount.setCdAccount(isCd);
+            savingsAccount.setAccountBalance(balance);
+            savingsAccount.setInterestRate(interest/100.0);
+            goToManageFinanceAcc();
+        }else{ // we are making a withdrawal and should only get here if it is already a cd account
+            System.out.println("making a cd withdrawal of: "+DataEntryDriver.getDoubleFromTextField(tempBalance));
+            System.out.println(savingsAccount.toStringPrettyPrint());
+            // data should be validated already
+            // figue current value figure fee take that minus the withdrawal amount
+            double withdrawalAmt = DataEntryDriver.getDoubleFromTextField(tempBalance);
+
+            double savingsCDCurrentValue = savingsAccount.getCurrentCDValue();
+            double feeForWithdrawalNow = savingsAccount.getFeeForWithdrawalOfCDonThisDay();
+            double savingsCDBalanceAfterFee = savingsCDCurrentValue - feeForWithdrawalNow;
+            double savingsBalAfterWithdrawal = savingsCDBalanceAfterFee - withdrawalAmt;
+
+
+            // should be a transaction object here and should be using a method in FinanceDriver But I'm not coding that
+            // right now
+            savingsAccount.setAccountBalance(savingsBalAfterWithdrawal);
+            goToManageFinanceAcc();
+
         }
 
-        savingsAccount.setCdAccount(isCd);
-        savingsAccount.setAccountBalance(balance);
-        savingsAccount.setInterestRate(interest/100.0);
 
-
-
-
-        goToManageFinanceAcc();
+        //
 
     }
 

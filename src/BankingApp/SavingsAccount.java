@@ -2,6 +2,7 @@ package BankingApp;
 
 import javax.xml.crypto.Data;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class SavingsAccount implements Serializable {
 
@@ -138,6 +139,47 @@ public class SavingsAccount implements Serializable {
     // use this to debit and credit the account using negative for debit
     public void debitCreditAccount(double amount){
         this.accountBalance = this.accountBalance+amount;
+    }
+
+
+    // ASSUMING THE ACCOUNT BALANCE IS THE ORIGINAL BALANCE AND NOT THE CURRENT BALANCE FOR A CD ACCOUNT
+    // CurVal = A+(Y*I*A)
+    public double getCurrentCDValue(){
+        double returnVal = 0.0;
+
+        returnVal = accountBalance +(getCurrentYearsOfCD()*interestRate*accountBalance);
+
+        return returnVal;
+    }
+
+
+    // Interest= Y*I*A
+    public double getCurrentInterestEarnedOnCD(){
+        double currInterest = 0.0;
+        currInterest = (getCurrentYearsOfCD()*interestRate*accountBalance);
+        return Math.round(currInterest*100.0)/100.0;
+    }
+
+    // fee = 1/2*(Interest to Date)
+    public double getFeeForWithdrawalOfCDonThisDay(){
+        double fee = 0.5*(getCurrentInterestEarnedOnCD());
+        return Math.round(fee*100.0)/100.0;
+    }
+
+    public int getCurrentYearsOfCD(){
+        LocalDate openDate = DataEntryDriver.getDateObjectFromString(dateOpened);
+        LocalDate closeDate = DataEntryDriver.getDateObjectFromString(cdCloseDate);
+        LocalDate today = DataEntryDriver.getCurrentDateObject();
+
+        int yearsOfCD = 0;
+        try {
+            yearsOfCD = today.getYear() - openDate.getYear();
+        } catch (Exception e) {
+            yearsOfCD = 0;
+        }
+
+
+        return yearsOfCD;
     }
 
 
