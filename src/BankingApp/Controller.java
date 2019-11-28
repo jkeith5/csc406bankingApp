@@ -2407,7 +2407,6 @@ public class Controller implements Initializable{
         System.out.println("Ammount in: "+ purchaseAMT);
         System.out.println("For: "+purchaseDesc);
         System.out.println(Main.customerAccount.loanAccounts.get(0));
-
         FinanceDriver.creditDebitLoanAccount(Main.customerAccount.loanAccounts.get(0),purchaseAMT,purchaseDesc);
 
     }
