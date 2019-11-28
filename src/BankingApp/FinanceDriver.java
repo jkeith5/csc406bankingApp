@@ -378,7 +378,7 @@ public class FinanceDriver {
 
         if(amountProcessed>0.001){ // if amount was processed
             transaction.setAmount(amountProcessed);
-            //Main.customerAccount.addTransactionObject(transaction);
+            Main.customerAccount.addTransactionObject(transaction);
         }
 
 

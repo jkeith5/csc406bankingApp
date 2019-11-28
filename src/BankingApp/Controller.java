@@ -133,6 +133,7 @@ public class Controller implements Initializable{
     @FXML TextField customerInterCCNum;
     @FXML TextArea customerInterCCHistory;
 
+    @FXML CheckBox debitSavingCD;
 
 
 
@@ -227,6 +228,7 @@ public class Controller implements Initializable{
     @FXML Button manageFinancialAccountsPrevB;
 
     @FXML Label tempLabel; // use this on any scene when you might need to hide it.
+    @FXML TextField tempBalance; // same as above
 
 
 
@@ -406,6 +408,7 @@ public class Controller implements Initializable{
             if(Main.loggedInEmployee.getType().equals("T")){
                 deleteCustomerAccountButton.setDisable(true);
             }
+
 
 
 
@@ -664,8 +667,9 @@ public class Controller implements Initializable{
             help.setImage(helpLogo);
             CustomerAccount ca = Main.customerAccount;
             manageSavingsAccSaveB.setDisable(true);
-            //savingCDCloseDate.setVisible(false);
             savingCdCloseDatePicker.setVisible(false);
+            tempBalance.setVisible(false);
+            tempLabel.setVisible(false);
 
             savingsCDTermLabel.setVisible(false);
 
@@ -692,7 +696,8 @@ public class Controller implements Initializable{
 
                 DataEntryDriver.validateBalanceAmountField(startingBalance,false);
                 DataEntryDriver.validateInterestField(savingInterestRate,true,true);
-                //DataEntryDriver.validateDateField(savingCDCloseDate,true);
+                DataEntryDriver.validateBalanceAmountField(tempBalance,false);
+
                 savingCdCloseDatePicker.valueProperty().addListener(new ChangeListener<LocalDate>() {
                     @Override
                     public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
@@ -910,6 +915,7 @@ public class Controller implements Initializable{
         String selectedFixedId = manageSavingsAccountsList.getSelectionModel().getSelectedItem();
         SavingsAccount selectedSavingAccount = customerAccount.getSavingsAccountByFixedID(selectedFixedId);
 
+
         boolean isCd = selectedSavingAccount.isCdAccount();
         double balance = selectedSavingAccount.getAccountBalance();
         double interest = selectedSavingAccount.getInterestRate()*100.00;
@@ -922,17 +928,17 @@ public class Controller implements Initializable{
 
         if(isCd){
             savingsCDTermLabel.setVisible(true);
-            //savingCDCloseDate.setVisible(true);
-            //savingCDCloseDate.setText(cdCloseDate);
-
             savingCdCloseDatePicker.setVisible(true);
+            tempLabel.setVisible(true);
+            tempBalance.setVisible(true);
+
             LocalDate cdCloseDateObj = DataEntryDriver.getDateObjectFromString(cdCloseDate);
             savingCdCloseDatePicker.setValue(cdCloseDateObj);
         }else{
-            //savingCDCloseDate.setVisible(false);
             savingCdCloseDatePicker.setVisible(false);
-
             savingsCDTermLabel.setVisible(false);
+            tempLabel.setVisible(false);
+            tempBalance.setVisible(false);
         }
         int selIndex = manageSavingsAccountsList.getSelectionModel().getSelectedIndex();
         if(selIndex>=0){
@@ -1729,9 +1735,7 @@ public class Controller implements Initializable{
     public void tellerManageDispData(){
         CustomerAccount ca = Main.customerAccount;
         System.out.println("display data");
-        //System.out.println(ca.toString());
-
-        //System.out.println(ca.getSavingsAccount().getCdCloseDate());
+        String loggedInEmployeeType = Main.loggedInEmployee.getType();
 
         manageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
         manageDispDataFirst.setText(ca.getFirstName());
@@ -1740,7 +1744,6 @@ public class Controller implements Initializable{
         manageDispDataCity.setText(ca.getCity());
         manageDispDataState.setText(ca.getState());
         manageDispDataZip.setText(ca.getZip());
-        //manageExistingTellerCheckingAccount.getToggleGroup();
 
         if(manageExistingTellerCheckingAccount.isSelected()){
             if(ca.hasCheckingAccount()){
@@ -1782,6 +1785,11 @@ public class Controller implements Initializable{
             manageDispDataAcctBalance.setText("");
             manageDispDataAcctStatus.setText("No account for user");
         }
+
+
+
+
+
 
 
     }
