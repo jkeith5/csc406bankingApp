@@ -2718,6 +2718,7 @@ public class Controller implements Initializable{
         double transactionAmt = DataEntryDriver.getDoubleFromTextField(customerInterCCPurchaseAmt);
         double remainingCredit = creditCardAccount.getInitialLoanAmt() - creditCardAccount.getCurrentBalance(); // remaining credit
         remainingCredit = DataEntryDriver.round(remainingCredit);
+        double currentCCBalance = DataEntryDriver.round(creditCardAccount.getCurrentBalance(),2);
 
 
 
@@ -2745,8 +2746,16 @@ public class Controller implements Initializable{
             }
         }else{ // making a payment
             if(transactionAmt>0.001){
-                customerCCPurchaseButton.setDisable(false);
-                customerInterErrLabel.setText("Please Enter an amount");
+                if(transactionAmt<=currentCCBalance){ // less than or equal to current credit balance
+                    customerCCPurchaseButton.setDisable(false);
+                    String message = String.format("Paying $%.2f on Credit Card Account.",transactionAmt);
+                    customerInterErrLabel.setText(message);
+                }else {
+                    customerCCPurchaseButton.setDisable(true);
+                    customerInterErrLabel.setText("Please Enter amount less than or equal to credit balance.");
+                }
+
+
             }else{
                 customerCCPurchaseButton.setDisable(true);
                 customerInterErrLabel.setText("");
