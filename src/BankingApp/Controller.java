@@ -2519,6 +2519,7 @@ public class Controller implements Initializable{
 
         customerInterCCHistory.appendText("Credit Card Transactions:" + "\n");
 
+
         for(int i = 1; i < 5; i++){            //loop with real transactions when we have them
             customerInterCCHistory.appendText("Here is a fake CC transaction 11-12-19, $55.00, Shoes" + "\n");
         }
@@ -2526,7 +2527,17 @@ public class Controller implements Initializable{
     }
 
     public void processCCPurchase(){
+        double purchaseAMT = DataEntryDriver.getDoubleFromTextField(customerInterCCPurchaseAmt);
+        String purchaseDesc = (customerInterCCpurchaseDesc.getText());
+        ArrayList<LoanAccount> loanAccounts = Main.customerAccount.getLoanAccounts();
+        for(int i = 0;i <= loanAccounts.size();i++) {
 
+
+            System.out.println("Amount in: " + purchaseAMT);
+            System.out.println("For: " + purchaseDesc);
+
+            // FinanceDriver.creditDebitLoanAccount(Main.customerAccount.loanAccounts.get(0),purchaseAMT,purchaseDesc);
+            }
     }
 
 
