@@ -360,10 +360,12 @@ public class FinanceDriver {
             if(loanAccount.getLoanAccountType().equals("CCL")){ // action on CCL
                 transaction.setDescription("Debit to Credit Card Account");
                 amountProcessed = loanAccount.debitCCLAccount(debitCreditAmt); // debit account
+                transaction.setTransactionType("W");
                 // process late fee if needed
 
             }// you can only debit a credit card so nothing more here
         }else{ // making a credit/payment on account
+            transaction.setTransactionType("D");
             if(loanAccount.getLoanAccountType().equals("CCL")){ // action on CCL
                 transaction.setDescription("Payment on Credit Card Account");
             }else{

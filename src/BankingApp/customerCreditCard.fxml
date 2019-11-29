@@ -11,25 +11,37 @@
     <children>
         <Pane prefHeight="500.0" prefWidth="700.0">
             <children>
-                <Text layoutX="277.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Credit Card Interface" wrappingWidth="145.13671875" />
-                <Label fx:id="customerDispDataFirst" layoutX="290.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
-                <Label fx:id="customerDispDataLast" layoutX="365.0" layoutY="68.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
-                <Label fx:id="CCRecentActivity" layoutX="50.0" layoutY="68.1" prefHeight="17.0" prefWidth="200.0" text="Recent Credit Card Activity" />
-                <TextArea fx:id="customerInterCCHistory" editable="false" focusTraversable="false" layoutX="50.0" layoutY="100.0" prefHeight="250.0" prefWidth="400.0" promptText="Auto-fill CC num" />
-                <Label layoutX="480.0" layoutY="105.0" prefHeight="17.0" prefWidth="130.0" text="Card Number:" />
-                <TextField fx:id="customerInterCCNum" layoutX="480.0" layoutY="130.0" prefWidth="150.0" promptText="Auto-fill CC num" />
-                <Label layoutX="480.0" layoutY="165.0" prefHeight="17.0" prefWidth="130.0" text="Amount:" />
-                <TextField fx:id="customerInterCCPurchaseAmt" layoutX="480.0" layoutY="190.0" prefWidth="150.0" promptText="Enter Amount" />
-                <Label layoutX="480.0" layoutY="225.0" prefHeight="17.0" prefWidth="130.0" text="Description:" />
-                <TextField fx:id="customerInterCCpurchaseDesc" layoutX="480.0" layoutY="250.0" prefWidth="150.0" promptText="Enter Description" />
-                <Button fx:id="CustomerCcPurchaseButton" layoutX="547.0" layoutY="290.0" mnemonicParsing="false" onAction="#processCCPurchase" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Purchase" />
+                <Text layoutX="239.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Credit Card Interface" wrappingWidth="200.0" />
+                <Label fx:id="customerDispDataFirst" layoutX="253.0" layoutY="31.0" prefHeight="17.0" prefWidth="97.0" text="Bobbylongname" />
+                <Label fx:id="customerDispDataLast" layoutX="401.0" layoutY="31.0" prefHeight="17.0" prefWidth="97.0" text="Jones" />
+                <Label fx:id="CCRecentActivity" layoutX="17.0" layoutY="77.0" prefHeight="17.0" prefWidth="150.0" text="Recent Credit Card Activity" />
+                <TextArea fx:id="customerInterCCHistory" editable="false" focusTraversable="false" layoutX="9.0" layoutY="100.0" prefHeight="250.0" prefWidth="545.0" promptText="Auto-fill CC num" />
+            <CheckBox fx:id="customerInterCCMakePaymentCheckBox" layoutX="579.0" layoutY="86.0" mnemonicParsing="false" text="Make Payment" />
+                <Label layoutX="563.0" layoutY="105.0" prefHeight="17.0" prefWidth="83.0" text="Card Number:" />
+                <TextField fx:id="customerInterCCNum" disable="true" editable="false" focusTraversable="false" layoutX="558.0" layoutY="129.0" opacity="0.63" prefHeight="25.0" prefWidth="128.0" promptText="Auto-fill CC num" />
+                <Label layoutX="563.0" layoutY="165.0" prefHeight="17.0" prefWidth="52.0" text="Amount:" />
+                <TextField fx:id="customerInterCCPurchaseAmt" layoutX="558.0" layoutY="192.0" onKeyReleased="#creditCardAmountEvent" prefHeight="25.0" prefWidth="128.0" promptText="Enter Amount" />
+                <Label layoutX="563.0" layoutY="225.0" prefHeight="17.0" prefWidth="78.0" text="Description:" />
+                <TextField fx:id="customerInterCCpurchaseDesc" layoutX="558.0" layoutY="250.0" prefHeight="25.0" prefWidth="128.0" promptText="Enter Description" />
+                <Button fx:id="customerCCPurchaseButton" layoutX="607.0" layoutY="290.0" mnemonicParsing="false" onAction="#processCCPurchase" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Purchase" />
 
 
                 <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToMainScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
 
-                <Label fx:id="customerInterErrLabel" layoutX="186.0" layoutY="358.0" prefHeight="114.0" prefWidth="399.0" text="ERROR Messages somewhere eventually???" wrapText="true" />
+                <Label fx:id="customerInterErrLabel" layoutX="117.0" layoutY="455.0" prefHeight="25.0" prefWidth="545.0" text="ERROR Messages somewhere eventually???" textFill="RED" wrapText="true" />
+            <Label layoutX="214.0" layoutY="31.0" text="First:" />
+            <Label layoutX="366.0" layoutY="31.0" text="Last:" />
+            <Label layoutX="117.0" layoutY="60.0" text="Credit Balance:" />
+            <Label fx:id="creditBalance" layoutX="204.0" layoutY="60.0" prefHeight="17.0" prefWidth="57.0" text="9999999" />
+            <Label layoutX="270.0" layoutY="60.0" text="Credit Limit:" />
+            <Label fx:id="creditLimit" layoutX="343.0" layoutY="60.0" text="9999999" />
+            <Label layoutX="402.0" layoutY="60.0" text="Remaining Credit:" />
+            <Label fx:id="creditRemaining" layoutX="516.0" layoutY="60.0" text="9999999" />
+            <Label layoutX="19.0" layoutY="357.0" text="Payment Due:" />
+            <Label fx:id="creditPaymentDue" layoutX="103.0" layoutY="357.0" text="999999" />
+            <Label layoutX="167.0" layoutY="357.0" text="Due Date:" />
+            <Label fx:id="creditPaymentDueDate" layoutX="230.0" layoutY="357.0" text="12/12/2000" />
             </children>
         </Pane>
     </children>
 </AnchorPane>
-

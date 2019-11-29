@@ -415,6 +415,21 @@ public class CustomerAccount implements Serializable {
         return loanAccounts.get(index);
     }
 
+    public LoanAccount getCreditCardLoanAccount(){
+        LoanAccount returnAccount = null;
+        if(hasLoanAccount()){
+            for(LoanAccount loanAccount:loanAccounts){
+                if(loanAccount.getLoanAccountType().equals("CCL")){
+                    returnAccount = loanAccount;
+                }
+            }
+        }else{
+            System.err.println("Returning a Null CreditCard Account. Check Code");
+        }
+
+        return returnAccount;
+    }
+
 
     public void deleteLoanAccountByIndex(int index){
         loanAccounts.remove(index);

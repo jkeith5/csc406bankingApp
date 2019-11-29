@@ -74,11 +74,11 @@ public class Transaction implements Serializable {
     }
 
     public void setAmount(double amount) {
-        this.amount = amount;
+        this.amount = DataEntryDriver.round(amount,2);
     }
     public void setAmount(String amount) {
         try {
-            this.amount = Double.parseDouble(amount);
+            this.amount = DataEntryDriver.round(Double.parseDouble(amount),2);
         } catch (NumberFormatException e) {
             this.amount = 0.0;
         }
@@ -131,6 +131,14 @@ public class Transaction implements Serializable {
                 " Date: "+date;
     }
 
+
+    // shorter to fit in the interface display area
+    public String toStringPrettyPrintFormattedForInterface(){
+        String returnString = String.format("Type: %.3s Amount: $%7.2f Desc: %.30s Account: %.5s Date: %.11s",transactionType,
+                amount,description,transactionAccount,date);
+
+        return returnString;
+    }
 
 
 

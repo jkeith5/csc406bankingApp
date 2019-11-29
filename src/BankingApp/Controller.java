@@ -119,7 +119,7 @@ public class Controller implements Initializable{
     @FXML Button CustomerInterAtmDepositButton;
     @FXML Button customerScreen;
     @FXML Button customerInterCCButton;
-    @FXML Button CustomerCcPurchaseButton;
+    @FXML Button customerCCPurchaseButton;
     @FXML Label customerDispDataFirst;
     @FXML Label customerDispDataLast;
     @FXML Label customerDispDataAccountBalance;
@@ -133,8 +133,12 @@ public class Controller implements Initializable{
     @FXML TextField customerInterCCpurchaseDesc;
     @FXML TextField customerInterCCNum;
     @FXML TextArea customerInterCCHistory;
-
-    @FXML CheckBox debitSavingCD;
+    @FXML Label creditBalance;
+    @FXML Label creditLimit;
+    @FXML Label creditRemaining;
+    @FXML Label creditPaymentDue;
+    @FXML Label creditPaymentDueDate;
+    @FXML CheckBox customerInterCCMakePaymentCheckBox;
 
 
 
@@ -220,6 +224,8 @@ public class Controller implements Initializable{
     @FXML Button manageCheckingAccSaveB;
     @FXML Button manageSavingsAccSaveB;
     @FXML Button manageLoanAccSaveB;
+    @FXML TextField manageLoanPaymentAmount;
+    @FXML CheckBox manageLoanMakePaymentCheckBox;
 
 
     @FXML ComboBox<String> manageSavingsAccountsList;
@@ -325,7 +331,28 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("customerCreditCard.fxml")){
+            customerInterErrLabel.setText("");// set error label to nothing
+            DataEntryDriver.validateBalanceAmountField(customerInterCCPurchaseAmt,false);
+
+            customerInterCCMakePaymentCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    if(newValue){ // if make payment is selected
+                        customerInterCCpurchaseDesc.setDisable(true);
+                        customerCCPurchaseButton.setText("Payment");
+                    }else{ // if make payment is not selected
+                        customerInterCCpurchaseDesc.setDisable(false);
+                        customerCCPurchaseButton.setText("Purchase");
+                    }
+                    customerInterCCPurchaseAmt.setText("");
+                    customerInterCCpurchaseDesc.setText("");
+                }
+            });
+
+
+
             customerAtmDispData();
+            creditCardAmountEvent();
         }
 
         if(locationString.equals("BankManagerInterface.fxml")){
@@ -467,6 +494,15 @@ public class Controller implements Initializable{
         if(locationString.equals("CustomerInterface.fxml")){
             DataEntryDriver.validateBalanceAmountField(customerInterAtmWithdrawalAmt,false);
             DataEntryDriver.validateBalanceAmountField(customerInterAtmCheckAmt,false);
+            CustomerAccount ca = Main.customerAccount;
+
+            if(ca.hasCreditCardAcct()){
+                customerInterCCButton.setDisable(false);
+            }else{
+                customerInterCCButton.setDisable(true);
+            }
+            customerInterErrLabel.setText("");
+
             customerDispData();
         }
 
@@ -619,9 +655,9 @@ public class Controller implements Initializable{
             dispDataUpper();
             CustomerAccount ca = Main.customerAccount;
             manageLoanAccSaveB.setDisable(true);
-            loanTermYears.setVisible(false);
-            loanTermLabel.setVisible(false);
             help.setImage(helpLogo);
+            manageLoanPaymentAmount.setDisable(true);
+            errLabel.setText("");
 
             if(ca.hasLoanAccount()){
                 ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
@@ -642,23 +678,27 @@ public class Controller implements Initializable{
 
                 manageLoanAccountsList.getItems().addAll(loanAccountsFixedID); // add items to the loan accounts box
 
+
+
+                DataEntryDriver.validateBalanceAmountField(startingBalance,false);
+                DataEntryDriver.validateInterestField(loanInterestRate,true,true);
+                DataEntryDriver.validateBalanceAmountField(loanTermYears,false);
+                DataEntryDriver.validateBalanceAmountField(manageLoanPaymentAmount,false);
+
+
+
                 manageLoanAccountsList.valueProperty().addListener(new ChangeListener<String>() {
                     @Override public void changed(ObservableValue ov, String t, String t1) {
                         manageLoanAccountTypeEvent();
                     }
                 });
 
-                loanAccountTypeComboBox.valueProperty().addListener(new ChangeListener<String>() {
-                    @Override public void changed(ObservableValue ov, String t, String t1) {
-                        loanAccountTypeEvent();
+                manageLoanMakePaymentCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                        manageLoanAccountsMakePaymentCheckBoxEvent();
                     }
                 });
-
-                DataEntryDriver.validateBalanceAmountField(startingBalance,false);
-                DataEntryDriver.validateInterestField(loanInterestRate,true,true);
-                DataEntryDriver.validateBalanceAmountField(loanTermYears,false);
-
-
 
             }// end has loan account
 
@@ -1061,18 +1101,17 @@ public class Controller implements Initializable{
         loanInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
 
         if(loanAccountType.equals("LTL") || loanAccountType.equals("STL")){
-            loanTermLabel.setVisible(true);
-            loanTermYears.setVisible(true);
             loanTermYears.setText("");
             String paymentString = DataEntryDriver.getStringFromDouble(monthlyPayment);
             loanTermYears.setText(paymentString);
             System.out.println("MONTHLY PAYMENT: "+monthlyPayment);
             System.out.println("MONTHLY PAYMENT DED: "+DataEntryDriver.getStringFromDouble(monthlyPayment));
-        }else{ // else its a credit card and hide the value
-            loanTermYears.setVisible(false);
-            loanTermLabel.setVisible(false);
-        }
+        }else{ // else its a credit card make the label a payment due amount
+            loanTermLabel.setText("Payment Due:");
+            double creditPmtDue = DataEntryDriver.round(selectedLoanAccount.getAmountDue(),2);
+            loanTermYears.setText(DataEntryDriver.getStringFromDouble(creditPmtDue));
 
+        }
 
         int selIndex = manageLoanAccountsList.getSelectionModel().getSelectedIndex();
         if(selIndex>=0){
@@ -1080,8 +1119,58 @@ public class Controller implements Initializable{
         }else{
             manageLoanAccSaveB.setDisable(true);
         }
+
+
+        // make sure only tellers can make a payment on a loan and not directly edit data
+
+        if(Main.loggedInEmployee.getType().equals("T")){
+            manageLoanMakePaymentCheckBox.setSelected(true);
+            manageLoanMakePaymentCheckBox.setDisable(true);
+        }
+
+
     }
 
+    public void manageLoanAccountsMakePaymentCheckBoxEvent(){
+        if(manageLoanMakePaymentCheckBox.isSelected()){ // making a payment
+            manageLoanAccountTypeEvent();// to reset the values to what they were
+            manageLoanPaymentAmount.setDisable(false);
+            startingBalance.setDisable(true);
+            loanInterestRate.setDisable(true);
+            loanTermYears.setDisable(true);
+            manageLoanAccSaveB.setText("Payment");
+        }else{ // not making a payment
+            startingBalance.setDisable(false);
+            loanInterestRate.setDisable(false);
+            loanTermYears.setDisable(false);
+            manageLoanPaymentAmount.setDisable(true);
+            manageLoanAccSaveB.setText("Save");
+            manageLoanAccountTypeEvent();// to reset the values to what they were
+        }
+    }
+
+    public void manageLoanAccountPaymentAmountEvent(){
+        CustomerAccount customerAccount = Main.customerAccount;
+        String selectedFixedId = manageLoanAccountsList.getSelectionModel().getSelectedItem();
+        LoanAccount selectedLoanAccount = customerAccount.getLoanAccountByFixedID(selectedFixedId);
+        double loanBalance = DataEntryDriver.round(selectedLoanAccount.getCurrentBalance(),2);
+        double paymentAmt = DataEntryDriver.getDoubleFromTextField(manageLoanPaymentAmount);
+
+        if(paymentAmt<=loanBalance){ // paying under the balance or up to it
+            if(paymentAmt<0.001){ // zero
+                manageLoanAccSaveB.setDisable(true);
+                errLabel.setText("Please Enter an amount to Pay.");
+            }else{ // not zero
+                manageLoanAccSaveB.setDisable(false);
+                errLabel.setText("");
+            }
+        }else{ // trying to pay off more than loan balance
+            manageLoanAccSaveB.setDisable(true);
+            errLabel.setText("Please enter an amount under current Balance");
+        }
+
+
+    }
 
     public void displayDataManageFinancialAccounts(){
         String location = activeFXMLFileName;
@@ -2231,24 +2320,59 @@ public class Controller implements Initializable{
 
     }
 
-    public void manageLoanAccountsSaveButton(){
+    public void manageLoanAccountsSaveButton(){ // also the manage loan make payment method
         CustomerAccount ca = Main.customerAccount;
         String loanAccountFixedID = manageLoanAccountsList.getSelectionModel().getSelectedItem();
         LoanAccount selectedLoanAccount = ca.getLoanAccountByFixedID(loanAccountFixedID);
         String loanTypeShort = DataEntryDriver.getLoanTypeAbbFromFullName(loanAccountTypeComboBox.getSelectionModel().getSelectedItem());
         double balance = DataEntryDriver.getDoubleFromTextField(startingBalance);
         double interestRate = DataEntryDriver.getDoubleFromTextField(loanInterestRate)/100.0;
-        String loanTermString = "";
-        if(loanTypeShort.equals("LTL") || loanTypeShort.equals("STL")){
-            loanTermString = DataEntryDriver.fixDateString(loanTermYears.getText());
+
+
+        if(manageLoanMakePaymentCheckBox.isSelected()){ // making a payment
+            double paymentAmt = DataEntryDriver.getDoubleFromTextField(manageLoanPaymentAmount);
+            // now make the payment
+            FinanceDriver.creditDebitLoanAccount(selectedLoanAccount,paymentAmt,"");
+            manageLoanMakePaymentCheckBox.setSelected(false);
+            manageLoanPaymentAmount.setText("");
+
+            // now check to see if that payment paid off the loan if so close the loan account and return to previous screen
+            double newCurrentBal = DataEntryDriver.round(selectedLoanAccount.getCurrentBalance(),2);
+
+            if(newCurrentBal<0.0001){ // PAID OFF LOAN
+                if(!selectedLoanAccount.getLoanAccountType().equals("CCL")){
+                    int index = ca.getLoanAccountIndexByFixedID(loanAccountFixedID);
+                    ca.deleteLoanAccountByIndex(index); // delete the loan account
+                    goToDisplayDataScene(); // return to the display screen
+                }else{
+                    manageLoanAccountTypeEvent();
+                }
+            }else{
+                manageLoanAccountTypeEvent();
+            }
+
+
+
+
+
+
+        }else{ // updating the data
+            String loanTermString = "";
+            if(loanTypeShort.equals("LTL") || loanTypeShort.equals("STL")){
+                loanTermString = DataEntryDriver.fixDateString(loanTermYears.getText());
+            }
+
+            selectedLoanAccount.setLoanAccountType(loanTypeShort);
+            selectedLoanAccount.setCurrentBalance(balance);
+            selectedLoanAccount.setInterestRate(interestRate);
+            selectedLoanAccount.setLoanTerm(loanTermString);
+            manageLoanAccountTypeEvent();
         }
 
-        selectedLoanAccount.setLoanAccountType(loanTypeShort);
-        selectedLoanAccount.setCurrentBalance(balance);
-        selectedLoanAccount.setInterestRate(interestRate);
-        selectedLoanAccount.setLoanTerm(loanTermString);
 
-        goToManageFinanceAcc();
+
+
+        //goToManageFinanceAcc();
 
 
     }
@@ -2510,36 +2634,127 @@ public class Controller implements Initializable{
     public void customerAtmDispData(){
         CustomerAccount ca = Main.loggedInCustomer;
         System.out.println("customer disp data ca: "+Main.customerAccount.getCustID());
+        LoanAccount creditCardLoanAccount = ca.getCreditCardLoanAccount();
+
+        if(creditCardLoanAccount==null){
+            return;
+        }
 
         customerDispDataFirst.setText(ca.getFirstName());
         customerDispDataLast.setText(ca.getLastName());
-        customerInterCCNum.setText("1234567789008"); //Autofill with actual CC number
+        String creditBalanceString = String.format("$%.2f",creditCardLoanAccount.getCurrentBalance());
+        String creditLimitString = String.format("$%.2f",creditCardLoanAccount.getInitialLoanAmt());
+        double creditRemainingAmount = creditCardLoanAccount.getInitialLoanAmt() - creditCardLoanAccount.getCurrentBalance();
+        String creditRemainingString = String.format("$%.2f",creditRemainingAmount);
+
+        String paymentDueString = String.format("$%.2f",creditCardLoanAccount.getAmountDue());
+        String paymentDueDateString = creditCardLoanAccount.getPaymentDueDate();
+
+        creditBalance.setText(creditBalanceString);
+        creditLimit.setText(creditLimitString);
+        creditRemaining.setText(creditRemainingString);
+        creditPaymentDue.setText(paymentDueString);
+        creditPaymentDueDate.setText(paymentDueDateString);
+
+
+
+        //customerInterCCNum.setText("1234567789008"); //Autofill with actual CC number
+        customerInterCCNum.setText(ca.getAtmCardNumber()); // auto fills the actual cc number
 
         customerInterCCHistory.setText("");
-
         customerInterCCHistory.appendText("Credit Card Transactions:" + "\n");
 
+        ArrayList<Transaction> allCustomerTransactions = ca.getTransactions();
+        for(Transaction transaction: allCustomerTransactions){ // loop through all transactions
+            // and find only the ones that are the Credit Card Transactions using Transaction Account
+            System.out.println(transaction.toStringPrettyPrintFormattedForInterface());
 
-        for(int i = 1; i < 5; i++){            //loop with real transactions when we have them
-            customerInterCCHistory.appendText("Here is a fake CC transaction 11-12-19, $55.00, Shoes" + "\n");
+            if(transaction.getTransactionAccount().equals("CCL")){ // if the transaction was on a Credit Card Loan
+                customerInterCCHistory.appendText("\n"+transaction.toStringPrettyPrintFormattedForInterface());
+            }
+
         }
 
     }
 
     public void processCCPurchase(){
-        double purchaseAMT = DataEntryDriver.getDoubleFromTextField(customerInterCCPurchaseAmt);
-        String purchaseDesc = (customerInterCCpurchaseDesc.getText());
-        ArrayList<LoanAccount> loanAccounts = Main.customerAccount.getLoanAccounts();
-        for(int i = 0;i <= loanAccounts.size();i++) {
+        double transactionAmt = DataEntryDriver.getDoubleFromTextField(customerInterCCPurchaseAmt);
+        String purchaseDesc = customerInterCCpurchaseDesc.getText();
+        LoanAccount creditCardLoanAccount = Main.customerAccount.getCreditCardLoanAccount();
 
+        // make this work for debit or credit
 
-            System.out.println("Amount in: " + purchaseAMT);
-            System.out.println("For: " + purchaseDesc);
+        if(customerInterCCMakePaymentCheckBox.isSelected()){ // making a payment so make amount positive with validation
+            // it is always positive
+            System.out.println("Credit Card Payment Amount: "+transactionAmt);
+            FinanceDriver.creditDebitLoanAccount(creditCardLoanAccount,transactionAmt,"Credit Card Payment");
 
-            // FinanceDriver.creditDebitLoanAccount(Main.customerAccount.loanAccounts.get(0),purchaseAMT,purchaseDesc);
+        }else{ // making a purchase so make amount negative
+            System.out.println("Credit Card Purchase Amount: "+transactionAmt);
+            System.out.println("Credit Card Purchase Description: "+purchaseDesc);
+            double debitAmt = 0.0-transactionAmt;
+
+            if(purchaseDesc.length()>0){
+                FinanceDriver.creditDebitLoanAccount(creditCardLoanAccount,debitAmt,purchaseDesc);
+            }else{
+                FinanceDriver.creditDebitLoanAccount(creditCardLoanAccount,debitAmt,"Credit Card Purchase");
             }
+
+        }
+
+        customerInterCCPurchaseAmt.setText("");
+        customerInterCCpurchaseDesc.setText("");
+
+        creditCardAmountEvent();
+        customerAtmDispData(); // refresh the customer interface
+
     }
 
+
+    public void creditCardAmountEvent(){
+        // disable button if amount is 0.00 or if they don't have enough money for the purchase
+        CustomerAccount ca = Main.customerAccount;
+        LoanAccount creditCardAccount = ca.getCreditCardLoanAccount(); // should not return null if validation to get here works
+        double transactionAmt = DataEntryDriver.getDoubleFromTextField(customerInterCCPurchaseAmt);
+        double remainingCredit = creditCardAccount.getInitialLoanAmt() - creditCardAccount.getCurrentBalance(); // remaining credit
+        remainingCredit = DataEntryDriver.round(remainingCredit);
+
+
+
+        if(!customerInterCCMakePaymentCheckBox.isSelected()){ // making a purchase
+            System.out.println("Transaction Amt: "+transactionAmt);
+            System.out.println("Remaining credit: "+remainingCredit);
+
+            if(remainingCredit>0.0){ // make sure account is not over limit
+                if(transactionAmt<0.001){ // don't process a 0.00 debit
+                    customerCCPurchaseButton.setDisable(true);
+                    customerInterErrLabel.setText("Please Enter an amount");
+                }else{ // amount > 0.00
+                    if(transactionAmt<=remainingCredit){ // make sure purchase is not more than remaining credit
+                        customerCCPurchaseButton.setDisable(false);
+                        customerInterErrLabel.setText("");
+                    }else{ // purchase is greater than remaining credit
+                        customerCCPurchaseButton.setDisable(true);
+                        customerInterErrLabel.setText("Purchase amount is greater than Credit Limit");
+                    }
+                }
+
+            }else{ // account is over limit
+                customerCCPurchaseButton.setDisable(true);
+                customerInterErrLabel.setText("Account is over Credit Limit");
+            }
+        }else{ // making a payment
+            if(transactionAmt>0.001){
+                customerCCPurchaseButton.setDisable(false);
+                customerInterErrLabel.setText("Please Enter an amount");
+            }else{
+                customerCCPurchaseButton.setDisable(true);
+                customerInterErrLabel.setText("");
+            }
+        }
+
+
+    }
 
 
 
@@ -2966,26 +3181,13 @@ public class Controller implements Initializable{
         Parent root = null;
         try {
 
-            if(Main.loggedInEmployee.getType().equalsIgnoreCase("T")){// load teller scene
-                root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
 
-                Main.primaryStage.setTitle("Customer Account Data Management Interface");
-                Main.primaryStage.setScene(new Scene(root,700,500));
-                Main.primaryStage.show();
-                Main.activeStage=Main.primaryStage;
-                System.out.println("set active stage to primary in lookup ssn button");
-            }
-
-            if(Main.loggedInEmployee.getType().equalsIgnoreCase("M")){
-                // load the manager display screen
-                root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
-
-                Main.primaryStage.setTitle("Customer Account Data Management Interface");
-                Main.primaryStage.setScene(new Scene(root,700,500));
-                Main.primaryStage.show();
-                Main.activeStage=Main.primaryStage;
-                System.out.println("set active stage to primary in lookup ssn button");
-            }
+            Main.primaryStage.setTitle("Customer Account Data Management Interface");
+            Main.primaryStage.setScene(new Scene(root,700,500));
+            Main.primaryStage.show();
+            Main.activeStage=Main.primaryStage;
+            System.out.println("set active stage to primary in lookup ssn button");
 
 
         } catch (IOException e) {
@@ -3134,6 +3336,23 @@ public class Controller implements Initializable{
                 }
             }
         }
+
+
+        System.out.println("Print all Transactions:");
+        for(CustomerAccount ca:Main.customerAccounts){
+            System.out.println("\n\n"+ca.toStringPrettyPrint());
+            ArrayList<Transaction> transactions = ca.getTransactions();
+            if(transactions.size()!=0){// if size is not 0
+                for(Transaction transaction: transactions){
+                    System.out.println(transaction.toStringPrettyPrint());
+                }
+            }else{
+                System.out.println("No Transactions");
+            }
+
+        }
+
+
 
 
         // temp

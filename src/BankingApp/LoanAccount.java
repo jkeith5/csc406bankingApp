@@ -7,7 +7,7 @@ public class LoanAccount implements Serializable {
 
     public String custID;
     public double initialLoanAmt; // this is also the credit limit for credit card accounts
-    public double currentBalance;
+    public double currentBalance; // current loan balance. what is left on STL or LTL. or the current balance on a CCL
     public double interestRate;
     public String paymentDueDate;
     public String paymentNoticeDate;

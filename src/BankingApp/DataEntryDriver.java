@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -771,6 +773,17 @@ public class DataEntryDriver {
         returnVal = fixed;
         return returnVal;
     }
+
+    public static double round(double value, int places) {
+        if(places < 0){
+            return value;
+        }else{
+            BigDecimal bd = new BigDecimal(Double.toString(value));
+            bd = bd.setScale(places, RoundingMode.HALF_UP);
+            return bd.doubleValue();
+        }
+    }
+
 
 
     public static String makeSSNValid(String ssn){
