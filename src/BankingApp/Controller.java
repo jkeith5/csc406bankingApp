@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 
-import java.io.StreamCorruptedException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -21,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,6 +57,9 @@ public class Controller implements Initializable{
     @FXML TextField generalTestTextField;
     @FXML Button generalTestButton;
     @FXML Button randomSSN;
+    @FXML Button testWindowButton;
+    @FXML TextArea testWindowTextArea;
+    @FXML Button testWindowButton2;
 
     @FXML Button testWindowExitButton;
     @FXML
@@ -157,6 +160,8 @@ public class Controller implements Initializable{
     @FXML TextField manageExistingTellerFundsTransferAmount;
     @FXML Button manageExistingDispActivityPrevButton;
 
+    @FXML Button manageExistingDispDataStopPayment;
+
 
     // Update data interface
     @FXML Button tellerUpdateDataPreviousButton;
@@ -251,6 +256,15 @@ public class Controller implements Initializable{
 
     @FXML
     ImageView help;
+
+    @FXML ComboBox<Check> unprocessedChecksComboBox;
+    @FXML TextField checkNumber;
+    @FXML TextField checkDate;
+    @FXML TextField checkAmount;
+    @FXML TextField checkProcessed;
+    @FXML TextField checkStatus;
+    @FXML Button stopPaymentButton;
+
 
     @FXML Button testButton;
 
@@ -379,7 +393,7 @@ public class Controller implements Initializable{
 
         }
 
-        if(locationString.equals("ManageExistingUserDisplayDataTeller.fxml")){
+        if(locationString.equals("ManageExistingUserDisplayData.fxml")){
             System.out.println(Main.loggedInEmployee.getType());
             CustomerAccount ca = Main.customerAccount;
             accTypeToggleGroup = manageExistingTellerCheckingAccount.getToggleGroup();
@@ -439,6 +453,12 @@ public class Controller implements Initializable{
             }
 
 
+            if(FinanceDriver.hasUnprocessedChecks(ca)){
+                manageExistingDispDataStopPayment.setDisable(false);
+            }else{
+                manageExistingDispDataStopPayment.setDisable(true);
+            }
+
 
 
             tellerManageDispData();
@@ -473,19 +493,9 @@ public class Controller implements Initializable{
 
 
         if(locationString.equals("TestWindow.fxml")){
+            System.out.println("init testWindow");
 
-            testComboBox.setTooltip(new Tooltip());
-            testComboBox.getItems().clear();
-            testComboBox.getItems().addAll(states);
-            autoComboTest = new ComboBoxAutoComplete<String>(testComboBox); // creates and manages the combo box
-
-
-            //   ^-?\d{0,7}([\.]\d{0,4})?
-            DataEntryDriver.validateBalanceAmountField(tf1,true); // allow negative
-            DataEntryDriver.validateZipField(tf2);
-            System.out.println("test ");
-
-
+            testWindowTextArea.setText("");
 
 
 
@@ -638,7 +648,7 @@ public class Controller implements Initializable{
 
 
                 manageCheckingAccB.setDisable(true);
-                manageSavingsAccB.setDisable(true);
+                //manageSavingsAccB.setDisable(true);
             }
 
 
@@ -763,10 +773,46 @@ public class Controller implements Initializable{
 
 
         }
-        if(locationString.equals("AddFXMLFileNameHere.fxml")){
-            // Enter code to run on initialization of the FXML Scene
-            // .... like the methods to populate data
-            // or the ones to set listener events to a TextField
+        if(locationString.equals("StopPayment.fxml")){
+            dispDataUpper();
+            ArrayList<Check> checks = Main.customerAccount.getChecks();
+
+            unprocessedChecksComboBox.getItems().clear(); // clear the box or it will persist
+            ArrayList<Check> unprocessedCheckNumbers = new ArrayList<>(); // string arraylist for the id
+
+            for(Check check:checks){
+                if(!check.isCheckProcessed()){
+                    if(!check.getCheckStatus().equals("hold")){
+                        unprocessedCheckNumbers.add(check);
+                    }
+
+                }
+            }
+            unprocessedChecksComboBox.getItems().addAll(unprocessedCheckNumbers);
+            unprocessedChecksComboBox.converterProperty().setValue(new StringConverter<Check>() {
+                @Override
+                public String toString(Check object) {
+                    return object.getCheckNumber();
+                }
+
+                @Override
+                public Check fromString(String string) {
+                    return null;
+                }
+            });
+
+            unprocessedChecksComboBox.valueProperty().addListener(new ChangeListener<Check>() {
+                @Override
+                public void changed(ObservableValue<? extends Check> observable, Check oldValue, Check newValue) {
+                    unprocessedCheckComboBoxEvent();
+                }
+            });
+
+
+            stopPaymentButton.setDisable(true); // set to false if check is selected and enough money to pay stop payment fee
+
+
+
         }
         if(locationString.equals("AddFXMLFileNameHere.fxml")){
             // Enter code to run on initialization of the FXML Scene
@@ -896,6 +942,32 @@ public class Controller implements Initializable{
 
     }
 
+    public void unprocessedCheckComboBoxEvent(){
+        CustomerAccount ca = Main.customerAccount;
+        Check selectedCheck = unprocessedChecksComboBox.getValue();
+
+        System.out.println(ca.toStringPrettyPrint());
+        System.out.println(selectedCheck.toStringPrettyPrint());
+
+        checkNumber.setText(selectedCheck.getCheckNumber());
+        checkDate.setText(selectedCheck.getCheckDate());
+        checkAmount.setText(DataEntryDriver.getStringFromDouble(DataEntryDriver.round(selectedCheck.getCheckAmount(),2)));
+        checkProcessed.setText(String.valueOf(selectedCheck.isCheckProcessed()));
+        checkStatus.setText(selectedCheck.getCheckStatus());
+
+        CheckingAccount checkingAccount = ca.getCheckingAccount();
+
+        if(checkingAccount.getAccountBalance()>15.00){
+            stopPaymentButton.setDisable(false);
+        }else{
+            stopPaymentButton.setDisable(true);
+        }
+
+
+
+
+
+    }
 
     public void isCdCheckBoxEvent(){
         //
@@ -955,6 +1027,7 @@ public class Controller implements Initializable{
         boolean isCd = selectedSavingAccount.isCdAccount();
         double balance = selectedSavingAccount.getAccountBalance();
         double interest = selectedSavingAccount.getInterestRate()*100.00;
+        System.out.println("interest is: "+interest);
         String cdCloseDate = selectedSavingAccount.getCdCloseDate();
         cdCheckBox.setSelected(isCd);
 
@@ -963,17 +1036,17 @@ public class Controller implements Initializable{
         startingBalance.setOpacity(1.0);
         savingInterestRate.setDisable(false);
         savingInterestRate.setOpacity(1.0);
-
-
-        startingBalance.setText(DataEntryDriver.getStringFromDouble(balance));
         System.out.println("test: "+DataEntryDriver.getStringFromDouble(interest));
-        //savingInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
-
-        //savingInterestRate.setText(DataEntryDriver.getStringFromInt(DataEntryDriver.getRandomInt()));
-        //savingInterestRate.setText(DataEntryDriver.getStringFromDouble(5.8));
         savingInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
 
+
+
+
+
         if(isCd){ // if the selected account is a CD account
+            balance = DataEntryDriver.round(selectedSavingAccount.getCurrentCDValue(),2);
+            // set balance to current CD value instead of init balance.
+
             savingsCDTermLabel.setVisible(true);
             savingCdCloseDatePicker.setDisable(false);
             savingCdCloseDatePicker.setVisible(true);
@@ -989,6 +1062,9 @@ public class Controller implements Initializable{
             tempBalance.setText("");
             tempBalance.setVisible(false);
         }
+
+        startingBalance.setText(DataEntryDriver.getStringFromDouble(balance));
+
         int selIndex = manageSavingsAccountsList.getSelectionModel().getSelectedIndex();
         System.out.println("sel index: "+selIndex);
         if(selIndex<0){
@@ -997,6 +1073,20 @@ public class Controller implements Initializable{
             manageSavingsAccSaveB.setDisable(false);
         }
 
+
+        double disabledOpacity = 0.60;
+        if(Main.loggedInEmployee.getType().equals("T")){
+            // disable all values because teller can see all data but not change cd accounts in any way.
+            startingBalance.setDisable(true);
+            startingBalance.setOpacity(disabledOpacity);
+            savingInterestRate.setDisable(true);
+            savingInterestRate.setOpacity(disabledOpacity);
+            savingCdCloseDatePicker.setDisable(true);
+            savingCdCloseDatePicker.setOpacity(disabledOpacity);
+            tempBalance.setDisable(true);
+            tempBalance.setOpacity(disabledOpacity);
+            manageSavingsAccSaveB.setDisable(true);
+        }
 
 
 
@@ -2041,7 +2131,7 @@ public class Controller implements Initializable{
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
 
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
@@ -2086,7 +2176,7 @@ public class Controller implements Initializable{
         Parent root = null;
 
         try {
-            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
 
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
@@ -2140,7 +2230,7 @@ public class Controller implements Initializable{
 
 
         try {
-            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
@@ -2274,14 +2364,11 @@ public class Controller implements Initializable{
         SavingsAccount savingsAccount = customerAccount.getSavingsAccountByFixedID(
                 manageSavingsAccountsList.getSelectionModel().getSelectedItem());
         boolean isCd = cdCheckBox.isSelected();
-        double balance = DataEntryDriver.getDoubleFromTextField(startingBalance);
-        double interest = DataEntryDriver.getDoubleFromTextField(savingInterestRate)/100.0;
-
+        double balance = DataEntryDriver.round(DataEntryDriver.getDoubleFromTextField(startingBalance),2);
+        double interest = DataEntryDriver.round(DataEntryDriver.getDoubleFromTextField(savingInterestRate)/100.0,5); // 5 decimal places
 
         // going to try a hack here.
         // instead of checking the cd values I've set the text to withdrawal on the type events
-        // so after wasting time explaining how to code in java...................................................
-        System.out.println("save button text: "+manageSavingsAccSaveB.getText());
 
         if(manageSavingsAccSaveB.getText().equals("Save")){ // we are just changing data not making a cd withdrawal
             String closeDate = "null";
@@ -2291,13 +2378,10 @@ public class Controller implements Initializable{
                 savingsAccount.setCdCloseDate(closeDate);
             }
 
-            savingsAccount.setCdAccount(isCd);
             savingsAccount.setAccountBalance(balance);
-            savingsAccount.setInterestRate(interest/100.0);
+            savingsAccount.setInterestRate(interest);
             goToManageFinanceAcc();
         }else{ // we are making a withdrawal and should only get here if it is already a cd account
-            System.out.println("making a cd withdrawal of: "+DataEntryDriver.getDoubleFromTextField(tempBalance));
-            System.out.println(savingsAccount.toStringPrettyPrint());
             // data should be validated already
             // figue current value figure fee take that minus the withdrawal amount
             double withdrawalAmt = DataEntryDriver.getDoubleFromTextField(tempBalance);
@@ -2393,7 +2477,7 @@ public class Controller implements Initializable{
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
@@ -3100,6 +3184,16 @@ public class Controller implements Initializable{
     // end general block
 
 
+    public void stopCheckPaymentAction(){
+        CustomerAccount ca = Main.customerAccount;
+        Check selectedCheck = unprocessedChecksComboBox.getValue();
+
+        FinanceDriver.applyFeeOnAccount(ca,"stop"); // puts stop payment on account
+        selectedCheck.stopCheckPayment(); // stop the payment
+        closeStage(Main.activeStage);
+        goToDisplayDataScene();
+
+    }
 
 
 
@@ -3122,9 +3216,14 @@ public class Controller implements Initializable{
 
     }
 
+    public void closeStopPaymentWindow(){
+        closeStage(Main.activeStage);
+        goToDisplayDataScene();
+    }
 
     public void closeStage(Stage cStage){
         cStage.close();
+        Main.activeStage = Main.primaryStage;
     }
 
 
@@ -3190,7 +3289,7 @@ public class Controller implements Initializable{
         Parent root = null;
         try {
 
-            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayDataTeller.fxml"));
+            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
 
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
@@ -3239,6 +3338,23 @@ public class Controller implements Initializable{
         }
     }
 
+    @FXML
+    public void loadStopCheckPaymentWindow(){ // loads a simple help window
+        Parent stopPaymentWindow = null;
+        try {
+            stopPaymentWindow = FXMLLoader.load(getClass().getResource("StopPayment.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Stop Payment");
+            stage.setScene(new Scene(stopPaymentWindow,592,488));
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            Main.activeStage = stage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage = null;
+        }
+    }
 
 
 
@@ -3309,19 +3425,30 @@ public class Controller implements Initializable{
 
     @FXML
     public void mainScreenTestButton(){
-        System.out.println("test");
-        System.out.println("Printing all loan Accounts");
+        System.out.println("Test Today is: "+DataEntryDriver.getDateString()+"\n\n");
+        ArrayList<CustomerAccount> customerAccounts = Main.customerAccounts;
 
-        LocalDate today = DataEntryDriver.getCurrentDateObject();
-        LocalDate yesterday = DataEntryDriver.getDateObjectFromString("11/23/2019");
-        LocalDate future = DataEntryDriver.getDateObjectFromString("11/28/2019");
+        System.out.println("\nPrint All Checking Accounts:");
+        for(CustomerAccount ca:customerAccounts){
+            if(ca.hasCheckingAccount()){
+                System.out.println(ca.toStringPrettyPrint());
+                System.out.println(ca.getCheckingAccount().toStringPrettyPrint());
+            }
+        }
 
-        LocalDate dueDate = today.withDayOfMonth(27);
+        System.out.println("\nPrint all savings:");
+        for(CustomerAccount ca:Main.customerAccounts){
+            if(ca.hasSavingsAccount()){
+                System.out.println("\n\n"+ca.toStringPrettyPrint());
+                System.out.println("Savings Accounts:");
+                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
+                for(SavingsAccount sa:savingsAccounts){
+                    System.out.println(sa.toStringPrettyPrint());
+                }
+            }
+        }
 
-        boolean todayBeforeDue = today.isBefore(dueDate);
-        System.out.println("test result: "+todayBeforeDue);
-
-        System.out.println("Print all loan accounts");
+        System.out.println("\nPrint all loan accounts");
         for(CustomerAccount ca:Main.customerAccounts){
             if(ca.hasLoanAccount()){
                 System.out.println("\n\n"+ca.toStringPrettyPrint());
@@ -3334,20 +3461,7 @@ public class Controller implements Initializable{
             }
         }
 
-        System.out.println("Print all savings:");
-        for(CustomerAccount ca:Main.customerAccounts){
-            if(ca.hasSavingsAccount()){
-                System.out.println("\n\n"+ca.toStringPrettyPrint());
-                System.out.println("Savings Accounts:");
-                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
-                for(SavingsAccount sa:savingsAccounts){
-                    System.out.println(sa.toStringPrettyPrint());
-                }
-            }
-        }
-
-
-        System.out.println("Print all Transactions:");
+        System.out.println("\nPrint all Transactions:");
         for(CustomerAccount ca:Main.customerAccounts){
             System.out.println("\n\n"+ca.toStringPrettyPrint());
             ArrayList<Transaction> transactions = ca.getTransactions();
@@ -3361,6 +3475,21 @@ public class Controller implements Initializable{
 
         }
 
+        System.out.println("\nPrint All Checks:");
+        for(CustomerAccount ca:customerAccounts){
+            ArrayList<Check> checks = ca.getChecks();
+            if(checks.size()>0){
+                System.out.println("\n"+ca.toStringPrettyPrint());
+                for(Check check:checks){
+                    System.out.println(check.toStringPrettyPrint());
+                }
+            }
+
+
+        }
+
+
+
 
 
 
@@ -3370,33 +3499,18 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    public void generalTestButtonAction(){
+    public void testWindowButtonAction(){
         System.out.println("\n\nTestbutton action\n");
-        String testString = DataEntryDriver.getDateString();
-        System.out.println(testString);
-
-        String testFixed = DataEntryDriver.fixDateString("7/8/2008");
-        String test2 = DataEntryDriver.fixDateString("07/08/2008");
-        String test3 = DataEntryDriver.fixDateString("null");
-
-        for(CustomerAccount ca: Main.customerAccounts){
-            if(ca.hasCheckingAccount()){
-                System.out.println("ca checking acct id: "+ca.getCheckingAccount().getCheckingAcctID()+" Ca checks array: "+ca.getChecks().toString());
-            }
-        }
-
-
-        System.out.println("Testing");
-        for(CustomerAccount ca: Main.customerAccounts){
-            ArrayList<Check> caChecks = ca.getChecks();
-
-            for(Check check:caChecks){
-                System.out.println(check.getCheckNumber());
-            }
-        }
 
 
     }
+
+
+
+
+
+
+
 
     public String toStringValues(){
         try {

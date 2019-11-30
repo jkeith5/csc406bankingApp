@@ -5,6 +5,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class FinanceDriver {
     // this will have all the methods that conduct financial transactions on the Customer Account objects.
     // most, if not all, methods here will be called from the Controller class, and will hold things like
@@ -464,6 +467,49 @@ public class FinanceDriver {
         Main.customerAccount.addTransactionObject(transaction);
     }
 
+
+    public static void processChecks(ArrayList<CustomerAccount> customerAccounts){
+        // process all checks older than 3 days;
+        LocalDate today = DataEntryDriver.getCurrentDateObject();
+
+        for(CustomerAccount ca:customerAccounts){
+            ArrayList<Check> checks = ca.getChecks();
+
+            if(checks.size()>0){
+                for(Check check:checks){
+                    if(!check.isCheckProcessed()){
+                        LocalDate checkDate = DataEntryDriver.getDateObjectFromString(check.getCheckDate());
+                        if(!check.getCheckStatus().equals("hold")){ // if check has not been stopped
+                            if(checkDate.compareTo(today)>3){
+                                check.setCheckProcessed(true);
+                            }
+                        }
+
+
+                    }
+                }
+            }
+        }
+    }
+
+    // checks the arraylist of check objects for the Customer account
+    // returns true if there are unprocessed checks or false otherwise
+    public static boolean hasUnprocessedChecks(CustomerAccount customerAccount){
+        boolean returnVal = false;
+        ArrayList<Check> checks = customerAccount.getChecks();
+
+        if(checks.size()>0){
+            for(Check check:checks){ // loop checks array
+                if(!check.isCheckProcessed()){ // if check is not processed
+                    returnVal =true; // return val is true
+                    break;// break because we don't need to know any more
+                }
+            }
+        }
+
+
+        return returnVal;
+    }
 
 
     public static void applyFeeOnAccount(CustomerAccount ca,String feeType){

@@ -27,7 +27,7 @@
             <Label fx:id="manageDispDataCity" layoutX="417.0" layoutY="49.0" prefHeight="17.0" prefWidth="133.0" text="Label" />
             <Label fx:id="manageDispDataState" layoutX="366.0" layoutY="68.0" prefHeight="17.0" prefWidth="30.0" text="MO" />
             <Label fx:id="manageDispDataZip" layoutX="423.0" layoutY="68.0" prefHeight="17.0" prefWidth="133.0" text="00000" />
-            <Label layoutX="191.0" layoutY="156.0" text="Balance:" />
+            <Label layoutX="191.0" layoutY="156.0" text="Current Balance:" />
             <Label layoutX="191.0" layoutY="208.0" text="Interest Rate:" />
             <Label fx:id="savingsCDTermLabel" layoutX="191.0" layoutY="257.0" text="CD Close Date:" />
             <Label fx:id="errLabel" layoutX="174.0" layoutY="355.0" prefHeight="91.0" prefWidth="385.0" text="ErrLabel" textFill="RED" wrapText="true" />

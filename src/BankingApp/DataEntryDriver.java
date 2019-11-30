@@ -755,8 +755,6 @@ public class DataEntryDriver {
     public static String getStringFromDouble(double input){
         try {
             double rounded = round(input);
-            rounded = Math.round(rounded*100.0)/100.0;
-
             return String.valueOf(rounded);
         } catch (Exception e) {
             return "null";

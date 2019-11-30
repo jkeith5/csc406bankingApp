@@ -145,18 +145,7 @@ public class Main extends Application {
             }
         }
 
-
-        int t1 = 2;
-        double d1 = 0.022 *100;
-        System.out.println(d1);
-        String fixed = String.format("%.2f",d1);
-        System.out.println(fixed);
-        String d2 = DataEntryDriver.getStringFromDouble(d1);
-        System.out.println("final fixed in main: "+d2);
-        double d3 = DataEntryDriver.round(d1);
-        System.out.println("rounded: "+d3);
-        System.out.println(DataEntryDriver.round(2.500000000006));
-        System.out.println(DataEntryDriver.getStringFromDouble(5.4785895146));
+        FinanceDriver.processChecks(customerAccounts); // sets check to processed if check date is greater than 3 days
 
     }
 

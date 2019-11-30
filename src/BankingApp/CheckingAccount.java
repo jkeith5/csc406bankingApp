@@ -272,4 +272,17 @@ public class CheckingAccount implements Serializable {
                 ", isNull=" + isNull +
                 '}';
     }
+
+
+    public String toStringPrettyPrint(){
+        String result = String.format("CustID: %s CheckingID: %s CheckingIDFixed: %s AccBalance: %.2f DateOpened: %s" +
+                "Gold: %b BackupSaving: %b overdrafts: %d",custID,checkingAcctID,checkingAcctIDFixed,accountBalance,dateOpened,
+                isGoldAccount,backupSavingsEnabled,overdraftsOnAcct);
+
+
+        return result;
+    }
+
+
+
 }

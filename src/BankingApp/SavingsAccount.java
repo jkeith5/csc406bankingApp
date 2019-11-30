@@ -8,7 +8,7 @@ public class SavingsAccount implements Serializable {
 
     public String custID;
     public String savingsAcctID;
-    public double accountBalance;
+    public double accountBalance; // current balance or initial balance for CD accounts
     public double interestRate;
     public String dateOpened; // date saving acct opened
     public boolean isCdAccount;

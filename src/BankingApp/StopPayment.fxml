@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="458.0" prefWidth="558.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
+   <children>
+      <Pane prefHeight="488.0" prefWidth="592.0">
+         <children>
+            <Label layoutX="136.0" layoutY="40.0" prefHeight="17.0" prefWidth="30.0" text="SSN:" />
+            <Label layoutX="136.0" layoutY="57.0" prefHeight="17.0" prefWidth="65.0" text="First Name:" />
+            <Label layoutX="136.0" layoutY="76.0" prefHeight="17.0" prefWidth="65.0" text="Last Name:" />
+            <Label layoutX="298.0" layoutY="40.0" prefHeight="17.0" prefWidth="83.0" text="Street Address:" />
+            <Label layoutX="298.0" layoutY="57.0" prefHeight="17.0" prefWidth="30.0" text="City:" />
+            <Label layoutX="298.0" layoutY="76.0" prefHeight="17.0" prefWidth="30.0" text="State:" />
+            <Label layoutX="366.0" layoutY="76.0" prefHeight="17.0" prefWidth="30.0" text="Zip: " />
+            <Label fx:id="manageDispDataSSN" layoutX="168.0" layoutY="40.0" prefHeight="17.0" prefWidth="97.0" text="000-00-0000" />
+            <Label fx:id="manageDispDataFirst" layoutX="197.0" layoutY="57.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+            <Label fx:id="manageDispDataLast" layoutX="201.0" layoutY="76.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+            <Label fx:id="manageDispDataStreetAddr" layoutX="381.0" layoutY="40.0" prefHeight="17.0" prefWidth="133.0" text="Label" />
+            <Label fx:id="manageDispDataCity" layoutX="381.0" layoutY="57.0" prefHeight="17.0" prefWidth="133.0" text="Label" />
+            <Label fx:id="manageDispDataState" layoutX="330.0" layoutY="76.0" prefHeight="17.0" prefWidth="30.0" text="MO" />
+            <Label fx:id="manageDispDataZip" layoutX="387.0" layoutY="76.0" prefHeight="17.0" prefWidth="133.0" text="00000" />
+            <Text layoutX="261.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
+            <Button fx:id="manageExistingDispActivityPrevButton" layoutX="14.0" layoutY="449.0" mnemonicParsing="false" onAction="#closeStopPaymentWindow" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Label layoutX="223.0" layoutY="135.0" text="Select Unprocessed Check:" />
+            <ComboBox fx:id="unprocessedChecksComboBox" layoutX="221.0" layoutY="171.0" prefWidth="150.0" />
+            <Label layoutX="125.0" layoutY="227.0" text="Check Number:" />
+            <Label layoutX="134.0" layoutY="267.0" text="Check Date:" />
+            <Label layoutX="125.0" layoutY="307.0" text="Check Amount:" />
+            <Label layoutX="141.0" layoutY="346.0" text="Processed:" />
+            <Label layoutX="157.0" layoutY="388.0" text="Status:" />
+            <TextField fx:id="checkNumber" disable="true" layoutX="219.0" layoutY="223.0" opacity="0.9" />
+            <TextField fx:id="checkDate" disable="true" layoutX="220.0" layoutY="263.0" opacity="0.9" />
+            <TextField fx:id="checkAmount" disable="true" layoutX="219.0" layoutY="303.0" opacity="0.9" />
+            <TextField fx:id="checkProcessed" disable="true" layoutX="219.0" layoutY="342.0" opacity="0.9" />
+            <TextField fx:id="checkStatus" disable="true" layoutX="219.0" layoutY="384.0" opacity="0.9" />
+            <Button fx:id="stopPaymentButton" layoutX="488.0" layoutY="449.0" mnemonicParsing="false" onAction="#stopCheckPaymentAction" onKeyPressed="#enterKeyDefaultEvent" text="Stop Payment" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
