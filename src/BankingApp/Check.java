@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Check implements Serializable {
 
     public String checkNumber;
-    public int checkingAcctID;
+    public String checkingAcctID;
     public String checkDate;
     public double checkAmount;
     public boolean checkProcessed;
@@ -45,16 +45,12 @@ public class Check implements Serializable {
         this.checkNumber = checkNumber;
     }
 
-    public int getCheckingAcctID() {
+    public String getCheckingAcctID() {
         return checkingAcctID;
     }
 
     public void setCheckingAcctID(String checkingAcctID) {
-        try {
-            this.checkingAcctID = Integer.parseInt(checkingAcctID);
-        } catch (NumberFormatException e) {
-            this.checkingAcctID = -1;
-        }
+        this.checkingAcctID = checkingAcctID;
     }
 
     private void setCheckStatusNormal(){
@@ -66,9 +62,6 @@ public class Check implements Serializable {
         return this.checkStatus;
     }
 
-    public void setCheckingAcctID(int checkingAcctID) {
-        this.checkingAcctID=checkingAcctID;
-    }
 
     public String getCheckDate() {
         return checkDate;
@@ -137,6 +130,14 @@ public class Check implements Serializable {
                 " Check Amount: "+checkAmount+
                 " Processed: "+checkProcessed+
                 " Check Status: "+checkStatus;
+    }
+
+    // as would appear in csv file
+    public String toStringTableFormat(){
+        String result = String.format("CheckNumber: %-7.7s CheckingID: %-7.7s Date: %-11.11s Amount: %-10.2f" +
+                " Processed: %-5.5b",checkNumber,checkingAcctID,checkDate,checkAmount,checkProcessed);
+
+        return result;
     }
 
 

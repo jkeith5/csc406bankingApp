@@ -91,7 +91,7 @@ public class DataEntryDriver {
         for(CustomerAccount ca:result){
             if(ca.hasCheckingAccount()){ // don't process ca in loop if it has no checking account
                 for(Check check:checkObjectsRead){ // loop through the checks that were read in
-                    if(ca.getCheckingAccount().getCheckingAcctIDInt() == check.getCheckingAcctID()){
+                    if(ca.getCheckingAccount().getCheckingAcctID().equals(check.getCheckingAcctID())){
                         if(check.isCheckProcessed()){ // if the check is processed add check and make transaction
                             ca.addCheckObj(check);// add check object
                             FinanceDriver.debitCheckingAccountWithCheckObject(ca,check);// make transaction and record

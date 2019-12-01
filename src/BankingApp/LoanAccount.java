@@ -604,4 +604,19 @@ public class LoanAccount implements Serializable {
     }
 
 
+    // table format as would appear in csv file
+    public String toStringTableFormat(){
+        String result = String.format("CustID: %-12s InitLoanAmt: %-10.2f CurrentBalance: %-10.2f InterestRate: %-7.2f" +
+                " PmtDueDate: %-11.11s DateOfNotice: %-11.11s AmtDue: %-10.2f LastPmtDate: %-11.11s HasMissedPmt: %-5.5b" +
+                " LoanAcctType: %-4.4s LoanAcctID: %-8.8s LoanTermYears: %-3d DateOpened: %-11.11s",custID,initialLoanAmt,
+                currentBalance,interestRate,paymentDueDate,paymentNoticeDate,amountDue,lastPaymentDate,hasMissedPayment,
+                loanAccountType,loanAccountID,loanTerm,dateOpened);
+        return result;
+    }
+
+
+
+
+
+
 }

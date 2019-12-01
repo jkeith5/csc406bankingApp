@@ -276,7 +276,17 @@ public class CheckingAccount implements Serializable {
 
     public String toStringPrettyPrint(){
         String result = String.format("CustID: %s CheckingID: %s CheckingIDFixed: %s AccBalance: %.2f DateOpened: %s" +
-                "Gold: %b BackupSaving: %b overdrafts: %d",custID,checkingAcctID,checkingAcctIDFixed,accountBalance,dateOpened,
+                " Gold: %b BackupSaving: %b overdrafts: %d",custID,checkingAcctID,checkingAcctIDFixed,accountBalance,dateOpened,
+                isGoldAccount,backupSavingsEnabled,overdraftsOnAcct);
+
+
+        return result;
+    }
+
+    // as would appear in the csv files
+    public String toStringTableFormat(){
+        String result = String.format("CustID: %-12s CheckingID: %-6.6s AccBalance: %-10.2f DateOpened: %-11.11s" +
+                        " isGold: %-5.5b BackupSaving: %-5.5b overdrafts: %3d",custID,checkingAcctID,accountBalance,dateOpened,
                 isGoldAccount,backupSavingsEnabled,overdraftsOnAcct);
 
 

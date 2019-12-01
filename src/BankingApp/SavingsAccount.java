@@ -64,9 +64,6 @@ public class SavingsAccount implements Serializable {
     public String getSavingsAcctID() {
         return savingsAcctID;
     }
-    public String getSavingsAccIDString(){
-        return String.valueOf(this.savingsAcctID);
-    }
 
     public void setSavingsAcctID(String savingsAcctID) {
         this.savingsAcctID = savingsAcctID;
@@ -244,21 +241,14 @@ public class SavingsAccount implements Serializable {
 
 
     public void setSavingsAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end and index number
-        System.out.println("SetSavingsAccountID Auto");
+        // sets the savingsAcctID and savingsAcctIDFixed id to the proper numbering system
         String savingsAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
-        System.out.println("savingsACCt ID string: "+savingsAcctIDString);
-
         String savingsAccountIdFix = "";
 
-
         if(this.isCdAccount){// savings cd
-            System.out.println("Is cd account");
             String subId = customerAccount.generateNextSavingsCDSubID();
-            System.out.println("subId: "+subId);
 
             savingsAccountIdFix = savingsAcctIDString+"-02"+"-"+subId;
-            System.out.println("savings acc id fixed: "+savingsAccountIdFix);
-
         }else{ // simple savings
             savingsAccountIdFix = savingsAcctIDString+"-01";
         }
@@ -325,10 +315,25 @@ public class SavingsAccount implements Serializable {
     public String toStringPrettyPrint(){
         String result = "CustID: "+custID+" FixedID: "+savingsAcctIDFixed+" balance: "+accountBalance+" interest: "+interestRate
                 +" dateOpened: "+dateOpened+" isCd: "+isCdAccount+" cdCloseDate: "+cdCloseDate;
+        return result;
+    }
+
+    // print in table form as would appear in the csv file.
+    public String toStringTableFormat(){
+        String result = String.format("CustID: %-12s SavingsAccID: %-8.8s AccBalance: %-10.2f InterestRate: %-7.2f" +
+                " DateOpened: %-11.11s isCD: %-5.5b CdCloseDate: %-11.11s",custID,savingsAcctID,accountBalance,interestRate,
+                dateOpened,isCdAccount,cdCloseDate);
 
 
         return result;
     }
+
+
+
+
+
+
+
 
 
 }

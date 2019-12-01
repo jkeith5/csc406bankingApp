@@ -143,8 +143,9 @@ public class Main extends Application {
                     FinanceDriver.applyLateFeeOnLoanAccount(ca,la);// should apply the late fee to the next payment if late
                 }
             }
+            lastAccId = ca.getFinancialAccountID(); // figure the id for when we don't read the csv data
         }
-
+        lastAccId ++; // increment by one so that it is ready for the next account
         FinanceDriver.processChecks(customerAccounts); // sets check to processed if check date is greater than 3 days
 
     }
@@ -175,7 +176,21 @@ public class Main extends Application {
 
     public static int generateCustomerId(){
         int returnVal= lastAccId;
-        lastAccId = lastAccId+1;
+        lastAccId = lastAccId+1; // should increment it so that its ready for the next id
+
+        if(customerAccounts!=null){
+            for(CustomerAccount ca:customerAccounts){
+                if(ca.getFinancialAccountID()== returnVal){
+                    // somehow the id was already in the database so increment it and start again.
+                    System.out.println("last acct id is equal");
+                    lastAccId++;
+                    returnVal=lastAccId;
+                }
+            }
+        }
+
+
+
         return returnVal;
     }
 

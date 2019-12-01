@@ -3428,61 +3428,68 @@ public class Controller implements Initializable{
         System.out.println("Test Today is: "+DataEntryDriver.getDateString()+"\n\n");
         ArrayList<CustomerAccount> customerAccounts = Main.customerAccounts;
 
+        System.out.println("\nPrint all base Customer Data:");
+        for(CustomerAccount ca:customerAccounts){
+            System.out.println(ca.toStringBaseDataTableFormat());
+        }
+
         System.out.println("\nPrint All Checking Accounts:");
         for(CustomerAccount ca:customerAccounts){
             if(ca.hasCheckingAccount()){
-                System.out.println(ca.toStringPrettyPrint());
-                System.out.println(ca.getCheckingAccount().toStringPrettyPrint());
+                System.out.println(ca.toStringPrettyPrint()+":");
+                System.out.println(ca.getCheckingAccount().toStringTableFormat()+"\n");
             }
         }
 
-        System.out.println("\nPrint all savings:");
-        for(CustomerAccount ca:Main.customerAccounts){
+        System.out.println("\n\nPrint all savings:");
+        for(CustomerAccount ca:customerAccounts){
             if(ca.hasSavingsAccount()){
-                System.out.println("\n\n"+ca.toStringPrettyPrint());
-                System.out.println("Savings Accounts:");
+                System.out.println(ca.toStringPrettyPrint()+":");
                 ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
                 for(SavingsAccount sa:savingsAccounts){
-                    System.out.println(sa.toStringPrettyPrint());
+                    System.out.println(sa.toStringTableFormat());
                 }
+                System.out.println("");
             }
         }
 
-        System.out.println("\nPrint all loan accounts");
-        for(CustomerAccount ca:Main.customerAccounts){
+        System.out.println("\n\nPrint all loan accounts:");
+        for(CustomerAccount ca:customerAccounts){
             if(ca.hasLoanAccount()){
-                System.out.println("\n\n"+ca.toStringPrettyPrint());
-                System.out.println("Loan Accounts:");
+                System.out.println(ca.toStringPrettyPrint()+":");
                 ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
                 for(LoanAccount la:loanAccounts){
-                    System.out.println(la.toStringPrettyPrint());
+                    System.out.println(la.toStringTableFormat());
                 }
+                System.out.println("");
 
             }
         }
 
-        System.out.println("\nPrint all Transactions:");
-        for(CustomerAccount ca:Main.customerAccounts){
-            System.out.println("\n\n"+ca.toStringPrettyPrint());
+        System.out.println("\n\nPrint all Transactions:");
+        for(CustomerAccount ca:customerAccounts){
+            System.out.println(ca.toStringPrettyPrint()+":");
             ArrayList<Transaction> transactions = ca.getTransactions();
             if(transactions.size()!=0){// if size is not 0
                 for(Transaction transaction: transactions){
-                    System.out.println(transaction.toStringPrettyPrint());
+                    System.out.println(transaction.toStringTableFormat());
                 }
             }else{
                 System.out.println("No Transactions");
             }
+            System.out.println("");
 
         }
 
-        System.out.println("\nPrint All Checks:");
+        System.out.println("\n\nPrint All Checks:");
         for(CustomerAccount ca:customerAccounts){
             ArrayList<Check> checks = ca.getChecks();
             if(checks.size()>0){
-                System.out.println("\n"+ca.toStringPrettyPrint());
+                System.out.println(ca.toStringPrettyPrint()+":");
                 for(Check check:checks){
-                    System.out.println(check.toStringPrettyPrint());
+                    System.out.println(check.toStringTableFormat());
                 }
+                System.out.println("");
             }
 
 

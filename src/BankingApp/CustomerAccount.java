@@ -643,9 +643,7 @@ public class CustomerAccount implements Serializable {
         String returnVal = "null";
         int numberOfAccounts = 0;// because 00 is our starting number
         // ^^^^ Tracks the number of accounts of specified type and returns the next available account ID
-
         if(hasLoanAccount()){ // if they have a loan account of any type
-
             if(loanAcctType.equals("STL")){ // if input acct type is STL
                 for(LoanAccount la:this.loanAccounts){ // Loop through the accounts
                     if(la.getLoanAccountType().equals("STL")){// finding only the STL
@@ -670,17 +668,16 @@ public class CustomerAccount implements Serializable {
 
 
     public String generateNextSavingsCDSubID(){
-        System.out.println("IN generate Next savings cd sub id");
+        //System.out.println("IN generate Next savings cd sub id");
         String returnVal = "null";
         int numberOfAccounts = 0;// because 00 is our starting number
-        System.out.println("# of accts: "+numberOfAccounts);
+        //System.out.println("# of accts: "+numberOfAccounts);
 
         if(hasSavingsAccount()){
-
             for(SavingsAccount sa:this.savingsAccounts){
                 if(sa.isCdAccount()){ // searching the cd accounts
                     numberOfAccounts++;
-                    System.out.println("# of accts: "+numberOfAccounts);
+                    //System.out.println("# of accts: "+numberOfAccounts);
                 }
             }
         }
@@ -728,6 +725,13 @@ public class CustomerAccount implements Serializable {
         return result;
     }
 
+
+    // to print the data as it would appear in the CustomersBase.csv file without the csv formatting
+    public String toStringBaseDataTableFormat(){
+        String result = String.format("SSN: %-12s First: %-10.10s Last: %-10.10s Address: %-20.20s City: %-13.13s" +
+                " State: %-4s Zip: %-5s ATM: %-18s",custID,firstName,lastName,streetAddr,city,state,zip,atmCardNumber);
+        return result;
+    }
 
 
 }

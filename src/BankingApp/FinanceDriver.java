@@ -204,7 +204,11 @@ public class FinanceDriver {
             System.out.println("newBal = " + newBal);
         }else{ // there is a check number that isn't null so we are making a deposit
             // create check object and make the transaction
+            System.out.println("Main customer checking acct id is: "+ca.getCheckingAccount().getCheckingAcctID());
+
             Check depositCheck = new Check(checkNumber,ca.getCheckingAccount().getCheckingAcctID(),DataEntryDriver.getDateString(),transactionAmountDouble,false);
+
+            System.out.println("checking id from check: "+depositCheck.getCheckingAcctID());
 
             //System.out.println(depositCheck.toString());
             // make the transaction remember to add fee later and check if gold account and not. I might make a method that does this
