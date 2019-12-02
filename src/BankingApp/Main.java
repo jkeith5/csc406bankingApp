@@ -94,7 +94,7 @@ public class Main extends Application {
         outEmployee.close();
     }
 
-    public void initialize() {
+    public static void initialize() {
         // here we can initialize our database into the arrayList objects.
         System.out.println("initializing in Main");
         initializeLogFiles(); // checks and creates log files if needed also loads the sqlite module.
@@ -103,7 +103,7 @@ public class Main extends Application {
             File customerDatabase = new File("src/Resources/customerDatabase");
             // if it does not exist we need to create it from the csv files. AND populate Main.customerAccounts
             if(!customerDatabase.exists()){ // if customer database file does not exist
-                DataEntryDriver.createCustomerDatabaseFileFromCSVBaseData(); // read csv files and make database file
+                DataEntryDriver.createCustomerDatabaseFileFromCSVBaseData(false); // read csv files and make database file
                 customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList(); // then reads the file
                 out.println(getDateTimeString()+"Created Customer Database and read into list.");
                 System.err.println("The Customer Database File Was Created.");
@@ -111,7 +111,7 @@ public class Main extends Application {
                 customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList(); // just read it into arraylist
                 System.out.println(customerAccounts.size());
 
-                if(customerAccounts.size()<=10 && retry<3){ // if at least 10 objects were not read in Declare the file corrupt and start again
+                if(customerAccounts.size()==0 && retry<3){ // if size is 0, objects were not read in. Declare the file corrupt and start again
                     // going to delete the file and recursive call initialize again.
                     customerDatabase.delete(); // delete the file;
                     System.err.println("THE CUSTOMER DATABASE FILE WAS DELETED DUE TO CHANGES IN THE CLASS FILES.\n" +
@@ -182,7 +182,6 @@ public class Main extends Application {
             for(CustomerAccount ca:customerAccounts){
                 if(ca.getFinancialAccountID()== returnVal){
                     // somehow the id was already in the database so increment it and start again.
-                    System.out.println("last acct id is equal");
                     lastAccId++;
                     returnVal=lastAccId;
                 }

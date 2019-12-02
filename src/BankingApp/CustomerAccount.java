@@ -369,6 +369,15 @@ public class CustomerAccount implements Serializable {
     public void addTransaction(String transactionType,double amount,String desc,String transactionAcct){
         this.transactions.add(new Transaction(transactionType,amount,desc,transactionAcct));
     }
+    public void addTransactionObjectArrayList(ArrayList<Transaction> inputTransactions){
+        if(inputTransactions!=null){
+            if(inputTransactions.size()!=0){
+                for(Transaction transaction:inputTransactions){
+                    addTransactionObject(transaction);
+                }
+            }
+        }
+    }
 
 
     public ArrayList<LoanAccount> getLoanAccounts() {

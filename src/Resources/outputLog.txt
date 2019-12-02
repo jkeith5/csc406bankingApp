@@ -6994,3 +6994,1433 @@
 2019-12-01T18:39:31.630 Initializing Controller
 2019-12-01T18:39:39.546 ArrayList was written to File.
 2019-12-01T18:39:39.546 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T19:44:05.105 Initializing in Main.
+2019-12-01T19:44:05.106 Reading in CustomersBase.csv
+2019-12-01T19:44:05.121 Reading in CheckingAccounts.csv
+2019-12-01T19:44:05.129 Checking Account for CustomerID: 435-67-8787 was null. Checking Accounts with null values are discarded!
+2019-12-01T19:44:05.130 Checking Account for CustomerID: 563-43-2913 was null. Checking Accounts with null values are discarded!
+2019-12-01T19:44:05.130 Reading in SavingsAccounts.csv
+2019-12-01T19:44:05.135 Reading in LoanAccounts.csv
+2019-12-01T19:44:05.148 Reading in Checks.csv
+2019-12-01T19:44:05.265 ArrayList was written to File.
+2019-12-01T19:44:05.265 Start of Read customerDatabase to ArrayList
+2019-12-01T19:44:05.295 End of Read customerDatabase to ArrayList
+2019-12-01T19:44:05.295 Created Customer Database and read into list.
+2019-12-01T19:44:06.942 Initializing Controller
+2019-12-01T19:44:52.632 Initializing Controller
+2019-12-01T19:44:54.707 Initializing Controller
+2019-12-01T19:44:56.969 Initializing Controller
+2019-12-01T19:45:50.022 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:45:50.174 Initializing Controller
+2019-12-01T19:45:51.462 Initializing Controller
+2019-12-01T19:45:51.482 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:45:52.035 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:45:52.853 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:45:52.893 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:45:52.939 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:45:52.980 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:45:52.989 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:45:53.197 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:45:53.440 Initializing Controller
+2019-12-01T19:45:55.254 Initializing Controller
+2019-12-01T19:45:56.499 Initializing Controller
+2019-12-01T19:46:03.846 Initializing Controller
+2019-12-01T19:46:05.054 Initializing Controller
+2019-12-01T19:46:20.421 Initializing Controller
+2019-12-01T19:46:21.205 Initializing Controller
+2019-12-01T19:46:32.989 Initializing Controller
+2019-12-01T19:46:33.999 Initializing Controller
+2019-12-01T19:46:46.459 Initializing Controller
+2019-12-01T19:46:48.006 Initializing Controller
+2019-12-01T19:47:03.948 Initializing Controller
+2019-12-01T19:47:05.027 Initializing Controller
+2019-12-01T19:47:21.893 Initializing Controller
+2019-12-01T19:47:22.963 Initializing Controller
+2019-12-01T19:47:30.999 Initializing Controller
+2019-12-01T19:47:33.422 Initializing Controller
+2019-12-01T19:48:25.320 Initializing Controller
+2019-12-01T19:48:25.342 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:48:25.856 Initializing Controller
+2019-12-01T19:48:26.420 Initializing Controller
+2019-12-01T19:48:35.042 Initializing Controller
+2019-12-01T19:48:38.215 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:48:38.293 Initializing Controller
+2019-12-01T19:49:11.209 Initializing Controller
+2019-12-01T19:50:23.971 Initializing Controller
+2019-12-01T19:50:26.592 Initializing Controller
+2019-12-01T19:50:30.126 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:50:30.232 Initializing Controller
+2019-12-01T19:50:33.487 Initializing Controller
+2019-12-01T19:51:27.548 Initializing Controller
+2019-12-01T19:51:29.774 ArrayList was written to File.
+2019-12-01T19:51:29.774 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T19:59:38.520 Initializing in Main.
+2019-12-01T19:59:38.531 Start of Read customerDatabase to ArrayList
+2019-12-01T19:59:38.629 End of Read customerDatabase to ArrayList
+2019-12-01T19:59:38.629 Database Already Existed. Read into list.
+2019-12-01T19:59:39.945 Initializing Controller
+2019-12-01T19:59:46.749 Initializing Controller
+2019-12-01T19:59:49.880 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T19:59:50.016 Initializing Controller
+2019-12-01T19:59:52.315 Initializing Controller
+2019-12-01T19:59:54.190 Initializing Controller
+2019-12-01T20:00:03.574 Initializing Controller
+2019-12-01T20:00:06.459 Initializing Controller
+2019-12-01T20:00:08.318 Initializing Controller
+2019-12-01T20:00:34.727 ArrayList was written to File.
+2019-12-01T20:00:34.727 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:01:23.568 Initializing in Main.
+2019-12-01T20:01:23.590 Reading in CustomersBase.csv
+2019-12-01T20:01:23.628 Reading in CheckingAccounts.csv
+2019-12-01T20:01:23.642 Checking Account for CustomerID: 435-67-8787 was null. Checking Accounts with null values are discarded!
+2019-12-01T20:01:23.643 Checking Account for CustomerID: 563-43-2913 was null. Checking Accounts with null values are discarded!
+2019-12-01T20:01:23.643 Reading in SavingsAccounts.csv
+2019-12-01T20:01:23.654 Reading in LoanAccounts.csv
+2019-12-01T20:01:23.671 Reading in Checks.csv
+2019-12-01T20:01:23.885 ArrayList was written to File.
+2019-12-01T20:01:23.885 Start of Read customerDatabase to ArrayList
+2019-12-01T20:01:23.933 End of Read customerDatabase to ArrayList
+2019-12-01T20:01:23.934 Created Customer Database and read into list.
+2019-12-01T20:01:26.162 Initializing Controller
+2019-12-01T20:01:35.008 Reading in CustomersBase.csv
+2019-12-01T20:01:35.013 Reading in CheckingAccounts.csv
+2019-12-01T20:01:35.018 Reading in SavingsAccounts.csv
+2019-12-01T20:01:35.023 Reading in LoanAccounts.csv
+2019-12-01T20:01:35.031 Reading in Checks.csv
+2019-12-01T20:01:35.048 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.048 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.049 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.049 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.049 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.049 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.049 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.049 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.049 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.050 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.050 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.050 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.050 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.050 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.050 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.051 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.051 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.051 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.051 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.052 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.052 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.052 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.052 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.053 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.053 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.053 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.053 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.053 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.053 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.053 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.054 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.054 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.054 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.054 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.054 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.054 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.054 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.055 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.055 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:01:35.055 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:01:35.055 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:01:35.055 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:01:35.056 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:01:35.056 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:01:35.056 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:01:35.056 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:01:35.056 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:01:35.056 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:01:35.057 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:01:35.057 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:01:35.057 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:01:35.057 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:01:35.057 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:01:35.057 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:01:35.057 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:01:35.058 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:01:35.058 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:01:35.058 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:01:35.058 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:01:35.058 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:01:35.058 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:01:35.071 ArrayList was written to File.
+
+2019-12-01T20:01:35.088 Initializing in Main.
+2019-12-01T20:01:35.088 Start of Read customerDatabase to ArrayList
+2019-12-01T20:01:35.111 End of Read customerDatabase to ArrayList
+2019-12-01T20:01:35.112 Database Already Existed. Read into list.
+2019-12-01T20:01:52.093 ArrayList was written to File.
+2019-12-01T20:01:52.094 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:04:51.610 Initializing in Main.
+2019-12-01T20:04:51.628 Start of Read customerDatabase to ArrayList
+2019-12-01T20:04:51.768 End of Read customerDatabase to ArrayList
+2019-12-01T20:04:51.769 Database Already Existed. Read into list.
+2019-12-01T20:04:53.459 Initializing Controller
+2019-12-01T20:05:04.234 Initializing Controller
+2019-12-01T20:05:05.591 Initializing Controller
+2019-12-01T20:05:06.135 Initializing Controller
+2019-12-01T20:05:06.151 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T20:05:06.977 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T20:05:07.294 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-01T20:05:07.396 Initializing Controller
+2019-12-01T20:05:09.166 Initializing Controller
+2019-12-01T20:05:11.215 Initializing Controller
+2019-12-01T20:05:15.088 Initializing Controller
+2019-12-01T20:05:15.890 Initializing Controller
+2019-12-01T20:05:43.947 Reading in CustomersBase.csv
+2019-12-01T20:05:43.952 Reading in CheckingAccounts.csv
+2019-12-01T20:05:43.958 Reading in SavingsAccounts.csv
+2019-12-01T20:05:43.964 Reading in LoanAccounts.csv
+2019-12-01T20:05:43.975 Reading in Checks.csv
+2019-12-01T20:05:43.996 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.996 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.996 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.996 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.996 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.996 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.996 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.996 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.997 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.997 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.997 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.997 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.997 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.997 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.997 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.997 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.998 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.998 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.998 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.998 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.998 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.998 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.998 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.998 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.998 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.999 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.999 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.999 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.999 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.999 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.999 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.999 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:43.999 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:44 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:44 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:44 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:44 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:44 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:44 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:05:44 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:05:44 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:05:44 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:05:44.001 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:05:44.001 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:05:44.001 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:05:44.001 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:05:44.001 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:05:44.001 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:05:44.001 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:05:44.001 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:05:44.001 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:05:44.002 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:05:44.002 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:05:44.002 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:05:44.002 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:05:44.002 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:05:44.002 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:05:44.002 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:05:44.002 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:05:44.003 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:05:44.003 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:05:44.025 ArrayList was written to File.
+
+2019-12-01T20:05:44.102 Initializing in Main.
+2019-12-01T20:05:44.103 Start of Read customerDatabase to ArrayList
+2019-12-01T20:05:44.141 End of Read customerDatabase to ArrayList
+2019-12-01T20:05:44.141 Database Already Existed. Read into list.
+2019-12-01T20:06:00.255 ArrayList was written to File.
+2019-12-01T20:06:00.256 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:06:13.582 Initializing in Main.
+2019-12-01T20:06:13.604 Reading in CustomersBase.csv
+2019-12-01T20:06:13.633 Reading in CheckingAccounts.csv
+2019-12-01T20:06:13.648 Checking Account for CustomerID: 435-67-8787 was null. Checking Accounts with null values are discarded!
+2019-12-01T20:06:13.648 Checking Account for CustomerID: 563-43-2913 was null. Checking Accounts with null values are discarded!
+2019-12-01T20:06:13.649 Reading in SavingsAccounts.csv
+2019-12-01T20:06:13.660 Reading in LoanAccounts.csv
+2019-12-01T20:06:13.684 Reading in Checks.csv
+2019-12-01T20:06:13.831 ArrayList was written to File.
+2019-12-01T20:06:13.831 Start of Read customerDatabase to ArrayList
+2019-12-01T20:06:13.878 End of Read customerDatabase to ArrayList
+2019-12-01T20:06:13.878 Created Customer Database and read into list.
+2019-12-01T20:06:15.749 Initializing Controller
+2019-12-01T20:06:29.051 Reading in CustomersBase.csv
+2019-12-01T20:06:29.056 Reading in CheckingAccounts.csv
+2019-12-01T20:06:29.060 Reading in SavingsAccounts.csv
+2019-12-01T20:06:29.066 Reading in LoanAccounts.csv
+2019-12-01T20:06:29.075 Reading in Checks.csv
+2019-12-01T20:06:29.086 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.086 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.087 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.087 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.087 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.087 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.087 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.087 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.088 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.088 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.088 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.088 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.088 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.088 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.089 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.089 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.089 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.089 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.089 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.089 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.090 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.090 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.090 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.090 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.090 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.090 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.091 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.091 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.091 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.091 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.091 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.091 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.091 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.092 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.092 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.092 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.092 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.092 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.092 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:06:29.092 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:06:29.093 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:06:29.093 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:06:29.093 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:06:29.093 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:06:29.093 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:06:29.093 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:06:29.094 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:06:29.094 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:06:29.094 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:06:29.094 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:06:29.094 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:06:29.094 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:06:29.095 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:06:29.095 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:06:29.095 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:06:29.095 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:06:29.095 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:06:29.095 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:06:29.096 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:06:29.096 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:06:29.096 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:06:29.109 ArrayList was written to File.
+
+2019-12-01T20:06:29.154 Initializing in Main.
+2019-12-01T20:06:29.154 Start of Read customerDatabase to ArrayList
+2019-12-01T20:06:29.190 End of Read customerDatabase to ArrayList
+2019-12-01T20:06:29.190 Database Already Existed. Read into list.
+2019-12-01T20:06:39.365 ArrayList was written to File.
+2019-12-01T20:06:39.367 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:09:34.128 Initializing in Main.
+2019-12-01T20:09:34.147 Start of Read customerDatabase to ArrayList
+2019-12-01T20:09:34.256 End of Read customerDatabase to ArrayList
+2019-12-01T20:09:34.257 Database Already Existed. Read into list.
+2019-12-01T20:09:36.039 Initializing Controller
+2019-12-01T20:09:42.176 Reading in CustomersBase.csv
+2019-12-01T20:09:42.182 Reading in CheckingAccounts.csv
+2019-12-01T20:09:42.189 Reading in SavingsAccounts.csv
+2019-12-01T20:09:42.196 Reading in LoanAccounts.csv
+2019-12-01T20:09:42.211 Reading in Checks.csv
+2019-12-01T20:09:42.230 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.230 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.231 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.231 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.231 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.231 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.231 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.232 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.232 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.232 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.232 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.232 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.232 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.232 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.236 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:09:42.236 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:09:42.236 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:09:42.236 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:09:42.236 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:09:42.236 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:09:42.236 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:09:42.237 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:09:42.237 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:09:42.237 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:09:42.237 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:09:42.237 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:09:42.237 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:09:42.238 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:09:42.238 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:09:42.238 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:09:42.238 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:09:42.238 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:09:42.239 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:09:42.239 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:09:42.239 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:09:42.239 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:09:42.239 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:09:42.260 ArrayList was written to File.
+
+2019-12-01T20:09:42.307 Initializing in Main.
+2019-12-01T20:09:42.307 Start of Read customerDatabase to ArrayList
+2019-12-01T20:09:42.343 End of Read customerDatabase to ArrayList
+2019-12-01T20:09:42.343 Database Already Existed. Read into list.
+2019-12-01T20:09:51.800 ArrayList was written to File.
+2019-12-01T20:09:51.801 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:17:25.431 Initializing in Main.
+2019-12-01T20:17:25.444 Start of Read customerDatabase to ArrayList
+2019-12-01T20:17:25.571 End of Read customerDatabase to ArrayList
+2019-12-01T20:17:25.571 Database Already Existed. Read into list.
+2019-12-01T20:17:26.915 Initializing Controller
+2019-12-01T20:17:40.294 ArrayList was written to File.
+2019-12-01T20:17:40.294 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:18:22.920 Initializing in Main.
+2019-12-01T20:18:22.940 Start of Read customerDatabase to ArrayList
+2019-12-01T20:18:23.051 End of Read customerDatabase to ArrayList
+2019-12-01T20:18:23.051 Database Already Existed. Read into list.
+2019-12-01T20:18:24.394 Initializing Controller
+2019-12-01T20:18:28.378 ArrayList was written to File.
+2019-12-01T20:18:28.378 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:19:30.227 Initializing in Main.
+2019-12-01T20:19:30.241 Start of Read customerDatabase to ArrayList
+2019-12-01T20:19:30.344 End of Read customerDatabase to ArrayList
+2019-12-01T20:19:30.344 Database Already Existed. Read into list.
+2019-12-01T20:19:31.662 Initializing Controller
+2019-12-01T20:19:34.915 ArrayList was written to File.
+2019-12-01T20:19:34.915 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:19:56.890 Initializing in Main.
+2019-12-01T20:19:56.904 Start of Read customerDatabase to ArrayList
+2019-12-01T20:19:57.012 End of Read customerDatabase to ArrayList
+2019-12-01T20:19:57.013 Database Already Existed. Read into list.
+2019-12-01T20:19:59.887 Initializing Controller
+2019-12-01T20:20:16.844 ArrayList was written to File.
+2019-12-01T20:20:16.844 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:20:42.085 Initializing in Main.
+2019-12-01T20:20:42.101 Start of Read customerDatabase to ArrayList
+2019-12-01T20:20:42.223 End of Read customerDatabase to ArrayList
+2019-12-01T20:20:42.224 Database Already Existed. Read into list.
+2019-12-01T20:20:43.956 Initializing Controller
+2019-12-01T20:20:46.103 ArrayList was written to File.
+2019-12-01T20:20:46.103 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:35:19.517 Initializing in Main.
+2019-12-01T20:35:19.532 Start of Read customerDatabase to ArrayList
+2019-12-01T20:35:19.649 End of Read customerDatabase to ArrayList
+2019-12-01T20:35:19.650 Database Already Existed. Read into list.
+2019-12-01T20:35:21.309 Initializing Controller
+2019-12-01T20:38:11.334 ArrayList was written to File.
+2019-12-01T20:38:11.334 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:40:45.144 Initializing in Main.
+2019-12-01T20:40:45.160 Start of Read customerDatabase to ArrayList
+2019-12-01T20:40:45.257 End of Read customerDatabase to ArrayList
+2019-12-01T20:40:45.258 Database Already Existed. Read into list.
+2019-12-01T20:40:46.425 Initializing Controller
+2019-12-01T20:41:00.181 Reading in CustomersBase.csv
+2019-12-01T20:41:00.187 Reading in CheckingAccounts.csv
+2019-12-01T20:41:00.194 Reading in SavingsAccounts.csv
+2019-12-01T20:41:00.201 Reading in LoanAccounts.csv
+2019-12-01T20:41:00.216 Reading in Checks.csv
+2019-12-01T20:41:00.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.233 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.234 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.235 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.236 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.236 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.236 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.236 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.236 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.236 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.236 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.237 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.237 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.237 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.237 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.237 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.237 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.237 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.238 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.238 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.238 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.238 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.238 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.238 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.238 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:00.238 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:41:00.239 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:41:00.239 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:41:00.239 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:41:00.239 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:41:00.239 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:41:00.240 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:41:00.240 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:41:00.240 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:41:00.240 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:41:00.240 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:41:00.240 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:41:00.240 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:41:00.241 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:41:00.241 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:41:00.241 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:00.241 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:00.241 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:00.242 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:00.242 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:00.242 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:00.242 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:00.262 ArrayList was written to File.
+
+2019-12-01T20:41:00.279 Initializing in Main.
+2019-12-01T20:41:00.280 Start of Read customerDatabase to ArrayList
+2019-12-01T20:41:00.299 End of Read customerDatabase to ArrayList
+2019-12-01T20:41:00.300 Database Already Existed. Read into list.
+2019-12-01T20:41:22.315 Reading in CustomersBase.csv
+2019-12-01T20:41:22.320 Reading in CheckingAccounts.csv
+2019-12-01T20:41:22.324 Reading in SavingsAccounts.csv
+2019-12-01T20:41:22.330 Reading in LoanAccounts.csv
+2019-12-01T20:41:22.353 Reading in Checks.csv
+2019-12-01T20:41:22.366 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.366 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.366 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.366 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.367 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.367 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.367 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.367 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.367 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.367 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.367 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.367 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.368 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.368 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.368 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.368 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.368 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.368 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.368 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.368 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.369 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.369 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.369 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.369 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.369 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.369 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.369 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.369 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.369 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.370 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.370 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.370 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.370 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.370 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.370 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.371 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.371 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.371 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.371 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:41:22.371 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:41:22.371 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:41:22.371 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:41:22.371 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:41:22.371 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:41:22.372 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:41:22.372 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:41:22.372 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:41:22.372 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:41:22.372 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:41:22.372 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:41:22.372 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:41:22.372 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:41:22.372 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:41:22.373 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:41:22.373 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:22.373 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:22.373 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:22.373 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:22.373 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:22.373 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:22.374 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:41:22.385 ArrayList was written to File.
+
+2019-12-01T20:41:22.403 Initializing in Main.
+2019-12-01T20:41:22.403 Start of Read customerDatabase to ArrayList
+2019-12-01T20:41:22.423 End of Read customerDatabase to ArrayList
+2019-12-01T20:41:22.423 Database Already Existed. Read into list.
+2019-12-01T20:41:30.561 ArrayList was written to File.
+2019-12-01T20:41:30.562 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:46:49.619 Initializing in Main.
+2019-12-01T20:46:49.634 Start of Read customerDatabase to ArrayList
+2019-12-01T20:46:49.744 End of Read customerDatabase to ArrayList
+2019-12-01T20:46:49.744 Database Already Existed. Read into list.
+2019-12-01T20:46:51.569 Initializing Controller
+2019-12-01T20:46:56.542 Reading in CustomersBase.csv
+2019-12-01T20:46:56.545 Reading in CheckingAccounts.csv
+2019-12-01T20:46:56.549 Reading in SavingsAccounts.csv
+2019-12-01T20:46:56.553 Reading in LoanAccounts.csv
+2019-12-01T20:46:56.560 Reading in Checks.csv
+2019-12-01T20:46:56.576 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.576 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.576 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.577 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.577 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.577 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.577 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.577 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.577 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.577 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.578 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.578 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.578 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.578 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.578 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.578 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.578 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.579 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.579 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.579 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.579 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.579 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.579 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.579 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.580 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.580 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.580 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.580 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.580 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.580 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.580 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.581 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.581 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.581 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.581 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.581 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.581 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.582 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.582 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:46:56.582 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:46:56.582 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:46:56.582 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:46:56.582 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:46:56.582 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:46:56.583 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:46:56.583 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:46:56.583 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:46:56.583 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:46:56.583 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:46:56.583 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:46:56.584 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:46:56.584 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:46:56.584 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:46:56.584 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:46:56.584 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:46:56.584 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:46:56.584 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:46:56.585 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:46:56.585 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:46:56.585 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:46:56.585 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:46:56.607 ArrayList was written to File.
+2019-12-01T20:46:56.607 Start of Read customerDatabase to ArrayList
+2019-12-01T20:46:56.638 End of Read customerDatabase to ArrayList
+2019-12-01T20:49:09.559 ArrayList was written to File.
+2019-12-01T20:49:09.559 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:54:42.420 Initializing in Main.
+2019-12-01T20:54:42.434 Start of Read customerDatabase to ArrayList
+2019-12-01T20:54:42.558 End of Read customerDatabase to ArrayList
+2019-12-01T20:54:42.558 Database Already Existed. Read into list.
+2019-12-01T20:54:44.102 Initializing Controller
+2019-12-01T20:54:46.350 Reading in CustomersBase.csv
+2019-12-01T20:54:46.356 Reading in CheckingAccounts.csv
+2019-12-01T20:54:46.364 Reading in SavingsAccounts.csv
+2019-12-01T20:54:46.371 Reading in LoanAccounts.csv
+2019-12-01T20:54:46.387 Reading in Checks.csv
+2019-12-01T20:54:46.403 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.404 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.404 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.404 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.404 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.404 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.404 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.405 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.405 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.405 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.405 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.405 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.405 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.405 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.406 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.406 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.406 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.406 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.406 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.406 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.406 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.407 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.407 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.407 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.407 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.407 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.407 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.407 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.407 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.407 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.408 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.408 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.408 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.408 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.408 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.408 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.408 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.408 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.409 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:54:46.409 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:54:46.409 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:54:46.409 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:54:46.409 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:54:46.409 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:54:46.409 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:54:46.410 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:54:46.410 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:54:46.410 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:54:46.410 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:54:46.410 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:54:46.410 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:54:46.411 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:54:46.411 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:54:46.411 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:54:46.411 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:54:46.411 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:54:46.411 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:54:46.412 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:54:46.412 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:54:46.412 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:54:46.412 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:54:46.435 ArrayList was written to File.
+2019-12-01T20:54:46.435 Start of Read customerDatabase to ArrayList
+2019-12-01T20:54:46.458 End of Read customerDatabase to ArrayList
+2019-12-01T20:55:04.527 ArrayList was written to File.
+2019-12-01T20:55:04.527 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T20:59:30.937 Initializing in Main.
+2019-12-01T20:59:30.951 Start of Read customerDatabase to ArrayList
+2019-12-01T20:59:31.054 End of Read customerDatabase to ArrayList
+2019-12-01T20:59:31.054 Database Already Existed. Read into list.
+2019-12-01T20:59:32.336 Initializing Controller
+2019-12-01T20:59:44.630 Reading in CustomersBase.csv
+2019-12-01T20:59:44.636 Reading in CheckingAccounts.csv
+2019-12-01T20:59:44.643 Reading in SavingsAccounts.csv
+2019-12-01T20:59:44.651 Reading in LoanAccounts.csv
+2019-12-01T20:59:44.667 Reading in Checks.csv
+2019-12-01T20:59:44.688 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.688 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.689 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.689 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.689 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.689 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.689 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.689 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.690 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.690 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.690 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.690 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.690 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.690 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.691 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.691 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.691 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.691 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.691 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.691 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.691 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.692 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.692 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.692 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.692 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.692 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.692 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.693 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.693 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.693 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.693 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.693 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.694 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.694 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.694 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.694 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.694 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.694 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.695 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:44.695 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:59:44.695 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:59:44.695 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:59:44.695 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:59:44.695 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:59:44.695 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:59:44.696 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:59:44.696 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:59:44.696 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:59:44.696 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:59:44.696 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:59:44.697 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:59:44.697 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:59:44.697 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:59:44.697 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:59:44.697 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:44.698 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:44.698 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:44.698 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:44.698 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:44.698 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:44.699 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:44.720 ArrayList was written to File.
+2019-12-01T20:59:44.720 Start of Read customerDatabase to ArrayList
+2019-12-01T20:59:44.742 End of Read customerDatabase to ArrayList
+2019-12-01T20:59:49.680 Reading in CustomersBase.csv
+2019-12-01T20:59:49.684 Reading in CheckingAccounts.csv
+2019-12-01T20:59:49.688 Reading in SavingsAccounts.csv
+2019-12-01T20:59:49.693 Reading in LoanAccounts.csv
+2019-12-01T20:59:49.700 Reading in Checks.csv
+2019-12-01T20:59:49.717 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.717 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.717 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.717 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.718 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.718 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.718 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.718 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.718 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.718 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.719 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.719 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.719 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.719 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.719 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.719 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.720 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.720 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.720 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.720 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.720 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.720 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.720 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.721 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.721 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.721 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.721 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.721 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.722 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.722 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.722 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.722 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.723 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.723 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.723 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.723 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.723 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.723 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.723 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:49.724 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:59:49.724 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:59:49.724 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:59:49.724 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:59:49.724 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:59:49.724 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:59:49.725 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:59:49.725 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:59:49.725 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:59:49.725 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:59:49.725 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:59:49.725 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:59:49.726 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:59:49.726 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:59:49.726 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:59:49.726 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:49.726 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:49.726 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:49.726 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:49.727 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:49.727 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:49.727 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:49.740 ArrayList was written to File.
+2019-12-01T20:59:49.740 Start of Read customerDatabase to ArrayList
+2019-12-01T20:59:49.759 End of Read customerDatabase to ArrayList
+2019-12-01T20:59:54.350 Reading in CustomersBase.csv
+2019-12-01T20:59:54.354 Reading in CheckingAccounts.csv
+2019-12-01T20:59:54.358 Reading in SavingsAccounts.csv
+2019-12-01T20:59:54.362 Reading in LoanAccounts.csv
+2019-12-01T20:59:54.370 Reading in Checks.csv
+2019-12-01T20:59:54.394 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.395 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.395 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.395 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.395 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.396 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.396 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.396 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.396 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.396 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.397 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.397 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.397 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.397 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.397 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.398 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.398 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.398 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.398 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.398 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.398 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.398 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.399 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.399 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.399 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.399 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.399 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.399 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.399 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.399 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.400 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.400 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.400 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.400 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.400 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.400 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.400 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.400 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.401 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T20:59:54.401 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:59:54.401 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T20:59:54.401 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T20:59:54.401 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:59:54.401 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T20:59:54.401 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:59:54.402 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T20:59:54.402 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T20:59:54.402 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:59:54.402 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T20:59:54.402 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T20:59:54.402 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T20:59:54.402 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T20:59:54.402 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T20:59:54.403 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T20:59:54.403 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:54.403 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:54.403 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:54.403 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:54.403 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:54.403 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:54.404 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T20:59:54.415 ArrayList was written to File.
+2019-12-01T20:59:54.415 Start of Read customerDatabase to ArrayList
+2019-12-01T20:59:54.435 End of Read customerDatabase to ArrayList
+2019-12-01T21:00:40.660 ArrayList was written to File.
+2019-12-01T21:00:40.660 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:03:45.129 Initializing in Main.
+2019-12-01T21:03:45.147 Start of Read customerDatabase to ArrayList
+2019-12-01T21:03:45.280 End of Read customerDatabase to ArrayList
+2019-12-01T21:03:45.280 Database Already Existed. Read into list.
+2019-12-01T21:03:46.659 Initializing Controller
+2019-12-01T21:03:51.657 Reading in CustomersBase.csv
+2019-12-01T21:03:51.663 Reading in CheckingAccounts.csv
+2019-12-01T21:03:51.670 Reading in SavingsAccounts.csv
+2019-12-01T21:03:51.678 Reading in LoanAccounts.csv
+2019-12-01T21:03:51.693 Reading in Checks.csv
+2019-12-01T21:03:51.712 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.712 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.712 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.713 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.713 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.713 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.714 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.714 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.716 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.716 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.717 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.717 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.717 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.718 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.718 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.719 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.719 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.719 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.720 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.720 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.720 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.721 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.721 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.721 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.722 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.722 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.722 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.723 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.723 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.724 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.724 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.724 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.725 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.725 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.725 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.726 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.726 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.727 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.727 Error in fixDateString with input: Check Debit Error: java.time.format.DateTimeParseException: Text 'Check Debit' could not be parsed at index 0
+2019-12-01T21:03:51.727 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T21:03:51.728 Error in fixDateString with input: Transfer to Savings Error: java.time.format.DateTimeParseException: Text 'Transfer to Savings' could not be parsed at index 0
+2019-12-01T21:03:51.728 Error in fixDateString with input: Transfer from Checking Error: java.time.format.DateTimeParseException: Text 'Transfer from Checking' could not be parsed at index 0
+2019-12-01T21:03:51.728 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T21:03:51.729 Error in fixDateString with input: Deposit on Savings Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Savings Account' could not be parsed at index 0
+2019-12-01T21:03:51.729 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T21:03:51.729 Error in fixDateString with input: Deposit on Checking Account Error: java.time.format.DateTimeParseException: Text 'Deposit on Checking Account' could not be parsed at index 0
+2019-12-01T21:03:51.730 Error in fixDateString with input: Atm Withdrawal Error: java.time.format.DateTimeParseException: Text 'Atm Withdrawal' could not be parsed at index 0
+2019-12-01T21:03:51.730 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T21:03:51.731 Error in fixDateString with input: Atm Deposit Error: java.time.format.DateTimeParseException: Text 'Atm Deposit' could not be parsed at index 0
+2019-12-01T21:03:51.731 Error in fixDateString with input: new tv Error: java.time.format.DateTimeParseException: Text 'new tv' could not be parsed at index 0
+2019-12-01T21:03:51.731 Error in fixDateString with input: sound system Error: java.time.format.DateTimeParseException: Text 'sound system' could not be parsed at index 0
+2019-12-01T21:03:51.732 Error in fixDateString with input: new couch Error: java.time.format.DateTimeParseException: Text 'new couch' could not be parsed at index 0
+2019-12-01T21:03:51.733 Error in fixDateString with input: new phone Error: java.time.format.DateTimeParseException: Text 'new phone' could not be parsed at index 0
+2019-12-01T21:03:51.733 Error in fixDateString with input: truck Error: java.time.format.DateTimeParseException: Text 'truck' could not be parsed at index 0
+2019-12-01T21:03:51.733 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T21:03:51.734 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T21:03:51.734 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T21:03:51.734 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T21:03:51.734 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T21:03:51.735 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T21:03:51.735 Error in fixDateString with input: Credit Card Payment Error: java.time.format.DateTimeParseException: Text 'Credit Card Payment' could not be parsed at index 0
+2019-12-01T21:03:51.758 ArrayList was written to File.
+2019-12-01T21:03:51.758 Start of Read customerDatabase to ArrayList
+2019-12-01T21:03:51.781 End of Read customerDatabase to ArrayList
+2019-12-01T21:05:23.954 ArrayList was written to File.
+2019-12-01T21:05:23.954 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:08:55.245 Initializing in Main.
+2019-12-01T21:08:55.264 Start of Read customerDatabase to ArrayList
+2019-12-01T21:08:55.377 End of Read customerDatabase to ArrayList
+2019-12-01T21:08:55.377 Database Already Existed. Read into list.
+2019-12-01T21:08:57.191 Initializing Controller
+2019-12-01T21:09:00.205 Reading in CustomersBase.csv
+2019-12-01T21:09:00.209 Reading in CheckingAccounts.csv
+2019-12-01T21:09:00.213 Reading in SavingsAccounts.csv
+2019-12-01T21:09:00.217 Reading in LoanAccounts.csv
+2019-12-01T21:09:00.226 Reading in Checks.csv
+2019-12-01T21:09:00.272 ArrayList was written to File.
+2019-12-01T21:09:00.272 Start of Read customerDatabase to ArrayList
+2019-12-01T21:09:00.295 End of Read customerDatabase to ArrayList
+2019-12-01T21:09:20.442 ArrayList was written to File.
+2019-12-01T21:09:20.442 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:10:57.057 Initializing in Main.
+2019-12-01T21:10:57.077 Start of Read customerDatabase to ArrayList
+2019-12-01T21:10:57.224 End of Read customerDatabase to ArrayList
+2019-12-01T21:10:57.224 Database Already Existed. Read into list.
+2019-12-01T21:10:58.913 Initializing Controller
+2019-12-01T21:11:04.133 Reading in CustomersBase.csv
+2019-12-01T21:11:04.136 Reading in CheckingAccounts.csv
+2019-12-01T21:11:04.140 Reading in SavingsAccounts.csv
+2019-12-01T21:11:04.144 Reading in LoanAccounts.csv
+2019-12-01T21:11:04.152 Reading in Checks.csv
+2019-12-01T21:11:04.204 ArrayList was written to File.
+2019-12-01T21:11:04.204 Start of Read customerDatabase to ArrayList
+2019-12-01T21:11:04.234 End of Read customerDatabase to ArrayList
+2019-12-01T21:11:22.479 Reading in CustomersBase.csv
+2019-12-01T21:11:22.483 Reading in CheckingAccounts.csv
+2019-12-01T21:11:22.487 Reading in SavingsAccounts.csv
+2019-12-01T21:11:22.493 Reading in LoanAccounts.csv
+2019-12-01T21:11:22.503 Reading in Checks.csv
+2019-12-01T21:11:22.533 ArrayList was written to File.
+2019-12-01T21:11:22.533 Start of Read customerDatabase to ArrayList
+2019-12-01T21:11:22.554 End of Read customerDatabase to ArrayList
+2019-12-01T21:11:29.380 Reading in CustomersBase.csv
+2019-12-01T21:11:29.384 Reading in CheckingAccounts.csv
+2019-12-01T21:11:29.388 Reading in SavingsAccounts.csv
+2019-12-01T21:11:29.392 Reading in LoanAccounts.csv
+2019-12-01T21:11:29.399 Reading in Checks.csv
+2019-12-01T21:11:29.427 ArrayList was written to File.
+2019-12-01T21:11:29.427 Start of Read customerDatabase to ArrayList
+2019-12-01T21:11:29.446 End of Read customerDatabase to ArrayList
+2019-12-01T21:11:30.413 Reading in CustomersBase.csv
+2019-12-01T21:11:30.416 Reading in CheckingAccounts.csv
+2019-12-01T21:11:30.420 Reading in SavingsAccounts.csv
+2019-12-01T21:11:30.424 Reading in LoanAccounts.csv
+2019-12-01T21:11:30.430 Reading in Checks.csv
+2019-12-01T21:11:30.462 ArrayList was written to File.
+2019-12-01T21:11:30.462 Start of Read customerDatabase to ArrayList
+2019-12-01T21:11:30.486 End of Read customerDatabase to ArrayList
+2019-12-01T21:11:31.210 Reading in CustomersBase.csv
+2019-12-01T21:11:31.213 Reading in CheckingAccounts.csv
+2019-12-01T21:11:31.217 Reading in SavingsAccounts.csv
+2019-12-01T21:11:31.220 Reading in LoanAccounts.csv
+2019-12-01T21:11:31.225 Reading in Checks.csv
+2019-12-01T21:11:31.252 ArrayList was written to File.
+2019-12-01T21:11:31.253 Start of Read customerDatabase to ArrayList
+2019-12-01T21:11:31.269 End of Read customerDatabase to ArrayList
+2019-12-01T21:11:32.212 Reading in CustomersBase.csv
+2019-12-01T21:11:32.215 Reading in CheckingAccounts.csv
+2019-12-01T21:11:32.218 Reading in SavingsAccounts.csv
+2019-12-01T21:11:32.220 Reading in LoanAccounts.csv
+2019-12-01T21:11:32.226 Reading in Checks.csv
+2019-12-01T21:11:32.259 ArrayList was written to File.
+2019-12-01T21:11:32.259 Start of Read customerDatabase to ArrayList
+2019-12-01T21:11:32.272 End of Read customerDatabase to ArrayList
+2019-12-01T21:11:36.789 ArrayList was written to File.
+2019-12-01T21:11:36.789 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:14:53.247 Initializing in Main.
+2019-12-01T21:14:53.266 Start of Read customerDatabase to ArrayList
+2019-12-01T21:14:53.381 End of Read customerDatabase to ArrayList
+2019-12-01T21:14:53.381 Database Already Existed. Read into list.
+2019-12-01T21:14:54.841 Initializing Controller
+2019-12-01T21:15:01.397 Reading in CustomersBase.csv
+2019-12-01T21:15:01.403 Reading in CheckingAccounts.csv
+2019-12-01T21:15:01.410 Reading in SavingsAccounts.csv
+2019-12-01T21:15:01.417 Reading in LoanAccounts.csv
+2019-12-01T21:15:01.426 Reading in Checks.csv
+2019-12-01T21:15:01.472 ArrayList was written to File.
+2019-12-01T21:15:01.472 Start of Read customerDatabase to ArrayList
+2019-12-01T21:15:01.496 End of Read customerDatabase to ArrayList
+2019-12-01T21:15:03.150 Reading in CustomersBase.csv
+2019-12-01T21:15:03.155 Reading in CheckingAccounts.csv
+2019-12-01T21:15:03.159 Reading in SavingsAccounts.csv
+2019-12-01T21:15:03.165 Reading in LoanAccounts.csv
+2019-12-01T21:15:03.174 Reading in Checks.csv
+2019-12-01T21:15:03.209 ArrayList was written to File.
+2019-12-01T21:15:03.209 Start of Read customerDatabase to ArrayList
+2019-12-01T21:15:03.229 End of Read customerDatabase to ArrayList
+2019-12-01T21:15:09.274 ArrayList was written to File.
+2019-12-01T21:15:09.274 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:16:11.070 Initializing in Main.
+2019-12-01T21:16:11.090 Start of Read customerDatabase to ArrayList
+2019-12-01T21:16:11.209 End of Read customerDatabase to ArrayList
+2019-12-01T21:16:11.209 Database Already Existed. Read into list.
+2019-12-01T21:16:12.602 Initializing Controller
+2019-12-01T21:16:15.243 Reading in CustomersBase.csv
+2019-12-01T21:16:15.249 Reading in CheckingAccounts.csv
+2019-12-01T21:16:15.257 Reading in SavingsAccounts.csv
+2019-12-01T21:16:15.265 Reading in LoanAccounts.csv
+2019-12-01T21:16:15.280 Reading in Checks.csv
+2019-12-01T21:16:15.333 ArrayList was written to File.
+2019-12-01T21:16:15.333 Start of Read customerDatabase to ArrayList
+2019-12-01T21:16:15.358 End of Read customerDatabase to ArrayList
+2019-12-01T21:17:30.101 ArrayList was written to File.
+2019-12-01T21:17:30.101 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:20:23.918 Initializing in Main.
+2019-12-01T21:20:23.937 Start of Read customerDatabase to ArrayList
+2019-12-01T21:20:24.043 End of Read customerDatabase to ArrayList
+2019-12-01T21:20:24.043 Database Already Existed. Read into list.
+2019-12-01T21:20:25.497 Initializing Controller
+2019-12-01T21:20:30.025 Reading in CustomersBase.csv
+2019-12-01T21:20:30.031 Reading in CheckingAccounts.csv
+2019-12-01T21:20:30.038 Reading in SavingsAccounts.csv
+2019-12-01T21:20:30.044 Reading in LoanAccounts.csv
+2019-12-01T21:20:30.058 Reading in Checks.csv
+2019-12-01T21:20:30.105 ArrayList was written to File.
+2019-12-01T21:20:30.105 Start of Read customerDatabase to ArrayList
+2019-12-01T21:20:30.127 End of Read customerDatabase to ArrayList
+2019-12-01T21:21:58.901 ArrayList was written to File.
+2019-12-01T21:21:58.901 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:22:10.115 Initializing in Main.
+2019-12-01T21:22:10.135 Start of Read customerDatabase to ArrayList
+2019-12-01T21:22:10.265 End of Read customerDatabase to ArrayList
+2019-12-01T21:22:10.265 Database Already Existed. Read into list.
+2019-12-01T21:22:11.474 Initializing Controller
+2019-12-01T21:22:14.987 Reading in CustomersBase.csv
+2019-12-01T21:22:14.991 Reading in CheckingAccounts.csv
+2019-12-01T21:22:14.995 Reading in SavingsAccounts.csv
+2019-12-01T21:22:14.999 Reading in LoanAccounts.csv
+2019-12-01T21:22:15.010 Reading in Checks.csv
+2019-12-01T21:22:15.060 ArrayList was written to File.
+2019-12-01T21:22:15.060 Start of Read customerDatabase to ArrayList
+2019-12-01T21:22:15.083 End of Read customerDatabase to ArrayList
+2019-12-01T21:22:18.530 Reading in CustomersBase.csv
+2019-12-01T21:22:18.535 Reading in CheckingAccounts.csv
+2019-12-01T21:22:18.540 Reading in SavingsAccounts.csv
+2019-12-01T21:22:18.545 Reading in LoanAccounts.csv
+2019-12-01T21:22:18.551 Reading in Checks.csv
+2019-12-01T21:22:18.587 ArrayList was written to File.
+2019-12-01T21:22:18.587 Start of Read customerDatabase to ArrayList
+2019-12-01T21:22:18.607 End of Read customerDatabase to ArrayList
+2019-12-01T21:22:24.419 Reading in CustomersBase.csv
+2019-12-01T21:22:24.423 Reading in CheckingAccounts.csv
+2019-12-01T21:22:24.427 Reading in SavingsAccounts.csv
+2019-12-01T21:22:24.433 Reading in LoanAccounts.csv
+2019-12-01T21:22:24.441 Reading in Checks.csv
+2019-12-01T21:22:24.483 ArrayList was written to File.
+2019-12-01T21:22:24.483 Start of Read customerDatabase to ArrayList
+2019-12-01T21:22:24.505 End of Read customerDatabase to ArrayList
+2019-12-01T21:22:26.297 Reading in CustomersBase.csv
+2019-12-01T21:22:26.301 Reading in CheckingAccounts.csv
+2019-12-01T21:22:26.305 Reading in SavingsAccounts.csv
+2019-12-01T21:22:26.309 Reading in LoanAccounts.csv
+2019-12-01T21:22:26.315 Reading in Checks.csv
+2019-12-01T21:22:26.337 ArrayList was written to File.
+2019-12-01T21:22:26.337 Start of Read customerDatabase to ArrayList
+2019-12-01T21:22:26.357 End of Read customerDatabase to ArrayList
+2019-12-01T21:23:37.398 ArrayList was written to File.
+2019-12-01T21:23:37.398 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:31:17.527 Initializing in Main.
+2019-12-01T21:31:17.541 Start of Read customerDatabase to ArrayList
+2019-12-01T21:31:17.640 End of Read customerDatabase to ArrayList
+2019-12-01T21:31:17.641 Database Already Existed. Read into list.
+2019-12-01T21:31:19.980 Initializing Controller
+2019-12-01T21:31:23.805 Reading in CustomersBase.csv
+2019-12-01T21:31:23.812 Reading in CheckingAccounts.csv
+2019-12-01T21:31:23.819 Reading in SavingsAccounts.csv
+2019-12-01T21:31:23.827 Reading in LoanAccounts.csv
+2019-12-01T21:31:23.837 Reading in Checks.csv
+2019-12-01T21:31:23.883 ArrayList was written to File.
+2019-12-01T21:31:23.884 Start of Read customerDatabase to ArrayList
+2019-12-01T21:31:23.905 End of Read customerDatabase to ArrayList
+2019-12-01T21:31:26.862 Reading in CustomersBase.csv
+2019-12-01T21:31:26.867 Reading in CheckingAccounts.csv
+2019-12-01T21:31:26.871 Reading in SavingsAccounts.csv
+2019-12-01T21:31:26.877 Reading in LoanAccounts.csv
+2019-12-01T21:31:26.887 Reading in Checks.csv
+2019-12-01T21:31:26.918 ArrayList was written to File.
+2019-12-01T21:31:26.918 Start of Read customerDatabase to ArrayList
+2019-12-01T21:31:26.940 End of Read customerDatabase to ArrayList
+2019-12-01T21:31:29.953 Reading in CustomersBase.csv
+2019-12-01T21:31:29.957 Reading in CheckingAccounts.csv
+2019-12-01T21:31:29.961 Reading in SavingsAccounts.csv
+2019-12-01T21:31:29.966 Reading in LoanAccounts.csv
+2019-12-01T21:31:29.973 Reading in Checks.csv
+2019-12-01T21:31:29.998 ArrayList was written to File.
+2019-12-01T21:31:29.998 Start of Read customerDatabase to ArrayList
+2019-12-01T21:31:30.018 End of Read customerDatabase to ArrayList
+2019-12-01T21:31:32.463 Reading in CustomersBase.csv
+2019-12-01T21:31:32.467 Reading in CheckingAccounts.csv
+2019-12-01T21:31:32.471 Reading in SavingsAccounts.csv
+2019-12-01T21:31:32.475 Reading in LoanAccounts.csv
+2019-12-01T21:31:32.482 Reading in Checks.csv
+2019-12-01T21:31:32.507 ArrayList was written to File.
+2019-12-01T21:31:32.507 Start of Read customerDatabase to ArrayList
+2019-12-01T21:31:32.525 End of Read customerDatabase to ArrayList
+2019-12-01T21:31:38.808 Reading in CustomersBase.csv
+2019-12-01T21:31:38.812 Reading in CheckingAccounts.csv
+2019-12-01T21:31:38.815 Reading in SavingsAccounts.csv
+2019-12-01T21:31:38.819 Reading in LoanAccounts.csv
+2019-12-01T21:31:38.825 Reading in Checks.csv
+2019-12-01T21:31:38.847 ArrayList was written to File.
+2019-12-01T21:31:38.848 Start of Read customerDatabase to ArrayList
+2019-12-01T21:31:38.867 End of Read customerDatabase to ArrayList
+2019-12-01T21:31:41.501 ArrayList was written to File.
+2019-12-01T21:31:41.501 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:34:26.999 Initializing in Main.
+2019-12-01T21:34:27.013 Start of Read customerDatabase to ArrayList
+2019-12-01T21:34:27.124 End of Read customerDatabase to ArrayList
+2019-12-01T21:34:27.125 Database Already Existed. Read into list.
+2019-12-01T21:34:28.671 Initializing Controller
+2019-12-01T21:34:33.480 Reading in CustomersBase.csv
+2019-12-01T21:34:33.486 Reading in CheckingAccounts.csv
+2019-12-01T21:34:33.493 Reading in SavingsAccounts.csv
+2019-12-01T21:34:33.501 Reading in LoanAccounts.csv
+2019-12-01T21:34:33.516 Reading in Checks.csv
+2019-12-01T21:34:33.561 ArrayList was written to File.
+2019-12-01T21:34:33.561 Start of Read customerDatabase to ArrayList
+2019-12-01T21:34:33.585 End of Read customerDatabase to ArrayList
+2019-12-01T21:34:35.651 Reading in CustomersBase.csv
+2019-12-01T21:34:35.655 Reading in CheckingAccounts.csv
+2019-12-01T21:34:35.659 Reading in SavingsAccounts.csv
+2019-12-01T21:34:35.666 Reading in LoanAccounts.csv
+2019-12-01T21:34:35.675 Reading in Checks.csv
+2019-12-01T21:34:35.705 ArrayList was written to File.
+2019-12-01T21:34:35.705 Start of Read customerDatabase to ArrayList
+2019-12-01T21:34:35.729 End of Read customerDatabase to ArrayList
+2019-12-01T21:34:36.778 Reading in CustomersBase.csv
+2019-12-01T21:34:36.782 Reading in CheckingAccounts.csv
+2019-12-01T21:34:36.786 Reading in SavingsAccounts.csv
+2019-12-01T21:34:36.791 Reading in LoanAccounts.csv
+2019-12-01T21:34:36.798 Reading in Checks.csv
+2019-12-01T21:34:36.828 ArrayList was written to File.
+2019-12-01T21:34:36.828 Start of Read customerDatabase to ArrayList
+2019-12-01T21:34:36.847 End of Read customerDatabase to ArrayList
+2019-12-01T21:34:37.842 Reading in CustomersBase.csv
+2019-12-01T21:34:37.846 Reading in CheckingAccounts.csv
+2019-12-01T21:34:37.849 Reading in SavingsAccounts.csv
+2019-12-01T21:34:37.853 Reading in LoanAccounts.csv
+2019-12-01T21:34:37.860 Reading in Checks.csv
+2019-12-01T21:34:37.882 ArrayList was written to File.
+2019-12-01T21:34:37.882 Start of Read customerDatabase to ArrayList
+2019-12-01T21:34:37.902 End of Read customerDatabase to ArrayList
+2019-12-01T21:34:39.295 Reading in CustomersBase.csv
+2019-12-01T21:34:39.299 Reading in CheckingAccounts.csv
+2019-12-01T21:34:39.303 Reading in SavingsAccounts.csv
+2019-12-01T21:34:39.306 Reading in LoanAccounts.csv
+2019-12-01T21:34:39.311 Reading in Checks.csv
+2019-12-01T21:34:39.345 ArrayList was written to File.
+2019-12-01T21:34:39.345 Start of Read customerDatabase to ArrayList
+2019-12-01T21:34:39.369 End of Read customerDatabase to ArrayList
+2019-12-01T21:34:41.304 Reading in CustomersBase.csv
+2019-12-01T21:34:41.307 Reading in CheckingAccounts.csv
+2019-12-01T21:34:41.310 Reading in SavingsAccounts.csv
+2019-12-01T21:34:41.315 Reading in LoanAccounts.csv
+2019-12-01T21:34:41.321 Reading in Checks.csv
+2019-12-01T21:34:41.349 ArrayList was written to File.
+2019-12-01T21:34:41.350 Start of Read customerDatabase to ArrayList
+2019-12-01T21:34:41.362 End of Read customerDatabase to ArrayList
+2019-12-01T21:34:46.388 ArrayList was written to File.
+2019-12-01T21:34:46.388 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:35:17.307 Initializing in Main.
+2019-12-01T21:35:17.321 Start of Read customerDatabase to ArrayList
+2019-12-01T21:35:17.434 End of Read customerDatabase to ArrayList
+2019-12-01T21:35:17.434 Database Already Existed. Read into list.
+2019-12-01T21:35:19.023 Initializing Controller
+2019-12-01T21:35:22.100 Reading in CustomersBase.csv
+2019-12-01T21:35:22.106 Reading in CheckingAccounts.csv
+2019-12-01T21:35:22.113 Reading in SavingsAccounts.csv
+2019-12-01T21:35:22.121 Reading in LoanAccounts.csv
+2019-12-01T21:35:22.135 Reading in Checks.csv
+2019-12-01T21:35:22.184 ArrayList was written to File.
+2019-12-01T21:35:22.184 Start of Read customerDatabase to ArrayList
+2019-12-01T21:35:22.207 End of Read customerDatabase to ArrayList
+2019-12-01T21:35:26.056 ArrayList was written to File.
+2019-12-01T21:35:26.056 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:37:37.735 Initializing in Main.
+2019-12-01T21:37:37.750 Start of Read customerDatabase to ArrayList
+2019-12-01T21:37:37.860 End of Read customerDatabase to ArrayList
+2019-12-01T21:37:37.860 Database Already Existed. Read into list.
+2019-12-01T21:37:39.251 Initializing Controller
+2019-12-01T21:40:18.893 ArrayList was written to File.
+2019-12-01T21:40:18.893 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:41:18.241 Initializing in Main.
+2019-12-01T21:41:18.255 Start of Read customerDatabase to ArrayList
+2019-12-01T21:41:18.388 End of Read customerDatabase to ArrayList
+2019-12-01T21:41:18.388 Database Already Existed. Read into list.
+2019-12-01T21:41:20.031 Initializing Controller
+2019-12-01T21:41:22.928 Reading in CustomersBase.csv
+2019-12-01T21:41:22.933 Reading in CheckingAccounts.csv
+2019-12-01T21:41:22.938 Reading in SavingsAccounts.csv
+2019-12-01T21:41:22.943 Reading in LoanAccounts.csv
+2019-12-01T21:41:22.954 Reading in Checks.csv
+2019-12-01T21:41:23.008 ArrayList was written to File.
+2019-12-01T21:41:23.008 Start of Read customerDatabase to ArrayList
+2019-12-01T21:41:23.034 End of Read customerDatabase to ArrayList
+2019-12-01T21:41:25.108 Reading in CustomersBase.csv
+2019-12-01T21:41:25.111 Reading in CheckingAccounts.csv
+2019-12-01T21:41:25.113 Reading in SavingsAccounts.csv
+2019-12-01T21:41:25.116 Reading in LoanAccounts.csv
+2019-12-01T21:41:25.122 Reading in Checks.csv
+2019-12-01T21:41:25.151 ArrayList was written to File.
+2019-12-01T21:41:25.151 Start of Read customerDatabase to ArrayList
+2019-12-01T21:41:25.171 End of Read customerDatabase to ArrayList
+2019-12-01T21:41:26.684 Reading in CustomersBase.csv
+2019-12-01T21:41:26.686 Reading in CheckingAccounts.csv
+2019-12-01T21:41:26.689 Reading in SavingsAccounts.csv
+2019-12-01T21:41:26.691 Reading in LoanAccounts.csv
+2019-12-01T21:41:26.696 Reading in Checks.csv
+2019-12-01T21:41:26.724 ArrayList was written to File.
+2019-12-01T21:41:26.724 Start of Read customerDatabase to ArrayList
+2019-12-01T21:41:26.745 End of Read customerDatabase to ArrayList
+2019-12-01T21:41:30.849 ArrayList was written to File.
+2019-12-01T21:41:30.849 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:42:22.044 Initializing in Main.
+2019-12-01T21:42:22.059 Start of Read customerDatabase to ArrayList
+2019-12-01T21:42:22.179 End of Read customerDatabase to ArrayList
+2019-12-01T21:42:22.179 Database Already Existed. Read into list.
+2019-12-01T21:42:23.607 Initializing Controller
+2019-12-01T21:42:26.531 ArrayList was written to File.
+2019-12-01T21:42:26.531 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-01T21:42:42.306 Initializing in Main.
+2019-12-01T21:42:42.330 Reading in CustomersBase.csv
+2019-12-01T21:42:42.360 Reading in CheckingAccounts.csv
+2019-12-01T21:42:42.375 Checking Account for CustomerID: 435-67-8787 was null. Checking Accounts with null values are discarded!
+2019-12-01T21:42:42.375 Checking Account for CustomerID: 563-43-2913 was null. Checking Accounts with null values are discarded!
+2019-12-01T21:42:42.376 Reading in SavingsAccounts.csv
+2019-12-01T21:42:42.386 Reading in LoanAccounts.csv
+2019-12-01T21:42:42.409 Reading in Checks.csv
+2019-12-01T21:42:42.678 ArrayList was written to File.
+2019-12-01T21:42:42.678 Start of Read customerDatabase to ArrayList
+2019-12-01T21:42:42.728 End of Read customerDatabase to ArrayList
+2019-12-01T21:42:42.729 Created Customer Database and read into list.
+2019-12-01T21:42:44.776 Initializing Controller
+2019-12-01T21:42:50.853 Reading in CustomersBase.csv
+2019-12-01T21:42:50.856 Reading in CheckingAccounts.csv
+2019-12-01T21:42:50.858 Reading in SavingsAccounts.csv
+2019-12-01T21:42:50.861 Reading in LoanAccounts.csv
+2019-12-01T21:42:50.866 Reading in Checks.csv
+2019-12-01T21:42:50.899 ArrayList was written to File.
+2019-12-01T21:42:50.899 Start of Read customerDatabase to ArrayList
+2019-12-01T21:42:50.931 End of Read customerDatabase to ArrayList
+2019-12-01T21:42:56.633 ArrayList was written to File.
+2019-12-01T21:42:56.633 The Customer Accounts Database Was successfully Written to the File

@@ -1758,7 +1758,6 @@ public class Controller implements Initializable{
 
             if(!customerPendingLogin){
                 if(customerLogIn){ // if method was called and customer was already logged in .
-                    //customerPendingLogin = false;
                     root = FXMLLoader.load(getClass().getResource("CustomerInterface.fxml"));
                     Main.primaryStage.setTitle("Customer Interface");
                     Main.primaryStage.setScene(new Scene(root, 700, 500));
@@ -3361,140 +3360,9 @@ public class Controller implements Initializable{
 
 
 
-
-
-    // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY
-
-
-    @FXML
-    public void mainInterfaceTestButton(){
-        Parent root = null;
-        Parent test = null;
-        try {
-            test = FXMLLoader.load(getClass().getResource("TestWindow.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Bank Manager Login");
-            stage.setScene(new Scene(test,660,532));
-            stage.show();
-            Main.activeStage=stage;
-            System.out.println("active stage to stage of Test window");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Main.activeStage=null;
-        }
-
-    }
-
-
-
-
-
-    @FXML
-    public void test(){
-        System.out.println("TESTING");
-
-    }
-
-    @FXML
-    public void test2(){
-        System.out.println("test2");
-
-    }
-
-
-    public void printAllData(){
-        System.out.println("ToString:    "+toString());
-        System.out.println("ToStringVal: "+toStringValues());
-    }
-
-    public String isNullReturn(Object o){
-        if(o==null){
-            return "null";
-        }else{
-            return String.valueOf(o);
-        }
-    }
-
-
-    @FXML
-    public void randomSSNButton(){
-        int size = Main.customerAccounts.size();
-        Random random = new Random();
-        int randomInt = random.nextInt(size);
-        System.out.println(randomInt);
-        manageUserSSNField.setText(Main.customerAccounts.get(randomInt).getCustID());
-
-    }
-
-    @FXML
-    public void mainScreenTestButton(){
-        System.out.println("Test Today is: "+DataEntryDriver.getDateString()+"\n\n");
-        ArrayList<CustomerAccount> customerAccounts = Main.customerAccounts;
-
-        System.out.println("\nPrint all base Customer Data:");
-        for(CustomerAccount ca:customerAccounts){
-            System.out.println(ca.toStringBaseDataTableFormat());
-        }
-
-        System.out.println("\nPrint All Checking Accounts:");
-        for(CustomerAccount ca:customerAccounts){
-            if(ca.hasCheckingAccount()){
-                System.out.println(ca.toStringPrettyPrint()+":");
-                System.out.println(ca.getCheckingAccount().toStringTableFormat()+"\n");
-            }
-        }
-
-        System.out.println("\n\nPrint all savings:");
-        for(CustomerAccount ca:customerAccounts){
-            if(ca.hasSavingsAccount()){
-                System.out.println(ca.toStringPrettyPrint()+":");
-                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
-                for(SavingsAccount sa:savingsAccounts){
-                    System.out.println(sa.toStringTableFormat());
-                }
-                System.out.println("");
-            }
-        }
-
-        System.out.println("\n\nPrint all loan accounts:");
-        for(CustomerAccount ca:customerAccounts){
-            if(ca.hasLoanAccount()){
-                System.out.println(ca.toStringPrettyPrint()+":");
-                ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
-                for(LoanAccount la:loanAccounts){
-                    System.out.println(la.toStringTableFormat());
-                }
-                System.out.println("");
-
-            }
-        }
-
-        System.out.println("\n\nPrint all Transactions:");
-        for(CustomerAccount ca:customerAccounts){
-            System.out.println(ca.toStringPrettyPrint()+":");
-            ArrayList<Transaction> transactions = ca.getTransactions();
-            if(transactions.size()!=0){// if size is not 0
-                for(Transaction transaction: transactions){
-                    System.out.println(transaction.toStringTableFormat());
-                }
-            }else{
-                System.out.println("No Transactions");
-            }
-            System.out.println("");
-
-        }
-
-        System.out.println("\n\nPrint All Checks:");
-        for(CustomerAccount ca:customerAccounts){
-            ArrayList<Check> checks = ca.getChecks();
-            if(checks.size()>0){
-                System.out.println(ca.toStringPrettyPrint()+":");
-                for(Check check:checks){
-                    System.out.println(check.toStringTableFormat());
-                }
-                System.out.println("");
-            }
-        }
+    public void gotoCustomerInterface(){
+        // should already be logged in so no need to go to main interface
+        mainInterfaceCustomerButton();
     }
 
 
@@ -3596,10 +3464,62 @@ public class Controller implements Initializable{
             }
         }
 
-//        for(Check check:checksArr){
-//            checksPW.println(check.toStringCSV());
-//        }
         checksPW.close();
+    }
+
+
+    public void importDataFromExportedFiles(){
+        System.out.println("Reading in the exported database Files");
+
+        DataEntryDriver.createCustomerDatabaseFileFromCSVBaseData(true); // read csv files and make database file
+
+        ArrayList<CustomerAccount> accountsToFix = new ArrayList<>();
+        Main.customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList(); // then reads the file
+        int lastIdInt = 1;
+        for(CustomerAccount ca:Main.customerAccounts){
+            boolean hasChecking = ca.hasCheckingAccount();
+            boolean hasSavings = ca.hasSavingsAccount();
+            boolean hasLoanAccounts = ca.hasLoanAccount();
+
+            if(hasChecking){
+                String financialId = ca.getCheckingAccount().getCheckingAcctID();
+                String[] split = financialId.split("-");
+                ca.setFinancialAccountID(DataEntryDriver.getIntFromString(split[0]));
+            }else if(hasSavings){
+                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
+                String finId = savingsAccounts.get(0).getSavingsAcctID();
+                String[] split = finId.split("-");
+                ca.setFinancialAccountID(DataEntryDriver.getIntFromString(split[0]));
+            }else if(hasLoanAccounts){
+                ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
+                String finId = loanAccounts.get(0).getLoanAccountID();
+                String[] split = finId.split("-");
+                ca.setFinancialAccountID(DataEntryDriver.getIntFromString(split[0]));
+            }
+
+            int thisIdInt = ca.getFinancialAccountID();
+            if(thisIdInt>lastIdInt){
+                lastIdInt = thisIdInt; // finds the new highest financial id after import
+            }
+
+        }
+
+        // now be sure to set the last financial id in main plus one so its ready for the next account
+        Main.lastAccId=lastIdInt+1; // now set the new last id plus one
+
+        // now loop again to catch any accounts that some very very mean person decided to make null in the base data
+        // when making the databases, and made it worse by sticking the data in the middle of the file.
+
+        for(CustomerAccount ca:Main.customerAccounts){
+            boolean hasChecking = ca.hasCheckingAccount();
+            boolean hasSavings = ca.hasSavingsAccount();
+            boolean hasLoanAccounts = ca.hasLoanAccount();
+
+            if(!hasChecking && !hasSavings && !hasLoanAccounts){
+                ca.setFinancialAccountID(Main.generateCustomerId());
+            }
+
+        }
 
 
 
@@ -3607,6 +3527,143 @@ public class Controller implements Initializable{
 
 
     }
+
+    // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY
+
+
+    @FXML
+    public void mainInterfaceTestButton(){
+        Parent root = null;
+        Parent test = null;
+        try {
+            test = FXMLLoader.load(getClass().getResource("TestWindow.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Bank Manager Login");
+            stage.setScene(new Scene(test,660,532));
+            stage.show();
+            Main.activeStage=stage;
+            System.out.println("active stage to stage of Test window");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage=null;
+        }
+
+    }
+
+
+
+
+
+    @FXML
+    public void test(){
+        System.out.println("TESTING");
+
+    }
+
+    @FXML
+    public void test2(){
+        System.out.println("test2");
+
+    }
+
+
+    public void printAllData(){
+        System.out.println("ToString:    "+toString());
+        System.out.println("ToStringVal: "+toStringValues());
+    }
+
+    public String isNullReturn(Object o){
+        if(o==null){
+            return "null";
+        }else{
+            return String.valueOf(o);
+        }
+    }
+
+
+    @FXML
+    public void randomSSNButton(){
+        int size = Main.customerAccounts.size();
+        Random random = new Random();
+        int randomInt = random.nextInt(size);
+        System.out.println(randomInt);
+        manageUserSSNField.setText(Main.customerAccounts.get(randomInt).getCustID());
+
+    }
+
+    @FXML
+    public void mainScreenTestButton(){
+        System.out.println("Test Today is: "+DataEntryDriver.getDateString()+"\n\n");
+        ArrayList<CustomerAccount> customerAccounts = Main.customerAccounts;
+
+        System.out.println("\nPrint all base Customer Data:");
+        for(CustomerAccount ca:customerAccounts){
+            System.out.println(ca.toStringBaseDataTableFormat()+" FinID: "+ca.getFinancialAccountID());
+        }
+
+        System.out.println("\nPrint All Checking Accounts:");
+        for(CustomerAccount ca:customerAccounts){
+            if(ca.hasCheckingAccount()){
+                System.out.println(ca.toStringPrettyPrint()+":");
+                System.out.println(ca.getCheckingAccount().toStringTableFormat()+"\n");
+            }
+        }
+
+        System.out.println("\n\nPrint all savings:");
+        for(CustomerAccount ca:customerAccounts){
+            if(ca.hasSavingsAccount()){
+                System.out.println(ca.toStringPrettyPrint()+":");
+                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
+                for(SavingsAccount sa:savingsAccounts){
+                    System.out.println(sa.toStringTableFormat());
+                }
+                System.out.println("");
+            }
+        }
+
+        System.out.println("\n\nPrint all loan accounts:");
+        for(CustomerAccount ca:customerAccounts){
+            if(ca.hasLoanAccount()){
+                System.out.println(ca.toStringPrettyPrint()+":");
+                ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
+                for(LoanAccount la:loanAccounts){
+                    System.out.println(la.toStringTableFormat());
+                }
+                System.out.println("");
+
+            }
+        }
+
+        System.out.println("\n\nPrint all Transactions:");
+        for(CustomerAccount ca:customerAccounts){
+            System.out.println(ca.toStringPrettyPrint()+":");
+            ArrayList<Transaction> transactions = ca.getTransactions();
+            if(transactions.size()!=0){// if size is not 0
+                for(Transaction transaction: transactions){
+                    System.out.println(transaction.toStringTableFormat());
+                }
+            }else{
+                System.out.println("No Transactions");
+            }
+            System.out.println("");
+
+        }
+
+        System.out.println("\n\nPrint All Checks:");
+        for(CustomerAccount ca:customerAccounts){
+            ArrayList<Check> checks = ca.getChecks();
+            if(checks.size()>0){
+                System.out.println(ca.toStringPrettyPrint()+":");
+                for(Check check:checks){
+                    System.out.println(check.toStringTableFormat());
+                }
+                System.out.println("");
+            }
+        }
+    }
+
+
+
 
 
 

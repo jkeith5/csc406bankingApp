@@ -1187,3 +1187,85 @@
 2019-12-01T18:37:34.873 New Log Session.
 
 2019-12-01T18:39:29.827 New Log Session.
+
+2019-12-01T19:44:05.105 New Log Session.
+2019-12-01T19:44:54.612 Manager Account UserName: aasdf logged into account.
+2019-12-01T19:45:50.044 aasdf added: CustomerAccount{custID='111-11-1111', firstName='Test one', lastName='one Test', streetAddr='123 west 5th street', city='Agency', state='MO', zip='65465', atmCardNumber='3227864877079318', dateCreated='12/01/2019', pin='1111', financialAccountID=16, hasSavingsAccount=false, hasCheckingAccount=false, hasShortTermLoan=false, hasLongTermLoan=false, hasCreditCardAcct=false, hasLoanAccount=false, savingsAccounts=[], checkingAccount=null, transactions=[], loanAccounts=[], checks=[], isNull=false}
+2019-12-01T19:45:50.044 aasdf added account: CustomerAccount{custID='111-11-1111', firstName='Test one', lastName='one Test', streetAddr='123 west 5th street', city='Agency', state='MO', zip='65465', atmCardNumber='3227864877079318', dateCreated='12/01/2019', pin='1111', financialAccountID=16, hasSavingsAccount=false, hasCheckingAccount=false, hasShortTermLoan=false, hasLongTermLoan=false, hasCreditCardAcct=false, hasLoanAccount=false, savingsAccounts=[], checkingAccount=null, transactions=[], loanAccounts=[], checks=[], isNull=false}
+2019-12-01T19:45:53.198 Employee UserName: aasdf Looked Up account: CustomerAccount{custID='111-11-1111', firstName='Test one', lastName='one Test', streetAddr='123 west 5th street', city='Agency', state='MO', zip='65465', atmCardNumber='3227864877079318', dateCreated='12/01/2019', pin='1111', financialAccountID=16, hasSavingsAccount=false, hasCheckingAccount=false, hasShortTermLoan=false, hasLongTermLoan=false, hasCreditCardAcct=false, hasLoanAccount=false, savingsAccounts=[], checkingAccount=null, transactions=[], loanAccounts=[], checks=[], isNull=false}
+2019-12-01T19:48:38.215 Customer Account UserName: Customer logged into account.
+2019-12-01T19:50:30.127 Customer Account UserName: Customer logged into account.
+
+2019-12-01T19:59:38.527 New Log Session.
+2019-12-01T19:59:49.883 Customer Account UserName: Customer logged into account.
+
+2019-12-01T20:01:23.582 New Log Session.
+
+2019-12-01T20:01:35.088 New Log Session.
+
+2019-12-01T20:04:51.621 New Log Session.
+2019-12-01T20:05:05.531 Manager Account UserName: asdf logged into account.
+2019-12-01T20:05:07.295 Employee UserName: asdf Looked Up account: CustomerAccount{custID='423-45-3245', firstName='Ronald', lastName='Jones', streetAddr='114 North 4th', city='Clarkesdale', state='MO', zip='64493', atmCardNumber='2899653222933490', dateCreated='12/01/2019', pin='3245', financialAccountID=0, hasSavingsAccount=true, hasCheckingAccount=true, hasShortTermLoan=true, hasLongTermLoan=false, hasCreditCardAcct=true, hasLoanAccount=true, savingsAccounts=[SavingsAccount{custID='423-45-3245', savingsAcctID='1-01', accountBalance=200.0, interestRate=0.022, dateOpened='12/01/2002', isCdAccount=false, cdCloseDate='null', savingsAcctIDFixed='0-01', isNull=false}], checkingAccount=CheckingAccount{custID='423-45-3245', checkingAcctID='1-00', checkingAcctIDFixed='0-00', accountBalance=47.64999999999999, dateOpened='12/01/2002', isGoldAccount=false, backupSavingsEnabled=true, overdraftsOnAcct=3, isNull=false}, transactions=[Transaction{transactionType='W', amount=23.62, description='Check Debit', transactionAccount='C', date='04/03/2005'}, Transaction{transactionType='W', amount=15.67, description='Check Debit', transactionAccount='C', date='08/17/2007'}, Transaction{transactionType='W', amount=23.62, description='C', transactionAccount='04/03/2005', date='null'}, Transaction{transactionType='W', amount=15.67, description='C', transactionAccount='08/17/2007', date='null'}], loanAccounts=[LoanAccount{custID='423-45-3245', initialLoanAmt=8000.0, currentBalance=6192.0, interestRate=0.08, paymentDueDate='11/27/2019', paymentNoticeDate='11/01/2019', amountDue=144.0, lastPaymentDate='10/16/2019', hasMissedPayment=false, loanAccountType='STL', loanAccountID='1-03-01', loanAccountIDFixed='0-03-01', isNull=false, loanTerm=5, dateOpened='05/16/2018', totalLoanAmountPlusInterest=8640.0}, LoanAccount{custID='423-45-3245', initialLoanAmt=10000.0, currentBalance=6149.0, interestRate=0.08, paymentDueDate='12/10/2019', paymentNoticeDate='11/01/2019', amountDue=132.82, lastPaymentDate='11/01/2019', hasMissedPayment=false, loanAccountType='CCL', loanAccountID='1-05', loanAccountIDFixed='0-05', isNull=false, loanTerm=-1, dateOpened='12/18/2008', totalLoanAmountPlusInterest=10800.0}], checks=[Check{checkNumber='100', checkingAcctID=1-00, checkDate='04/03/2005', checkAmount=23.62, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='101', checkingAcctID=1-00, checkDate='08/17/2007', checkAmount=15.67, checkProcessed=true, checkStatus='normal'}], isNull=false}
+2019-12-01T20:05:09.137 asdf deleted: CustomerAccount{custID='423-45-3245', firstName='Ronald', lastName='Jones', streetAddr='114 North 4th', city='Clarkesdale', state='MO', zip='64493', atmCardNumber='2899653222933490', dateCreated='12/01/2019', pin='3245', financialAccountID=0, hasSavingsAccount=true, hasCheckingAccount=true, hasShortTermLoan=true, hasLongTermLoan=false, hasCreditCardAcct=true, hasLoanAccount=true, savingsAccounts=[SavingsAccount{custID='423-45-3245', savingsAcctID='1-01', accountBalance=200.0, interestRate=0.022, dateOpened='12/01/2002', isCdAccount=false, cdCloseDate='null', savingsAcctIDFixed='0-01', isNull=false}], checkingAccount=CheckingAccount{custID='423-45-3245', checkingAcctID='1-00', checkingAcctIDFixed='0-00', accountBalance=47.64999999999999, dateOpened='12/01/2002', isGoldAccount=false, backupSavingsEnabled=true, overdraftsOnAcct=3, isNull=false}, transactions=[Transaction{transactionType='W', amount=23.62, description='Check Debit', transactionAccount='C', date='04/03/2005'}, Transaction{transactionType='W', amount=15.67, description='Check Debit', transactionAccount='C', date='08/17/2007'}, Transaction{transactionType='W', amount=23.62, description='C', transactionAccount='04/03/2005', date='null'}, Transaction{transactionType='W', amount=15.67, description='C', transactionAccount='08/17/2007', date='null'}], loanAccounts=[LoanAccount{custID='423-45-3245', initialLoanAmt=8000.0, currentBalance=6192.0, interestRate=0.08, paymentDueDate='11/27/2019', paymentNoticeDate='11/01/2019', amountDue=144.0, lastPaymentDate='10/16/2019', hasMissedPayment=false, loanAccountType='STL', loanAccountID='1-03-01', loanAccountIDFixed='0-03-01', isNull=false, loanTerm=5, dateOpened='05/16/2018', totalLoanAmountPlusInterest=8640.0}, LoanAccount{custID='423-45-3245', initialLoanAmt=10000.0, currentBalance=6149.0, interestRate=0.08, paymentDueDate='12/10/2019', paymentNoticeDate='11/01/2019', amountDue=132.82, lastPaymentDate='11/01/2019', hasMissedPayment=false, loanAccountType='CCL', loanAccountID='1-05', loanAccountIDFixed='0-05', isNull=false, loanTerm=-1, dateOpened='12/18/2008', totalLoanAmountPlusInterest=10800.0}], checks=[Check{checkNumber='100', checkingAcctID=1-00, checkDate='04/03/2005', checkAmount=23.62, checkProcessed=true, checkStatus='normal'}, Check{checkNumber='101', checkingAcctID=1-00, checkDate='08/17/2007', checkAmount=15.67, checkProcessed=true, checkStatus='normal'}], isNull=false}
+
+2019-12-01T20:05:44.102 New Log Session.
+
+2019-12-01T20:06:13.596 New Log Session.
+
+2019-12-01T20:06:29.154 New Log Session.
+
+2019-12-01T20:09:34.140 New Log Session.
+
+2019-12-01T20:09:42.307 New Log Session.
+
+2019-12-01T20:17:25.439 New Log Session.
+
+2019-12-01T20:18:22.933 New Log Session.
+
+2019-12-01T20:19:30.236 New Log Session.
+
+2019-12-01T20:19:56.899 New Log Session.
+
+2019-12-01T20:20:42.094 New Log Session.
+
+2019-12-01T20:35:19.525 New Log Session.
+
+2019-12-01T20:40:45.155 New Log Session.
+
+2019-12-01T20:41:00.279 New Log Session.
+
+2019-12-01T20:41:22.403 New Log Session.
+
+2019-12-01T20:46:49.629 New Log Session.
+
+2019-12-01T20:54:42.429 New Log Session.
+
+2019-12-01T20:59:30.946 New Log Session.
+
+2019-12-01T21:03:45.140 New Log Session.
+
+2019-12-01T21:08:55.257 New Log Session.
+
+2019-12-01T21:10:57.069 New Log Session.
+
+2019-12-01T21:14:53.258 New Log Session.
+
+2019-12-01T21:16:11.083 New Log Session.
+
+2019-12-01T21:20:23.930 New Log Session.
+
+2019-12-01T21:22:10.127 New Log Session.
+
+2019-12-01T21:31:17.536 New Log Session.
+
+2019-12-01T21:34:27.008 New Log Session.
+
+2019-12-01T21:35:17.316 New Log Session.
+
+2019-12-01T21:37:37.745 New Log Session.
+
+2019-12-01T21:41:18.250 New Log Session.
+
+2019-12-01T21:42:22.054 New Log Session.
+
+2019-12-01T21:42:42.322 New Log Session.

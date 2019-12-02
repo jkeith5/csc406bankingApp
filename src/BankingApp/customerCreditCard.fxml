@@ -26,7 +26,7 @@
                 <Button fx:id="customerCCPurchaseButton" layoutX="607.0" layoutY="290.0" mnemonicParsing="false" onAction="#processCCPurchase" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Purchase" />
 
 
-                <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToMainScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+                <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#gotoCustomerInterface" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
 
                 <Label fx:id="customerInterErrLabel" layoutX="117.0" layoutY="455.0" prefHeight="25.0" prefWidth="545.0" text="ERROR Messages somewhere eventually???" textFill="RED" wrapText="true" />
             <Label layoutX="214.0" layoutY="31.0" text="First:" />
