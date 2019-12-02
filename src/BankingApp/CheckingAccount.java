@@ -294,5 +294,16 @@ public class CheckingAccount implements Serializable {
     }
 
 
+    public String toStringCSV(){
+        String result = String.format("%s,%s,%.2f,%s,%b,%b,%d",custID,checkingAcctIDFixed,accountBalance,dateOpened,
+                isGoldAccount,backupSavingsEnabled,overdraftsOnAcct);
+        return result;
+    }
+
+    public static String toStringCSVHeader(){
+        String result = "custID,checkingAcctID,accountBalance,dateOpened,isGold,backupSavings,overdrafts";
+        return result;
+    }
+
 
 }

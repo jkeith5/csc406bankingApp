@@ -295,6 +295,45 @@ public class Main extends Application {
     }
 
 
+    public static File createExportFile(String fileName){
+        String fileNameOut = "src/Resources/export/"+fileName;
+        if(!fileNameOut.contains(".csv")){ // if I forgot to add .csv to the file
+            fileNameOut = fileNameOut+".csv"; // add .csv to the end
+        }
+        File exportDir = new File(System.getProperty("user.dir")+"/src/Resources/export");
+        if(!exportDir.exists()){
+            exportDir.mkdir(); // make export directory if not there
+        }
+
+        File returnFile = null;
+        try {
+            returnFile = new File(fileNameOut);
+
+            if(!returnFile.exists()){ // if the file does not exist
+                returnFile.createNewFile(); // create it
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnFile;
+
+
+    }
+
+    public static PrintWriter createPrintWriter(File inputFile,boolean append){
+        PrintWriter returnPrintWriter = null;
+        try {
+            FileWriter ofw = new FileWriter(inputFile,append); // append data
+            BufferedWriter ofbw = new BufferedWriter(ofw);
+            returnPrintWriter = new PrintWriter(ofbw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return returnPrintWriter;
+
+    }
 
 
 

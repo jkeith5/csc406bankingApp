@@ -145,5 +145,16 @@ public class Transaction implements Serializable {
     }
 
 
+    public String toStringCSV(CustomerAccount ca){
+        String custID = ca.getCustID();
+        String result = String.format("%s,%s,%.2f,%s,%s,%s",custID,transactionType,amount,transactionAccount,date,description);
+        return result;
+    }
+
+    public static String toStringCSVHeader(){
+        String result = "custID,transactionType,amount,transactionAccount,date,description";
+        return result;
+    }
+
 
 }

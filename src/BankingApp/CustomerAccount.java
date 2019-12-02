@@ -733,5 +733,15 @@ public class CustomerAccount implements Serializable {
         return result;
     }
 
+    public String toStringCSV(){
+        String result = String.format("%s,%s,%s,%s,%s,%s,%s,%s",custID,firstName,lastName,streetAddr,city,state,zip,atmCardNumber);
+        return result;
+    }
+
+    public static String toStringCSVHeader(){
+        String result = "custID,firstName,lastName,streetAddr,city,state,zip,atmCardNumber";
+        return result;
+    }
+
 
 }

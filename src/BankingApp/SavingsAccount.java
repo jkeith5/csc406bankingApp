@@ -329,8 +329,17 @@ public class SavingsAccount implements Serializable {
     }
 
 
+    public String toStringCSV(){
+        String result = String.format("%s,%s,%.2f,%.5f,%s,%b,%s",custID,savingsAcctIDFixed,accountBalance,interestRate,
+                dateOpened,isCdAccount,cdCloseDate);
+        return result;
+    }
 
 
+    public static String toStringCSVHeader(){
+        String result = "custID,savingsAcctId,accountBalance,interest,dateOpened,isCD,cdCloseDate";
+        return result;
+    }
 
 
 

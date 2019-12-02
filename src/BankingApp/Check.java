@@ -141,4 +141,17 @@ public class Check implements Serializable {
     }
 
 
+    public String toStringCSV(){
+        String result = String.format("%s,%s,%s,%.2f,%b",checkNumber,checkingAcctID,checkDate,checkAmount,checkProcessed);
+
+        return result;
+    }
+
+
+    public static String toStringCSVHeader(){
+        String result = "checkNumber,checkingAcctID,checkDate,checkAmount,isProcessed";
+        return result;
+    }
+
+
 }

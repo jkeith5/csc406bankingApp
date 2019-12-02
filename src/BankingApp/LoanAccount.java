@@ -616,6 +616,19 @@ public class LoanAccount implements Serializable {
 
 
 
+    public String toStringCSV(){
+        String result = String.format("%s,%.2f,%.2f,%.5f,%s,%s,%.2f,%s,%b,%s,%s,%d,%s",
+                custID,initialLoanAmt,currentBalance,interestRate, paymentDueDate,paymentNoticeDate,
+                amountDue,lastPaymentDate,hasMissedPayment, loanAccountType,loanAccountIDFixed,loanTerm,dateOpened);
+        return result;
+    }
+
+
+    public static String toStringCSVHeader(){
+        String result = "custID,initialLoanAmt,currentBalance,interestRate,pmtDueDate,pmtNoticeDate,amountDue,lastPmtDate," +
+                "hasMissedPmt,loanAccType,loanAccID,loanTermYears,dateOpened";
+        return result;
+    }
 
 
 

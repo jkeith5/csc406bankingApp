@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -22,7 +23,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-import java.io.IOException;
 import java.net.URL;
 
 
@@ -264,6 +264,9 @@ public class Controller implements Initializable{
     @FXML TextField checkProcessed;
     @FXML TextField checkStatus;
     @FXML Button stopPaymentButton;
+
+    @FXML Button exportDataButton;
+    @FXML Button importDataButton;
 
 
     @FXML Button testButton;
@@ -3491,19 +3494,121 @@ public class Controller implements Initializable{
                 }
                 System.out.println("");
             }
+        }
+    }
 
+
+    public void exportDataToCSVFiles(){
+        System.out.println("Exporting all data to csv");
+
+        //File customerBaseOut = new File("src/Resources/outputLog.txt");
+
+        File customerBaseOut = Main.createExportFile("CustomersBase.csv");
+        File checkingAccOut = Main.createExportFile("CheckingAccounts.csv");
+        File savingsOut = Main.createExportFile("SavingsAccounts.csv");
+        File loanOut = Main.createExportFile("LoanAccounts.csv");
+        File checksOut = Main.createExportFile("Checks.csv");
+        File transactionsOut = Main.createExportFile("Transactions.csv");
+
+
+        PrintWriter customersPW = Main.createPrintWriter(customerBaseOut,false);
+        PrintWriter checkingPW = Main.createPrintWriter(checkingAccOut,false);
+        PrintWriter savingsPW = Main.createPrintWriter(savingsOut,false);
+        PrintWriter loanPW = Main.createPrintWriter(loanOut,false);
+        PrintWriter checksPW = Main.createPrintWriter(checksOut,false);
+        PrintWriter transactionsPW = Main.createPrintWriter(transactionsOut,false);
+
+
+        ArrayList<CustomerAccount> customerAccounts = Main.customerAccounts;
+        ArrayList<CheckingAccount> checkingAccounts = new ArrayList<>();
+        ArrayList<SavingsAccount> savingsAccounts = new ArrayList<>();
+        ArrayList<LoanAccount> loanAccounts = new ArrayList<>();
+        ArrayList<Check> checksArr = new ArrayList<>();
+
+
+        customersPW.println(CustomerAccount.toStringCSVHeader());
+        for(CustomerAccount ca:customerAccounts){
+            customersPW.println(ca.toStringCSV());
+            if(ca.hasCheckingAccount()){
+                checkingAccounts.add(ca.getCheckingAccount());
+            }
+            if(ca.hasSavingsAccount()){
+                for(SavingsAccount sa:ca.getSavingsAccounts()){
+                    savingsAccounts.add(sa);
+                }
+            }
+            if(ca.hasLoanAccount()){
+                for(LoanAccount la:ca.getLoanAccounts()){
+                    loanAccounts.add(la);
+                }
+            }
+            if(ca.getChecks()!=null){
+                if(ca.getChecks().size()!=0){
+                    for(Check check:ca.getChecks()){
+                        checksArr.add(check);
+                    }
+                }
+            }
 
         }
 
+        customersPW.close();
+        checkingPW.println(CheckingAccount.toStringCSVHeader());
+        for(CheckingAccount checkingAccount:checkingAccounts){
+            checkingPW.println(checkingAccount.toStringCSV());
+        }
+        checkingPW.close();
+
+        savingsPW.println(SavingsAccount.toStringCSVHeader());
+        for(SavingsAccount sa:savingsAccounts){
+            savingsPW.println(sa.toStringCSV());
+        }
+        savingsPW.close();
+
+        loanPW.println(LoanAccount.toStringCSVHeader());
+        for(LoanAccount la:loanAccounts){
+            loanPW.println(la.toStringCSV());
+        }
+        loanPW.close();
+
+        transactionsPW.println(Transaction.toStringCSVHeader());
+        for(CustomerAccount ca:customerAccounts){
+            if(ca.getTransactions()!=null){
+                for(Transaction transaction: ca.getTransactions()){
+                    transactionsPW.println(transaction.toStringCSV(ca));
+                }
+            }
+        }
+        transactionsPW.close();
+        checksPW.println(Check.toStringCSVHeader());
+        for(CustomerAccount ca:customerAccounts){
+            if(ca.getChecks()!=null){
+                if(ca.getChecks().size()!=0){
+                    String caCheckingID = ca.getCheckingAccount().getCheckingAcctIDFixed();
+                    for(Check check:ca.getChecks()){
+                        Check tempCheck = new Check();
+                        tempCheck = check;
+                        tempCheck.setCheckingAcctID(caCheckingID);
+                        checksPW.println(tempCheck.toStringCSV());
+                    }
+                }
+
+            }
+        }
+
+//        for(Check check:checksArr){
+//            checksPW.println(check.toStringCSV());
+//        }
+        checksPW.close();
 
 
 
 
-
-        // temp
 
 
     }
+
+
 
     @FXML
     public void testWindowButtonAction(){
