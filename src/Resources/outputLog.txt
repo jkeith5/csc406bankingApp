@@ -8424,3 +8424,561 @@
 2019-12-01T21:42:50.931 End of Read customerDatabase to ArrayList
 2019-12-01T21:42:56.633 ArrayList was written to File.
 2019-12-01T21:42:56.633 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T12:31:27.140 Initializing in Main.
+2019-12-02T12:31:27.185 Start of Read customerDatabase to ArrayList
+2019-12-02T12:31:27.300 End of Read customerDatabase to ArrayList
+2019-12-02T12:31:27.301 Database Already Existed. Read into list.
+2019-12-02T12:31:29.980 Initializing Controller
+2019-12-02T12:31:50.887 Initializing Controller
+2019-12-02T12:31:53.951 Initializing Controller
+2019-12-02T12:31:55.955 Initializing Controller
+2019-12-02T12:31:55.974 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T12:31:57.026 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T12:31:57.842 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T12:31:57.881 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T12:31:57.921 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T12:31:57.940 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T12:31:58.605 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T12:31:58.694 Initializing Controller
+2019-12-02T12:32:01.781 Initializing Controller
+2019-12-02T12:32:04.541 Initializing Controller
+2019-12-02T12:32:21.369 Initializing Controller
+2019-12-02T12:32:22.768 Initializing Controller
+2019-12-02T12:32:40.792 Initializing Controller
+2019-12-02T12:32:41.835 Initializing Controller
+2019-12-02T12:32:44.322 Initializing Controller
+2019-12-02T12:32:44.360 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T12:32:45.255 Initializing Controller
+2019-12-02T12:32:46.330 Initializing Controller
+2019-12-02T12:33:12.127 ArrayList was written to File.
+2019-12-02T12:33:12.127 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T12:40:06.150 Initializing in Main.
+2019-12-02T12:40:06.164 Start of Read customerDatabase to ArrayList
+2019-12-02T12:40:06.267 End of Read customerDatabase to ArrayList
+2019-12-02T12:40:06.267 Database Already Existed. Read into list.
+2019-12-02T12:40:07.640 Initializing Controller
+2019-12-02T12:40:40.300 ArrayList was written to File.
+2019-12-02T12:40:40.300 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:01:42.897 Initializing in Main.
+2019-12-02T13:01:42.909 Start of Read customerDatabase to ArrayList
+2019-12-02T13:01:43.005 End of Read customerDatabase to ArrayList
+2019-12-02T13:01:43.005 Database Already Existed. Read into list.
+2019-12-02T13:01:44.877 Initializing Controller
+2019-12-02T13:01:49.079 ArrayList was written to File.
+2019-12-02T13:01:49.079 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:10:27.943 Initializing in Main.
+2019-12-02T13:10:27.959 Start of Read customerDatabase to ArrayList
+2019-12-02T13:10:28.095 End of Read customerDatabase to ArrayList
+2019-12-02T13:10:28.095 Database Already Existed. Read into list.
+2019-12-02T13:10:30.445 Initializing Controller
+2019-12-02T13:10:43.379 ArrayList was written to File.
+2019-12-02T13:10:43.379 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:11:50.236 Initializing in Main.
+2019-12-02T13:11:50.255 Start of Read customerDatabase to ArrayList
+2019-12-02T13:11:50.400 End of Read customerDatabase to ArrayList
+2019-12-02T13:11:50.400 Database Already Existed. Read into list.
+2019-12-02T13:11:52.073 Initializing Controller
+2019-12-02T13:12:10.380 ArrayList was written to File.
+2019-12-02T13:12:10.380 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:13:27.546 Initializing in Main.
+2019-12-02T13:13:27.561 Start of Read customerDatabase to ArrayList
+2019-12-02T13:13:27.673 End of Read customerDatabase to ArrayList
+2019-12-02T13:13:27.673 Database Already Existed. Read into list.
+2019-12-02T13:13:29.882 Initializing Controller
+2019-12-02T13:14:17.429 ArrayList was written to File.
+2019-12-02T13:14:17.430 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:15:54.037 Initializing in Main.
+2019-12-02T13:15:54.052 Start of Read customerDatabase to ArrayList
+2019-12-02T13:15:54.163 End of Read customerDatabase to ArrayList
+2019-12-02T13:15:54.163 Database Already Existed. Read into list.
+2019-12-02T13:15:55.555 Initializing Controller
+2019-12-02T13:16:09.895 ArrayList was written to File.
+2019-12-02T13:16:09.895 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:17:49.721 Initializing in Main.
+2019-12-02T13:17:49.735 Start of Read customerDatabase to ArrayList
+2019-12-02T13:17:49.844 End of Read customerDatabase to ArrayList
+2019-12-02T13:17:49.844 Database Already Existed. Read into list.
+2019-12-02T13:17:51.194 Initializing Controller
+2019-12-02T13:19:17.877 ArrayList was written to File.
+2019-12-02T13:19:17.877 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:25:15.944 Initializing in Main.
+2019-12-02T13:25:15.958 Start of Read customerDatabase to ArrayList
+2019-12-02T13:25:16.058 End of Read customerDatabase to ArrayList
+2019-12-02T13:25:16.058 Database Already Existed. Read into list.
+2019-12-02T13:25:17.591 Initializing Controller
+2019-12-02T13:25:23.131 ArrayList was written to File.
+2019-12-02T13:25:23.131 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:27:10.245 Initializing in Main.
+2019-12-02T13:27:10.259 Start of Read customerDatabase to ArrayList
+2019-12-02T13:27:10.373 End of Read customerDatabase to ArrayList
+2019-12-02T13:27:10.373 Database Already Existed. Read into list.
+2019-12-02T13:27:11.845 Initializing Controller
+2019-12-02T13:27:26.668 ArrayList was written to File.
+2019-12-02T13:27:26.669 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:27:50.985 Initializing in Main.
+2019-12-02T13:27:51 Start of Read customerDatabase to ArrayList
+2019-12-02T13:27:51.106 End of Read customerDatabase to ArrayList
+2019-12-02T13:27:51.107 Database Already Existed. Read into list.
+2019-12-02T13:27:52.695 Initializing Controller
+2019-12-02T13:28:25.679 ArrayList was written to File.
+2019-12-02T13:28:25.679 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:28:52.807 Initializing in Main.
+2019-12-02T13:28:52.821 Start of Read customerDatabase to ArrayList
+2019-12-02T13:28:52.937 End of Read customerDatabase to ArrayList
+2019-12-02T13:28:52.937 Database Already Existed. Read into list.
+2019-12-02T13:28:54.235 Initializing Controller
+2019-12-02T13:29:12.802 ArrayList was written to File.
+2019-12-02T13:29:12.802 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:32:05.725 Initializing in Main.
+2019-12-02T13:32:05.738 Start of Read customerDatabase to ArrayList
+2019-12-02T13:32:05.845 End of Read customerDatabase to ArrayList
+2019-12-02T13:32:05.845 Database Already Existed. Read into list.
+2019-12-02T13:32:07.498 Initializing Controller
+2019-12-02T13:32:10.524 ArrayList was written to File.
+2019-12-02T13:32:10.524 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:32:30.575 Initializing in Main.
+2019-12-02T13:32:30.592 Start of Read customerDatabase to ArrayList
+2019-12-02T13:32:30.731 End of Read customerDatabase to ArrayList
+2019-12-02T13:32:30.731 Database Already Existed. Read into list.
+2019-12-02T13:32:32.704 Initializing Controller
+2019-12-02T13:32:47.184 ArrayList was written to File.
+2019-12-02T13:32:47.184 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:33:16.582 Initializing in Main.
+2019-12-02T13:33:16.603 Start of Read customerDatabase to ArrayList
+2019-12-02T13:33:16.749 End of Read customerDatabase to ArrayList
+2019-12-02T13:33:16.749 Database Already Existed. Read into list.
+2019-12-02T13:33:18.684 Initializing Controller
+2019-12-02T13:33:28.066 ArrayList was written to File.
+2019-12-02T13:33:28.066 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:36:07.799 Initializing in Main.
+2019-12-02T13:36:07.814 Start of Read customerDatabase to ArrayList
+2019-12-02T13:36:07.921 End of Read customerDatabase to ArrayList
+2019-12-02T13:36:07.921 Database Already Existed. Read into list.
+2019-12-02T13:36:09.769 Initializing Controller
+2019-12-02T13:36:17.492 ArrayList was written to File.
+2019-12-02T13:36:17.492 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:37:02.268 Initializing in Main.
+2019-12-02T13:37:02.287 Start of Read customerDatabase to ArrayList
+2019-12-02T13:37:02.403 End of Read customerDatabase to ArrayList
+2019-12-02T13:37:02.404 Database Already Existed. Read into list.
+2019-12-02T13:37:03.861 Initializing Controller
+2019-12-02T13:37:22.831 ArrayList was written to File.
+2019-12-02T13:37:22.832 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:44:38.607 Initializing in Main.
+2019-12-02T13:44:38.627 Start of Read customerDatabase to ArrayList
+2019-12-02T13:44:38.751 End of Read customerDatabase to ArrayList
+2019-12-02T13:44:38.751 Database Already Existed. Read into list.
+2019-12-02T13:44:40.196 Initializing Controller
+2019-12-02T13:44:56.343 ArrayList was written to File.
+2019-12-02T13:44:56.344 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:49:26.244 Initializing in Main.
+2019-12-02T13:49:26.256 Start of Read customerDatabase to ArrayList
+2019-12-02T13:49:26.342 End of Read customerDatabase to ArrayList
+2019-12-02T13:49:26.343 Database Already Existed. Read into list.
+2019-12-02T13:49:27.831 Initializing Controller
+2019-12-02T13:50:12.429 ArrayList was written to File.
+2019-12-02T13:50:12.429 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:50:58.188 Initializing in Main.
+2019-12-02T13:50:58.207 Start of Read customerDatabase to ArrayList
+2019-12-02T13:50:58.354 End of Read customerDatabase to ArrayList
+2019-12-02T13:50:58.355 Database Already Existed. Read into list.
+2019-12-02T13:51:01.010 Initializing Controller
+2019-12-02T13:51:15.438 ArrayList was written to File.
+2019-12-02T13:51:15.438 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:56:39.905 Initializing in Main.
+2019-12-02T13:56:39.920 Start of Read customerDatabase to ArrayList
+2019-12-02T13:56:40.034 End of Read customerDatabase to ArrayList
+2019-12-02T13:56:40.034 Database Already Existed. Read into list.
+2019-12-02T13:56:41.824 Initializing Controller
+2019-12-02T13:56:52.171 ArrayList was written to File.
+2019-12-02T13:56:52.171 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T13:57:33.457 Initializing in Main.
+2019-12-02T13:57:33.474 Start of Read customerDatabase to ArrayList
+2019-12-02T13:57:33.578 End of Read customerDatabase to ArrayList
+2019-12-02T13:57:33.578 Database Already Existed. Read into list.
+2019-12-02T13:57:35.011 Initializing Controller
+2019-12-02T13:57:59.227 ArrayList was written to File.
+2019-12-02T13:57:59.228 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:00:21.724 Initializing in Main.
+2019-12-02T14:00:21.740 Start of Read customerDatabase to ArrayList
+2019-12-02T14:00:21.854 End of Read customerDatabase to ArrayList
+2019-12-02T14:00:21.854 Database Already Existed. Read into list.
+2019-12-02T14:00:23.366 Initializing Controller
+2019-12-02T14:00:33.385 ArrayList was written to File.
+2019-12-02T14:00:33.385 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:02:26.839 Initializing in Main.
+2019-12-02T14:02:26.853 Start of Read customerDatabase to ArrayList
+2019-12-02T14:02:26.953 End of Read customerDatabase to ArrayList
+2019-12-02T14:02:26.954 Database Already Existed. Read into list.
+2019-12-02T14:02:28.901 Initializing Controller
+2019-12-02T14:02:38.875 ArrayList was written to File.
+2019-12-02T14:02:38.875 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:02:51.688 Initializing in Main.
+2019-12-02T14:02:51.708 Start of Read customerDatabase to ArrayList
+2019-12-02T14:02:51.866 End of Read customerDatabase to ArrayList
+2019-12-02T14:02:51.866 Database Already Existed. Read into list.
+2019-12-02T14:02:53.785 Initializing Controller
+2019-12-02T14:03:10.588 ArrayList was written to File.
+2019-12-02T14:03:10.588 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:05:42.257 Initializing in Main.
+2019-12-02T14:05:42.274 Start of Read customerDatabase to ArrayList
+2019-12-02T14:05:42.408 End of Read customerDatabase to ArrayList
+2019-12-02T14:05:42.408 Database Already Existed. Read into list.
+2019-12-02T14:05:43.872 Initializing Controller
+2019-12-02T14:06:34.855 ArrayList was written to File.
+2019-12-02T14:06:34.855 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:14:25.734 Initializing in Main.
+2019-12-02T14:14:25.746 Start of Read customerDatabase to ArrayList
+2019-12-02T14:14:25.832 End of Read customerDatabase to ArrayList
+2019-12-02T14:14:25.833 Database Already Existed. Read into list.
+2019-12-02T14:14:27.565 Initializing Controller
+2019-12-02T14:14:54.507 ArrayList was written to File.
+2019-12-02T14:14:54.507 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:22:01.954 Initializing in Main.
+2019-12-02T14:22:01.971 Start of Read customerDatabase to ArrayList
+2019-12-02T14:22:02.085 End of Read customerDatabase to ArrayList
+2019-12-02T14:22:02.085 Database Already Existed. Read into list.
+2019-12-02T14:22:03.735 Initializing Controller
+2019-12-02T14:22:13.108 ArrayList was written to File.
+2019-12-02T14:22:13.108 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:23:02.825 Initializing in Main.
+2019-12-02T14:23:02.843 Start of Read customerDatabase to ArrayList
+2019-12-02T14:23:02.999 End of Read customerDatabase to ArrayList
+2019-12-02T14:23:03 Database Already Existed. Read into list.
+2019-12-02T14:23:04.782 Initializing Controller
+2019-12-02T14:23:13.796 ArrayList was written to File.
+2019-12-02T14:23:13.796 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:27:28.688 Initializing in Main.
+2019-12-02T14:27:28.708 Start of Read customerDatabase to ArrayList
+2019-12-02T14:27:28.830 End of Read customerDatabase to ArrayList
+2019-12-02T14:27:28.831 Database Already Existed. Read into list.
+2019-12-02T14:27:30.472 Initializing Controller
+2019-12-02T14:27:37.029 ArrayList was written to File.
+2019-12-02T14:27:37.029 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:29:46.971 Initializing in Main.
+2019-12-02T14:29:46.985 Start of Read customerDatabase to ArrayList
+2019-12-02T14:29:47.096 End of Read customerDatabase to ArrayList
+2019-12-02T14:29:47.096 Database Already Existed. Read into list.
+2019-12-02T14:29:48.359 Initializing Controller
+2019-12-02T14:29:54.991 ArrayList was written to File.
+2019-12-02T14:29:54.991 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:31:23.837 Initializing in Main.
+2019-12-02T14:31:23.850 Start of Read customerDatabase to ArrayList
+2019-12-02T14:31:23.979 End of Read customerDatabase to ArrayList
+2019-12-02T14:31:23.979 Database Already Existed. Read into list.
+2019-12-02T14:31:25.497 Initializing Controller
+2019-12-02T14:31:36.302 ArrayList was written to File.
+2019-12-02T14:31:36.302 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:33:23.131 Initializing in Main.
+2019-12-02T14:33:23.145 Start of Read customerDatabase to ArrayList
+2019-12-02T14:33:23.267 End of Read customerDatabase to ArrayList
+2019-12-02T14:33:23.267 Database Already Existed. Read into list.
+2019-12-02T14:33:24.810 Initializing Controller
+2019-12-02T14:33:42.570 ArrayList was written to File.
+2019-12-02T14:33:42.570 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T14:37:26.017 Initializing in Main.
+2019-12-02T14:37:26.031 Start of Read customerDatabase to ArrayList
+2019-12-02T14:37:26.126 End of Read customerDatabase to ArrayList
+2019-12-02T14:37:26.126 Database Already Existed. Read into list.
+2019-12-02T14:37:27.769 Initializing Controller
+2019-12-02T14:37:37.051 ArrayList was written to File.
+2019-12-02T14:37:37.051 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T15:15:08.349 Initializing in Main.
+2019-12-02T15:15:08.367 Start of Read customerDatabase to ArrayList
+2019-12-02T15:15:08.478 End of Read customerDatabase to ArrayList
+2019-12-02T15:15:08.479 Database Already Existed. Read into list.
+2019-12-02T15:15:09.847 Initializing Controller
+2019-12-02T15:15:46.977 Reading in CustomersBase.csv
+2019-12-02T15:15:46.980 Reading in CheckingAccounts.csv
+2019-12-02T15:15:46.984 Reading in SavingsAccounts.csv
+2019-12-02T15:15:46.988 Reading in LoanAccounts.csv
+2019-12-02T15:15:46.996 Reading in Checks.csv
+2019-12-02T15:15:47.046 ArrayList was written to File.
+2019-12-02T15:15:47.046 Start of Read customerDatabase to ArrayList
+2019-12-02T15:15:47.070 End of Read customerDatabase to ArrayList
+2019-12-02T15:16:17.145 ArrayList was written to File.
+2019-12-02T15:16:17.146 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T15:18:15.995 Initializing in Main.
+2019-12-02T15:18:16.010 Start of Read customerDatabase to ArrayList
+2019-12-02T15:18:16.130 End of Read customerDatabase to ArrayList
+2019-12-02T15:18:16.130 Database Already Existed. Read into list.
+2019-12-02T15:18:17.601 Initializing Controller
+2019-12-02T15:18:36.998 ArrayList was written to File.
+2019-12-02T15:18:36.998 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T15:23:45.774 Initializing in Main.
+2019-12-02T15:23:45.795 Start of Read customerDatabase to ArrayList
+2019-12-02T15:23:45.925 End of Read customerDatabase to ArrayList
+2019-12-02T15:23:45.925 Database Already Existed. Read into list.
+2019-12-02T15:23:47.668 Initializing Controller
+2019-12-02T15:23:55.395 Reading in CustomersBase.csv
+2019-12-02T15:23:55.400 Reading in CheckingAccounts.csv
+2019-12-02T15:23:55.407 Reading in SavingsAccounts.csv
+2019-12-02T15:23:55.413 Reading in LoanAccounts.csv
+2019-12-02T15:23:55.422 Reading in Checks.csv
+2019-12-02T15:23:55.472 ArrayList was written to File.
+2019-12-02T15:23:55.472 Start of Read customerDatabase to ArrayList
+2019-12-02T15:23:55.495 End of Read customerDatabase to ArrayList
+2019-12-02T15:24:20.499 ArrayList was written to File.
+2019-12-02T15:24:20.499 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T15:25:30.956 Initializing in Main.
+2019-12-02T15:25:30.971 Start of Read customerDatabase to ArrayList
+2019-12-02T15:25:31.097 End of Read customerDatabase to ArrayList
+2019-12-02T15:25:31.097 Database Already Existed. Read into list.
+2019-12-02T15:25:32.411 Initializing Controller
+2019-12-02T15:25:43.928 Reading in CustomersBase.csv
+2019-12-02T15:25:43.933 Reading in CheckingAccounts.csv
+2019-12-02T15:25:43.936 Reading in SavingsAccounts.csv
+2019-12-02T15:25:43.939 Reading in LoanAccounts.csv
+2019-12-02T15:25:43.941 Reading in Checks.csv
+2019-12-02T15:25:43.950 ArrayList was written to File.
+2019-12-02T15:25:43.950 Start of Read customerDatabase to ArrayList
+2019-12-02T15:25:43.950 End of Read customerDatabase to ArrayList
+2019-12-02T15:25:52.935 Reading in CustomersBase.csv
+2019-12-02T15:25:52.939 Reading in CheckingAccounts.csv
+2019-12-02T15:25:52.943 Reading in SavingsAccounts.csv
+2019-12-02T15:25:52.947 Reading in LoanAccounts.csv
+2019-12-02T15:25:52.956 Reading in Checks.csv
+2019-12-02T15:25:53.006 ArrayList was written to File.
+2019-12-02T15:25:53.007 Start of Read customerDatabase to ArrayList
+2019-12-02T15:25:53.032 End of Read customerDatabase to ArrayList
+2019-12-02T15:25:58.821 ArrayList was written to File.
+2019-12-02T15:25:58.821 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T15:37:44.216 Initializing in Main.
+2019-12-02T15:37:44.229 Start of Read customerDatabase to ArrayList
+2019-12-02T15:37:44.345 End of Read customerDatabase to ArrayList
+2019-12-02T15:37:44.345 Database Already Existed. Read into list.
+2019-12-02T15:37:46.087 Initializing Controller
+2019-12-02T15:38:00.853 ArrayList was written to File.
+2019-12-02T15:38:00.853 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T15:38:40.371 Initializing in Main.
+2019-12-02T15:38:40.388 Start of Read customerDatabase to ArrayList
+2019-12-02T15:38:40.505 End of Read customerDatabase to ArrayList
+2019-12-02T15:38:40.505 Database Already Existed. Read into list.
+2019-12-02T15:38:42.238 Initializing Controller
+2019-12-02T15:38:53.569 Reading in CustomersBase.csv
+2019-12-02T15:38:53.572 Reading in CheckingAccounts.csv
+2019-12-02T15:38:53.577 Reading in SavingsAccounts.csv
+2019-12-02T15:38:53.582 Reading in LoanAccounts.csv
+2019-12-02T15:38:53.592 Reading in Checks.csv
+2019-12-02T15:38:53.652 ArrayList was written to File.
+2019-12-02T15:38:53.652 Start of Read customerDatabase to ArrayList
+2019-12-02T15:38:53.678 End of Read customerDatabase to ArrayList
+2019-12-02T15:39:10.309 Reading in CustomersBase.csv
+2019-12-02T15:39:10.311 Reading in CheckingAccounts.csv
+2019-12-02T15:39:10.313 Reading in SavingsAccounts.csv
+2019-12-02T15:39:10.316 Reading in LoanAccounts.csv
+2019-12-02T15:39:10.322 Reading in Checks.csv
+2019-12-02T15:39:10.359 ArrayList was written to File.
+2019-12-02T15:39:10.359 Start of Read customerDatabase to ArrayList
+2019-12-02T15:39:10.384 End of Read customerDatabase to ArrayList
+2019-12-02T15:40:01.114 Reading in CustomersBase.csv
+2019-12-02T15:40:01.116 Reading in CheckingAccounts.csv
+2019-12-02T15:40:01.120 Reading in SavingsAccounts.csv
+2019-12-02T15:40:01.124 Reading in LoanAccounts.csv
+2019-12-02T15:40:01.129 Reading in Checks.csv
+2019-12-02T15:40:01.173 ArrayList was written to File.
+2019-12-02T15:40:01.173 Start of Read customerDatabase to ArrayList
+2019-12-02T15:40:01.199 End of Read customerDatabase to ArrayList
+2019-12-02T15:40:25.041 Initializing Controller
+2019-12-02T15:40:26.562 Initializing Controller
+2019-12-02T15:40:27.309 Initializing Controller
+2019-12-02T15:40:27.326 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T15:40:27.833 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T15:40:28.648 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T15:40:28.688 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T15:40:28.729 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T15:40:28.762 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T15:40:29.186 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T15:40:29.276 Initializing Controller
+2019-12-02T15:40:30.697 Initializing Controller
+2019-12-02T15:40:38.331 Initializing Controller
+2019-12-02T15:40:40.670 Initializing Controller
+2019-12-02T15:40:40.694 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-02T15:40:41.395 Initializing Controller
+2019-12-02T15:40:42.182 Initializing Controller
+2019-12-02T15:40:56.814 Reading in CustomersBase.csv
+2019-12-02T15:40:56.815 Reading in CheckingAccounts.csv
+2019-12-02T15:40:56.817 Reading in SavingsAccounts.csv
+2019-12-02T15:40:56.818 Reading in LoanAccounts.csv
+2019-12-02T15:40:56.820 Reading in Checks.csv
+2019-12-02T15:40:56.844 ArrayList was written to File.
+2019-12-02T15:40:56.844 Start of Read customerDatabase to ArrayList
+2019-12-02T15:40:56.864 End of Read customerDatabase to ArrayList
+2019-12-02T15:41:23.854 Reading in CustomersBase.csv
+2019-12-02T15:41:23.855 Reading in CheckingAccounts.csv
+2019-12-02T15:41:23.857 Reading in SavingsAccounts.csv
+2019-12-02T15:41:23.859 Reading in LoanAccounts.csv
+2019-12-02T15:41:23.862 Reading in Checks.csv
+2019-12-02T15:41:23.887 ArrayList was written to File.
+2019-12-02T15:41:23.887 Start of Read customerDatabase to ArrayList
+2019-12-02T15:41:23.906 End of Read customerDatabase to ArrayList
+2019-12-02T15:43:06.491 ArrayList was written to File.
+2019-12-02T15:43:06.491 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T15:46:40.401 Initializing in Main.
+2019-12-02T15:46:40.422 Start of Read customerDatabase to ArrayList
+2019-12-02T15:46:40.603 End of Read customerDatabase to ArrayList
+2019-12-02T15:46:40.603 Database Already Existed. Read into list.
+2019-12-02T15:46:42.697 Initializing Controller
+2019-12-02T15:47:11.673 ArrayList was written to File.
+2019-12-02T15:47:11.673 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T15:59:48.809 Initializing in Main.
+2019-12-02T15:59:48.826 Start of Read customerDatabase to ArrayList
+2019-12-02T15:59:48.939 End of Read customerDatabase to ArrayList
+2019-12-02T15:59:48.939 Database Already Existed. Read into list.
+2019-12-02T15:59:50.356 Initializing Controller
+2019-12-02T16:00:17.857 ArrayList was written to File.
+2019-12-02T16:00:17.857 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T16:03:21.141 Initializing in Main.
+2019-12-02T16:03:21.159 Start of Read customerDatabase to ArrayList
+2019-12-02T16:03:21.288 End of Read customerDatabase to ArrayList
+2019-12-02T16:03:21.288 Database Already Existed. Read into list.
+2019-12-02T16:03:23.107 Initializing Controller
+2019-12-02T16:03:39.484 ArrayList was written to File.
+2019-12-02T16:03:39.484 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T16:08:33.074 Initializing in Main.
+2019-12-02T16:08:33.090 Start of Read customerDatabase to ArrayList
+2019-12-02T16:08:33.205 End of Read customerDatabase to ArrayList
+2019-12-02T16:08:33.206 Database Already Existed. Read into list.
+2019-12-02T16:08:34.763 Initializing Controller
+2019-12-02T16:08:54.392 Reading in CustomersBase.csv
+2019-12-02T16:08:54.395 Reading in CheckingAccounts.csv
+2019-12-02T16:08:54.399 Reading in SavingsAccounts.csv
+2019-12-02T16:08:54.403 Reading in LoanAccounts.csv
+2019-12-02T16:08:54.411 Reading in Checks.csv
+2019-12-02T16:08:54.464 ArrayList was written to File.
+2019-12-02T16:08:54.464 Start of Read customerDatabase to ArrayList
+2019-12-02T16:08:54.488 End of Read customerDatabase to ArrayList
+2019-12-02T16:09:02.157 Reading in CustomersBase.csv
+2019-12-02T16:09:02.159 Reading in CheckingAccounts.csv
+2019-12-02T16:09:02.162 Reading in SavingsAccounts.csv
+2019-12-02T16:09:02.165 Reading in LoanAccounts.csv
+2019-12-02T16:09:02.170 Reading in Checks.csv
+2019-12-02T16:09:02.208 ArrayList was written to File.
+2019-12-02T16:09:02.208 Start of Read customerDatabase to ArrayList
+2019-12-02T16:09:02.230 End of Read customerDatabase to ArrayList
+2019-12-02T16:09:32.177 ArrayList was written to File.
+2019-12-02T16:09:32.177 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T16:10:02.857 Initializing in Main.
+2019-12-02T16:10:02.873 Start of Read customerDatabase to ArrayList
+2019-12-02T16:10:03.010 End of Read customerDatabase to ArrayList
+2019-12-02T16:10:03.010 Database Already Existed. Read into list.
+2019-12-02T16:10:04.406 Initializing Controller
+2019-12-02T16:10:48.055 ArrayList was written to File.
+2019-12-02T16:10:48.055 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T16:13:05.756 Initializing in Main.
+2019-12-02T16:13:05.773 Start of Read customerDatabase to ArrayList
+2019-12-02T16:13:05.906 End of Read customerDatabase to ArrayList
+2019-12-02T16:13:05.907 Database Already Existed. Read into list.
+2019-12-02T16:13:07.408 Initializing Controller
+2019-12-02T16:13:15.010 ArrayList was written to File.
+2019-12-02T16:13:15.010 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T16:16:20.888 Initializing in Main.
+2019-12-02T16:16:20.906 Start of Read customerDatabase to ArrayList
+2019-12-02T16:16:21.031 End of Read customerDatabase to ArrayList
+2019-12-02T16:16:21.031 Database Already Existed. Read into list.
+2019-12-02T16:16:22.850 Initializing Controller
+2019-12-02T16:16:39.454 ArrayList was written to File.
+2019-12-02T16:16:39.454 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T16:18:28.835 Initializing in Main.
+2019-12-02T16:18:28.855 Start of Read customerDatabase to ArrayList
+2019-12-02T16:18:28.983 End of Read customerDatabase to ArrayList
+2019-12-02T16:18:28.983 Database Already Existed. Read into list.
+2019-12-02T16:18:30.378 Initializing Controller
+2019-12-02T16:19:56.186 Reading in CustomersBase.csv
+2019-12-02T16:19:56.190 Reading in CheckingAccounts.csv
+2019-12-02T16:19:56.194 Reading in SavingsAccounts.csv
+2019-12-02T16:19:56.198 Reading in LoanAccounts.csv
+2019-12-02T16:19:56.207 Reading in Checks.csv
+2019-12-02T16:19:56.265 ArrayList was written to File.
+2019-12-02T16:19:56.265 Start of Read customerDatabase to ArrayList
+2019-12-02T16:19:56.290 End of Read customerDatabase to ArrayList
+2019-12-02T16:20:02.339 Reading in CustomersBase.csv
+2019-12-02T16:20:02.342 Reading in CheckingAccounts.csv
+2019-12-02T16:20:02.344 Reading in SavingsAccounts.csv
+2019-12-02T16:20:02.346 Reading in LoanAccounts.csv
+2019-12-02T16:20:02.351 Reading in Checks.csv
+2019-12-02T16:20:02.387 ArrayList was written to File.
+2019-12-02T16:20:02.388 Start of Read customerDatabase to ArrayList
+2019-12-02T16:20:02.411 End of Read customerDatabase to ArrayList
+2019-12-02T16:20:14.921 ArrayList was written to File.
+2019-12-02T16:20:14.921 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T16:20:39.458 Initializing in Main.
+2019-12-02T16:20:39.476 Start of Read customerDatabase to ArrayList
+2019-12-02T16:20:39.595 End of Read customerDatabase to ArrayList
+2019-12-02T16:20:39.596 Database Already Existed. Read into list.
+2019-12-02T16:20:41.284 Initializing Controller
+2019-12-02T16:20:44.617 ArrayList was written to File.
+2019-12-02T16:20:44.617 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T16:21:42.579 Initializing in Main.
+2019-12-02T16:21:42.599 Start of Read customerDatabase to ArrayList
+2019-12-02T16:21:42.752 End of Read customerDatabase to ArrayList
+2019-12-02T16:21:42.753 Database Already Existed. Read into list.
+2019-12-02T16:21:44.420 Initializing Controller
+2019-12-02T16:22:06.474 ArrayList was written to File.
+2019-12-02T16:22:06.474 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-02T16:28:37.256 Initializing in Main.
+2019-12-02T16:28:37.270 Start of Read customerDatabase to ArrayList
+2019-12-02T16:28:37.390 End of Read customerDatabase to ArrayList
+2019-12-02T16:28:37.390 Database Already Existed. Read into list.
+2019-12-02T16:28:38.878 Initializing Controller
+2019-12-02T16:29:08.599 Reading in CustomersBase.csv
+2019-12-02T16:29:08.602 Reading in CheckingAccounts.csv
+2019-12-02T16:29:08.606 Reading in SavingsAccounts.csv
+2019-12-02T16:29:08.610 Reading in LoanAccounts.csv
+2019-12-02T16:29:08.619 Reading in Checks.csv
+2019-12-02T16:29:08.678 ArrayList was written to File.
+2019-12-02T16:29:08.678 Start of Read customerDatabase to ArrayList
+2019-12-02T16:29:08.703 End of Read customerDatabase to ArrayList
+2019-12-02T16:29:12.705 ArrayList was written to File.
+2019-12-02T16:29:12.705 The Customer Accounts Database Was successfully Written to the File

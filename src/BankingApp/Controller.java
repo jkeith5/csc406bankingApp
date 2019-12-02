@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -3371,12 +3373,20 @@ public class Controller implements Initializable{
 
         //File customerBaseOut = new File("src/Resources/outputLog.txt");
 
-        File customerBaseOut = Main.createExportFile("CustomersBase.csv");
-        File checkingAccOut = Main.createExportFile("CheckingAccounts.csv");
-        File savingsOut = Main.createExportFile("SavingsAccounts.csv");
-        File loanOut = Main.createExportFile("LoanAccounts.csv");
-        File checksOut = Main.createExportFile("Checks.csv");
-        File transactionsOut = Main.createExportFile("Transactions.csv");
+        String today = DataEntryDriver.getDateString();
+        String cTime = Main.getDateTimeString();
+        System.out.println("today Date: "+today);
+        System.out.println("current Time: "+cTime);
+
+        String prefixString = getPrefixDateTimeForFileExport();
+
+
+        File customerBaseOut = Main.createExportFile(prefixString+"CustomersBase.csv");
+        File checkingAccOut = Main.createExportFile(prefixString+"CheckingAccounts.csv");
+        File savingsOut = Main.createExportFile(prefixString+"SavingsAccounts.csv");
+        File loanOut = Main.createExportFile(prefixString+"LoanAccounts.csv");
+        File checksOut = Main.createExportFile(prefixString+"Checks.csv");
+        File transactionsOut = Main.createExportFile(prefixString+"Transactions.csv");
 
 
         PrintWriter customersPW = Main.createPrintWriter(customerBaseOut,false);
@@ -3471,9 +3481,75 @@ public class Controller implements Initializable{
     public void importDataFromExportedFiles(){
         System.out.println("Reading in the exported database Files");
 
-        DataEntryDriver.createCustomerDatabaseFileFromCSVBaseData(true); // read csv files and make database file
+        // have user select one file from the export folder so that we can get the dateTime prefix on the file and read in
+        // all files with that same prefix
+        File selectedFile = getFileFromExportDir();
+        if(selectedFile==null || !selectedFile.exists()){
+            System.out.println("null");
+            return; // if file is null or does not exist return
+        }
 
-        ArrayList<CustomerAccount> accountsToFix = new ArrayList<>();
+        String fileName = selectedFile.getName(); // name of selected file
+        String prefixString = ""; // initialize prefix string
+
+        if(fileName.contains("_")){ // if contains _ which separates the prefix and file name in exporting
+            if(fileName.contains("-")){ // if it has the very long prefix at all
+                String datePart = fileName.split("-")[0];
+                if(datePart.length()==8){ // the first part is in format yyyymmdd
+                    String[] splitPrefix = fileName.split("_");// split on the _ to get the dateTimePrefix
+                    prefixString = splitPrefix[0]+"_"; // add the _ back in
+                }
+            }
+        }
+
+        File selectedFileDirectory = selectedFile.getParentFile(); // directory file of the selected file
+        ArrayList<File> filesWithMatchingPrefix = new ArrayList<>(); // will hold all files that match the prefix of selected file
+
+        // arraylist of valid file names
+        ArrayList<String> validFileNames = new ArrayList<>(
+                Arrays.asList(
+                        "CustomersBase.csv",
+                        "CheckingAccounts.csv",
+                        "SavingsAccounts.csv",
+                        "LoanAccounts.csv",
+                        "Checks.csv",
+                        "Transactions.csv"));
+
+        // fill the matchingFiles array with all files that have the same prefix as the chosen file
+        for(File fileEntry : Objects.requireNonNull(selectedFileDirectory.listFiles())){
+            if(fileEntry.getName().contains(prefixString)){
+                filesWithMatchingPrefix.add(fileEntry); // if it has the prefix of the file the user selected then add to the array
+            }
+        }
+
+        for(File f:filesWithMatchingPrefix){ // loop through the files
+            String fileNameString = f.getName();
+            String fileNameWithoutPrefix = fileNameString.replaceAll(prefixString,"");
+
+            if(validFileNames.contains(fileNameWithoutPrefix)){ // if list of valid file names matches this one
+                // remove that item from valid file names.
+                validFileNames.remove(fileNameWithoutPrefix);
+            }
+        }
+
+        // validFileNames list should now be empty if all files are there
+        if(validFileNames.size()!=0){// if all items were not removed from valid file names list
+            // fix the valid files name with prefix so users know exactly what file is missing
+            for(int i=0;i<validFileNames.size();i++){
+                validFileNames.set(i,prefixString+validFileNames.get(i)); // modifies the valid files with the prefix string
+            }
+
+            // now print the result to the user via the console error message
+            String errMsg = String.format("You are Missing Files: %s from your chosen directory. " +
+                    "Import was not successful",validFileNames);
+            System.err.println(errMsg);
+            return;
+        }
+
+
+
+        DataEntryDriver.createCustomerDatabaseFileFromCSVBaseData(true,prefixString); // read csv files and make database file
+
         Main.customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList(); // then reads the file
         int lastIdInt = 1;
         for(CustomerAccount ca:Main.customerAccounts){
@@ -3528,43 +3604,173 @@ public class Controller implements Initializable{
 
     }
 
+
+    public static String getPrefixDateTimeForFileExport(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String localDateTimeString = localDateTime.toString();
+
+        String dateString = localDateTimeString.substring(0,10); // 10 is exclusive so it keeps 9
+        String timeString = localDateTimeString.substring(11);
+        String[] timeStringSplit = timeString.split("\\.");
+        String timeHMSStringFixed = timeStringSplit[0].replaceAll(":","");
+        String timeMS = timeStringSplit[1];
+        String timeStringFixed = timeHMSStringFixed+timeMS;
+        String dateStringFixed = dateString.replaceAll("-","");
+        String dateTimeStringFixed = dateStringFixed+"-"+timeStringFixed+"_";
+
+        return dateTimeStringFixed;
+    }
+
     // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY
 
 
-    @FXML
+
     public void mainInterfaceTestButton(){
-        Parent root = null;
-        Parent test = null;
-        try {
-            test = FXMLLoader.load(getClass().getResource("TestWindow.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Bank Manager Login");
-            stage.setScene(new Scene(test,660,532));
-            stage.show();
-            Main.activeStage=stage;
-            System.out.println("active stage to stage of Test window");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Main.activeStage=null;
+        System.out.println("Test Button");
+
+        String today = DataEntryDriver.getDateString();
+        String cTime = Main.getDateTimeString();
+        System.out.println("today Date: "+today);
+        System.out.println("current Time: "+cTime);
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(localDateTime.toString());
+
+        String localDateTimeString = localDateTime.toString();
+        String dateString = localDateTimeString.substring(0,10); // 10 is exclusive so it keeps 9
+        System.out.println("Date String: "+dateString);
+        String timeString = localDateTimeString.substring(11);
+        System.out.println("Time String: "+timeString);
+        String[] timeStringSplit = timeString.split("\\.");
+
+        System.out.println("TimeStringSplit: "+Arrays.toString(timeStringSplit));
+
+        String timeHMSStringFixed = timeStringSplit[0].replaceAll(":","");
+        String timeMS = timeStringSplit[1];
+
+
+        String timeStringFixed = timeHMSStringFixed+timeMS;
+
+        System.out.println("timeStringFixed: "+timeStringFixed);
+
+        String dateStringFixed = dateString.replaceAll("-","");
+        System.out.println("Date String Fixed: "+dateStringFixed);
+
+        String dateTimeStringFixed = dateStringFixed+"-"+timeStringFixed+"_";
+        System.out.println("dateTimeStringFixed: "+dateTimeStringFixed);
+
+
+        System.out.println("initital Directory:");
+        boolean exportDirExists = false;
+
+        File initialDir = new File(System.getProperty("user.dir")+"/src/Resources/export");
+        if(initialDir!=null){
+            if(initialDir.exists()){
+                System.out.println("init dir: "+initialDir.getPath());
+                exportDirExists = true;
+            }
         }
 
+
+
+        // got the prefix for the exported file names now.
+
+        FileChooser fileChooser = new FileChooser();
+
+
+        if(exportDirExists){
+            fileChooser.setInitialDirectory(initialDir);
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV","*.csv"));
+
+            File testFile = fileChooser.showOpenDialog(Main.activeStage);
+
+
+            if(testFile!=null){
+                if(testFile.exists()){
+                    System.out.println("TestFile: "+testFile.getPath());
+                    System.out.println("TestFile: "+testFile.getAbsolutePath());
+                    System.out.println("FileName: "+testFile.getName());
+                    System.out.println("test2: "+testFile.getParent());
+
+                    String fileDirectoryString= testFile.getParent();
+
+                    if(fileDirectoryString.equals(initialDir.getPath())){ // makes sure the selected file is in the export folder
+                        File parentDirectory = testFile.getParentFile();
+                        System.out.println("parentDir: "+parentDirectory.getPath());
+
+                        for(File fileEntry : Objects.requireNonNull(parentDirectory.listFiles())){
+                            System.out.println(fileEntry.getPath());
+
+
+                        }
+
+
+
+                    }
+
+
+
+
+
+                }
+            }
+
+
+
+
+
+            //
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
 
+    public static File getFileFromExportDir(){
+        boolean exportDirExists = false;
+        File returnFile = null;
+
+        File initialDir = new File(System.getProperty("user.dir")+"/src/Resources/export");
+        if(initialDir!=null){
+            if(initialDir.exists()){
+                System.out.println("init dir: "+initialDir.getPath());
+                exportDirExists = true;
+            }
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV","*.csv"));
+
+        if(exportDirExists){ // if export directory exist start the user there
+            fileChooser.setInitialDirectory(initialDir);
+        }else{
+            initialDir = new File(System.getProperty("user.dir")+"/src/Resources"); // if not start them in resources dir
+            fileChooser.setInitialDirectory(initialDir);
+        }
 
 
-    @FXML
-    public void test(){
-        System.out.println("TESTING");
+        File testFile = fileChooser.showOpenDialog(Main.activeStage);
 
+        if(testFile!=null){
+            if(testFile.exists()){
+                returnFile = testFile;
+            }
+        }
+
+        return returnFile;
     }
 
-    @FXML
-    public void test2(){
-        System.out.println("test2");
 
-    }
 
 
     public void printAllData(){
@@ -3667,12 +3873,6 @@ public class Controller implements Initializable{
 
 
 
-    @FXML
-    public void testWindowButtonAction(){
-        System.out.println("\n\nTestbutton action\n");
-
-
-    }
 
 
 

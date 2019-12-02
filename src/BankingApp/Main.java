@@ -103,7 +103,7 @@ public class Main extends Application {
             File customerDatabase = new File("src/Resources/customerDatabase");
             // if it does not exist we need to create it from the csv files. AND populate Main.customerAccounts
             if(!customerDatabase.exists()){ // if customer database file does not exist
-                DataEntryDriver.createCustomerDatabaseFileFromCSVBaseData(false); // read csv files and make database file
+                DataEntryDriver.createCustomerDatabaseFileFromCSVBaseData(false,""); // read csv files and make database file
                 customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList(); // then reads the file
                 out.println(getDateTimeString()+"Created Customer Database and read into list.");
                 System.err.println("The Customer Database File Was Created.");

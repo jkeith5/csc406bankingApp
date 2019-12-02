@@ -18,6 +18,7 @@
             <Button layoutX="276.0" layoutY="383.0" mnemonicParsing="false" onAction="#mainScreenTestButton" onKeyPressed="#enterKeyDefaultEvent" text="Print All Data To Console" />
             <Button fx:id="exportDataButton" layoutX="276.0" layoutY="418.0" mnemonicParsing="false" onAction="#exportDataToCSVFiles" prefHeight="25.0" prefWidth="148.0" text="Export Data to CSV" />
             <Button fx:id="importDataButton" layoutX="276.0" layoutY="453.0" mnemonicParsing="false" onAction="#importDataFromExportedFiles" prefHeight="25.0" prefWidth="148.0" text="Import Data From CSV" />
+            <Button focusTraversable="false" layoutX="50.0" layoutY="453.0" mnemonicParsing="false" onAction="#mainInterfaceTestButton" onKeyPressed="#enterKeyDefaultEvent" text="Test" visible="false" />
          </children>
       </Pane>
    </children>

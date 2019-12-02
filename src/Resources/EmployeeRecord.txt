@@ -1269,3 +1269,109 @@
 2019-12-01T21:42:22.054 New Log Session.
 
 2019-12-01T21:42:42.322 New Log Session.
+
+2019-12-02T12:31:27.177 New Log Session.
+2019-12-02T12:31:53.842 Teller Account UserName: kjhlk logged into account.
+2019-12-02T12:31:58.606 Employee UserName: kjhlk Looked Up account: CustomerAccount{custID='111-11-1111', firstName='Test one', lastName='one Test', streetAddr='123 west 5th street', city='Agency', state='MO', zip='65465', atmCardNumber='3227864877079318', dateCreated='12/01/2019', pin='1111', financialAccountID=16, hasSavingsAccount=true, hasCheckingAccount=true, hasShortTermLoan=true, hasLongTermLoan=true, hasCreditCardAcct=true, hasLoanAccount=true, savingsAccounts=[SavingsAccount{custID='111-11-1111', savingsAcctID='16-01', accountBalance=18331.11, interestRate=0.0105, dateOpened='12/01/2019', isCdAccount=false, cdCloseDate='null', savingsAcctIDFixed='16-01', isNull=false}, SavingsAccount{custID='111-11-1111', savingsAcctID='16-02-00', accountBalance=10000.0, interestRate=0.03257, dateOpened='05/05/2005', isCdAccount=true, cdCloseDate='12/01/2034', savingsAcctIDFixed='16-02-02', isNull=false}, SavingsAccount{custID='111-11-1111', savingsAcctID='16-02-01', accountBalance=25000.0, interestRate=0.01008, dateOpened='05/05/2005', isCdAccount=true, cdCloseDate='12/01/2049', savingsAcctIDFixed='16-02-02', isNull=false}], checkingAccount=CheckingAccount{custID='111-11-1111', checkingAcctID='16-00', checkingAcctIDFixed='16-00', accountBalance=18710.32, dateOpened='12/01/2019', isGoldAccount=true, backupSavingsEnabled=true, overdraftsOnAcct=0, isNull=false}, transactions=[Transaction{transactionType='D', amount=1847.35, description='Deposit on Checking Account', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='TW', amount=154.08, description='Transfer to Savings', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='TD', amount=154.08, description='Transfer from Checking', transactionAccount='S', date='12/01/2019'}, Transaction{transactionType='D', amount=1875.39, description='Deposit on Savings Account', transactionAccount='S', date='12/01/2019'}, Transaction{transactionType='D', amount=54.36, description='Deposit on Savings Account', transactionAccount='S', date='12/01/2019'}, Transaction{transactionType='D', amount=11.27, description='Deposit on Checking Account', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='D', amount=18.34, description='Deposit on Checking Account', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='W', amount=125.21, description='Atm Withdrawal', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='D', amount=1789.0, description='Atm Deposit', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='D', amount=6745.37, description='Atm Deposit', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='W', amount=1897.0, description='new tv', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=547.0, description='sound system', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=3478.54, description='new couch', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=387.24, description='new phone', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=3450.0, description='truck', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=4789.57, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=3000.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=178.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=58.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=387.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=147.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=749.54, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}], loanAccounts=[LoanAccount{custID='111-11-1111', initialLoanAmt=150000.0, currentBalance=150000.0, interestRate=0.04578, paymentDueDate='12/27/2019', paymentNoticeDate='12/01/2019', amountDue=326.81, lastPaymentDate='null', hasMissedPayment=false, loanAccountType='LTL', loanAccountID='16-04-00', loanAccountIDFixed='16-04-01', isNull=false, loanTerm=40, dateOpened='12/01/2019', totalLoanAmountPlusInterest=156867.0}, LoanAccount{custID='111-11-1111', initialLoanAmt=10000.0, currentBalance=10000.0, interestRate=0.07354, paymentDueDate='12/27/2019', paymentNoticeDate='12/01/2019', amountDue=89.46, lastPaymentDate='null', hasMissedPayment=false, loanAccountType='STL', loanAccountID='16-03-00', loanAccountIDFixed='16-03-01', isNull=false, loanTerm=10, dateOpened='12/01/2019', totalLoanAmountPlusInterest=10735.4}, LoanAccount{custID='111-11-1111', initialLoanAmt=10000.0, currentBalance=450.67, interestRate=0.1254, paymentDueDate='01/10/2020', paymentNoticeDate='12/01/2019', amountDue=140.96, lastPaymentDate='12/01/2019', hasMissedPayment=false, loanAccountType='CCL', loanAccountID='16-05', loanAccountIDFixed='16-05', isNull=false, loanTerm=-1, dateOpened='12/01/2019', totalLoanAmountPlusInterest=11254.0}], checks=[Check{checkNumber='101', checkingAcctID=16-00, checkDate='12/01/2019', checkAmount=1789.0, checkProcessed=false, checkStatus='normal'}, Check{checkNumber='102', checkingAcctID=16-00, checkDate='12/01/2019', checkAmount=6745.37, checkProcessed=false, checkStatus='normal'}], isNull=false}
+
+2019-12-02T12:40:06.159 New Log Session.
+
+2019-12-02T13:01:42.905 New Log Session.
+
+2019-12-02T13:10:27.953 New Log Session.
+
+2019-12-02T13:11:50.248 New Log Session.
+
+2019-12-02T13:13:27.555 New Log Session.
+
+2019-12-02T13:15:54.047 New Log Session.
+
+2019-12-02T13:17:49.730 New Log Session.
+
+2019-12-02T13:25:15.953 New Log Session.
+
+2019-12-02T13:27:10.254 New Log Session.
+
+2019-12-02T13:27:50.994 New Log Session.
+
+2019-12-02T13:28:52.816 New Log Session.
+
+2019-12-02T13:32:05.734 New Log Session.
+
+2019-12-02T13:32:30.586 New Log Session.
+
+2019-12-02T13:33:16.595 New Log Session.
+
+2019-12-02T13:36:07.809 New Log Session.
+
+2019-12-02T13:37:02.280 New Log Session.
+
+2019-12-02T13:44:38.620 New Log Session.
+
+2019-12-02T13:49:26.252 New Log Session.
+
+2019-12-02T13:50:58.201 New Log Session.
+
+2019-12-02T13:56:39.915 New Log Session.
+
+2019-12-02T13:57:33.468 New Log Session.
+
+2019-12-02T14:00:21.734 New Log Session.
+
+2019-12-02T14:02:26.848 New Log Session.
+
+2019-12-02T14:02:51.701 New Log Session.
+
+2019-12-02T14:05:42.268 New Log Session.
+
+2019-12-02T14:14:25.742 New Log Session.
+
+2019-12-02T14:22:01.966 New Log Session.
+
+2019-12-02T14:23:02.836 New Log Session.
+
+2019-12-02T14:27:28.700 New Log Session.
+
+2019-12-02T14:29:46.980 New Log Session.
+
+2019-12-02T14:31:23.845 New Log Session.
+
+2019-12-02T14:33:23.140 New Log Session.
+
+2019-12-02T14:37:26.026 New Log Session.
+
+2019-12-02T15:15:08.361 New Log Session.
+
+2019-12-02T15:18:16.005 New Log Session.
+
+2019-12-02T15:23:45.787 New Log Session.
+
+2019-12-02T15:25:30.965 New Log Session.
+
+2019-12-02T15:37:44.224 New Log Session.
+
+2019-12-02T15:38:40.382 New Log Session.
+2019-12-02T15:40:26.514 Manager Account UserName: asd logged into account.
+2019-12-02T15:40:29.187 Employee UserName: asd Looked Up account: CustomerAccount{custID='111-11-1111', firstName='Test one', lastName='one Test', streetAddr='123 west 5th street', city='Agency', state='MO', zip='65465', atmCardNumber='3227864877079318', dateCreated='12/02/2019', pin='1111', financialAccountID=16, hasSavingsAccount=true, hasCheckingAccount=true, hasShortTermLoan=true, hasLongTermLoan=true, hasCreditCardAcct=true, hasLoanAccount=true, savingsAccounts=[SavingsAccount{custID='111-11-1111', savingsAcctID='16-01', accountBalance=18331.11, interestRate=0.0105, dateOpened='12/01/2019', isCdAccount=false, cdCloseDate='null', savingsAcctIDFixed='null', isNull=false}, SavingsAccount{custID='111-11-1111', savingsAcctID='16-02-02', accountBalance=10000.0, interestRate=0.03257, dateOpened='05/05/2005', isCdAccount=true, cdCloseDate='12/01/2034', savingsAcctIDFixed='null', isNull=false}, SavingsAccount{custID='111-11-1111', savingsAcctID='16-02-02', accountBalance=25000.0, interestRate=0.01008, dateOpened='05/05/2005', isCdAccount=true, cdCloseDate='12/01/2049', savingsAcctIDFixed='null', isNull=false}], checkingAccount=CheckingAccount{custID='111-11-1111', checkingAcctID='16-00', checkingAcctIDFixed='null', accountBalance=18710.32, dateOpened='12/01/2019', isGoldAccount=true, backupSavingsEnabled=true, overdraftsOnAcct=0, isNull=false}, transactions=[Transaction{transactionType='D', amount=1847.35, description='Deposit on Checking Account', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='TW', amount=154.08, description='Transfer to Savings', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='TD', amount=154.08, description='Transfer from Checking', transactionAccount='S', date='12/01/2019'}, Transaction{transactionType='D', amount=1875.39, description='Deposit on Savings Account', transactionAccount='S', date='12/01/2019'}, Transaction{transactionType='D', amount=54.36, description='Deposit on Savings Account', transactionAccount='S', date='12/01/2019'}, Transaction{transactionType='D', amount=11.27, description='Deposit on Checking Account', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='D', amount=18.34, description='Deposit on Checking Account', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='W', amount=125.21, description='Atm Withdrawal', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='D', amount=1789.0, description='Atm Deposit', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='D', amount=6745.37, description='Atm Deposit', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='W', amount=1897.0, description='new tv', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=547.0, description='sound system', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=3478.54, description='new couch', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=387.24, description='new phone', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=3450.0, description='truck', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=4789.57, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=3000.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=178.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=58.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=387.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=147.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=777.54, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}], loanAccounts=[LoanAccount{custID='111-11-1111', initialLoanAmt=150000.0, currentBalance=150000.0, interestRate=0.04578, paymentDueDate='12/27/2019', paymentNoticeDate='12/01/2019', amountDue=326.81, lastPaymentDate='null', hasMissedPayment=false, loanAccountType='LTL', loanAccountID='16-04-01', loanAccountIDFixed='null', isNull=false, loanTerm=40, dateOpened='12/01/2019', totalLoanAmountPlusInterest=156867.0}, LoanAccount{custID='111-11-1111', initialLoanAmt=10000.0, currentBalance=10000.0, interestRate=0.07354, paymentDueDate='12/27/2019', paymentNoticeDate='12/01/2019', amountDue=89.46, lastPaymentDate='null', hasMissedPayment=false, loanAccountType='STL', loanAccountID='16-03-01', loanAccountIDFixed='null', isNull=false, loanTerm=10, dateOpened='12/01/2019', totalLoanAmountPlusInterest=10735.4}, LoanAccount{custID='111-11-1111', initialLoanAmt=10000.0, currentBalance=450.67, interestRate=0.1254, paymentDueDate='01/10/2020', paymentNoticeDate='12/01/2019', amountDue=140.96, lastPaymentDate='12/01/2019', hasMissedPayment=false, loanAccountType='CCL', loanAccountID='16-05', loanAccountIDFixed='null', isNull=false, loanTerm=-1, dateOpened='12/01/2019', totalLoanAmountPlusInterest=11254.0}], checks=[Check{checkNumber='101', checkingAcctID=16-00, checkDate='12/01/2019', checkAmount=1789.0, checkProcessed=false, checkStatus='normal'}, Check{checkNumber='102', checkingAcctID=16-00, checkDate='12/01/2019', checkAmount=6777.37, checkProcessed=false, checkStatus='normal'}], isNull=false}
+
+2019-12-02T15:46:40.414 New Log Session.
+
+2019-12-02T15:59:48.820 New Log Session.
+
+2019-12-02T16:03:21.152 New Log Session.
+
+2019-12-02T16:08:33.083 New Log Session.
+
+2019-12-02T16:10:02.867 New Log Session.
+
+2019-12-02T16:13:05.767 New Log Session.
+
+2019-12-02T16:16:20.899 New Log Session.
+
+2019-12-02T16:18:28.848 New Log Session.
+
+2019-12-02T16:20:39.470 New Log Session.
+
+2019-12-02T16:21:42.592 New Log Session.
+
+2019-12-02T16:28:37.265 New Log Session.

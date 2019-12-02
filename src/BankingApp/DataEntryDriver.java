@@ -53,11 +53,12 @@ public class DataEntryDriver {
     // creates CustomerAccount Objects and then writes those to a file using the Serializable interface
     // if called with the readExport as true it will attempt to read the Resources/export csv files.
     // it will likely crash if they are not there
-    public static void createCustomerDatabaseFileFromCSVBaseData(boolean readExport){
+    public static void createCustomerDatabaseFileFromCSVBaseData(boolean readExport,String prefix){
         ArrayList<CustomerAccount> result = new ArrayList<CustomerAccount>();
 
         if(readExport){
-            File testFile = new File("src/Resources/export/LoanAccounts.csv"); // make a dummy test file
+            String testFileName = String.format("src/Resources/export/%sLoanAccounts.csv",prefix);
+            File testFile = new File(testFileName); // make a dummy test file
             if(!testFile.exists()){
                 System.err.println("PLEASE USE THE EXPORT FEATURE IN THE MAIN INTERFACE BEFORE IMPORTING FROM FILES THAT DO NOT EXIST");
                 return;
@@ -66,11 +67,11 @@ public class DataEntryDriver {
         }
 
         // call each read method for the base csv file data and create arraylist from them.
-        ArrayList<CustomerAccount> customerAccountsRead = readCustomerAccountsCSV(readExport);
-        ArrayList<CheckingAccount> checkingAccountsRead = readCheckingAccountsToArrList(readExport);
-        ArrayList<SavingsAccount> savingsAccountsRead = readSavingsAccountsToArrList(readExport);
-        ArrayList<LoanAccount> loanAccountsRead = readLoanAccountsToArrList(readExport);
-        ArrayList<Check> checkObjectsRead = readChecksToArrList(readExport);
+        ArrayList<CustomerAccount> customerAccountsRead = readCustomerAccountsCSV(readExport,prefix);
+        ArrayList<CheckingAccount> checkingAccountsRead = readCheckingAccountsToArrList(readExport,prefix);
+        ArrayList<SavingsAccount> savingsAccountsRead = readSavingsAccountsToArrList(readExport,prefix);
+        ArrayList<LoanAccount> loanAccountsRead = readLoanAccountsToArrList(readExport,prefix);
+        ArrayList<Check> checkObjectsRead = readChecksToArrList(readExport,prefix);
 
         // Then loop through each arraylist to create CustomerAccount Objects to add to the ArrayList
         for(CustomerAccount customerAccount: customerAccountsRead){ // loop through each Customer account Object to add the accounts
@@ -116,7 +117,7 @@ public class DataEntryDriver {
         }
 
         if(readExport){ // if reading in exported data is true
-            ArrayList<String> transactionStringArrList = readTransactionsToStringArrList(readExport);
+            ArrayList<String> transactionStringArrList = readTransactionsToStringArrList(readExport,prefix);
             if(transactionStringArrList!=null){
                 if(transactionStringArrList.size()!=0){ // if array was not zero which shouldn't really happen
                     for(String transactionString:transactionStringArrList){ // loop through the string array of transactions
@@ -141,14 +142,15 @@ public class DataEntryDriver {
         serializeArrayListToFile(result); // then write the Customer Account array to the File
     }
 
-    public static ArrayList<CustomerAccount> readCustomerAccountsCSV(boolean readExport){ // Reads CustomerDatabase.csv
+    public static ArrayList<CustomerAccount> readCustomerAccountsCSV(boolean readExport,String prefixString){ // Reads CustomerDatabase.csv
         ArrayList<CustomerAccount> result = new ArrayList<>();
 
         File customerBase = null;
         if(!readExport){ // not reading export data
             customerBase = new File("src/Resources/CustomersBase.csv");
-        }else{ // we are reading the exported data
-            customerBase = new File("src/Resources/export/CustomersBase.csv");
+        }else{ // we are reading the exported data match prefix
+            String fileNameString = String.format("src/Resources/export/%sCustomersBase.csv",prefixString);
+            customerBase = new File(fileNameString);
         }
 
         //System.out.println("Reading in CustomerBase.csv");
@@ -181,14 +183,15 @@ public class DataEntryDriver {
     }
 
     // reads the CheckingAccounts CSV file and returns arraylist of CheckingAccount Objects
-    public static ArrayList<CheckingAccount> readCheckingAccountsToArrList(boolean readExport){ // reads CheckingAccounts.csv
+    public static ArrayList<CheckingAccount> readCheckingAccountsToArrList(boolean readExport,String prefix){ // reads CheckingAccounts.csv
         ArrayList<CheckingAccount> result = new ArrayList<>();
 
         File checkingAccountsFile = null;
         if(!readExport){
             checkingAccountsFile = new File("src/Resources/CheckingAccounts.csv");
         }else{
-            checkingAccountsFile = new File("src/Resources/export/CheckingAccounts.csv");
+            String fileNameString = String.format("src/Resources/export/%sCheckingAccounts.csv",prefix);
+            checkingAccountsFile = new File(fileNameString);
         }
 
 
@@ -228,7 +231,7 @@ public class DataEntryDriver {
     }
 
     // reads the SavingsAccounts.csv file and returns ArrayList of SavingsAccount objects
-    public static ArrayList<SavingsAccount> readSavingsAccountsToArrList(boolean readExport){ // Reads the SavingsAccounts.csv
+    public static ArrayList<SavingsAccount> readSavingsAccountsToArrList(boolean readExport,String prefix){ // Reads the SavingsAccounts.csv
         ArrayList<SavingsAccount> result = new ArrayList<>();
 
         File savingsAccountFile = null;
@@ -236,7 +239,8 @@ public class DataEntryDriver {
         if(!readExport){
             savingsAccountFile = new File("src/Resources/SavingsAccounts.csv");
         }else{
-            savingsAccountFile = new File("src/Resources/export/SavingsAccounts.csv");
+            String fileNameString = String.format("src/Resources/export/%sSavingsAccounts.csv",prefix);
+            savingsAccountFile = new File(fileNameString);
         }
 
 
@@ -267,14 +271,15 @@ public class DataEntryDriver {
     }
 
     // reads in the LoanAccounts.csv file and returns ArrayList of LoanAccount Objects.
-    public static ArrayList<LoanAccount> readLoanAccountsToArrList(boolean readExport){ // Reads the LoanAccounts.csv
+    public static ArrayList<LoanAccount> readLoanAccountsToArrList(boolean readExport, String prefix){ // Reads the LoanAccounts.csv
         ArrayList<LoanAccount> result = new ArrayList<>();
 
         File loanAccountFile = null;
         if(!readExport){
             loanAccountFile = new File("src/Resources/LoanAccounts.csv");
         }else{
-            loanAccountFile = new File("src/Resources/export/LoanAccounts.csv");
+            String fileNameString = String.format("src/Resources/export/%sLoanAccounts.csv",prefix);
+            loanAccountFile = new File(fileNameString);
         }
 
 
@@ -307,13 +312,14 @@ public class DataEntryDriver {
     }
 
     // reads the Checks.csv file to an ArrayList of Check objects
-    public static ArrayList<Check> readChecksToArrList(boolean readExport){ // Reads the Checks.csv
+    public static ArrayList<Check> readChecksToArrList(boolean readExport, String prefix){ // Reads the Checks.csv
         ArrayList<Check> result = new ArrayList<>();
         File checkFile = null;
         if(!readExport){
             checkFile = new File("src/Resources/Checks.csv");
         }else{
-            checkFile = new File("src/Resources/export/Checks.csv");
+            String fileNameString = String.format("src/Resources/export/%sChecks.csv",prefix);
+            checkFile = new File(fileNameString);
         }
 
 
@@ -349,14 +355,15 @@ public class DataEntryDriver {
     // ONLY CALL IF YOU ARE READING THE TRANSACTIONS FROM THE EXPORT FILE
     // first this returns a String ArrayList of the line data used to make the Transactions
     // because WE had to add the custID to link the data
-    public static ArrayList<String> readTransactionsToStringArrList(boolean readExport){ // Reads the transactions.csv export file
+    public static ArrayList<String> readTransactionsToStringArrList(boolean readExport,String prefix){ // Reads the transactions.csv export file
         ArrayList<String> result = new ArrayList<>();
 
         if(!readExport){
             System.err.println("Don't call this if you are not reading the exported Transactions.csv file");
             result = new ArrayList<>();
         }else{
-            File transactionFile = new File("src/Resources/export/Transactions.csv");
+            String fileNameString = String.format("src/Resources/export/%sTransactions.csv",prefix);
+            File transactionFile = new File(fileNameString);
 
             try {
                 BufferedReader br = new BufferedReader(new FileReader(transactionFile));
