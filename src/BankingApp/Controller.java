@@ -349,7 +349,7 @@ public class Controller implements Initializable{
 
         }
 
-        if(locationString.equals("customerCreditCard.fxml")){
+        if(locationString.equals("CustomerCreditCard.fxml")){
             customerInterErrLabel.setText("");// set error label to nothing
             DataEntryDriver.validateBalanceAmountField(customerInterCCPurchaseAmt,false);
 
@@ -507,8 +507,17 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("CustomerInterface.fxml")){
+            customerDispData();
+            customerInterErrLabel.setText("");
+
+            customerInterAtmDepositButton.setDisable(true);
+            customerInterAtmWithdrawalButton.setDisable(true);
+
             DataEntryDriver.validateBalanceAmountField(customerInterAtmWithdrawalAmt,false);
             DataEntryDriver.validateBalanceAmountField(customerInterAtmCheckAmt,false);
+            DataEntryDriver.validateNumberField(customerInterAtmCheckNum,4);
+
+
             CustomerAccount ca = Main.customerAccount;
 
             if(ca.hasCreditCardAcct()){
@@ -516,9 +525,10 @@ public class Controller implements Initializable{
             }else{
                 customerInterCCButton.setDisable(true);
             }
-            customerInterErrLabel.setText("");
 
-            customerDispData();
+
+
+
         }
 
         if(locationString.equals("ManageExistingUserDispActivity.fxml")){
@@ -973,6 +983,149 @@ public class Controller implements Initializable{
 
 
     }
+
+    // makes sure that check number doesn't already exist
+    public void checkNumberFieldEvent(){
+        CustomerAccount ca = Main.customerAccount;
+        ArrayList<Check> customerChecks = ca.getChecks();
+        String currentCheckNumber = customerInterAtmCheckNum.getText();
+
+        boolean disableButton = false;
+
+        boolean checkNumEmpty = false;
+        boolean checkAmtEmpty = false;
+        if(customerInterAtmCheckNum.getText().length()==0){
+            checkNumEmpty = true;
+        }
+        if(customerInterAtmCheckAmt.getText().length()==0){
+            checkAmtEmpty = true;
+        }
+
+
+        if(ca.hasCheckingAccount()){ // has checking
+            if(!checkNumEmpty){ // if something is entered in the check number field
+                if(customerChecks.size()>0){
+                    for(Check check:customerChecks){
+                        if(currentCheckNumber.equals(check.getCheckNumber())){
+                            disableButton = true;
+                            break;
+                        }
+                    }
+                }
+                if(disableButton){
+                    customerInterErrLabel.setText("Check Number "+currentCheckNumber+" Already exists");
+                }else{
+                    customerInterErrLabel.setText("");
+                }
+            }
+        }else{ // no checking account disable button
+            disableButton = true;
+            customerInterErrLabel.setText("No Checking Account for Customer");
+        }
+
+
+        if(checkNumEmpty && checkAmtEmpty){ // if both fields empty disable button set text to nothing
+            disableButton = true;
+            customerInterErrLabel.setText("");
+        }
+
+        if(!checkNumEmpty && checkAmtEmpty){// something in check number but nothing in amount
+            if(!disableButton){ // check number does not exist but amount is empty
+                disableButton = true;
+                customerInterErrLabel.setText("Please Enter an amount");
+            }else{ // check number exist and amount is empty so don't set error label yet just disable button
+                disableButton = true;
+            }
+        }
+
+        double checkAmt = DataEntryDriver.getDoubleFromTextField(customerInterAtmCheckAmt);
+        System.out.println("check amount: "+checkAmt);
+
+        if(!checkNumEmpty){
+            if(!disableButton){ // check number does not exist
+                if(checkAmt<0.001){
+                    disableButton = true;
+                    customerInterErrLabel.setText("Enter a Valid amount");
+                }else{
+                    customerInterErrLabel.setText("");
+                }
+            }else{ // check number exists don't override the error message
+                if(checkAmt<0.001){
+                    disableButton = true;
+                }
+            }
+        }
+
+        boolean isFeeApplied = FinanceDriver.isFeeApplicable(ca);
+        if(isFeeApplied){
+            tempLabel.setVisible(true);
+        }else{
+            tempLabel.setVisible(false);
+        }
+
+
+
+        customerInterAtmDepositButton.setDisable(disableButton);
+
+
+
+        //
+    }
+
+    // make sure they have enough money to make a withdrawal
+    public void customerInterWithdrawalAmountEvent(){
+        CustomerAccount ca = Main.customerAccount;
+        CheckingAccount checkingAccount = new CheckingAccount();
+        double checkingBalance = 0.0;
+        boolean disableWithdrawalButton = false;
+
+        if(ca.hasCheckingAccount()){
+            checkingAccount = ca.getCheckingAccount();
+            checkingBalance = checkingAccount.getAccountBalance();
+
+            if(customerInterAtmWithdrawalAmt.getText().length()==0){
+                disableWithdrawalButton=true;
+            }else{ // something is entered in field
+                double withdrawalAmount = DataEntryDriver.getDoubleFromTextField(customerInterAtmWithdrawalAmt);
+
+                if(checkingBalance>0.0){ // not negative balance
+                    if(withdrawalAmount>0.001){ // not zero
+                        if(withdrawalAmount>checkingBalance){ // taking more than in account
+                            disableWithdrawalButton = true;
+                            customerInterErrLabel.setText("Not enough Money for Withdrawal");
+                        }else{
+                            customerInterErrLabel.setText("");
+                        }
+                    }else{ // zero is entered in withdrawal field so disable button
+                        disableWithdrawalButton = true;
+                        customerInterErrLabel.setText("Enter a Valid Amount.");
+                    }
+
+                }else{ // checking balance is already negative
+                    disableWithdrawalButton = true;
+                }
+            }
+        }else{ // no checking account so disable withdrawal button
+            disableWithdrawalButton = true;
+            customerInterErrLabel.setText("No Checking Account for Customer");
+        }
+
+        boolean isFeeApplied = FinanceDriver.isFeeApplicable(ca); // returns false if no checking account
+
+        if(isFeeApplied){
+            tempLabel.setVisible(true);
+        }else{
+            tempLabel.setVisible(false);
+        }
+
+        customerInterAtmWithdrawalButton.setDisable(disableWithdrawalButton);
+
+
+
+
+
+    }
+
 
     public void isCdCheckBoxEvent(){
         //
@@ -1712,8 +1865,9 @@ public class Controller implements Initializable{
         if(DataEntryDriver.getDoubleFromString(customerInterAtmWithdrawalAmt.getText()) >0.001){
             FinanceDriver.completeAtmTransaction(customerInterAtmWithdrawalAmt,"null");
             customerDispData();
-        }else{
-            customerInterErrLabel.setText("Plese enter a valid amount");
+            customerInterWithdrawalAmountEvent();
+            checkNumberFieldEvent(); // so it disables the buttons
+            customerInterAtmWithdrawalAmt.requestFocus(); // focus back to the withdrawal field
         }
 
 
@@ -1728,8 +1882,9 @@ public class Controller implements Initializable{
         if(checkDepositAmount >0.001 && checkNumber.length()>0){
             FinanceDriver.completeAtmTransaction(customerInterAtmCheckAmt,checkNumber);
             customerDispData();
-        }else{
-            customerInterErrLabel.setText("Please enter a valid amount and check number");
+            checkNumberFieldEvent();
+            customerInterWithdrawalAmountEvent(); // to disable buttons
+            customerInterAtmCheckNum.requestFocus(); // focus back on this field
         }
 
     }
@@ -1739,7 +1894,7 @@ public class Controller implements Initializable{
     public void customerInterCCButton(){
 
         try {
-        Parent root = FXMLLoader.load(getClass().getResource("customerCreditCard.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("CustomerCreditCard.fxml"));
         Main.primaryStage.setTitle("Customer Credit Card Interface");
         Main.primaryStage.setScene(new Scene(root, 700, 500));
         Main.primaryStage.show();
@@ -2708,8 +2863,12 @@ public class Controller implements Initializable{
         CustomerAccount ca = Main.loggedInCustomer;
         System.out.println("customer disp data ca: "+Main.customerAccount.getCustID());
 
+        String balanceFormatted = "null";
         //System.out.println(ca.toString());
-        String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
+        if(ca.hasCheckingAccount()){
+            balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
+        }
+
 
         customerDispDataFirst.setText(ca.getFirstName());
         customerDispDataLast.setText(ca.getLastName());
@@ -3070,10 +3229,22 @@ public class Controller implements Initializable{
                    if(loginInterPass.getText().equals(caPin)){
                        // put the code here to validate pin
                    }
+                   boolean hasCheckingAccount = ca.hasCheckingAccount();
+                   boolean hasCreditCardAcc = ca.hasCreditCardAcct();
+
+//                   if(hasCheckingAccount){
+//                       Main.customerAccount = ca;
+//                       System.out.println("Selected ca from atm card is: "+ca.toString());
+//                       returnVal=true;
+//                   }else{
+//                       returnVal = false;
+//                       System.err.println("CUSTOMER DOES NOT HAVE A CHECKING ACCOUNT");
+//                   }
 
                    Main.customerAccount = ca;
                    System.out.println("Selected ca from atm card is: "+ca.toString());
                    returnVal=true;
+
                }else{// if search was null
                    Main.customerAccount=Main.customerAccounts.get(0);// statically set the first account
                    returnVal=true;

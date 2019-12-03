@@ -670,21 +670,25 @@ public class FinanceDriver {
     // if Gold diamond not meeting min bal, treat as if its a standard account.
     public static boolean isFeeApplicable(CustomerAccount ca){
         boolean returnVal = false;
-        double checkingBalance = ca.getCheckingAccount().getAccountBalance();
 
-        boolean isGold = ca.getCheckingAccount().isGoldAccount();
-        boolean minBalNotMet = false;
+        if(ca.hasCheckingAccount()){
+            double checkingBalance = ca.getCheckingAccount().getAccountBalance();
 
-        if(isGold){ // this can only turn true if it's a gold account and min bal not met
-            if(checkingBalance<1000){
-                minBalNotMet = true;
+            boolean isGold = ca.getCheckingAccount().isGoldAccount();
+            boolean minBalNotMet = false;
+
+            if(isGold){ // this can only turn true if it's a gold account and min bal not met
+                if(checkingBalance<1000){
+                    minBalNotMet = true;
+                }
+            }
+
+
+            if(!isGold || minBalNotMet){ // if its not gold account or gold account under min balance
+                returnVal = true;
             }
         }
 
-
-        if(!isGold || minBalNotMet){ // if its not gold account or gold account under min balance
-            returnVal = true;
-        }
 
 
         return returnVal;

@@ -1375,3 +1375,97 @@
 2019-12-02T16:21:42.592 New Log Session.
 
 2019-12-02T16:28:37.265 New Log Session.
+
+2019-12-02T16:38:15.272 New Log Session.
+2019-12-02T16:38:34.571 Customer Account UserName: Customer logged into account.
+2019-12-02T16:40:29.295 Customer Account UserName: Customer logged into account.
+
+2019-12-02T16:48:17.724 New Log Session.
+2019-12-02T16:48:31.431 Customer Account UserName: Customer logged into account.
+
+2019-12-02T16:59:35.543 New Log Session.
+2019-12-02T16:59:52.738 Customer Account UserName: Customer logged into account.
+
+2019-12-02T17:00:46.563 New Log Session.
+2019-12-02T17:00:53.783 Customer Account UserName: Customer logged into account.
+
+2019-12-02T17:03:20.124 New Log Session.
+2019-12-02T17:03:28.116 Customer Account UserName: Customer logged into account.
+
+2019-12-02T17:05:42.931 New Log Session.
+2019-12-02T17:05:58.595 Customer Account UserName: Customer logged into account.
+
+2019-12-02T17:09:15.874 New Log Session.
+2019-12-02T17:09:24.857 Customer Account UserName: Customer logged into account.
+2019-12-02T17:12:49.955 Manager Account UserName: asdf logged into account.
+2019-12-02T17:12:52.294 Employee UserName: asdf Looked Up account: CustomerAccount{custID='111-11-1111', firstName='Test one', lastName='one Test', streetAddr='123 west 5th street', city='Agency', state='MO', zip='65465', atmCardNumber='3227864877079318', dateCreated='12/02/2019', pin='1111', financialAccountID=16, hasSavingsAccount=true, hasCheckingAccount=true, hasShortTermLoan=true, hasLongTermLoan=true, hasCreditCardAcct=true, hasLoanAccount=true, savingsAccounts=[SavingsAccount{custID='111-11-1111', savingsAcctID='16-01', accountBalance=18331.11, interestRate=0.0105, dateOpened='12/01/2019', isCdAccount=false, cdCloseDate='null', savingsAcctIDFixed='16-01', isNull=false}, SavingsAccount{custID='111-11-1111', savingsAcctID='16-02-02', accountBalance=10000.0, interestRate=0.03257, dateOpened='05/05/2005', isCdAccount=true, cdCloseDate='12/01/2034', savingsAcctIDFixed='16-02-02', isNull=false}, SavingsAccount{custID='111-11-1111', savingsAcctID='16-02-02', accountBalance=25000.0, interestRate=0.01008, dateOpened='05/05/2005', isCdAccount=true, cdCloseDate='12/01/2049', savingsAcctIDFixed='16-02-02', isNull=false}], checkingAccount=CheckingAccount{custID='111-11-1111', checkingAcctID='16-00', checkingAcctIDFixed='16-00', accountBalance=18860.87, dateOpened='12/01/2019', isGoldAccount=true, backupSavingsEnabled=true, overdraftsOnAcct=0, isNull=false}, transactions=[Transaction{transactionType='D', amount=1847.35, description='Deposit on Checking Account', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='TW', amount=154.08, description='Transfer to Savings', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='TD', amount=154.08, description='Transfer from Checking', transactionAccount='S', date='12/01/2019'}, Transaction{transactionType='D', amount=1875.39, description='Deposit on Savings Account', transactionAccount='S', date='12/01/2019'}, Transaction{transactionType='D', amount=54.36, description='Deposit on Savings Account', transactionAccount='S', date='12/01/2019'}, Transaction{transactionType='D', amount=11.27, description='Deposit on Checking Account', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='D', amount=18.34, description='Deposit on Checking Account', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='W', amount=125.21, description='Atm Withdrawal', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='D', amount=1789.0, description='Atm Deposit', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='D', amount=6745.37, description='Atm Deposit', transactionAccount='C', date='12/01/2019'}, Transaction{transactionType='W', amount=1897.0, description='new tv', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=547.0, description='sound system', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=3478.54, description='new couch', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=387.24, description='new phone', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=3450.0, description='truck', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=4789.57, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=3000.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=178.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=58.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=387.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=147.0, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='D', amount=777.54, description='Credit Card Payment', transactionAccount='CCL', date='12/01/2019'}, Transaction{transactionType='W', amount=4875.28, description='new truck', transactionAccount='CCL', date='12/02/2019'}, Transaction{transactionType='W', amount=47.65, description='candy bar', transactionAccount='CCL', date='12/02/2019'}, Transaction{transactionType='W', amount=4.37, description='light bill', transactionAccount='CCL', date='12/02/2019'}, Transaction{transactionType='W', amount=478.57, description='new xbox', transactionAccount='CCL', date='12/02/2019'}, Transaction{transactionType='W', amount=768.37, description='laptop', transactionAccount='CCL', date='12/02/2019'}, Transaction{transactionType='D', amount=87.65, description='Credit Card Payment', transactionAccount='CCL', date='12/02/2019'}, Transaction{transactionType='D', amount=150.55, description='Atm Deposit', transactionAccount='C', date='12/02/2019'}], loanAccounts=[LoanAccount{custID='111-11-1111', initialLoanAmt=150000.0, currentBalance=150000.0, interestRate=0.04578, paymentDueDate='12/27/2019', paymentNoticeDate='12/01/2019', amountDue=326.81, lastPaymentDate='null', hasMissedPayment=false, loanAccountType='LTL', loanAccountID='16-04-01', loanAccountIDFixed='16-04-01', isNull=false, loanTerm=40, dateOpened='12/01/2019', totalLoanAmountPlusInterest=156867.0}, LoanAccount{custID='111-11-1111', initialLoanAmt=10000.0, currentBalance=10000.0, interestRate=0.07354, paymentDueDate='12/27/2019', paymentNoticeDate='12/01/2019', amountDue=89.46, lastPaymentDate='null', hasMissedPayment=false, loanAccountType='STL', loanAccountID='16-03-01', loanAccountIDFixed='16-03-01', isNull=false, loanTerm=10, dateOpened='12/01/2019', totalLoanAmountPlusInterest=10735.4}, LoanAccount{custID='111-11-1111', initialLoanAmt=10000.0, currentBalance=6537.259999999999, interestRate=0.1254, paymentDueDate='01/10/2020', paymentNoticeDate='12/01/2019', amountDue=140.96, lastPaymentDate='12/01/2019', hasMissedPayment=false, loanAccountType='CCL', loanAccountID='16-05', loanAccountIDFixed='16-05', isNull=false, loanTerm=-1, dateOpened='12/01/2019', totalLoanAmountPlusInterest=11254.0}], checks=[Check{checkNumber='101', checkingAcctID=16-00, checkDate='12/01/2019', checkAmount=1789.0, checkProcessed=false, checkStatus='normal'}, Check{checkNumber='102', checkingAcctID=16-00, checkDate='12/01/2019', checkAmount=6777.37, checkProcessed=false, checkStatus='normal'}, Check{checkNumber='103', checkingAcctID=16-00, checkDate='12/02/2019', checkAmount=150.55, checkProcessed=false, checkStatus='normal'}], isNull=false}
+2019-12-02T17:13:10.867 Customer Account UserName: Customer logged into account.
+
+2019-12-02T17:29:12.418 New Log Session.
+2019-12-02T17:29:26.356 Customer Account UserName: Customer logged into account.
+2019-12-02T17:29:43.315 Customer Account UserName: Customer logged into account.
+
+2019-12-02T17:41:53.466 New Log Session.
+2019-12-02T17:42:05.658 Customer Account UserName: Customer logged into account.
+
+2019-12-02T17:43:51.244 New Log Session.
+2019-12-02T17:43:57.217 Customer Account UserName: Customer logged into account.
+
+2019-12-02T17:47:12.664 New Log Session.
+2019-12-02T17:47:20.276 Customer Account UserName: Customer logged into account.
+
+2019-12-02T17:52:01.656 New Log Session.
+2019-12-02T17:52:08.249 Customer Account UserName: Customer logged into account.
+
+2019-12-02T17:59:24.401 New Log Session.
+2019-12-02T18:09:04.068 Customer Account UserName: Customer logged into account.
+2019-12-02T18:09:48.055 Customer Account UserName: Customer logged into account.
+
+2019-12-02T18:13:40.579 New Log Session.
+2019-12-02T18:13:47.238 Customer Account UserName: Customer logged into account.
+
+2019-12-02T18:16:08.973 New Log Session.
+2019-12-02T18:16:21.487 Customer Account UserName: Customer logged into account.
+
+2019-12-02T18:19:45.556 New Log Session.
+2019-12-02T18:20:00.493 Customer Account UserName: Customer logged into account.
+
+2019-12-02T18:24:09.062 New Log Session.
+2019-12-02T18:24:15.694 Customer Account UserName: Customer logged into account.
+
+2019-12-02T18:26:48.924 New Log Session.
+2019-12-02T18:26:54.891 Customer Account UserName: Customer logged into account.
+2019-12-02T18:29:19.333 Customer Account UserName: Customer logged into account.
+2019-12-02T18:29:38.767 Manager Account UserName: asdf logged into account.
+2019-12-02T18:29:54.429 asdf added: CustomerAccount{custID='222-22-2222', firstName='test2', lastName='second', streetAddr='asdf', city='asdf', state='AL', zip='46546', atmCardNumber='8871713243777128', dateCreated='12/02/2019', pin='2222', financialAccountID=19, hasSavingsAccount=false, hasCheckingAccount=false, hasShortTermLoan=false, hasLongTermLoan=false, hasCreditCardAcct=false, hasLoanAccount=false, savingsAccounts=[], checkingAccount=null, transactions=[], loanAccounts=[], checks=[], isNull=false}
+2019-12-02T18:29:54.429 asdf added account: CustomerAccount{custID='222-22-2222', firstName='test2', lastName='second', streetAddr='asdf', city='asdf', state='AL', zip='46546', atmCardNumber='8871713243777128', dateCreated='12/02/2019', pin='2222', financialAccountID=19, hasSavingsAccount=false, hasCheckingAccount=false, hasShortTermLoan=false, hasLongTermLoan=false, hasCreditCardAcct=false, hasLoanAccount=false, savingsAccounts=[], checkingAccount=null, transactions=[], loanAccounts=[], checks=[], isNull=false}
+2019-12-02T18:30:13.508 Customer Account UserName: Customer logged into account.
+2019-12-02T18:30:26.182 Manager Account UserName: asd logged into account.
+
+2019-12-02T18:39:56.312 New Log Session.
+2019-12-02T18:40:12.548 Customer Account UserName: Customer logged into account.
+
+2019-12-02T18:42:14.684 New Log Session.
+2019-12-02T18:42:39.251 Customer Account UserName: Customer logged into account.
+2019-12-02T18:43:00.778 Manager Account UserName: asd logged into account.
+2019-12-02T18:43:03.873 Employee UserName: asd Looked Up account: CustomerAccount{custID='222-22-2222', firstName='test2', lastName='second', streetAddr='asdf', city='asdf', state='AL', zip='46546', atmCardNumber='8871713243777128', dateCreated='12/02/2019', pin='2222', financialAccountID=19, hasSavingsAccount=false, hasCheckingAccount=false, hasShortTermLoan=false, hasLongTermLoan=false, hasCreditCardAcct=false, hasLoanAccount=false, savingsAccounts=[], checkingAccount=null, transactions=[], loanAccounts=[], checks=[], isNull=false}
+2019-12-02T18:43:27.294 Customer Account UserName: Customer logged into account.
+
+2019-12-02T18:45:05.905 New Log Session.
+2019-12-02T18:45:13.753 Customer Account UserName: Customer logged into account.
+
+2019-12-02T18:48:43.440 New Log Session.
+2019-12-02T18:48:50.452 Customer Account UserName: Customer logged into account.
+2019-12-02T18:49:38.117 Customer Account UserName: Customer logged into account.
+2019-12-02T18:51:19.380 Customer Account UserName: Customer logged into account.
+
+2019-12-02T18:55:56.832 New Log Session.
+2019-12-02T18:56:06.636 Customer Account UserName: Customer logged into account.
+
+2019-12-02T19:03:58.674 New Log Session.
+2019-12-02T19:04:05.087 Customer Account UserName: Customer logged into account.
+
+2019-12-02T19:08:10.780 New Log Session.
+2019-12-02T19:09:13.309 Customer Account UserName: Customer logged into account.
+2019-12-02T19:09:34.761 Customer Account UserName: Customer logged into account.
+2019-12-02T19:10:19.458 Customer Account UserName: Customer logged into account.

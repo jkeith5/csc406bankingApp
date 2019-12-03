@@ -782,6 +782,18 @@ public class DataEntryDriver {
         }
     }
 
+    public static void validateNumberField(TextField textField,int length){
+        textField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("(\\d{0,"+length+"})?")) {
+                    textField.setText(oldValue);
+                }
+            }
+        });
+    }
+
+
     // use to validate the Date Fields in mm/dd/yyyy format or m/d/YYYY like 9/14/2019 or 09/14/2019
     public static void validateDateField(TextField textField,boolean allowShortDate) { // true to allow negative numbers
 
