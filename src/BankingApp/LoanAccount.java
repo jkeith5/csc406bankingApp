@@ -5,23 +5,23 @@ import java.time.LocalDate;
 
 public class LoanAccount implements Serializable {
 
-    public String custID;
-    public double initialLoanAmt; // this is also the credit limit for credit card accounts
-    public double currentBalance; // current loan balance. what is left on STL or LTL. or the current balance on a CCL
-    public double interestRate;
-    public String paymentDueDate;
-    public String paymentNoticeDate;
-    public double amountDue;
-    public String lastPaymentDate; // don't update if making extra payments in a month
-    public boolean hasMissedPayment=false;
-    public String loanAccountType; // STL= short term loan LTL= long term loan CCL= credit card loan
-    public String loanAccountID;
-    public String loanAccountIDFixed;
-    public boolean isNull = false;
-    public int loanTerm; // -1 if not applicable
-    public String dateOpened;
+    private String custID;
+    private double initialLoanAmt; // this is also the credit limit for credit card accounts
+    private double currentBalance; // current loan balance. what is left on STL or LTL. or the current balance on a CCL
+    private double interestRate;
+    private String paymentDueDate;
+    private String paymentNoticeDate;
+    private double amountDue;
+    private String lastPaymentDate; // don't update if making extra payments in a month
+    private boolean hasMissedPayment=false;
+    private String loanAccountType; // STL= short term loan LTL= long term loan CCL= credit card loan
+    private String loanAccountID;
+    private String loanAccountIDFixed;
+    private boolean isNull = false;
+    private int loanTerm; // -1 if not applicable
+    private String dateOpened;
 
-    public double totalLoanAmountPlusInterest; // this amount will not apply to CCL but will still exist
+    private double totalLoanAmountPlusInterest; // this amount will not apply to CCL but will still exist
 
 
     // Notes:
@@ -108,7 +108,7 @@ public class LoanAccount implements Serializable {
     }
 
     // finds and sets the monthly payment ON STL AND LTL
-    public void calculateInitialPaymentPlan(){
+    private void calculateInitialPaymentPlan(){
         if(!loanAccountType.equals("CCL")){ // is a STL or LTL
             setTotalLoanAmountPlusInterest(); // sets the total loan amount plus interest
             int termMonths = getLoanTerm()*12; // converts years to months
@@ -290,7 +290,7 @@ public class LoanAccount implements Serializable {
     }
 
 
-    public void setTotalLoanAmountPlusInterest(){
+    private void setTotalLoanAmountPlusInterest(){
         this.totalLoanAmountPlusInterest=initialLoanAmt*(1.0+interestRate); // figures total loan amount plus interest
     }
 

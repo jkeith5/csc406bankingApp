@@ -10,16 +10,16 @@ public class CustomerAccount implements Serializable {
     // RESOURCES SO THE OBJECT INPUT STREAM WILL CORRECTLY READ IN THE NEW DATA INTO OBJECTS
 
 
-    public String custID;
-    public String firstName;
-    public String lastName;
-    public String streetAddr;
-    public String city;
-    public String state;// 2 letter All Caps MO
-    public String zip;
-    public String atmCardNumber;
-    public String dateCreated; // date of initial customer account
-    public String pin = "";
+    private String custID;
+    private String firstName;
+    private String lastName;
+    private String streetAddr;
+    private String city;
+    private String state;// 2 letter All Caps MO
+    private String zip;
+    private String atmCardNumber;
+    private String dateCreated; // date of initial customer account
+    private String pin = "";
 
     // this is just a base number like 5. but the different accounts will append a - and a number that
     // identifies the account type and another - and number for multiple accounts. For multiple accounts of same
@@ -388,13 +388,13 @@ public class CustomerAccount implements Serializable {
         if(!loanAccountObj.isNull()){ // if loan account is not null
             this.loanAccounts.add(loanAccountObj);
             setHasLoanAccount(true);
-            if(loanAccountObj.loanAccountType.equals("STL")){
+            if(loanAccountObj.getLoanAccountType().equals("STL")){
                 setHasShortTermLoan(true);
             }
-            if(loanAccountObj.loanAccountType.equals("LTL")){
+            if(loanAccountObj.getLoanAccountType().equals("LTL")){
                 setHasLongTermLoan(true);
             }
-            if(loanAccountObj.loanAccountType.equals("CCL")){
+            if(loanAccountObj.getLoanAccountType().equals("CCL")){
                 setHasCreditCardAcct(true);
             }
         }else{

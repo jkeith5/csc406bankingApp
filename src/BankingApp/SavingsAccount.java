@@ -6,15 +6,15 @@ import java.time.LocalDate;
 
 public class SavingsAccount implements Serializable {
 
-    public String custID;
-    public String savingsAcctID;
-    public double accountBalance; // current balance or initial balance for CD accounts
-    public double interestRate;
-    public String dateOpened; // date saving acct opened
-    public boolean isCdAccount;
-    public String cdCloseDate; // if cd date it closes
+    private String custID;
+    private String savingsAcctID;
+    private double accountBalance; // current balance or initial balance for CD accounts
+    private double interestRate;
+    private String dateOpened; // date saving acct opened
+    private boolean isCdAccount;
+    private String cdCloseDate; // if cd date it closes
 
-    public String savingsAcctIDFixed;
+    private String savingsAcctIDFixed;
 
 
     public boolean isNull = false; // is the whole Object null

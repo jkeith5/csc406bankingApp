@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class Check implements Serializable {
 
-    public String checkNumber;
-    public String checkingAcctID;
-    public String checkDate;
-    public double checkAmount;
-    public boolean checkProcessed;
-    public String checkStatus; // we can use this to put a stop payment when we get that far so normal or hold
+    private String checkNumber;
+    private String checkingAcctID;
+    private String checkDate;
+    private double checkAmount;
+    private boolean checkProcessed;
+    private String checkStatus; // we can use this to put a stop payment when we get that far so normal or hold
 
     public Check(){
         //
@@ -53,7 +53,7 @@ public class Check implements Serializable {
         this.checkingAcctID = checkingAcctID;
     }
 
-    private void setCheckStatusNormal(){
+    public void setCheckStatusNormal(){
         this.checkStatus="normal";
     }
 

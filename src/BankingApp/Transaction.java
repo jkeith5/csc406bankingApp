@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class Transaction implements Serializable {
     // this class just records a fee it does not make the actual transfer of any money or fees
 
-    public String transactionType; // W=Withdrawal D=Deposit F=Fee I=Interest TW=Transfer Withdrawal TD=Transfer Deposit
-    public double amount;
-    public String description;
-    public String transactionAccount; // S=Savings C=Checking CCL= Credit Card STL=Short Term Loan LTL= Long Term Loan
-    public String date="";
+    private String transactionType; // W=Withdrawal D=Deposit F=Fee I=Interest TW=Transfer Withdrawal TD=Transfer Deposit
+    private double amount;
+    private String description;
+    private String transactionAccount; // S=Savings C=Checking CCL= Credit Card STL=Short Term Loan LTL= Long Term Loan
+    private String date="";
 
     // make methods to complete the actual transaction using variable such as
     // Main.customerAccount

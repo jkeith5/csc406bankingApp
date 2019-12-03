@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class CheckingAccount implements Serializable {
 
-    public String custID;//ssn
-    public String checkingAcctID; //We want this as a string object because its in format 000-00
-    public String checkingAcctIDFixed; // same as above but this one will be auto set in main and not touch the id that is
+    private String custID;//ssn
+    private String checkingAcctID; //We want this as a string object because its in format 000-00
+    private String checkingAcctIDFixed; // same as above but this one will be auto set in main and not touch the id that is
     // read in by the csv files.
-    public double accountBalance;
-    public String dateOpened;
-    public boolean isGoldAccount;
-    public boolean backupSavingsEnabled;
-    public int overdraftsOnAcct;
-    public boolean isNull = false;
+    private double accountBalance;
+    private String dateOpened;
+    private boolean isGoldAccount;
+    private boolean backupSavingsEnabled;
+    private int overdraftsOnAcct;
+    private boolean isNull = false;
 
 
 
