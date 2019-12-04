@@ -1759,6 +1759,14 @@ public class Controller implements Initializable{
 
 
     public void deleteAccountButton(){
+        CustomerAccount ca = Main.customerAccount;
+        boolean hasChecking = ca.hasCheckingAccount();
+        boolean hasSaving = ca.hasSavingsAccount();
+        boolean hasLoan = ca.hasLoanAccount();
+
+
+
+
         DataEntryDriver.removeCustomerAccount(Main.customerAccount.getCustID());
 
         goToLoggedInEmployeeScene();
@@ -1937,6 +1945,8 @@ public class Controller implements Initializable{
                 tellerPendingLogin=false;
                 EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
                 employee.setType("T");
+                String pass = loginInterPass.getText();
+                employee.setPassword(pass);
                 Main.loggedInEmployee = employee;
                 Main.outEmployee.println(Main.getDateTimeString()+"Teller Account UserName: "+Main.loggedInEmployee.getUserName()+
                 " logged into account.");
@@ -1950,7 +1960,9 @@ public class Controller implements Initializable{
             if(managerLogIn){
                 managerPendingLogin=false;
                 EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
+                String pass = loginInterPass.getText();
                 employee.setType("M");
+                employee.setPassword(pass);
                 Main.loggedInEmployee = employee;
                 Main.outEmployee.println(Main.getDateTimeString()+"Manager Account UserName: "+Main.loggedInEmployee.getUserName()+
                 " logged into account.");
