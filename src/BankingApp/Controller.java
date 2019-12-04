@@ -457,7 +457,6 @@ public class Controller implements Initializable{
                 deleteCustomerAccountButton.setDisable(true);
             }
 
-
             if(FinanceDriver.hasUnprocessedChecks(ca)){
                 manageExistingDispDataStopPayment.setDisable(false);
             }else{
@@ -481,29 +480,14 @@ public class Controller implements Initializable{
 
             populateUpdateDataScreen();
         }
-
         if(locationString.equals("ManagerLogin.fxml")){
             //
         }
-
         if(locationString.equals("TellerInterface.fxml")){
-            System.out.println(locationString);
-            System.out.println(Main.loggedInEmployee.getType());
-
-        }
-
-        if(locationString.equals("TellerLogin.fxml")){
             //
         }
-
-
-        if(locationString.equals("TestWindow.fxml")){
-            System.out.println("init testWindow");
-
-            testWindowTextArea.setText("");
-
-
-
+        if(locationString.equals("TellerLogin.fxml")){
+            //
         }
 
         if(locationString.equals("CustomerInterface.fxml")){
@@ -516,8 +500,6 @@ public class Controller implements Initializable{
             DataEntryDriver.validateBalanceAmountField(customerInterAtmWithdrawalAmt,false);
             DataEntryDriver.validateBalanceAmountField(customerInterAtmCheckAmt,false);
             DataEntryDriver.validateNumberField(customerInterAtmCheckNum,4);
-
-
             CustomerAccount ca = Main.customerAccount;
 
             if(ca.hasCreditCardAcct()){
@@ -525,10 +507,6 @@ public class Controller implements Initializable{
             }else{
                 customerInterCCButton.setDisable(true);
             }
-
-
-
-
         }
 
         if(locationString.equals("ManageExistingUserDispActivity.fxml")){
@@ -1746,13 +1724,6 @@ public class Controller implements Initializable{
     }
 
 
-    public void enterKeyLoginExit(KeyEvent e){
-        if(e.getCode().getName().equals("Enter") && Main.primaryStage.getScene().getFocusOwner() instanceof Button ){
-            loginInterfaceExitButton();
-        }
-    }
-
-
     @FXML
     public void ssnFieldKeyEvent(KeyEvent e){ // a generic and multi use method to validate any ssn textfield hopefully
         //System.out.println("Start SSN field key event");
@@ -1939,9 +1910,6 @@ public class Controller implements Initializable{
             }else{
                 System.out.println("login already pending");
             }
-
-
-
             // so now this method is done and the program is waiting for the login interface to finish
 
         } catch (IOException e) {
@@ -1951,20 +1919,12 @@ public class Controller implements Initializable{
 
     }
 
-
-
-
     // Main Screen Buttons and Login Methods
     @FXML
     public void mainInterfaceTellerButton(){
-        //System.out.println("hi");
         Parent root = null;
         Parent login = null;
-        //System.out.println("tellerLogIn value: "+tellerLogIn);
-        //System.out.println("teller Pending value: "+tellerPendingLogin);
-
         try {
-
             if(!tellerPendingLogin){ // if login window is not already active
                 if(tellerLogIn){// if teller is logged in after login window closes and it recalls this method
                     root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
@@ -1981,24 +1941,14 @@ public class Controller implements Initializable{
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.show();
 
-                    stage.setOnCloseRequest(event -> loginInterfaceExitButton());
-
-
+                    stage.setOnCloseRequest(event -> loginInterfaceExitButton());// set to exit buton if user clicks x on window
                     Main.activeStage = stage;
                     System.out.println("set active stage in tellerbutton: "+stage.getTitle());
                     System.out.println("main active stage title is: "+Main.activeStage.getTitle());
-
-
-
                 }
             }else{
                 System.out.println("teller already pending login");
-
             }
-
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
             Main.activeStage=null;
@@ -2044,11 +1994,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void loginInterfaceLoginButton(){
-        System.out.println("login inter login pending teller : "+tellerPendingLogin);
-        System.out.println("login inter login button pending customer "+customerPendingLogin);
-
-
-
         if(tellerPendingLogin){ // if pending but not complete login
             tellerLogIn = validateLoginCreds("Teller");
             if(tellerLogIn){ // if login info was valid
@@ -3229,17 +3174,6 @@ public class Controller implements Initializable{
                    if(loginInterPass.getText().equals(caPin)){
                        // put the code here to validate pin
                    }
-                   boolean hasCheckingAccount = ca.hasCheckingAccount();
-                   boolean hasCreditCardAcc = ca.hasCreditCardAcct();
-
-//                   if(hasCheckingAccount){
-//                       Main.customerAccount = ca;
-//                       System.out.println("Selected ca from atm card is: "+ca.toString());
-//                       returnVal=true;
-//                   }else{
-//                       returnVal = false;
-//                       System.err.println("CUSTOMER DOES NOT HAVE A CHECKING ACCOUNT");
-//                   }
 
                    Main.customerAccount = ca;
                    System.out.println("Selected ca from atm card is: "+ca.toString());

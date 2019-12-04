@@ -9700,3 +9700,38 @@
 2019-12-02T19:56:33.189 Initializing Controller
 2019-12-02T19:56:34.749 ArrayList was written to File.
 2019-12-02T19:56:34.749 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-04T11:46:28.698 Initializing in Main.
+2019-12-04T11:46:28.838 Start of Read customerDatabase to ArrayList
+2019-12-04T11:46:29.273 End of Read customerDatabase to ArrayList
+2019-12-04T11:46:29.274 Database Already Existed. Read into list.
+2019-12-04T11:46:31.453 Initializing Controller
+2019-12-04T11:46:36.395 ArrayList was written to File.
+2019-12-04T11:46:36.395 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-04T11:57:51.956 Initializing in Main.
+2019-12-04T11:57:51.973 Start of Read customerDatabase to ArrayList
+2019-12-04T11:57:52.132 End of Read customerDatabase to ArrayList
+2019-12-04T11:57:52.132 Database Already Existed. Read into list.
+2019-12-04T11:57:53.355 Initializing Controller
+2019-12-04T11:58:01.671 Initializing Controller
+2019-12-04T11:58:05.183 Initializing Controller
+2019-12-04T11:58:08.562 Initializing Controller
+2019-12-04T11:58:11.003 Initializing Controller
+2019-12-04T11:58:12.819 Initializing Controller
+2019-12-04T11:58:17.148 ArrayList was written to File.
+2019-12-04T11:58:17.148 The Customer Accounts Database Was successfully Written to the File
+
+2019-12-04T12:09:35.576 Initializing in Main.
+2019-12-04T12:09:35.590 Start of Read customerDatabase to ArrayList
+2019-12-04T12:09:35.737 End of Read customerDatabase to ArrayList
+2019-12-04T12:09:35.737 Database Already Existed. Read into list.
+2019-12-04T12:09:37.222 Initializing Controller
+2019-12-04T12:09:39.103 Initializing Controller
+2019-12-04T12:09:40.360 Initializing Controller
+2019-12-04T12:09:42.115 Initializing Controller
+2019-12-04T12:09:42.138 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-04T12:09:42.609 Attempting to generate pin number from a null object for custID in CustomerAccount
+2019-12-04T12:09:43.304 Initializing Controller
+2019-12-04T12:09:45.102 ArrayList was written to File.
+2019-12-04T12:09:45.102 The Customer Accounts Database Was successfully Written to the File
