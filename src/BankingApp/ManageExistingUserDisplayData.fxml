@@ -35,23 +35,23 @@
             <Label fx:id="manageDispDataAcctStatus" layoutX="309.0" layoutY="143.0" prefHeight="17.0" prefWidth="156.0" text="Label" />
             <Label layoutX="210.0" layoutY="123.0" prefHeight="17.0" prefWidth="79.0" text="Account Type:" />
             <Label fx:id="manageDispDataAcctType" layoutX="309.0" layoutY="124.0" prefHeight="17.0" prefWidth="156.0" text="Label" />
-            <Label fx:id="manageExistingTellerCheckingLabel" layoutX="207.0" layoutY="205.0" prefHeight="17.0" prefWidth="39.0" text="From: " />
-            <Label fx:id="manageExistingTellerSavingsLabel" layoutX="207.0" layoutY="230.0" prefHeight="17.0" prefWidth="39.0" text="To:" />
+            <Label fx:id="manageExistingCheckingLabel" layoutX="207.0" layoutY="205.0" prefHeight="17.0" prefWidth="39.0" text="From: " />
+            <Label fx:id="manageExistingSavingsLabel" layoutX="207.0" layoutY="230.0" prefHeight="17.0" prefWidth="39.0" text="To:" />
             <Label fx:id="manageDispDataErrLabel" layoutX="252.0" layoutY="298.0" prefHeight="134.0" prefWidth="386.0" wrapText="true" />
-            <Button fx:id="manageExistingTellerUpdateDataButton" layoutX="15.0" layoutY="121.0" mnemonicParsing="false" onAction="#tellerInterfaceManageUpdateDataButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="Update Customer Data" />
-            <Button fx:id="manageExistingTellerViewRecentActivityButton" layoutX="15.0" layoutY="159.0" mnemonicParsing="false" onAction="#viewRecentActivityButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="View Recent Activity" />
-            <Button fx:id="manageExistingTellerAddFinanceAccountButton" layoutX="15.0" layoutY="197.0" mnemonicParsing="false" onAction="#addFinanceAccountButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="Add Finance Account" />
+            <Button fx:id="manageExistingUpdateDataButton" layoutX="15.0" layoutY="121.0" mnemonicParsing="false" onAction="#tellerInterfaceManageUpdateDataButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="Update Customer Data" />
+            <Button fx:id="manageExistingViewRecentActivityButton" layoutX="15.0" layoutY="159.0" mnemonicParsing="false" onAction="#viewRecentActivityButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="View Recent Activity" />
+            <Button fx:id="manageExistingAddFinanceAccountButton" layoutX="15.0" layoutY="197.0" mnemonicParsing="false" onAction="#addFinanceAccountButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="Add Finance Account" />
             <Button fx:id="manageInterManageFinancialAccountsButton" layoutX="15.0" layoutY="235.0" mnemonicParsing="false" onAction="#manageFinancialAccountsButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="Manage Finance Account" />
             <Button fx:id="deleteCustomerAccountButton" layoutX="15.0" layoutY="273.0" mnemonicParsing="false" onAction="#deleteAccountButton" prefHeight="25.0" prefWidth="156.0" text="DELETE CUSTOMER ACC" />
             <Button fx:id="manageExistingDispDataStopPayment" layoutX="15.0" layoutY="310.0" mnemonicParsing="false" onAction="#loadStopCheckPaymentWindow" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="Stop Payment" />
-            <CheckBox fx:id="manageExistingTellerTransferFunds" layoutX="206.0" layoutY="177.0" mnemonicParsing="false" onAction="#transferFundsCheckBoxEvent" text="Transfer Funds" />
-            <RadioButton fx:id="manageExistingTellerCheckingAccount" layoutX="255.0" layoutY="205.0" mnemonicParsing="false" onAction="#displayDataRadioButtonEvent" onKeyPressed="#displayDataRadioButtonEvent" onKeyReleased="#displayDataRadioButtonEvent" text="Checking">
+            <CheckBox fx:id="manageExistingTransferFunds" layoutX="206.0" layoutY="177.0" mnemonicParsing="false" onAction="#transferFundsCheckBoxEvent" text="Transfer Funds" />
+            <RadioButton fx:id="manageExistingCheckingAccount" layoutX="255.0" layoutY="205.0" mnemonicParsing="false" onAction="#displayDataRadioButtonEvent" onKeyPressed="#displayDataRadioButtonEvent" onKeyReleased="#displayDataRadioButtonEvent" text="Checking">
                <toggleGroup>
                   <ToggleGroup fx:id="toggle1" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="manageExistingTellerSavingsAccount" layoutX="255.0" layoutY="230.0" mnemonicParsing="false" onAction="#displayDataRadioButtonEvent" onKeyPressed="#displayDataRadioButtonEvent" onKeyReleased="#displayDataRadioButtonEvent" text="Savings" toggleGroup="$toggle1" />
-            <TextField fx:id="manageExistingTellerFundsTransferAmount" layoutX="325.0" layoutY="268.0" onKeyReleased="#transferFundsKeyEvent" promptText="Enter Amount" />
-            <Button fx:id="manageExistingTellerDebitCreditAccountButton" layoutX="484.0" layoutY="268.0" mnemonicParsing="false" onAction="#completeTransaction" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="Debit/Credit Account" />
+            <RadioButton fx:id="manageExistingSavingsAccount" layoutX="255.0" layoutY="230.0" mnemonicParsing="false" onAction="#displayDataRadioButtonEvent" onKeyPressed="#displayDataRadioButtonEvent" onKeyReleased="#displayDataRadioButtonEvent" text="Savings" toggleGroup="$toggle1" />
+            <TextField fx:id="manageExistingFundsTransferAmount" layoutX="325.0" layoutY="268.0" onKeyReleased="#transferFundsKeyEvent" promptText="Enter Amount" />
+            <Button fx:id="manageExistingDebitCreditAccountButton" layoutX="484.0" layoutY="268.0" mnemonicParsing="false" onAction="#completeTransaction" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="156.0" text="Debit/Credit Account" />
             <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
             <Button fx:id="manageExistingDispDataPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageLookupScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
          </children>

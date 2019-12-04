@@ -43,38 +43,8 @@ public class Controller implements Initializable{
 
     @FXML
     public ComboBox<String> stateComboBox; // the regular combobox
-
     public ComboBoxAutoComplete<String> autoCombo;
-
-
-    //= new ComboBoxAutoComplete<>(stateComboBox); // the autoComboBox
-
-    @FXML TextField mainScreenTest;
-    @FXML TextField tf1;
-    @FXML TextField tf2;
-    @FXML TextField tf3;
-    @FXML TextField generalTestTextField;
-    @FXML Button generalTestButton;
     @FXML Button randomSSN;
-    @FXML Button testWindowButton;
-    @FXML TextArea testWindowTextArea;
-    @FXML Button testWindowButton2;
-
-    @FXML Button testWindowExitButton;
-    @FXML
-    public ComboBox<String> testComboBox;
-
-
-    @FXML
-    public ComboBoxAutoComplete<String> autoComboTest;
-
-    @FXML Button mainScreenTestButton;
-
-
-    @FXML
-    public ComboBox<String> testCombo2;
-
-    @FXML Label interfaceName;
 
     @FXML TextField fNameTextField;
     @FXML TextField lNameTextField;
@@ -118,7 +88,6 @@ public class Controller implements Initializable{
 
     @FXML Button customerInterAtmDepositButton;
     @FXML Button customerInterAtmWithdrawalButton;
-    @FXML Button CustomerInterAtmDepositButton;
     @FXML Button customerScreen;
     @FXML Button customerInterCCButton;
     @FXML Button customerCCPurchaseButton;
@@ -143,28 +112,26 @@ public class Controller implements Initializable{
     @FXML CheckBox customerInterCCMakePaymentCheckBox;
 
 
-
-
     // Note when I say ManageExistingTeller I mean the ManageExistingUser interface for the Teller account
-    @FXML Button manageExistingTellerUpdateDataButton;
-    @FXML Button manageExistingTellerViewRecentActivityButton;
-    @FXML Button manageExistingTellerDebitCreditAccountButton;
-    @FXML RadioButton manageExistingTellerCheckingAccount;
-    @FXML RadioButton manageExistingTellerSavingsAccount;
-    @FXML CheckBox manageExistingTellerTransferFunds;
-    @FXML Label manageExistingTellerCheckingLabel;
-    @FXML Label manageExistingTellerSavingsLabel;
-    @FXML Button manageExistingTellerAddFinanceAccountButton;
+    @FXML Button manageExistingUpdateDataButton;
+    @FXML Button manageExistingViewRecentActivityButton;
+    @FXML Button manageExistingDebitCreditAccountButton;
+    @FXML RadioButton manageExistingCheckingAccount;
+    @FXML RadioButton manageExistingSavingsAccount;
+    @FXML CheckBox manageExistingTransferFunds;
+    @FXML Label manageExistingCheckingLabel;
+    @FXML Label manageExistingSavingsLabel;
+    @FXML Button manageExistingAddFinanceAccountButton;
 
-    @FXML TextField manageExistingTellerFundsTransferAmount;
+    @FXML TextField manageExistingFundsTransferAmount;
     @FXML Button manageExistingDispActivityPrevButton;
 
     @FXML Button manageExistingDispDataStopPayment;
 
 
     // Update data interface
-    @FXML Button tellerUpdateDataPreviousButton;
-    @FXML Button tellerUpdateDataSaveButton;
+    @FXML Button updateDataPreviousButton;
+    @FXML Button updateDataSaveButton;
     @FXML TextField updateDataSSN;
     @FXML TextField updateDataFirstName;
     @FXML TextField updateDataLastName;
@@ -371,43 +338,43 @@ public class Controller implements Initializable{
             System.out.println(Main.loggedInEmployee.getType());
             CustomerAccount ca = Main.customerAccount;
 
-            accTypeToggleGroup = manageExistingTellerCheckingAccount.getToggleGroup();
-            manageExistingTellerTransferFunds.setSelected(false);
-            manageExistingTellerTransferFunds.setDisable(true);
+            accTypeToggleGroup = manageExistingCheckingAccount.getToggleGroup();
+            manageExistingTransferFunds.setSelected(false);
+            manageExistingTransferFunds.setDisable(true);
 
             // disable checking readio button if no checking account if it exists then set as default selected
             if(ca.hasCheckingAccount()){
-                manageExistingTellerCheckingAccount.setSelected(true);
+                manageExistingCheckingAccount.setSelected(true);
             }else{
-                manageExistingTellerCheckingAccount.setSelected(false);
-                manageExistingTellerCheckingAccount.setDisable(true);
+                manageExistingCheckingAccount.setSelected(false);
+                manageExistingCheckingAccount.setDisable(true);
             }
 
             // teller can credit any account but savings CD
             // same as above but with savings account
             if(!ca.hasSavingsAccount()){// if no savings account
-                manageExistingTellerSavingsAccount.setSelected(false);
-                manageExistingTellerSavingsAccount.setDisable(true);
+                manageExistingSavingsAccount.setSelected(false);
+                manageExistingSavingsAccount.setDisable(true);
             }else{// if they do have a savings account
-                manageExistingTellerSavingsAccount.setDisable(false);
+                manageExistingSavingsAccount.setDisable(false);
                 if(!ca.hasCheckingAccount()){// if they have a savings but not a checking account
-                    manageExistingTellerSavingsAccount.setSelected(true);
+                    manageExistingSavingsAccount.setSelected(true);
                 }
             }
 
 
             if(ca.hasSavingsAccount() && ca.hasCheckingAccount()){ // if they have a savings and checking account
-                manageExistingTellerTransferFunds.setDisable(false);
-                manageExistingTellerCheckingLabel.setText("");
-                manageExistingTellerSavingsLabel.setText("");
+                manageExistingTransferFunds.setDisable(false);
+                manageExistingCheckingLabel.setText("");
+                manageExistingSavingsLabel.setText("");
             }else{// else they have NO savings or checking account disable all features related
 
                 if(!ca.hasSavingsAccount() && !ca.hasCheckingAccount()){
-                    manageExistingTellerFundsTransferAmount.setDisable(true);
-                    manageExistingTellerDebitCreditAccountButton.setDisable(true);
-                    manageExistingTellerViewRecentActivityButton.setDisable(true);
-                    manageExistingTellerCheckingLabel.setText("");
-                    manageExistingTellerSavingsLabel.setText("");
+                    manageExistingFundsTransferAmount.setDisable(true);
+                    manageExistingDebitCreditAccountButton.setDisable(true);
+                    manageExistingViewRecentActivityButton.setDisable(true);
+                    manageExistingCheckingLabel.setText("");
+                    manageExistingSavingsLabel.setText("");
                     manageDispDataAcctType.setText("");
                     manageDispDataAcctStatus.setText("");
                 }
@@ -416,15 +383,15 @@ public class Controller implements Initializable{
             }
 
             manageDispDataErrLabel.setText("");
-            manageExistingTellerDebitCreditAccountButton.setDisable(true);
+            manageExistingDebitCreditAccountButton.setDisable(true);
 
             // sets a changed listener to this object
-            DataEntryDriver.validateBalanceAmountField(manageExistingTellerFundsTransferAmount,true);
+            DataEntryDriver.validateBalanceAmountField(manageExistingFundsTransferAmount,true);
 
             // since the manager can see everything anyway just disable the stuff for the teller
             if(Main.loggedInEmployee.getType().equals("T")){
                 deleteCustomerAccountButton.setDisable(true);
-                manageExistingTellerAddFinanceAccountButton.setDisable(true);
+                manageExistingAddFinanceAccountButton.setDisable(true);
             }
 
             if(FinanceDriver.hasUnprocessedChecks(ca)){
@@ -446,7 +413,7 @@ public class Controller implements Initializable{
             stateComboBox.getItems().addAll(states);
             autoCombo = new ComboBoxAutoComplete<String>(stateComboBox); // creates and manages the combo box
 
-            Main.defaultSceneButton = tellerUpdateDataSaveButton;
+            Main.defaultSceneButton = updateDataSaveButton;
 
             populateUpdateDataScreen();
         }
@@ -881,11 +848,11 @@ public class Controller implements Initializable{
         if(addNewUserInfoValid(itemsValid)){
             //System.out.println("valid");
             Main.defaultSceneButton.setDisable(false);
-            //tellerUpdateDataSaveButton.setDisable(false);
+            //updateDataSaveButton.setDisable(false);
         }else{
             //System.out.println("notvalid");
             Main.defaultSceneButton.setDisable(true);
-            //tellerUpdateDataSaveButton.setDisable(true);
+            //updateDataSaveButton.setDisable(true);
         }
 
     }
@@ -1395,23 +1362,23 @@ public class Controller implements Initializable{
 
         //System.out.println(accTypeToggleGroup.toString());
 
-        if(manageExistingTellerTransferFunds.isSelected()){ // if box is selected
+        if(manageExistingTransferFunds.isSelected()){ // if box is selected
 
-            if(manageExistingTellerCheckingAccount.isSelected()){
-                manageExistingTellerCheckingLabel.setText("From: ");
-                manageExistingTellerSavingsLabel.setText("To: ");
+            if(manageExistingCheckingAccount.isSelected()){
+                manageExistingCheckingLabel.setText("From: ");
+                manageExistingSavingsLabel.setText("To: ");
                 transferFundsKeyEvent();
             }else{
-                manageExistingTellerSavingsLabel.setText("From: ");
-                manageExistingTellerCheckingLabel.setText("To: ");
+                manageExistingSavingsLabel.setText("From: ");
+                manageExistingCheckingLabel.setText("To: ");
                 transferFundsKeyEvent();
             }
 
 
 
         }else{// if box was not selected
-            manageExistingTellerCheckingLabel.setText("");
-            manageExistingTellerSavingsLabel.setText("");
+            manageExistingCheckingLabel.setText("");
+            manageExistingSavingsLabel.setText("");
             transferFundsKeyEvent();
         }
 
@@ -1421,16 +1388,16 @@ public class Controller implements Initializable{
     public void transferFundsCheckBoxEvent(){
         System.out.println("transfer funds block event");
 
-        if(!manageExistingTellerTransferFunds.isDisabled()){
-            if(manageExistingTellerTransferFunds.isSelected()){
+        if(!manageExistingTransferFunds.isDisabled()){
+            if(manageExistingTransferFunds.isSelected()){
                 System.out.println("selected");
-                manageExistingTellerFundsTransferAmount.setText("");
+                manageExistingFundsTransferAmount.setText("");
                 displayDataRadioButtonEvent();
             }else{
                 System.out.println("not selected");
-                manageExistingTellerFundsTransferAmount.setText("");
-                manageExistingTellerCheckingLabel.setText("");
-                manageExistingTellerSavingsLabel.setText("");
+                manageExistingFundsTransferAmount.setText("");
+                manageExistingCheckingLabel.setText("");
+                manageExistingSavingsLabel.setText("");
                 transferFundsKeyEvent();
             }
         }
@@ -1447,28 +1414,28 @@ public class Controller implements Initializable{
         // GENERATE FINAL ALERT WINDOW TO CONFIRM TRANSACTION
 
         System.out.println("\n\n");
-        manageExistingTellerDebitCreditAccountButton.setDisable(true);
+        manageExistingDebitCreditAccountButton.setDisable(true);
 
-        if(manageExistingTellerTransferFunds.isSelected()){
-            String transferString = manageExistingTellerFundsTransferAmount.getText();
+        if(manageExistingTransferFunds.isSelected()){
+            String transferString = manageExistingFundsTransferAmount.getText();
             transferString = transferString.replaceAll("-",""); // can't just set a new listener in an easy way so just hack the - sign off
-            manageExistingTellerFundsTransferAmount.setText(transferString);
-            manageExistingTellerFundsTransferAmount.positionCaret(transferString.length());
+            manageExistingFundsTransferAmount.setText(transferString);
+            manageExistingFundsTransferAmount.positionCaret(transferString.length());
         }
 
 
-        if(manageExistingTellerFundsTransferAmount.getText().length()<1){
-            manageExistingTellerDebitCreditAccountButton.setDisable(true);
+        if(manageExistingFundsTransferAmount.getText().length()<1){
+            manageExistingDebitCreditAccountButton.setDisable(true);
         }else{
             // hand it the label as well.
-            boolean isValid = FinanceDriver.isTransferAmtValid(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,
-                    manageExistingTellerCheckingAccount,manageExistingTellerSavingsAccount,manageDispDataErrLabel);
+            boolean isValid = FinanceDriver.isTransferAmtValid(manageExistingFundsTransferAmount, manageExistingTransferFunds,
+                    manageExistingCheckingAccount, manageExistingSavingsAccount,manageDispDataErrLabel);
 
             // need to know transfer amt, if transfer is checked, to and from
             // if not checked then debit / credit to account
 
             // set to value from method in FinanceDriver
-            manageExistingTellerDebitCreditAccountButton.setDisable(!isValid); // !isValid because is valid returns True for
+            manageExistingDebitCreditAccountButton.setDisable(!isValid); // !isValid because is valid returns True for
             // meaning it is valid and we want to set disable to false if isValid is true
 
 
@@ -1484,9 +1451,9 @@ public class Controller implements Initializable{
     public void completeTransaction(){ // ONLY USE THIS METHOD FOR A TELLER OR MANAGER ACCOUNT because I can refresh those
         System.out.println("Complete Transaction");
 
-        FinanceDriver.completeTransaction(manageExistingTellerFundsTransferAmount,manageExistingTellerTransferFunds,manageExistingTellerCheckingAccount,
-                manageExistingTellerSavingsAccount,manageDispDataErrLabel);
-        manageExistingTellerFundsTransferAmount.setText("");
+        FinanceDriver.completeTransaction(manageExistingFundsTransferAmount, manageExistingTransferFunds, manageExistingCheckingAccount,
+                manageExistingSavingsAccount,manageDispDataErrLabel);
+        manageExistingFundsTransferAmount.setText("");
         tellerManageDispData();
         transferFundsKeyEvent();
 
@@ -2086,7 +2053,7 @@ public class Controller implements Initializable{
         manageDispDataState.setText(ca.getState());
         manageDispDataZip.setText(ca.getZip());
 
-        if(manageExistingTellerCheckingAccount.isSelected()){
+        if(manageExistingCheckingAccount.isSelected()){
             if(ca.hasCheckingAccount()){
                 String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
                 manageDispDataAcctBalance.setText(balanceFormatted);
@@ -2103,11 +2070,11 @@ public class Controller implements Initializable{
                 manageDispDataAcctType.setText(checkingAcctType);
 
             }else{
-                manageExistingTellerCheckingAccount.setDisable(true);
+                manageExistingCheckingAccount.setDisable(true);
                 manageDispDataAcctBalance.setText("");
                 manageDispDataAcctStatus.setText("No account for user");
             }
-        }else if(manageExistingTellerSavingsAccount.isSelected()){
+        }else if(manageExistingSavingsAccount.isSelected()){
             //
             SavingsAccount simple = ca.getSimpleSavingsAccount();
             String balanceFormatted = DataEntryDriver.formatAccountBalance(simple.getAccountBalance());
@@ -4009,14 +3976,14 @@ public class Controller implements Initializable{
                 ", addNewUserPreviousButton=" + addNewUserPreviousButton +
                 ", bankManagerPrevButton=" + bankManagerPrevButton +
                 ", manageExistingDispDataPrevButton=" + manageExistingDispDataPrevButton +
-                ", manageExistingTellerUpdateDataButton=" + manageExistingTellerUpdateDataButton +
-                ", manageExistingTellerViewRecentActivityButton=" + manageExistingTellerViewRecentActivityButton +
-                ", manageExistingTellerDebitCreditAccountButton=" + manageExistingTellerDebitCreditAccountButton +
-                ", manageExistingTellerCheckingAccount=" + manageExistingTellerCheckingAccount +
-                ", manageExistingTellerSavingsAccount=" + manageExistingTellerSavingsAccount +
-                ", manageExistingTellerFundsTransferAmount=" + manageExistingTellerFundsTransferAmount +
-                ", tellerUpdateDataPreviousButton=" + tellerUpdateDataPreviousButton +
-                ", tellerUpdateDataSaveButton=" + tellerUpdateDataSaveButton +
+                ", manageExistingUpdateDataButton=" + manageExistingUpdateDataButton +
+                ", manageExistingViewRecentActivityButton=" + manageExistingViewRecentActivityButton +
+                ", manageExistingDebitCreditAccountButton=" + manageExistingDebitCreditAccountButton +
+                ", manageExistingCheckingAccount=" + manageExistingCheckingAccount +
+                ", manageExistingSavingsAccount=" + manageExistingSavingsAccount +
+                ", manageExistingFundsTransferAmount=" + manageExistingFundsTransferAmount +
+                ", updateDataPreviousButton=" + updateDataPreviousButton +
+                ", updateDataSaveButton=" + updateDataSaveButton +
                 ", updateDataSSN=" + updateDataSSN +
                 ", tellerUpdateDataFirstName=" + updateDataFirstName +
                 ", updateDataLastName=" + updateDataLastName +
