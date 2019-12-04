@@ -36,12 +36,6 @@ public class Main extends Application {
 
 
 
-
-
-
-    //private static String customerDataDir = "src/Resources/customerData";
-    //private static File customerFile = new File(customerDataDir);
-    //private static DataEntryDriver customerData = new DataEntryDriver(customerFile);
     public static File outputFile;
     public static PrintWriter out;
     public static File outputEmployeeRecord;
@@ -58,8 +52,6 @@ public class Main extends Application {
     public static EmployeeAccount loggedInEmployee;
     public static CustomerAccount loggedInCustomer;
     public static int lastAccId=1;
-    public static boolean taskFinished = false;
-    public static boolean taskRunning = false;
     private static int retry =0;
 
     @Override

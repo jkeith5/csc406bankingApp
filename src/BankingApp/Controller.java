@@ -29,9 +29,6 @@ import java.net.URL;
 
 
 public class Controller implements Initializable{
-    //public static Stage primaryStage = Main.primaryStage;
-    //public static Placeholder placeholder = new Placeholder();
-
     public static String activeFXMLFileName="";
 
     public static boolean tellerLogIn;
@@ -282,46 +279,35 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //System.out.println("\ninitializing controller");
         Main.printToConsoleAndLog("Initializing Controller");
         System.out.println("\n\n");
 
-
-
-
-
-
-        //DataEntryDriver.printCustomerDatabase();
-
-        String locationString = DataEntryDriver.getLocationFileName(location);
-        activeFXMLFileName = locationString;
+        String locationString = DataEntryDriver.getLocationFileName(location); // holds location of the interface name
+        activeFXMLFileName = locationString; // sets a global variable to the active interface name
         System.out.println(locationString);
 
-        Image helpLogo = null;
+        Image helpLogo = null; // sets the help logo for the interface
         if(DataEntryDriver.runningFromIDE()){
             helpLogo = new Image("file:src/Resources/help.png");
-            //System.out.println(helpLogo.getHeight());
         }else{
             helpLogo = new Image("file:"+System.getProperty("user.dir")+"/Resources/help.png");
         }
 
-        // Okay so note to self. Each time an interface is created from one of the
-        // many buttons in this program, The
 
-        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        boolean stackDebug = false; // switch to true to get stack trace debugging
+        if(stackDebug){ // if true then print stack trace debug info
+            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+            System.out.println("\n\nStackTrace\n");
+            System.out.println("Stack Trace: "+stackTraceElements[10].toString());
 
-        System.out.println("\n\nStackTrace\n");
-        System.out.println("Stack Trace: "+stackTraceElements[10].toString());
-
-        int z = -1;
-        if(z!=-1){
             int i =0;
             for(StackTraceElement ste:stackTraceElements){
-                //System.out.println("Calling Method Name: "+ste.getMethodName());
-                //System.out.println("Line Number of Caller: "+ste.getLineNumber());
+                System.out.println("Calling Method Name: "+ste.getMethodName());
+                System.out.println("Line Number of Caller: "+ste.getLineNumber());
                 System.out.println(String.valueOf(i)+" : "+ste.toString());
                 i++;
             }
+            System.out.println("\nEnd Stack Trace\n");
         }
 
         String loggedInEmployeeType = "null";
@@ -329,24 +315,12 @@ public class Controller implements Initializable{
             loggedInEmployeeType = Main.loggedInEmployee.getType();
         }
 
-
-        System.out.println("\nEnd Stack Trace\n");
-
-        // so either create a seperate Controller for interfaces that need to pull dynamic data
-        // or just make a bunch of if statement blocks here with the location filename and
-        // initialize the data for the interface. I'll go with the second method.
-
-
-
         if(locationString.equals("AddNewUser.fxml")){
-
             stateComboBox.setTooltip(new Tooltip());
             stateComboBox.getItems().clear();
             stateComboBox.getItems().addAll(states);
             autoCombo = new ComboBoxAutoComplete<String>(stateComboBox); // creates and manages the combo box
-
             Main.defaultSceneButton = addNewUserInterfaceEnterButton;
-
         }
 
         if(locationString.equals("CustomerCreditCard.fxml")){
@@ -368,8 +342,6 @@ public class Controller implements Initializable{
                 }
             });
 
-
-
             customerAtmDispData();
             creditCardAmountEvent();
         }
@@ -384,15 +356,12 @@ public class Controller implements Initializable{
 
         if(locationString.equals("ManageExistingUser.fxml")){
             // set to static ssn for now for testing
-
-
             if(!DataEntryDriver.ssnInDatabase(DataEntryDriver.stripSSN(manageUserSSNField.getText()))){
                 // if whatever is in the box is not in the database, display this code
                 manageUserSSNField.setText("423-45-3245");
                 manageUserLookupButton.setDisable(false);
                 setManageUserErrLabel(manageUserSSNField.getText());
             }else{
-
                 manageUserKeyEvent(null);
             }
 
@@ -401,6 +370,7 @@ public class Controller implements Initializable{
         if(locationString.equals("ManageExistingUserDisplayData.fxml")){
             System.out.println(Main.loggedInEmployee.getType());
             CustomerAccount ca = Main.customerAccount;
+
             accTypeToggleGroup = manageExistingTellerCheckingAccount.getToggleGroup();
             manageExistingTellerTransferFunds.setSelected(false);
             manageExistingTellerTransferFunds.setDisable(true);
@@ -413,7 +383,6 @@ public class Controller implements Initializable{
                 manageExistingTellerCheckingAccount.setDisable(true);
             }
 
-            // STUFF I NEED TO ADD. differentiate between savings cd and simple savings and display the correct type to teller
             // teller can credit any account but savings CD
             // same as above but with savings account
             if(!ca.hasSavingsAccount()){// if no savings account
@@ -455,6 +424,7 @@ public class Controller implements Initializable{
             // since the manager can see everything anyway just disable the stuff for the teller
             if(Main.loggedInEmployee.getType().equals("T")){
                 deleteCustomerAccountButton.setDisable(true);
+                manageExistingTellerAddFinanceAccountButton.setDisable(true);
             }
 
             if(FinanceDriver.hasUnprocessedChecks(ca)){
