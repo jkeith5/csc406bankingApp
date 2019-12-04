@@ -35,27 +35,27 @@ public class CustomerAccount implements Serializable {
     // the ID for the 3rd LTL will look like: 12-04-02 the second LTL account would be 12-04-01 and the first is always 12-04-00
 
 
-    public boolean hasSavingsAccount=false;
-    public boolean hasSimpleSavings=false;
-    public boolean hasCDSavings = false;
+    private boolean hasSavingsAccount=false;
+    private boolean hasSimpleSavings=false;
+    private boolean hasCDSavings = false;
 
-    public boolean hasCheckingAccount=false;
+    private boolean hasCheckingAccount=false;
 
-    public boolean hasLoanAccount=false;
-    public boolean hasShortTermLoan=false;
-    public boolean hasLongTermLoan=false;
-    public boolean hasCreditCardAcct=false;
+    private boolean hasLoanAccount=false;
+    private boolean hasShortTermLoan=false;
+    private boolean hasLongTermLoan=false;
+    private boolean hasCreditCardAcct=false;
 
 
 
     //public SavingsAccount savingsAccount;
-    public ArrayList<SavingsAccount> savingsAccounts = new ArrayList<SavingsAccount>();
+    private ArrayList<SavingsAccount> savingsAccounts = new ArrayList<SavingsAccount>();
 
 
-    public CheckingAccount checkingAccount;
-    public ArrayList<Transaction> transactions= new ArrayList<Transaction>();
-    public ArrayList<LoanAccount> loanAccounts= new ArrayList<LoanAccount>();
-    public ArrayList<Check> checks = new ArrayList<Check>();
+    private CheckingAccount checkingAccount;
+    private ArrayList<Transaction> transactions= new ArrayList<Transaction>();
+    private ArrayList<LoanAccount> loanAccounts= new ArrayList<LoanAccount>();
+    private ArrayList<Check> checks = new ArrayList<Check>();
 
     public boolean isNull=false;
 

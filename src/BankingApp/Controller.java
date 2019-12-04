@@ -808,7 +808,7 @@ public class Controller implements Initializable{
             Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+" added account: "+
             tempAccount.toString());
 
-            goToTellerScene();
+            goToLoggedInEmployeeScene();
 
         }else{
             unsuccessfulEntryLabel.setText("ERROR CUSTOMER DATA WAS NOT SAVED!!!! PLEASE CONTACT TECH SUPPORT");
@@ -1761,7 +1761,7 @@ public class Controller implements Initializable{
     public void deleteAccountButton(){
         DataEntryDriver.removeCustomerAccount(Main.customerAccount.getCustID());
 
-        goToTellerScene();
+        goToLoggedInEmployeeScene();
 
 
     }
@@ -1898,8 +1898,8 @@ public class Controller implements Initializable{
         Parent root = null;
         Parent login = null;
         try {
-            if(managerLogIn){
-                managerPendingLogin = false;
+            if(managerLogIn){ // if manager is still logged in
+                managerPendingLogin = false; // make sure pending is false
                 root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
                 Main.primaryStage.setTitle("Bank Manager Interface");
                 Main.primaryStage.setScene(new Scene(root, 700, 500));
@@ -3284,7 +3284,7 @@ public class Controller implements Initializable{
             Main.activeStage=Main.primaryStage;
             System.out.println("active to pri in goToMainScene");
 
-            tellerLogIn = false;
+            tellerLogIn = false; // if returning to the main screen log out all logged in accounts
             managerLogIn = false;
             customerLogIn = false;
 
@@ -3294,22 +3294,27 @@ public class Controller implements Initializable{
         }
     }
 
+    // used to go to the main interface of the logged in employee
     @FXML
-    public void goToTellerScene(){
+    public void goToLoggedInEmployeeScene(){
         Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
-            Main.primaryStage.setTitle("Teller Interface");
-            Main.primaryStage.setScene(new Scene(root,700,500));
-            Main.primaryStage.show();
-            Main.activeStage=Main.primaryStage;
-            System.out.println("active to pri goToTellerScene");
 
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            Main.activeStage=null;
+        String loggedInEmployeeType = "null";
+        if(Main.loggedInEmployee!=null){
+            loggedInEmployeeType = Main.loggedInEmployee.getType();
         }
+
+        if(loggedInEmployeeType.equals("T")){
+            mainInterfaceTellerButton();
+        }
+        if(loggedInEmployeeType.equals("M")){
+            mainInterfaceManagerButton();
+        }
+
+        if(loggedInEmployeeType.equals("null")){
+            goToMainScene();
+        }
+
     }
 
     @FXML
