@@ -737,25 +737,58 @@ public class CustomerAccount implements Serializable {
         int numberOfAccounts = 0;// because 00 is our starting number
         // ^^^^ Tracks the number of accounts of specified type and returns the next available account ID
         if(hasLoanAccount()){ // if they have a loan account of any type
-            if(loanAcctType.equals("STL")){ // if input acct type is STL
-                for(LoanAccount la:this.loanAccounts){ // Loop through the accounts
-                    if(la.getLoanAccountType().equals("STL")){// finding only the STL
-                        numberOfAccounts++;// and increment the number
-                    }
+            String tempSubID = String.format("%02d",numberOfAccounts); // pad the number as such 00 01 02 99
+            boolean idExists = loanSubIDAlreadyExists(tempSubID,loanAcctType);
+
+
+            while(idExists){
+                numberOfAccounts++;
+                tempSubID = String.format("%02d",numberOfAccounts);
+                if(numberOfAccounts == 99){
+                    System.err.println("NUMBER OF ACCOUNTS EXCEEDS PROGRAMMING SPECS");
+                    break;
                 }
+                idExists = loanSubIDAlreadyExists(tempSubID,loanAcctType);
             }
-            // only search these two types because theyre the only loan account we will allow multiple of.
-            if(loanAcctType.equals("LTL")){
-                for(LoanAccount la:this.loanAccounts){
-                    if(la.getLoanAccountType().equals("LTL")){
-                        numberOfAccounts++;
-                    }
-                }
-            }
+
+
+
         }
 
         returnVal = String.format("%02d",numberOfAccounts); // pad the number as such 00 01 02 99
 
+        return returnVal;
+    }
+
+    public boolean loanSubIDAlreadyExists(String subIdOfLoanAccount,String loanType){
+        boolean returnVal = false;
+
+        if(loanType.equals("STL") || loanType.equals("LTL")){
+            if(loanType.equals("STL")){
+                if(hasShortTermLoan){
+                    for(LoanAccount la:loanAccounts){
+                        if(la.getLoanAccountType().equals("STL")){
+                            if(la.getLoanAccountIDFixed().split("-")[2].equals(subIdOfLoanAccount)){
+                                returnVal = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if(loanType.equals("LTL")){
+                if(hasLongTermLoan){
+                    for(LoanAccount la:loanAccounts){
+                        if(la.getLoanAccountType().equals("LTL")){
+                            if(la.getLoanAccountIDFixed().split("-")[2].equals(subIdOfLoanAccount)){
+                                returnVal=true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return returnVal;
     }
 
@@ -766,19 +799,42 @@ public class CustomerAccount implements Serializable {
         int numberOfAccounts = 0;// because 00 is our starting number
         //System.out.println("# of accts: "+numberOfAccounts);
 
-        if(hasSavingsAccount()){
-            for(SavingsAccount sa:this.savingsAccounts){
-                if(sa.isCdAccount()){ // searching the cd accounts
-                    numberOfAccounts++;
-                    //System.out.println("# of accts: "+numberOfAccounts);
-                }
+
+        String idTemp = String.format("%02d",numberOfAccounts);
+        boolean newIdExists = savingsCDSubIDAlreadyExists(idTemp);
+
+        while(newIdExists){ // while the new id already exist
+            numberOfAccounts++;
+            idTemp = String.format("%02d",numberOfAccounts);
+            if(numberOfAccounts == 99){
+                System.err.println("NUMBER OF ACCOUNTS EXCEEDS PROGRAMMING SPECS");
+                break;
             }
+            newIdExists = savingsCDSubIDAlreadyExists(idTemp);
         }
+
+
+
         returnVal = String.format("%02d",numberOfAccounts); // pad the number as such 00 01 02 99
         return returnVal;
     }
 
 
+    public boolean savingsCDSubIDAlreadyExists(String subIdOfSavings){
+        boolean returnVal = false;
+
+        if(hasCDSavings){
+            for(SavingsAccount savingsAccount:getCDSavingsAccounts()){
+                if(subIdOfSavings.equals(savingsAccount.getSavingsAcctIDFixed().split("-")[2])){
+                    returnVal = true;
+                    break;
+                }
+            }
+        }
+
+
+        return returnVal;
+    }
 
 
     @Override
