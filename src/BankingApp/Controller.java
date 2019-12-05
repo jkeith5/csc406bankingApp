@@ -3093,11 +3093,10 @@ public class Controller implements Initializable{
             if(loginInterUser.getText() == "teller" || loginInterUser.getText().length()>0){
                 // here we would validate the credintials but They're always good for now
 
-                if(loginInterPass.getText().length()>0){
+                if(loginInterPass.getText().equals("Teller")){
                     // here we would validate the password for the user
                     returnVal=true;
-                }else{
-                    returnVal=false;
+                    Main.out.println(Main.getDateTimeString()+ "Teller " + loginInterUser.getText() + " accessed the system ----------");
                 }
             }else{
                 System.out.println("not a valid username for a Teller Account");
@@ -3106,10 +3105,9 @@ public class Controller implements Initializable{
         if(userType == "Manager"){
             // verify the credentials of the Manager account
             if(loginInterUser.getText() == "manager" || loginInterUser.getText().length()>0){
-                if(loginInterPass.getText().length()>0){
+                if(loginInterPass.getText().equals("Manager")){
                     returnVal=true;
-                }else{
-                    returnVal=false;
+                    Main.out.println(Main.getDateTimeString()+ "Manager " + loginInterUser.getText() + " accessed the system ----------");
                 }
             }
         }
@@ -3121,12 +3119,10 @@ public class Controller implements Initializable{
                    String caPin = ca.getPin();
 
                    if(loginInterPass.getText().equals(caPin)){
-                       // put the code here to validate pin
+                       Main.customerAccount = ca;
+                       System.out.println("Selected ca from atm card is: "+ca.toString());
+                       returnVal=true;
                    }
-
-                   Main.customerAccount = ca;
-                   System.out.println("Selected ca from atm card is: "+ca.toString());
-                   returnVal=true;
 
                }else{// if search was null
                    Main.customerAccount=Main.customerAccounts.get(0);// statically set the first account
