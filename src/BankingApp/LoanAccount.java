@@ -406,7 +406,15 @@ public class LoanAccount implements Serializable {
     }
 
     public String getLoanAccountIDFixed(){
-        return this.loanAccountIDFixed;
+        if(loanAccountIDFixed!=null){
+            return this.loanAccountIDFixed;
+        }else{
+            if(loanAccountID.contains("-")){
+                return this.loanAccountID;
+            }else{
+                return "null";
+            }
+        }
     }
 
 
@@ -557,7 +565,7 @@ public class LoanAccount implements Serializable {
 
 
 
-    public String getType(){
+    public String getTypeFullName(){
         if(this.loanAccountType.equals("STL")){
             return "Short Term Loan";
         }

@@ -284,7 +284,7 @@ public class FinanceDriver {
                                 // transaction is more than what is in backup saving account then take it from savings
 
                                 // transfer the amount that is negative in checking account from savings
-                                creditDebitSavingsAccount(ca.getSimpleSavingsAccount(),newBal,"Transfer to Checking Backup Savings");
+                                creditDebitSavingsAccount(ca,ca.getSimpleSavingsAccount(),newBal,"Transfer to Checking Backup Savings");
                                 System.out.println("newbal 1: "+newBal);
                                 double transferAmountTemp = Math.abs(newBal); // take the absolute value of newbal which was a negative
                                 // then put it in the checking account.
@@ -326,12 +326,12 @@ public class FinanceDriver {
                 // no fee on savings accounts
                 if(transferAmtDouble<0.0){ // making a debit to savings account
                     if(newBal>0.00){// if new balance is not negative
-                        creditDebitSavingsAccount(ca.getSimpleSavingsAccount(),transferAmtDouble,"");
+                        creditDebitSavingsAccount(ca,ca.getSimpleSavingsAccount(),transferAmtDouble,"");
                         System.out.println("debit on savings account ");
                     }
 
                 }else{// making a credit to savings account Add as much as you want $$$
-                    creditDebitSavingsAccount(ca.getSimpleSavingsAccount(),transferAmtDouble,"");
+                    creditDebitSavingsAccount(ca,ca.getSimpleSavingsAccount(),transferAmtDouble,"");
                     System.out.println("credit on savings account");
                 }
 
@@ -398,8 +398,18 @@ public class FinanceDriver {
 
     // just for simple withdraw and deposit on savings account. No Transaction fee from what I read
     // auto adds transaction object to customerAccount
-    public static void creditDebitSavingsAccount(SavingsAccount savingsAccount, double transactionAmount,String desc){
-        //System.out.println("Crediting a savings account: "+savingsAccount.toString());
+    // for saving cd accounts it will credit fine
+    // for saving cd on a withdrawal (negative value) it will apply the fee and withdrawal the amount
+    // if the fee plus amount is over the value of the cd, it will just close the cd account and zero the balance
+    // It was difficult to find information on partial withdrawals, but I found some help
+    //
+    // Early PARTIAL withdrawal of Cd. Will apply Fee, Then create a new CD With same term as old one.
+    public static void creditDebitSavingsAccount(CustomerAccount ca,SavingsAccount savingsAccount, double transactionAmount,String desc){
+        if(savingsAccount.isCdAccount()){
+            System.err.println("ATTEMPTING TO CREDIT DEBIT A SAVINGS CD ACCOUNT with standard method");
+            return; // don't process a cd account here
+        }
+
         Transaction transaction = new Transaction();
         transaction.setTransactionAccount("S"); // a transaction on the Savings Account
 
@@ -419,18 +429,92 @@ public class FinanceDriver {
             }
         }
 
-
-
         savingsAccount.setAccountBalance(savingsAccount.getAccountBalance()+transactionAmount); // just add + or - will work correctly
         transaction.setAmount(transactionAmount); // should only be positive
 
         // record transaction in log
-
-        Main.customerAccount.addTransactionObject(transaction);
-        //System.out.println("Transaction added: "+savingsAccount.toString());
-        //System.out.println("taking: "+transactionAmount +" on Savings account");
+        ca.addTransactionObject(transaction);
 
     }
+
+    // if close account is true it just closes the cd
+    // if false it makes a new cd in place of this one with new close date and same interest rate
+    // if debitAmt is greater than cd value after fee, it closes all of the account
+    public static void debitSavingsCDAccount(CustomerAccount ca,SavingsAccount savingsAccount,double debitAmount,boolean closeAccount,String desc) {
+        if(!savingsAccount.isCdAccount()){
+            System.err.println("Use the regular debit/credit Savings method");
+            return;
+        }
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionType("W");
+        transaction.setTransactionAccount("S");
+        transaction.setDate(DataEntryDriver.getDateString());
+
+
+        double debitAmtFixed = Math.abs(debitAmount);
+
+        LocalDate today = DataEntryDriver.getCurrentDateObject();
+        LocalDate cdCloseDate = DataEntryDriver.getDateObjectFromString(savingsAccount.getCdCloseDate());
+        double currentCDValue = savingsAccount.getCurrentCDValue();
+
+        if(today.isAfter(cdCloseDate)){
+            // no fee
+            if(closeAccount){ // true so it does not roll over
+                transaction.setAmount(currentCDValue);
+                savingsAccount.setAccountBalance(0.0);
+            }else{
+                double remainingValue = currentCDValue - debitAmtFixed;
+                int originalTerm = savingsAccount.getOriginalTermOfCD();
+                LocalDate newCloseDate = today.plusYears(originalTerm);
+
+                if(remainingValue>0.001){
+                    savingsAccount.setAccountBalance(remainingValue);
+                    savingsAccount.setDateOpened(DataEntryDriver.getDateString());
+                    savingsAccount.setCdCloseDate(DataEntryDriver.getStringFromLocalDateFormatted(newCloseDate));
+                    transaction.setAmount(debitAmtFixed);
+                }else{ // taking more than cd is worth
+                    savingsAccount.setAccountBalance(0.0);
+                    transaction.setAmount(currentCDValue);
+                }
+
+
+            }
+        }else{ // early withdrawal
+            double withdrawalFee = savingsAccount.getFeeForWithdrawalOfCDonThisDay();
+            double amountAfterFee = currentCDValue-withdrawalFee;
+            if(closeAccount){
+                transaction.setAmount(amountAfterFee);
+                savingsAccount.setAccountBalance(0.00);
+            }else{
+                double remainingValue = amountAfterFee - debitAmtFixed;
+                int originalTerm = savingsAccount.getOriginalTermOfCD();
+                LocalDate newCloseDate = today.plusYears(originalTerm);
+                if(remainingValue>0.001){
+                    savingsAccount.setAccountBalance(remainingValue);
+                    savingsAccount.setDateOpened(DataEntryDriver.getDateString());
+                    savingsAccount.setCdCloseDate(DataEntryDriver.getStringFromLocalDateFormatted(newCloseDate));
+                    transaction.setAmount(debitAmtFixed);
+                }else{
+                    savingsAccount.setAccountBalance(0.0);
+                    transaction.setAmount(amountAfterFee);
+                }
+            }
+        }
+
+        if(desc.length()>0){
+            transaction.setDescription(desc);
+        }else{
+            transaction.setDescription("Savings CD Withdrawal");
+        }
+
+        ca.addTransactionObject(transaction);
+
+
+
+
+    }
+
 
 
     // used to post process checks
@@ -595,13 +679,31 @@ public class FinanceDriver {
 
                 ca.addTransactionObject(transaction);
 
-
-
             }
+        }
+    }
 
+    // returns a double value of the remaining CD Value after the Withdrawal.
+    // this amount should be invested into a new CD if they choose to do so,
+    // just records the Transaction and returns the amount left.
+    public static double applyWithdrawalFeeOnSavingsCD(CustomerAccount ca,SavingsAccount savingsAccount){
+        double remainingValue = 0.0;
+        if(savingsAccount.isCdAccount()){
+            double currentCDValue = savingsAccount.getCurrentCDValue();
+            double withdrawalFee = savingsAccount.getFeeForWithdrawalOfCDonThisDay();
+            Transaction transaction = new Transaction();
+            transaction.setTransactionType("F");
+            transaction.setDescription("CD Withdrawal Fee");
+            transaction.setDate(DataEntryDriver.getDateString());
+            transaction.setTransactionAccount("S");
+            transaction.setAmount(withdrawalFee);
+
+            ca.addTransactionObject(transaction);
+
+            remainingValue = currentCDValue - withdrawalFee;
 
         }
-
+        return  remainingValue;
     }
 
 

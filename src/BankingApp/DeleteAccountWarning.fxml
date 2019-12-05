@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="458.0" prefWidth="558.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BankingApp.Controller">
+   <children>
+      <Pane prefHeight="488.0" prefWidth="592.0">
+         <children>
+            <Label layoutX="136.0" layoutY="40.0" prefHeight="17.0" prefWidth="30.0" text="SSN:" />
+            <Label layoutX="136.0" layoutY="57.0" prefHeight="17.0" prefWidth="65.0" text="First Name:" />
+            <Label layoutX="136.0" layoutY="76.0" prefHeight="17.0" prefWidth="65.0" text="Last Name:" />
+            <Label layoutX="298.0" layoutY="40.0" prefHeight="17.0" prefWidth="83.0" text="Street Address:" />
+            <Label layoutX="298.0" layoutY="57.0" prefHeight="17.0" prefWidth="30.0" text="City:" />
+            <Label layoutX="298.0" layoutY="76.0" prefHeight="17.0" prefWidth="30.0" text="State:" />
+            <Label layoutX="366.0" layoutY="76.0" prefHeight="17.0" prefWidth="30.0" text="Zip: " />
+            <Label fx:id="manageDispDataSSN" layoutX="168.0" layoutY="40.0" prefHeight="17.0" prefWidth="97.0" text="000-00-0000" />
+            <Label fx:id="manageDispDataFirst" layoutX="197.0" layoutY="57.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+            <Label fx:id="manageDispDataLast" layoutX="201.0" layoutY="76.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
+            <Label fx:id="manageDispDataStreetAddr" layoutX="381.0" layoutY="40.0" prefHeight="17.0" prefWidth="133.0" text="Label" />
+            <Label fx:id="manageDispDataCity" layoutX="381.0" layoutY="57.0" prefHeight="17.0" prefWidth="133.0" text="Label" />
+            <Label fx:id="manageDispDataState" layoutX="330.0" layoutY="76.0" prefHeight="17.0" prefWidth="30.0" text="MO" />
+            <Label fx:id="manageDispDataZip" layoutX="387.0" layoutY="76.0" prefHeight="17.0" prefWidth="133.0" text="00000" />
+            <Text layoutX="261.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
+            <Button fx:id="openFinancialAccountsPreviousButton" layoutX="14.0" layoutY="449.0" mnemonicParsing="false" onAction="#closeDeleteCustomerAccountWarningWindow" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Label layoutX="227.0" layoutY="244.0" text="Select Account To Close" />
+            <ComboBox fx:id="openFinancialAccountsComboBox" layoutX="225.0" layoutY="280.0" prefWidth="150.0" />
+            <Label layoutX="116.0" layoutY="336.0" text="Account Balance:" />
+            <TextField fx:id="openFinancialAccountBalanceField" disable="true" layoutX="223.0" layoutY="332.0" opacity="0.9" />
+            <Button fx:id="openFinancialAccountsCloseAccountButton" layoutX="488.0" layoutY="449.0" mnemonicParsing="false" onAction="#closeFinancialAccountAction" onKeyPressed="#enterKeyDefaultEvent" text="Close Account" />
+            <Label layoutX="171.0" layoutY="127.0" prefHeight="25.0" prefWidth="259.0" text="Warning Customer Still has Open Accounts." textFill="RED" wrapText="true" />
+            <Label layoutX="171.0" layoutY="152.0" prefHeight="25.0" prefWidth="303.0" text="Please Close Each Open Account To Delete Customer" textFill="RED" wrapText="true" />
+            <Label fx:id="tempLabel" layoutX="387.0" layoutY="336.0" prefHeight="17.0" prefWidth="179.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -508,6 +508,7 @@ public class CustomerAccount implements Serializable {
     public void deleteCheckingAccount(){ // object
         this.checkingAccount= null;
         this.hasCheckingAccount=false;
+        calculateBooleanValues();
     }
 
 
@@ -515,7 +516,16 @@ public class CustomerAccount implements Serializable {
         this.savingsAccounts = new ArrayList<SavingsAccount>();
         this.hasSavingsAccount=false;
         this.hasSimpleSavings=false;
+        calculateBooleanValues();
     }
+
+    public void deleteSavingsAccountObject(SavingsAccount savingsAccountObj){
+        if(hasSavingsAccount){
+            savingsAccounts.remove(savingsAccountObj);
+            calculateBooleanValues();
+        }
+    }
+
 
 
 
@@ -528,6 +538,80 @@ public class CustomerAccount implements Serializable {
 
     }
 
+    public void deleteLoanAccountObject(LoanAccount loanAccountObject){
+        if(hasLoanAccount){
+            loanAccounts.remove(loanAccountObject);
+            calculateBooleanValues();
+        }
+    }
+
+
+    public void calculateBooleanValues(){
+        if(this.checkingAccount==null){
+            this.hasCheckingAccount=false;
+        }else{
+            this.hasCheckingAccount=true;
+        }
+
+        if(savingsAccounts!=null){
+            if(savingsAccounts.size()!=0){
+                hasSavingsAccount=true;
+                hasSimpleSavings=false;
+                hasCDSavings=false;
+                for(SavingsAccount sa:savingsAccounts){
+                    if(sa.isCdAccount()){
+                        hasCDSavings=true;
+                    }
+                    if(!sa.isCdAccount()){
+                        hasSimpleSavings=true;
+                    }
+                }
+            }else{
+                hasSavingsAccount=false;
+                hasSimpleSavings=false;
+                hasCDSavings=false;
+            }
+        }else{
+            hasSavingsAccount=false;
+            hasSimpleSavings=false;
+            hasCDSavings=false;
+        }
+
+        if(loanAccounts!=null){
+            if(loanAccounts.size()!=0){
+                hasShortTermLoan=false;
+                hasLongTermLoan=false;
+                hasCreditCardAcct=false;
+                hasLoanAccount=true;
+                for(LoanAccount la:loanAccounts){
+                    if(la.getLoanAccountType().equals("STL")){
+                        hasShortTermLoan=true;
+                    }
+                    if(la.getLoanAccountType().equals("LTL")){
+                        hasLongTermLoan=true;
+                    }
+                    if(la.getLoanAccountType().equals("CCL")){
+                        hasCreditCardAcct=true;
+                    }
+                }
+            }else{
+                hasLoanAccount=false;
+                hasShortTermLoan=false;
+                hasLongTermLoan=false;
+                hasCreditCardAcct=false;
+            }
+        }else{
+            hasLoanAccount=false;
+            hasShortTermLoan=false;
+            hasLongTermLoan=false;
+            hasCreditCardAcct=false;
+        }
+
+
+
+
+
+    }
 
     // used to fix the old IDs to the new format
     public void fixIDforCustomerAccounts(CustomerAccount customerAccountIn){

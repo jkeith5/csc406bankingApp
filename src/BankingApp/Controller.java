@@ -237,6 +237,11 @@ public class Controller implements Initializable{
 
     @FXML Button testButton;
 
+    @FXML ComboBox<String> openFinancialAccountsComboBox;
+    @FXML TextField openFinancialAccountBalanceField;
+    @FXML Button openFinancialAccountsCloseAccountButton;
+    @FXML Button openFinancialAccountsPreviousButton;
+
 
 
 
@@ -744,9 +749,54 @@ public class Controller implements Initializable{
 
 
         }
-        if(locationString.equals("AddFXMLFileNameHere.fxml")){
-            // Enter code to run on initialization of the FXML Scene
-            // .... like the methods to populate data
+        if(locationString.equals("DeleteAccountWarning.fxml")){
+            dispDataUpper();
+            CustomerAccount ca = Main.customerAccount;
+            openFinancialAccountsCloseAccountButton.setDisable(true);
+
+            ArrayList<String> financialAccountIDS = new ArrayList<>();
+            boolean hasChecking = ca.hasCheckingAccount();
+            boolean hasSavings = ca.hasSavingsAccount();
+            boolean hasLoan = ca.hasLoanAccount();
+
+            if(hasChecking){
+                if(ca.getCheckingAccount().getAccountBalance()>0.001 || ca.getCheckingAccount().getAccountBalance()<0.001){
+                    financialAccountIDS.add(ca.getCheckingAccount().getCheckingAcctIDFixed());
+                }
+            }
+            if(hasSavings){
+                for(SavingsAccount sa:ca.getSavingsAccounts()){
+                    if(sa.isCdAccount()){
+                        if(sa.getCurrentCDValue()>0.001){
+                            financialAccountIDS.add(sa.getSavingsAcctIDFixed());
+                        }
+                    }else{
+                        if(sa.getAccountBalance()>0.001){
+                            financialAccountIDS.add(sa.getSavingsAcctIDFixed());
+                        }
+                    }
+                }
+            }
+            if(hasLoan){
+                for(LoanAccount la:ca.getLoanAccounts()){
+                    if(la.getCurrentBalance()>0.001){
+                        financialAccountIDS.add(la.getLoanAccountIDFixed());
+                    }
+                }
+            }
+
+            openFinancialAccountsComboBox.getItems().clear();
+            openFinancialAccountsComboBox.getItems().addAll(financialAccountIDS); // the ones that have a balance
+            openFinancialAccountsComboBox.valueProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    openAccountsComboBoxEvent();
+                }
+            });
+
+
+
+
         }
         if(locationString.equals("AddFXMLFileNameHere.fxml")){
             // Enter code to run on initialization of the FXML Scene
@@ -893,6 +943,47 @@ public class Controller implements Initializable{
             stopPaymentButton.setDisable(true);
         }
 
+    }
+
+    public void openAccountsComboBoxEvent(){
+        CustomerAccount ca = Main.customerAccount;
+        String selectedAccountID = openFinancialAccountsComboBox.getValue();
+
+        Object selectedFinancialAccountObject = DataEntryDriver.getFinancialAccountObjectFromFixedID(selectedAccountID);
+
+        if(selectedFinancialAccountObject!=null){
+            if(selectedFinancialAccountObject instanceof CheckingAccount){
+                tempLabel.setText("Checking Account");
+                CheckingAccount checkingAccount = ca.getCheckingAccount();
+                double checkingBal = DataEntryDriver.round(checkingAccount.getAccountBalance(),2);
+                openFinancialAccountBalanceField.setText(DataEntryDriver.getStringFromDouble(checkingBal));
+                openFinancialAccountsCloseAccountButton.setDisable(false);
+            }
+            if(selectedFinancialAccountObject instanceof SavingsAccount){
+                SavingsAccount savingsAccount = (SavingsAccount) selectedFinancialAccountObject;
+                if(savingsAccount.isCdAccount()){
+                    tempLabel.setText("CD Savings");
+                    double cdBal = DataEntryDriver.round(savingsAccount.getCurrentCDValue(),2);
+                    openFinancialAccountBalanceField.setText(DataEntryDriver.getStringFromDouble(cdBal));
+                }else{
+                    tempLabel.setText("Simple Savings");
+                    double simpleSavingBal = DataEntryDriver.round(ca.getSimpleSavingsAccount().getAccountBalance(),2);
+                    openFinancialAccountBalanceField.setText(DataEntryDriver.getStringFromDouble(simpleSavingBal));
+                }
+                openFinancialAccountsCloseAccountButton.setDisable(false);
+
+            }
+            if(selectedFinancialAccountObject instanceof LoanAccount){
+                LoanAccount loanAccount = (LoanAccount) selectedFinancialAccountObject;
+                System.out.println(loanAccount.getLoanAccountType());
+                tempLabel.setText(loanAccount.getTypeFullName());
+
+                double loanBal = DataEntryDriver.round(loanAccount.getCurrentBalance(),2);
+                openFinancialAccountBalanceField.setText(DataEntryDriver.getStringFromDouble(loanBal));
+                openFinancialAccountsCloseAccountButton.setDisable(false);
+
+            }
+        }
 
 
 
@@ -1457,11 +1548,11 @@ public class Controller implements Initializable{
         tellerManageDispData();
         transferFundsKeyEvent();
 
-//        if(Main.loggedInEmployee.getType().equalsIgnoreCase("T")){
+//        if(Main.loggedInEmployee.getTypeFullName().equalsIgnoreCase("T")){
 //
 //        }
 //
-//        if(Main.loggedInEmployee.getType().equalsIgnoreCase("M")){
+//        if(Main.loggedInEmployee.getTypeFullName().equalsIgnoreCase("M")){
 //            // DISPLAY DATA METHOD FOR MANAGER DISPLAY
 //        }
         //
@@ -1761,15 +1852,67 @@ public class Controller implements Initializable{
     public void deleteAccountButton(){
         CustomerAccount ca = Main.customerAccount;
         boolean hasChecking = ca.hasCheckingAccount();
-        boolean hasSaving = ca.hasSavingsAccount();
+        boolean hasSimpleSavings = ca.hasSimpleSavings();
+        boolean hasSavingCd = ca.hasCDSavings();
         boolean hasLoan = ca.hasLoanAccount();
 
+        CheckingAccount checkingAccount = null;
+        SavingsAccount simpleSaving = null;
+        ArrayList<SavingsAccount> savingCDAccounts = new ArrayList<>();
+        ArrayList<LoanAccount> loanAccounts = new ArrayList<>();
+
+        boolean displayWarningScreen = false;
+
+        if(hasChecking || hasSavingCd || hasSimpleSavings ||hasLoan){
+            if(hasChecking){
+                checkingAccount = ca.getCheckingAccount();
+                if(checkingAccount.getAccountBalance()<0.001 || checkingAccount.getAccountBalance()>0.001){
+                    displayWarningScreen = true;
+                }
+            }
+            if(hasSimpleSavings){
+                simpleSaving = ca.getSimpleSavingsAccount();
+                if(simpleSaving.getAccountBalance()>0.001){
+                    displayWarningScreen = true;
+                }
+            }
+            if(hasSavingCd){
+                savingCDAccounts = ca.getCDSavingsAccounts();
+                for(SavingsAccount sa:savingCDAccounts){
+                    if(sa.getCurrentCDValue()>0.001){
+                        displayWarningScreen = true;
+                        break;
+                    }
+                }
+            }
+            if(hasLoan){
+                loanAccounts = ca.getLoanAccounts();
+                for(LoanAccount la:loanAccounts){
+                    if(la.getCurrentBalance()>0.001){
+                        displayWarningScreen = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        if(displayWarningScreen){
+            // display the warning screen
+            loadDeleteCustomerAccountWarningWindow();
+        }else{
+
+            // remove all individual accounts and log
+            DataEntryDriver.removeCustomerAccount(Main.customerAccount.getCustID());
+            goToLoggedInEmployeeScene();
+        }
 
 
 
-        DataEntryDriver.removeCustomerAccount(Main.customerAccount.getCustID());
 
-        goToLoggedInEmployeeScene();
+
+
+
 
 
     }
@@ -2447,7 +2590,8 @@ public class Controller implements Initializable{
 
             // should be a transaction object here and should be using a method in FinanceDriver But I'm not coding that
             // right now
-            savingsAccount.setAccountBalance(savingsBalAfterWithdrawal);
+            FinanceDriver.debitSavingsCDAccount(customerAccount,savingsAccount,withdrawalAmt,false,"Saving CD Withdrawal");
+            //savingsAccount.setAccountBalance(savingsBalAfterWithdrawal);
             goToManageFinanceAcc();
 
         }
@@ -2761,6 +2905,8 @@ public class Controller implements Initializable{
         //System.out.println(ca.toString());
         if(ca.hasCheckingAccount()){
             balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
+
+
         }
 
 
@@ -3253,6 +3399,73 @@ public class Controller implements Initializable{
 
     }
 
+    public void closeFinancialAccountAction() throws NullPointerException{
+        CustomerAccount ca = Main.customerAccount;
+        String selectedFinancialAccountID = openFinancialAccountsComboBox.getValue();
+
+        Object financialAccount = DataEntryDriver.getFinancialAccountObjectFromFixedID(selectedFinancialAccountID);
+
+
+
+        if(financialAccount instanceof CheckingAccount){
+            CheckingAccount checkingAccount = (CheckingAccount) financialAccount;
+            double checkingBalance = checkingAccount.getAccountBalance();
+            double amtToClose = 0.0;
+            amtToClose = 0.0 - checkingBalance; // 0-50 = -50 for positive bal . or 0.0- (-50) for +50 to close negative balance
+
+            FinanceDriver.creditDebitCheckingAccount(checkingAccount,amtToClose,"Closing Account");
+
+            Main.printToEmployeeLogFile(" Closed Checking Account: "+checkingAccount.toString());
+            ca.deleteCheckingAccount();
+
+        }
+        if(financialAccount instanceof SavingsAccount){
+            SavingsAccount savingsAccount = (SavingsAccount) financialAccount;
+            double closeBalance = 0.0;
+            if(savingsAccount.isCdAccount()){
+                FinanceDriver.debitSavingsCDAccount(ca,savingsAccount,0.00,true,"Closing CD Account");
+            }else{
+                closeBalance = 0.0- savingsAccount.getAccountBalance();
+                FinanceDriver.creditDebitSavingsAccount(ca,savingsAccount,closeBalance,"Closing Account");
+            }
+            Main.printToEmployeeLogFile(" Closed Savings Account: "+savingsAccount.toString());
+            ca.deleteSavingsAccountObject(savingsAccount);
+
+        }
+        if(financialAccount instanceof LoanAccount){
+            LoanAccount loanAccount = (LoanAccount) financialAccount;
+            double closeAmount = 0.0;
+            if(!loanAccount.getLoanAccountType().equals("CCL")){
+                // close loan accounts not a credit card
+                closeAmount = 0.0-loanAccount.getCurrentBalance();
+                FinanceDriver.creditDebitLoanAccount(loanAccount,closeAmount,"Closing Account");
+
+            }else{ // a ccl account so make payment on any remaining balance
+                loanAccount.makePayment(loanAccount.getCurrentBalance());// pay off any balance
+
+            }
+            Main.printToEmployeeLogFile(" Closed Loan Account: "+loanAccount.toString());
+            ca.deleteLoanAccountObject(loanAccount);
+
+        }
+
+        String idOfSelectedAcc = openFinancialAccountsComboBox.getValue();
+        openFinancialAccountsComboBox.getItems().remove(idOfSelectedAcc);// remove this id
+
+        if(openFinancialAccountsComboBox.getItems().size()!=0){
+            openFinancialAccountsComboBox.getSelectionModel().select(0);
+            openAccountsComboBoxEvent();
+        }else{
+            // close window and account
+            String customerID = ca.getCustID();
+            Main.printToEmployeeLogFile(" DELETED CUSTOMER ACCOUNT: "+ca.toString());
+            DataEntryDriver.removeCustomerAccount(customerID); // removes the account
+            closeStage(Main.activeStage); // close active stage which is the warning window
+            goToLoggedInEmployeeScene();// return to the logged in employee scene
+        }
+
+
+    }
 
 
 
@@ -3272,6 +3485,11 @@ public class Controller implements Initializable{
         }
 
 
+    }
+
+    public void closeDeleteCustomerAccountWarningWindow(){
+        closeStage(Main.activeStage);
+        goToDisplayDataScene();
     }
 
     public void closeStopPaymentWindow(){
@@ -3402,7 +3620,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    public void loadStopCheckPaymentWindow(){ // loads a simple help window
+    public void loadStopCheckPaymentWindow(){
         Parent stopPaymentWindow = null;
         try {
             stopPaymentWindow = FXMLLoader.load(getClass().getResource("StopPayment.fxml"));
@@ -3419,6 +3637,23 @@ public class Controller implements Initializable{
         }
     }
 
+    @FXML
+    public void loadDeleteCustomerAccountWarningWindow(){
+        Parent deleteCustomerWarning = null;
+        try {
+            deleteCustomerWarning = FXMLLoader.load(getClass().getResource("DeleteAccountWarning.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Delete Customer Account Warning");
+            stage.setScene(new Scene(deleteCustomerWarning,592,488));
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            Main.activeStage = stage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.activeStage = null;
+        }
+    }
 
 
     public void gotoCustomerInterface(){

@@ -2,6 +2,8 @@ package BankingApp;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -605,6 +607,73 @@ public class DataEntryDriver {
         return returnVal;
     }
 
+
+    public static CustomerAccount getCustomerAccountFromFinancialID(String financialID){
+        CustomerAccount returnAccount = new CustomerAccount();
+        int financialIDInt = getIntFromString(financialID);
+
+        for(CustomerAccount ca:Main.customerAccounts){
+            if(ca.getFinancialAccountID() == financialIDInt){
+                returnAccount = ca;
+                break;
+            }
+        }
+        return returnAccount;
+    }
+
+    public static CustomerAccount getCustomerAccountFromFinancialID(int financialID){
+        String finIDString = getStringFromInt(financialID);
+        return getCustomerAccountFromFinancialID(finIDString);
+    }
+
+
+
+    public static <T> T getFinancialAccountObjectFromFixedID(String fixedID){
+        // use caution with how and when you call this.
+        String[] split = null;
+        CustomerAccount ca = null;
+        if(fixedID!=null){
+            split = fixedID.split("-");
+            ca = getCustomerAccountFromFinancialID(split[0]); // first part is always the baseID
+        }else{
+            ca = new CustomerAccount();
+        }
+
+
+        T returnValue = null;
+
+        if(ca.hasCheckingAccount()){
+            if(ca.getCheckingAccount().getCheckingAcctIDFixed().equals(fixedID)){
+                returnValue =  (T) ca.getCheckingAccount();
+            }
+        }
+
+        if(ca.hasSavingsAccount()){
+            ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
+            for(SavingsAccount sa:savingsAccounts){
+                if(sa.getSavingsAcctIDFixed().equals(fixedID)){
+                    returnValue =  (T) sa;
+                    break;
+                }
+            }
+
+        }
+
+        if(ca.hasLoanAccount()){
+            ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
+            for(LoanAccount la:loanAccounts){
+                if(la.getLoanAccountIDFixed().equals(fixedID)){
+                    returnValue =  (T) la;
+                    break;
+                }
+            }
+        }
+
+        return returnValue;
+
+    }
+
+
     public static String stripSSN(String ssn){
         String result = ssn.replaceAll("[^\\d]", "");
         return result;
@@ -959,6 +1028,7 @@ public class DataEntryDriver {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
         //System.out.println(currencyFormatter.format(fixedBalance));
+
 
         result = currencyFormatter.format(fixedBalance);
 

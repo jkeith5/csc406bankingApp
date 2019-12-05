@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
+
 public class Main extends Application {
 
     /*
@@ -140,6 +141,9 @@ public class Main extends Application {
         lastAccId ++; // increment by one so that it is ready for the next account
         FinanceDriver.processChecks(customerAccounts); // sets check to processed if check date is greater than 3 days
 
+
+
+
     }
 
     // used to generate a dataTime String for the log output
@@ -163,6 +167,14 @@ public class Main extends Application {
         String result = getDateTimeString()+message;
         out.println(result);
         System.out.println(result);
+    }
+
+    public static void printToEmployeeLogFile(String message){
+        String result = getDateTimeString()+message;
+        if(loggedInEmployee!=null){
+            result = getDateTimeString()+loggedInEmployee.getUserName()+" "+message;
+        }
+        outEmployee.println(result);
     }
 
 

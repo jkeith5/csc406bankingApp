@@ -103,7 +103,17 @@ public class CheckingAccount implements Serializable {
 
 
     public String getCheckingAcctIDFixed(){
-        return this.checkingAcctIDFixed;
+        if(checkingAcctIDFixed!=null){
+            return this.checkingAcctIDFixed;
+        }else{
+            if(this.checkingAcctID.contains("-")){
+                return  this.checkingAcctID;
+            }else{
+                return "null";
+            }
+        }
+
+
     }
 
 

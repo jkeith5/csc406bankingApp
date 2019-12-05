@@ -136,6 +136,7 @@ public class SavingsAccount implements Serializable {
     // use this to debit and credit the account using negative for debit
     public void debitCreditAccount(double amount){
         this.accountBalance = this.accountBalance+amount;
+
     }
 
 
@@ -177,6 +178,22 @@ public class SavingsAccount implements Serializable {
 
 
         return yearsOfCD;
+    }
+
+    public int getOriginalTermOfCD(){
+        int term = 0;
+        if(isCdAccount){
+            LocalDate openDate = DataEntryDriver.getDateObjectFromString(dateOpened);
+            LocalDate closeDate = DataEntryDriver.getDateObjectFromString(cdCloseDate);
+
+            try{
+                term = closeDate.getYear() - openDate.getYear();
+            }catch (Exception e){
+                term = 0;
+            }
+
+        }
+        return term;
     }
 
 
@@ -279,7 +296,16 @@ public class SavingsAccount implements Serializable {
     }
 
     public String getSavingsAcctIDFixed(){
-        return this.savingsAcctIDFixed;
+        if(savingsAcctIDFixed!=null){
+            return this.savingsAcctIDFixed;
+        }else{
+            if(savingsAcctID.contains("-")){
+                return savingsAcctID;
+            }else{
+                return "null";
+            }
+        }
+
     }
 
 
