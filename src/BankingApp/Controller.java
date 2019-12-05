@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.util.regex.Pattern;
 
 
 public class Controller implements Initializable{
@@ -3233,17 +3234,16 @@ public class Controller implements Initializable{
     public boolean validateLoginCreds(String userType){// userType is either Teller or Manager
         boolean returnVal = false;
 
-        //printAllData();//testing
 
+        //printAllData();//testing
         if(userType == "Teller"){
-            if(loginInterUser.getText() == "teller" || loginInterUser.getText().length()>0){
+            if(loginInterUser.getText().matches("[a-zA-Z0-9]*")) {
                 // here we would validate the credintials but They're always good for now
 
-                if(loginInterPass.getText().length()>0){
+                if(loginInterPass.getText().equals("Teller")){
                     // here we would validate the password for the user
                     returnVal=true;
-                }else{
-                    returnVal=false;
+                    Main.out.println(Main.getDateTimeString()+ "Teller " + loginInterUser.getText() + " accessed the system ----------");
                 }
             }else{
                 System.out.println("not a valid username for a Teller Account");
@@ -3251,32 +3251,29 @@ public class Controller implements Initializable{
         }
         if(userType == "Manager"){
             // verify the credentials of the Manager account
-            if(loginInterUser.getText() == "manager" || loginInterUser.getText().length()>0){
-                if(loginInterPass.getText().length()>0){
+            if(loginInterUser.getText().matches("[a-zA-Z0-9]*")){
+                if(loginInterPass.getText().equals("Manager")){
                     returnVal=true;
-                }else{
-                    returnVal=false;
+                    Main.out.println(Main.getDateTimeString()+ "Manager " + loginInterUser.getText() + " accessed the system ----------");
                 }
             }
         }
 
         if(userType == "Customer") {
-           if(loginInterUser.getText().length()>0 && loginInterPass.getText().length()>0){
+           if(loginInterUser.getText().length()>0 && loginInterPass.getText().length()>0) {
                CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
-               if(!ca.isNull()){ // if search was not null
+               if (!ca.isNull()) { // if search was not null
                    String caPin = ca.getPin();
 
-                   if(loginInterPass.getText().equals(caPin)){
-                       // put the code here to validate pin
+                   if (loginInterPass.getText().equals(caPin)) {
+                       Main.customerAccount = ca;
+                       System.out.println("Selected ca from atm card is: " + ca.toString());
+                       returnVal = true;
                    }
 
-                   Main.customerAccount = ca;
-                   System.out.println("Selected ca from atm card is: "+ca.toString());
-                   returnVal=true;
-
-               }else{// if search was null
-                   Main.customerAccount=Main.customerAccounts.get(0);// statically set the first account
-                   returnVal=true;
+               } else {// if search was null
+                   Main.customerAccount = Main.customerAccounts.get(0);// statically set the first account
+                   returnVal = true;
 
                    // DELETE ALL ABOVE THIS LINE AND CHANGE BACK TO BELOW THIS TO REMOVE THE STATIC SET ACCOUNT FOR ANY LOGIN
                    //returnVal=false;
@@ -3285,8 +3282,6 @@ public class Controller implements Initializable{
                returnVal=false;
            }
         }
-
-
         return returnVal;
     }
 
