@@ -752,6 +752,7 @@ public class Controller implements Initializable{
         }
         if(locationString.equals("DeleteAccountWarning.fxml")){
             dispDataUpper();
+            help.setImage(helpLogo);
             CustomerAccount ca = Main.customerAccount;
             openFinancialAccountsCloseAccountButton.setDisable(true);
 
@@ -2209,7 +2210,7 @@ public class Controller implements Initializable{
         manageDispDataState.setText(ca.getState());
         manageDispDataZip.setText(ca.getZip());
 
-        if(manageExistingCheckingAccount.isSelected()){
+        if(manageExistingCheckingAccount.isSelected() && manageExistingCheckingAccount != null){
             if(ca.hasCheckingAccount()){
                 String balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
                 manageDispDataAcctBalance.setText(balanceFormatted);
@@ -2230,7 +2231,7 @@ public class Controller implements Initializable{
                 manageDispDataAcctBalance.setText("");
                 manageDispDataAcctStatus.setText("No account for user");
             }
-        }else if(manageExistingSavingsAccount.isSelected()){
+        }else if(manageExistingSavingsAccount.isSelected() && manageExistingSavingsAccount!=null){
             //
             SavingsAccount simple = ca.getSimpleSavingsAccount();
             String balanceFormatted = DataEntryDriver.formatAccountBalance(simple.getAccountBalance());
@@ -3458,6 +3459,10 @@ public class Controller implements Initializable{
             closeStage(Main.activeStage); // close active stage which is the warning window
             goToLoggedInEmployeeScene();// return to the logged in employee scene
         }
+
+        goToDisplayDataScene();
+
+
 
 
     }

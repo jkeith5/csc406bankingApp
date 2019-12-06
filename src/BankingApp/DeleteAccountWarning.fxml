@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -35,6 +36,7 @@
             <Label layoutX="171.0" layoutY="127.0" prefHeight="25.0" prefWidth="259.0" text="Warning Customer Still has Open Accounts." textFill="RED" wrapText="true" />
             <Label layoutX="171.0" layoutY="152.0" prefHeight="25.0" prefWidth="303.0" text="Please Close Each Open Account To Delete Customer" textFill="RED" wrapText="true" />
             <Label fx:id="tempLabel" layoutX="387.0" layoutY="336.0" prefHeight="17.0" prefWidth="179.0" />
+            <ImageView fx:id="help" fitHeight="25.0" fitWidth="25.0" layoutX="189.0" layoutY="280.0" onMouseClicked="#loadHelpWindowAccountIDSystem" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
    </children>
