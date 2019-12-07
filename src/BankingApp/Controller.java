@@ -652,6 +652,7 @@ public class Controller implements Initializable{
         }
         if(locationString.equals("ManageSavingsAcct.fxml")){
             dispDataUpper();
+            errLabel.setText("");
             help.setImage(helpLogo);
             CustomerAccount ca = Main.customerAccount;
             manageSavingsAccSaveB.setDisable(true);
@@ -2229,20 +2230,29 @@ public class Controller implements Initializable{
             }else{
                 manageExistingCheckingAccount.setDisable(true);
                 manageDispDataAcctBalance.setText("");
+                manageDispDataAcctType.setText("");
                 manageDispDataAcctStatus.setText("No account for user");
             }
         }else if(manageExistingSavingsAccount.isSelected() && manageExistingSavingsAccount!=null){
-            //
-            SavingsAccount simple = ca.getSimpleSavingsAccount();
-            String balanceFormatted = DataEntryDriver.formatAccountBalance(simple.getAccountBalance());
-            manageDispDataAcctBalance.setText(balanceFormatted);
+            if(ca.hasSimpleSavings()){
+                SavingsAccount simple = ca.getSimpleSavingsAccount();
+                String balanceFormatted = DataEntryDriver.formatAccountBalance(simple.getAccountBalance());
+                manageDispDataAcctBalance.setText(balanceFormatted);
 
-            if(simple.getAccountBalance()<0.0){
-                manageDispDataAcctStatus.setText("Overdrawn");
+                if(simple.getAccountBalance()<0.0){
+                    manageDispDataAcctStatus.setText("Overdrawn");
+                }else{
+                    manageDispDataAcctStatus.setText("Current");
+                }
+                manageDispDataAcctType.setText(simple.getType());
             }else{
-                manageDispDataAcctStatus.setText("Current");
+                manageExistingSavingsAccount.setDisable(true);
+                manageDispDataAcctBalance.setText("");
+                manageDispDataAcctStatus.setText("No Account for user");
+                manageDispDataAcctType.setText("");
             }
-            manageDispDataAcctType.setText(simple.getType());
+
+
 
 
 
@@ -4162,6 +4172,19 @@ public class Controller implements Initializable{
                 System.out.println("");
             }
         }
+
+
+
+        for(CustomerAccount ca:customerAccounts){
+            if(ca.hasSavingsAccount()){
+                System.out.println("\n\n"+ca.toStringPrettyPrint());
+                for(SavingsAccount sa:ca.getSavingsAccounts()){
+                    System.out.println(sa.toString());
+                }
+            }
+        }
+
+
     }
 
 

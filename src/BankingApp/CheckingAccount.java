@@ -99,21 +99,53 @@ public class CheckingAccount implements Serializable {
     public void setCheckingAcctIDFixed(CustomerAccount customerAccount){
         String fixedID = getCheckingAccountIDAuto(customerAccount);
         this.checkingAcctIDFixed=fixedID;
+
+
     }
 
 
     public String getCheckingAcctIDFixed(){
+        //System.out.println("Get checking ID fixed: curr ID: "+checkingAcctID+"  "+checkingAcctIDFixed);
+//        if(checkingAcctIDFixed!=null){ // then checking ID fixed was not set
+//            return this.checkingAcctIDFixed;
+//        }else{ // so now try the regular checking account ID for if it was imported as already fixed
+//            if(this.checkingAcctID.contains("-")){ // go ahead and set both IDs if one is correct
+//                //checkingAcctIDFixed = checkingAcctID;
+//                //return  this.checkingAcctID;
+//
+//            }else{
+//                System.out.println("NULL");
+//                //return "null";
+//            }
+//            return "NULL";
+//        }
+
+        return this.checkingAcctIDFixed;
+
+    }
+
+    // attempts to find a fixed ID from either of the two ID variables
+    public String getFixedID(){
+        String returnVal = "NULL";
+
         if(checkingAcctIDFixed!=null){
-            return this.checkingAcctIDFixed;
-        }else{
-            if(this.checkingAcctID.contains("-")){
-                return  this.checkingAcctID;
-            }else{
-                return "null";
+            if(!checkingAcctIDFixed.equalsIgnoreCase("null")){
+                if(checkingAcctIDFixed.contains("-")){
+                    returnVal = checkingAcctIDFixed;
+                }
+            }
+        }
+        // checkingIDFixed was null so try the regular ID.
+        if(checkingAcctID!=null){
+            if(checkingAcctID.contains("-")){
+                returnVal=checkingAcctID;
+                // its fine if they both match the contains and the second block here overwrites the first setting
+                // they should still be the same.
             }
         }
 
 
+        return returnVal;
     }
 
 
@@ -305,7 +337,7 @@ public class CheckingAccount implements Serializable {
 
 
     public String toStringCSV(){
-        String result = String.format("%s,%s,%.2f,%s,%b,%b,%d",custID,checkingAcctIDFixed,accountBalance,dateOpened,
+        String result = String.format("%s,%s,%.2f,%s,%b,%b,%d",custID,getFixedID(),accountBalance,dateOpened,
                 isGoldAccount,backupSavingsEnabled,overdraftsOnAcct);
         return result;
     }

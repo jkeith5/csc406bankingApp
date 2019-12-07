@@ -502,6 +502,7 @@ public class CustomerAccount implements Serializable {
     }
 
     public void setFinancialAccountIDAuto(){
+        System.out.println("Setting financial id auto:");
         this.financialAccountID = Main.generateCustomerId();
     }
 
@@ -614,15 +615,18 @@ public class CustomerAccount implements Serializable {
     }
 
     // used to fix the old IDs to the new format
+    // this takes the financial ID and sets the FixedID value for each financial account based on the
+    // financial id. Also fixes all check objects to use the new account ID
     public void fixIDforCustomerAccounts(CustomerAccount customerAccountIn){
         if(hasCheckingAccount()){
-            if(this.checkingAccount.getCheckingAcctIDFixed() == null){ // only run if its null
+            if(checkingAccount.getCheckingAcctIDFixed()==null){ // only set if null
                 this.checkingAccount.setCheckingAcctIDFixed(customerAccountIn);
             }
+
         }
-        if(hasSavingsAccount()){
-            for(SavingsAccount sa:savingsAccounts){
-                if(sa.getSavingsAcctIDFixed() == null){
+        if(hasSavingsAccount()){ // if has savings of any type
+            for(SavingsAccount sa:savingsAccounts){ // for each savings account in arraylist
+                if(sa.getSavingsAcctIDFixed() == null){ // only run if the fixedID is not set
                     sa.setSavingsAcctIDFixed(customerAccountIn);
                 }
             }
@@ -635,32 +639,24 @@ public class CustomerAccount implements Serializable {
             }
         }
 
-    }
-
-    // prints some stats on the checks
-    public double[] printStats(){
-        double[] returnVal = {0.00,0.00};
-        double total = 0.00;
-        double unprocessed = 0.00;
-
+        // fix the id for the checks as well.
+        // the checking account ID has been fixed at this point, so switching all checks to use the new ID
+        // should be okay, and because the way the checks are linked, we won't miss any data
         if(hasCheckingAccount()){
-            total += getCheckingAccount().getAccountBalance();
-        }
-        if(hasSavingsAccount()){
-            total += getSimpleSavingsAccount().getAccountBalance();
-        }
-        for(Check c:getChecks()){
-            if(c.isCheckProcessed()){
-                total = total - c.getCheckAmount();
-            }else{
-                unprocessed = unprocessed+c.getCheckAmount();
+            if(checks.size()>0){
+                for(Check c:checks){
+                    if(!c.getCheckingAcctID().contains("-")){ // only change if it doesn't already use the New ID
+                        c.setCheckingAcctID(getCheckingAccount().getFixedID());
+                    }
+
+                }
             }
         }
-        System.out.println("Customer Account: "+getCustID() +" has current balance of: "+total+" with "+unprocessed+" in unprocessed checks.");
-        returnVal[0] = total;
-        returnVal[1] = unprocessed;
-        return returnVal;
+
+
+
     }
+
 
     public void generateAtmFinIDAndPin(){
         setFinancialAccountIDAuto();
@@ -686,51 +682,6 @@ public class CustomerAccount implements Serializable {
         System.out.println("\n\n");
     }
 
-
-
-    public void printTransactions(){
-        printLineBreak();
-        System.out.println("Transactions "+getBasicDataShort());
-        for(Transaction t:this.transactions){
-            System.out.println(t.toString());
-        }
-    }
-
-
-    public void printChecks(){
-        printLineBreak();
-        System.out.println("Checks "+getBasicDataShort());
-        for(Check c:this.checks){
-            System.out.println(c.toString());
-        }
-    }
-
-
-    public void printLoanAccounts(){
-        printLineBreak();
-        System.out.println("Loan Accounts "+getBasicDataShort());
-        if(hasLoanAccount()){
-            for(LoanAccount la:this.loanAccounts){
-                System.out.println(la.toString());
-            }
-        }else{
-            System.out.println("No loan accounts");
-        }
-    }
-
-    public void printCheckingAccount(){
-        printLineBreak();
-        System.out.println("Checking Account "+getBasicDataShort());
-        System.out.println(this.checkingAccount.toString());
-    }
-
-    public void printSavingsAccount(){
-        printLineBreak();
-        System.out.println("Savings Accounts "+getBasicDataShort());
-        for(SavingsAccount sa:this.savingsAccounts){
-            System.out.println(sa.toString());
-        }
-    }
 
     public String generateNextLoanAcctSubId(String loanAcctType){ // loanAccount type of the account to generate sub number for
         String returnVal = "null";
@@ -762,16 +713,20 @@ public class CustomerAccount implements Serializable {
 
     public boolean loanSubIDAlreadyExists(String subIdOfLoanAccount,String loanType){
         boolean returnVal = false;
+        int numberOfAccounts = 0;
 
         if(loanType.equals("STL") || loanType.equals("LTL")){
             if(loanType.equals("STL")){
                 if(hasShortTermLoan){
                     for(LoanAccount la:loanAccounts){
                         if(la.getLoanAccountType().equals("STL")){
-                            if(la.getLoanAccountIDFixed().split("-")[2].equals(subIdOfLoanAccount)){
-                                returnVal = true;
-                                break;
+                            if(la.getLoanAccountIDFixed()!=null){
+                                if(la.getLoanAccountIDFixed().split("-")[2].equals(subIdOfLoanAccount)){
+                                    returnVal = true;
+                                    break;
+                                }
                             }
+
                         }
                     }
                 }
@@ -780,10 +735,13 @@ public class CustomerAccount implements Serializable {
                 if(hasLongTermLoan){
                     for(LoanAccount la:loanAccounts){
                         if(la.getLoanAccountType().equals("LTL")){
-                            if(la.getLoanAccountIDFixed().split("-")[2].equals(subIdOfLoanAccount)){
-                                returnVal=true;
-                                break;
+                            if(la.getLoanAccountIDFixed()!=null){
+                                if(la.getLoanAccountIDFixed().split("-")[2].equals(subIdOfLoanAccount)){
+                                    returnVal=true;
+                                    break;
+                                }
                             }
+
                         }
                     }
                 }
@@ -825,10 +783,15 @@ public class CustomerAccount implements Serializable {
 
         if(hasCDSavings){
             for(SavingsAccount savingsAccount:getCDSavingsAccounts()){
-                if(subIdOfSavings.equals(savingsAccount.getSavingsAcctIDFixed().split("-")[2])){
-                    returnVal = true;
-                    break;
+
+                if(savingsAccount.getSavingsAcctIDFixed()!=null){ // this for if the IDs are already Fixed
+                    if(subIdOfSavings.equals(savingsAccount.getSavingsAcctIDFixed().split("-")[2])){
+                        returnVal = true;
+                        break;
+                    }
                 }
+
+
             }
         }
 

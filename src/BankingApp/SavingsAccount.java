@@ -297,15 +297,41 @@ public class SavingsAccount implements Serializable {
 
     public String getSavingsAcctIDFixed(){
         if(savingsAcctIDFixed!=null){
-            return this.savingsAcctIDFixed;
+            //return this.savingsAcctIDFixed;
         }else{
             if(savingsAcctID.contains("-")){
-                return savingsAcctID;
+                //savingsAcctIDFixed = savingsAcctID;// set them both to equal.
+                //return savingsAcctID;
             }else{
-                return "null";
+                //return "null";
+            }
+            //return "NULL";
+        }
+        return this.savingsAcctIDFixed;
+
+    }
+
+    public String getFixedID(){
+        String returnVal = "NULL";
+
+        if(savingsAcctIDFixed!=null){
+            if(!savingsAcctIDFixed.equalsIgnoreCase("null")){
+                if(savingsAcctIDFixed.contains("-")){
+                    returnVal = savingsAcctIDFixed;
+                }
             }
         }
 
+        if(savingsAcctID!=null){
+            if(!savingsAcctID.equalsIgnoreCase("null")){
+                if(savingsAcctID.contains("-")){ // will only contain this if its a fixedID
+                    returnVal=savingsAcctID;
+                }
+            }
+        }
+
+
+        return returnVal;
     }
 
 
@@ -356,7 +382,7 @@ public class SavingsAccount implements Serializable {
 
 
     public String toStringCSV(){
-        String result = String.format("%s,%s,%.2f,%.5f,%s,%b,%s",custID,savingsAcctIDFixed,accountBalance,interestRate,
+        String result = String.format("%s,%s,%.2f,%.5f,%s,%b,%s",custID,getFixedID(),accountBalance,interestRate,
                 dateOpened,isCdAccount,cdCloseDate);
         return result;
     }

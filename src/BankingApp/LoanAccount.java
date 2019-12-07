@@ -137,6 +137,14 @@ public class LoanAccount implements Serializable {
         double currentBal = currentBalance;
         if(paymentValue<=currentBal){// only allow to pay the balance off. NOT TO DO A CREDIT OF ANY KIND!
             setCurrentBalance(currentBalance-Math.abs(paymentValue));// make sure payment value is not negative
+
+            double pmtDue = getAmountDue()-paymentValue;
+            if(pmtDue<0.001){
+                setAmountDue(0.0);
+            }else{
+                setAmountDue(pmtDue);
+            }
+
             // set payment date
             // only set last payment date once per month can accept multiple payments but set once
             if(!lastPaymentDate.equals("null")){ // this was not the first payment
@@ -406,15 +414,31 @@ public class LoanAccount implements Serializable {
     }
 
     public String getLoanAccountIDFixed(){
+        return this.loanAccountIDFixed;
+    }
+
+    public String getFixedID(){
+        String returnVal = "NULL";
+
         if(loanAccountIDFixed!=null){
-            return this.loanAccountIDFixed;
-        }else{
-            if(loanAccountID.contains("-")){
-                return this.loanAccountID;
-            }else{
-                return "null";
+            if(!loanAccountIDFixed.equalsIgnoreCase("null")){
+                if(loanAccountIDFixed.contains("-")){
+                    returnVal = loanAccountIDFixed;
+                }
             }
         }
+
+        if(loanAccountID!=null){
+            if(!loanAccountID.equalsIgnoreCase("null")){
+                if(loanAccountID.contains("-")){
+                    returnVal=loanAccountID;
+                }
+            }
+        }
+
+
+
+        return returnVal;
     }
 
 
@@ -627,7 +651,7 @@ public class LoanAccount implements Serializable {
     public String toStringCSV(){
         String result = String.format("%s,%.2f,%.2f,%.5f,%s,%s,%.2f,%s,%b,%s,%s,%d,%s",
                 custID,initialLoanAmt,currentBalance,interestRate, paymentDueDate,paymentNoticeDate,
-                amountDue,lastPaymentDate,hasMissedPayment, loanAccountType,loanAccountIDFixed,loanTerm,dateOpened);
+                amountDue,lastPaymentDate,hasMissedPayment, loanAccountType,getFixedID(),loanTerm,dateOpened);
         return result;
     }
 
