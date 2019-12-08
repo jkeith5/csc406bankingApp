@@ -26,7 +26,7 @@
             <Label fx:id="manageDispDataState" layoutX="366.0" layoutY="68.0" prefHeight="17.0" prefWidth="30.0" text="MO" />
             <Label fx:id="manageDispDataZip" layoutX="423.0" layoutY="68.0" prefHeight="17.0" prefWidth="133.0" text="00000" />
             <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
-            <Button fx:id="manageExistingDispActivityPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToDisplayDataScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button fx:id="manageExistingDispActivityPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToDisplayDataScene" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
             <TextArea fx:id="displayActivityTextArea" editable="false" focusTraversable="false" layoutX="10.0" layoutY="94.0" prefHeight="335.0" prefWidth="681.0" />
          </children>
       </Pane>

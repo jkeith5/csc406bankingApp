@@ -26,7 +26,7 @@
             <Label fx:id="manageDispDataState" layoutX="330.0" layoutY="76.0" prefHeight="17.0" prefWidth="30.0" text="MO" />
             <Label fx:id="manageDispDataZip" layoutX="387.0" layoutY="76.0" prefHeight="17.0" prefWidth="133.0" text="00000" />
             <Text layoutX="261.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
-            <Button fx:id="manageExistingDispActivityPrevButton" layoutX="14.0" layoutY="449.0" mnemonicParsing="false" onAction="#closeStopPaymentWindow" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button fx:id="manageExistingDispActivityPrevButton" layoutX="14.0" layoutY="449.0" mnemonicParsing="false" onAction="#closeStopPaymentWindow" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
             <Label layoutX="223.0" layoutY="135.0" text="Select Unprocessed Check:" />
             <ComboBox fx:id="unprocessedChecksComboBox" layoutX="221.0" layoutY="171.0" prefWidth="150.0" />
             <Label layoutX="125.0" layoutY="227.0" text="Check Number:" />
@@ -39,7 +39,7 @@
             <TextField fx:id="checkAmount" disable="true" layoutX="219.0" layoutY="303.0" opacity="0.9" />
             <TextField fx:id="checkProcessed" disable="true" layoutX="219.0" layoutY="342.0" opacity="0.9" />
             <TextField fx:id="checkStatus" disable="true" layoutX="219.0" layoutY="384.0" opacity="0.9" />
-            <Button fx:id="stopPaymentButton" layoutX="488.0" layoutY="449.0" mnemonicParsing="false" onAction="#stopCheckPaymentAction" onKeyPressed="#enterKeyDefaultEvent" text="Stop Payment" />
+            <Button fx:id="stopPaymentButton" layoutX="488.0" layoutY="449.0" mnemonicParsing="false" onAction="#stopCheckPaymentAction" onKeyReleased="#enterKeyDefaultEvent" text="Stop Payment" />
          </children>
       </Pane>
    </children>

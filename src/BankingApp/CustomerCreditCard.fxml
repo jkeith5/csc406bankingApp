@@ -23,10 +23,10 @@
                 <TextField fx:id="customerInterCCPurchaseAmt" layoutX="558.0" layoutY="192.0" onKeyReleased="#creditCardAmountEvent" prefHeight="25.0" prefWidth="128.0" promptText="Enter Amount" />
                 <Label layoutX="563.0" layoutY="225.0" prefHeight="17.0" prefWidth="78.0" text="Description:" />
                 <TextField fx:id="customerInterCCpurchaseDesc" layoutX="558.0" layoutY="250.0" prefHeight="25.0" prefWidth="128.0" promptText="Enter Description" />
-                <Button fx:id="customerCCPurchaseButton" layoutX="607.0" layoutY="290.0" mnemonicParsing="false" onAction="#processCCPurchase" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Purchase" />
+                <Button fx:id="customerCCPurchaseButton" layoutX="607.0" layoutY="290.0" mnemonicParsing="false" onAction="#processCCPurchase" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Purchase" />
 
 
-                <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#gotoCustomerInterface" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+                <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#mainInterfaceCustomerButton" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
 
                 <Label fx:id="customerInterErrLabel" layoutX="117.0" layoutY="455.0" prefHeight="25.0" prefWidth="545.0" text="ERROR Messages somewhere eventually???" textFill="RED" wrapText="true" />
             <Label layoutX="214.0" layoutY="31.0" text="First:" />

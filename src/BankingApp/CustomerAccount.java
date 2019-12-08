@@ -1,6 +1,7 @@
 package BankingApp;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CustomerAccount implements Serializable {
@@ -773,6 +774,32 @@ public class CustomerAccount implements Serializable {
 
         return returnVal;
     }
+
+
+
+    public int getAtmWithdrawalsToday(){
+        int returnVal = 0;
+
+        if(hasCheckingAccount){
+            if(transactions.size()>0){
+                LocalDate today = DataEntryDriver.getCurrentDateObject();
+                for(Transaction transaction:transactions){
+                    if(transaction.getTransactionType().equals("W") && transaction.getDescription().equals("Atm Withdrawal")){
+                        LocalDate atmWithdrawalDate = DataEntryDriver.getDateObjectFromString(transaction.getDate());
+                        if(atmWithdrawalDate.compareTo(today)==0){ // means they made a atm withdrawal today
+                            returnVal++;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        return returnVal;
+    }
+
+
 
     public String toStringAllData(){
         String result = toStringPrettyPrint();

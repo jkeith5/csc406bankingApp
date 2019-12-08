@@ -12,7 +12,7 @@
       <Pane onKeyPressed="#updateUserKeyEvent" onKeyReleased="#updateUserKeyEvent" prefHeight="500.0" prefWidth="700.0">
          <children>
             <Text layoutX="304.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Customer Data" wrappingWidth="126.13671875" />
-            <Button fx:id="updateDataPreviousButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#tellerInterfaceUpdateDataPreviousButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button fx:id="updateDataPreviousButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#tellerInterfaceUpdateDataPreviousButton" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
             <Label layoutX="144.0" layoutY="90.0" prefHeight="17.0" prefWidth="27.0" text="SSN:" translateX="67.0" />
             <Label layoutX="144.0" layoutY="125.0" prefHeight="17.0" prefWidth="61.0" text="First Name:" translateX="67.0" />
             <Label layoutX="144.0" layoutY="160.0" prefHeight="17.0" prefWidth="61.0" text="Last Name:" translateX="67.0" />
@@ -27,7 +27,7 @@
             <TextField fx:id="updateDataCity" layoutX="241.0" layoutY="230.0" text="temp" translateX="67.0" />
             <ComboBox fx:id="stateComboBox" editable="true" layoutX="307.0" layoutY="265.0" prefWidth="150.0" visibleRowCount="0" />
             <TextField fx:id="updateDataZip" layoutX="241.0" layoutY="300.0" text="temp" translateX="67.0" />
-            <Button fx:id="updateDataSaveButton" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#tellerInterfaceUpdateDataSaveButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
+            <Button fx:id="updateDataSaveButton" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#tellerInterfaceUpdateDataSaveButton" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
             <Label fx:id="unsuccessfulEntryLabel" layoutX="211.0" layoutY="352.0" prefHeight="89.0" prefWidth="301.0" text="Label" />
          </children></Pane>
    </children>

@@ -27,11 +27,11 @@
             <Label fx:id="manageDispDataZip" layoutX="423.0" layoutY="68.0" prefHeight="17.0" prefWidth="133.0" text="00000" />
             <Label layoutX="172.0" layoutY="208.0" text="Current Balance:" />
             <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
-            <Button fx:id="manageCheckingAccPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageFinanceAcc" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button fx:id="manageCheckingAccPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageFinanceAcc" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
             <CheckBox fx:id="goldCheckBox" layoutX="172.0" layoutY="112.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="114.0" text="Gold/Diamond" />
             <CheckBox fx:id="backupSavingsCheckBox" layoutX="334.0" layoutY="112.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="114.0" text="Backup Savings" />
             <TextField fx:id="startingBalance" layoutX="334.0" layoutY="204.0" onKeyReleased="#manageCheckingAccountEvent" />
-            <Button fx:id="manageCheckingAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#manageCheckingAccountSaveButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
+            <Button fx:id="manageCheckingAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#manageCheckingAccountSaveButton" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
             <Label fx:id="addCheckingAcctErrLabel" layoutX="171.0" layoutY="257.0" prefHeight="131.0" prefWidth="356.0" text="ErrLabel" textFill="RED" wrapText="true" />
          </children>
       </Pane>

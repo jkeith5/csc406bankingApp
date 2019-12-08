@@ -34,14 +34,14 @@
             <Label fx:id="tempLabel" layoutX="191.0" layoutY="317.0" text="Withdrawal Amt:" />
             <Text layoutX="297.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Data" />
             <ImageView fx:id="help" fitHeight="25.0" fitWidth="25.0" layoutX="14.0" layoutY="77.0" onMouseClicked="#loadHelpWindowAccountIDSystem" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="manageSavingsAccPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageFinanceAcc" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button fx:id="manageSavingsAccPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToManageFinanceAcc" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
             <ComboBox fx:id="manageSavingsAccountsList" layoutX="22.0" layoutY="105.0" prefWidth="150.0" />
             <CheckBox fx:id="cdCheckBox" disable="true" focusTraversable="false" layoutX="191.0" layoutY="109.0" mnemonicParsing="false" onAction="#isCdCheckBoxEvent" opacity="0.68" text="Is CD" />
             <TextField fx:id="startingBalance" layoutX="307.0" layoutY="152.0" onKeyReleased="#addFinanceAccountEvent" prefHeight="25.0" prefWidth="149.0" />
             <TextField fx:id="savingInterestRate" layoutX="307.0" layoutY="204.0" onKeyReleased="#addFinanceAccountEvent" prefHeight="25.0" prefWidth="149.0" />
             <DatePicker fx:id="savingCdCloseDatePicker" layoutX="307.0" layoutY="253.0" onKeyReleased="#addFinanceAccountEvent" prefHeight="25.0" prefWidth="149.0" />
             <TextField fx:id="tempBalance" layoutX="307.0" layoutY="313.0" onKeyPressed="#manageSavingsAccountCDWithdrawalKeyEvent" onKeyReleased="#manageSavingsAccountCDWithdrawalKeyEvent" />
-            <Button fx:id="manageSavingsAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#manageSavingsAccountsSaveButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
+            <Button fx:id="manageSavingsAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#manageSavingsAccountsSaveButton" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
          </children>
       </Pane>
    </children>

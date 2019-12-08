@@ -402,6 +402,7 @@ public class DataEntryDriver {
     // takes the ArrayList of CustomerAccount Objects and Using Object Output Stream, Writes it to a file
     // called customerDatabase located under Resources.
     public static boolean serializeArrayListToFile(ArrayList<CustomerAccount> customerAccounts){
+        System.out.println("Database Saved");
         try{
             // create the ObjectOutputStream
             // write each object in the ArrayList to the file rather than writing the actual ArrayList Object
@@ -417,6 +418,19 @@ public class DataEntryDriver {
             Main.out.println(Main.getDateTimeString()+"Error in serializeArrayListToFile File was not written."); // log error
             return false; // return false
         }
+    }
+
+    public static boolean serializeCustomerDatabaseToFile(){
+        boolean returnVal = false;
+
+        if(Main.customerAccounts!=null){
+            if(Main.customerAccounts.size()>0){
+                returnVal = serializeArrayListToFile(Main.customerAccounts);
+            }
+        }else{
+            System.err.println("Attempting to serialize Customer Database that is Null!");
+        }
+        return returnVal;
     }
 
     // reads the customerDatabase file and Returns and Arraylist of CustomerAccounts using
@@ -543,7 +557,7 @@ public class DataEntryDriver {
         try {
             Main.customerAccounts.add(ca);
             Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+" added: "+ca.toString());
-            // might run a serialize to file here
+            serializeCustomerDatabaseToFile(); // writes data to file
             return true;
         } catch (Exception e) {
             Main.out.println(Main.getDateTimeString()+"Error in add customerToArray.");
@@ -557,6 +571,7 @@ public class DataEntryDriver {
                 int index = getIndexOfCustomerAccountInArray(ssn);
                 Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+" deleted: "+Main.customerAccounts.get(index).toString());
                 Main.customerAccounts.remove(index);
+                serializeCustomerDatabaseToFile(); // writes the changes to file
                 return true;
             }else{
                 return false;
@@ -576,12 +591,11 @@ public class DataEntryDriver {
             CustomerAccount oldCA = getCustomerAccountFromCustomerID(ssn);
             Main.customerAccounts.set(indexOfCa,ca);
             returnVal=true;
+            serializeCustomerDatabaseToFile(); // writes changes
             Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+
                     " updated account: "+oldCA.toString()+" With data: "+ca.toString());
 
         }
-
-
 
         return returnVal;
     }
@@ -639,6 +653,7 @@ public class DataEntryDriver {
                 }
             }
         }
+
     }
 
 

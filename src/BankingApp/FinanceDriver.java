@@ -184,7 +184,7 @@ public class FinanceDriver {
     public static void completeAtmTransaction(TextField transactionAmount,String checkNumber){
         String transactionAmountString = transactionAmount.getText();
         Double transactionAmountDouble = 0.0;
-        CustomerAccount ca = Main.loggedInCustomer;
+        CustomerAccount ca = Main.customerAccount;
         Double newBal = 0.0;
         double checkingBalance = ca.getCheckingAccount().getAccountBalance();
 

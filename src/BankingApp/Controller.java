@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 
 public class Controller implements Initializable{
     public static String activeFXMLFileName="";
+    public static int sessionLogInTimeOutInSeconds = 300;
 
     public static boolean tellerLogIn;
     public static boolean managerLogIn;
@@ -47,6 +48,7 @@ public class Controller implements Initializable{
     public ComboBox<String> stateComboBox; // the regular combobox
     public ComboBoxAutoComplete<String> autoCombo;
     @FXML Button randomSSN;
+    @FXML Button logOut;
 
     @FXML TextField fNameTextField;
     @FXML TextField lNameTextField;
@@ -448,6 +450,14 @@ public class Controller implements Initializable{
             }else{
                 customerInterCCButton.setDisable(true);
             }
+
+
+            if(ca.getAtmWithdrawalsToday()>=2){
+                customerInterErrLabel.setText("Only two ATM Withdrawals allowed A Day");
+                customerInterAtmWithdrawalAmt.setDisable(true);
+            }
+
+
         }
 
         if(locationString.equals("ManageExistingUserDispActivity.fxml")){
@@ -839,7 +849,7 @@ public class Controller implements Initializable{
 
         // need to tie into main to add data
 
-        boolean success = DataEntryDriver.addCustomerAccountToArrayList(tempAccount);
+        boolean success = DataEntryDriver.addCustomerAccountToArrayList(tempAccount); // auto writes changes
 
         if(success){
             successfulEntryLabel.setText("Data storage for " + fName + " " + lName + " was successful!");
@@ -1054,6 +1064,15 @@ public class Controller implements Initializable{
         CustomerAccount ca = Main.customerAccount;
         CheckingAccount checkingAccount = new CheckingAccount();
         double checkingBalance = 0.0;
+
+
+        if(ca.getAtmWithdrawalsToday()>=2){
+            customerInterErrLabel.setText("Only two ATM Withdrawals allowed A Day");
+            customerInterAtmWithdrawalAmt.setDisable(true);
+            return;// exit method
+        }
+
+
         boolean disableWithdrawalButton = false;
 
         if(ca.hasCheckingAccount()){
@@ -1103,6 +1122,15 @@ public class Controller implements Initializable{
 
     }
 
+
+    // fires the login method if the user hits enter on the password or pin fields and it is a key release event type
+    public void userLoginFieldFireLoginButtonKeyEvent(KeyEvent e){
+        if(e.getEventType().getName().equals("KEY_RELEASED")){
+            if(e.getCode().getName().equals("Enter")){
+                loginInterfaceLoginButton();
+            }
+        }
+    }
 
     public void isCdCheckBoxEvent(){
         //
@@ -1482,6 +1510,7 @@ public class Controller implements Initializable{
         FinanceDriver.completeTransaction(manageExistingFundsTransferAmount, manageExistingTransferFunds, manageExistingCheckingAccount,
                 manageExistingSavingsAccount,manageDispDataErrLabel);
         manageExistingFundsTransferAmount.setText("");
+        DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
         tellerManageDispData();
         transferFundsKeyEvent();
 
@@ -1497,26 +1526,20 @@ public class Controller implements Initializable{
             // add to use currently active stage
             Stage activeStage = Main.activeStage;
 
-            if(e.getCode().getName().equals("Enter")){
-                if(activeStage.getScene().getFocusOwner() instanceof Button){
-                    Button fireButton = (Button) activeStage.getScene().focusOwnerProperty().get();
-                    if(!fireButton.isDisabled()){
-                        fireButton.fire();
-                    }
-                }else if(activeStage.getScene().getFocusOwner() instanceof TextField){
-                    TextField fireTextField = (TextField) activeStage.getScene().focusOwnerProperty().get();
-                    if(fireTextField.getId().equals("manageUserSSNField")){
+            if(e.getEventType().getName().equals("KEY_RELEASED")){// only run when releasing the enter key
+                if(e.getCode().getName().equals("Enter")){
+                    if(activeStage.getScene().getFocusOwner() instanceof Button){
+                        Button fireButton = (Button) activeStage.getScene().focusOwnerProperty().get();
+                        if(!fireButton.isDisabled()){
+                            fireButton.fire();
+                        }
                     }
                 }
             }
 
 
         }
-
-
-
     }
-
 
 
 
@@ -1637,19 +1660,6 @@ public class Controller implements Initializable{
 
     }
 
-    public boolean focusedNodeButton(){ // true if focused node is a button
-        boolean returnVal = false;
-        Node focusedNode = getFocusedNode();
-
-        if(focusedNode instanceof Button){
-            returnVal = true;
-        }
-
-        return returnVal;
-    }
-
-
-
     public Node getFocusedNode(){ // of active stage
         Node returnNode;
 
@@ -1700,7 +1710,8 @@ public class Controller implements Initializable{
         manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
 
         if(keyCodeName.equals("Enter")){ // allows enter button to fire main event
-            if(keyEventTypeName.equals("KEY_PRESSED")){
+            if(keyEventTypeName.equals("KEY_RELEASED")){ // only on enter key release
+                System.out.println("Enter button key release");
                 if(!manageUserLookupButton.isDisabled()){
                     if(Main.loggedInEmployee.getType().equals("T")){
                         tellerInterfaceManageLookupButton();
@@ -1739,10 +1750,6 @@ public class Controller implements Initializable{
             }
         }
 
-    }
-
-    public void setAtmErrMsg(){
-        ATMInterErrLabel.setText("Insufficient Funds");
     }
 
 
@@ -1800,7 +1807,7 @@ public class Controller implements Initializable{
         }else{
 
             // remove all individual accounts and log
-            DataEntryDriver.removeCustomerAccount(Main.customerAccount.getCustID());
+            DataEntryDriver.removeCustomerAccount(Main.customerAccount.getCustID()); // auto writes changes to file
             goToLoggedInEmployeeScene();
         }
 
@@ -1814,6 +1821,7 @@ public class Controller implements Initializable{
             customerInterWithdrawalAmountEvent();
             checkNumberFieldEvent(); // so it disables the buttons
             customerInterAtmWithdrawalAmt.requestFocus(); // focus back to the withdrawal field
+            DataEntryDriver.serializeCustomerDatabaseToFile(); // writes the changes to database
         }
 
 
@@ -1829,6 +1837,7 @@ public class Controller implements Initializable{
             checkNumberFieldEvent();
             customerInterWithdrawalAmountEvent(); // to disable buttons
             customerInterAtmCheckNum.requestFocus(); // focus back on this field
+            DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
         }
 
     }
@@ -1852,8 +1861,7 @@ public class Controller implements Initializable{
         Parent root = null;
         Parent login = null;
         try {
-
-            if(!customerPendingLogin){
+            if(!customerPendingLogin){ // if customer login window is not already open
                 if(customerLogIn){ // if method was called and customer was already logged in .
                     root = FXMLLoader.load(getClass().getResource("CustomerInterface.fxml"));
                     Main.primaryStage.setTitle("Customer Interface");
@@ -1862,6 +1870,9 @@ public class Controller implements Initializable{
                     Main.activeStage=Main.primaryStage;
                 }else{// if method called and customer isn't logged in. THIS WILL ALWAYS RUN ON FIRST CALL
                     customerPendingLogin =true; // set pending login to true because the login interface is launched
+                    tellerLogIn=false;
+                    managerLogIn=false;// log out the teller and manager accounts if logged in
+                    Main.loggedInEmployee=null; // make logged in employee null so that they have to log in again.
                     login = FXMLLoader.load(getClass().getResource("CustomerLogin.fxml"));
                     Stage stage = new Stage();
                     stage.setTitle("Customer Login");
@@ -1902,6 +1913,7 @@ public class Controller implements Initializable{
                 }else{
                     tellerPendingLogin=true;
                     managerLogIn=false; // log out the manager
+                    Main.loggedInEmployee=null; // null the employee logged in so they they can't resume their session
                     login = FXMLLoader.load(getClass().getResource("TellerLogin.fxml"));
                     Stage stage = new Stage();
                     stage.setTitle("Teller Login");
@@ -1938,6 +1950,7 @@ public class Controller implements Initializable{
                     Main.activeStage=Main.primaryStage;
                 }else{
                     managerPendingLogin =true;
+                    Main.loggedInEmployee=null; // null any logged in employee
                     tellerLogIn=false; // log out the teller if attempting a login as a manager
                     login = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
                     Stage stage = new Stage();
@@ -1966,7 +1979,7 @@ public class Controller implements Initializable{
     @FXML
     public void loginInterfaceLoginButton(){
         if(tellerPendingLogin){ // if pending but not complete login
-            tellerLogIn = validateLoginCreds("Teller");
+            tellerLogIn = validateLoginCreds("Teller"); // attempt login of teller and see if true
             if(tellerLogIn){ // if login info was valid
                 tellerPendingLogin=false;
                 EmployeeAccount employee = new EmployeeAccount(loginInterUser.getText());
@@ -2002,15 +2015,13 @@ public class Controller implements Initializable{
             managerLogIn=false;
             tellerLogIn=false;
             customerLogIn = validateLoginCreds("Customer"); // validate and determine if they are logged in or not
+            // also sets Main.customerAccount which is what is used to display their data
 
             if(customerLogIn){ // if validate was true and they are now logged in then call the main login button again
                 customerPendingLogin=false;
-                Main.outEmployee.println(Main.getDateTimeString()+"Customer Account UserName: Customer logged into account.");
-                //CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerAtmCardNum(loginInterUser.getText());
+                String userName = Main.customerAccount.getCustID();
+                Main.outEmployee.println(Main.getDateTimeString()+"Customer Account UserName: "+userName+" Customer logged into account.");
 
-
-                Main.loggedInCustomer = Main.customerAccount;
-                //Main.customerAccount = ca;
 
                 closeWindow();
                 mainInterfaceCustomerButton();
@@ -2026,15 +2037,27 @@ public class Controller implements Initializable{
     public void loginInterfaceExitButton(){
         tellerLogIn=false;
         managerLogIn=false;
+        customerLogIn=false;
         tellerPendingLogin=false;
         managerPendingLogin=false;
-        customerLogIn=false;
         customerPendingLogin=false;
+        Main.loggedInEmployee=null; // no logged in employee
 
         //Stage stage = (Stage) loginInterExitButton.getScene().getWindow();
         Stage stage = Main.activeStage;
         stage.close();
         goToMainScene();
+    }
+
+    public void logOutAllAccounts(){
+        tellerLogIn = false;
+        managerLogIn = false;
+        customerLogIn = false;
+        tellerPendingLogin=false;
+        managerPendingLogin=false;
+        customerPendingLogin = false;
+        Main.loggedInEmployee = null;
+        Main.customerAccount = null; // null everyone
     }
 
 
@@ -2130,35 +2153,15 @@ public class Controller implements Initializable{
                 manageDispDataAcctStatus.setText("No Account for user");
                 manageDispDataAcctType.setText("");
             }
-
-
-
-
-
         }else{
             manageDispDataAcctBalance.setText("");
             manageDispDataAcctStatus.setText("No account for user");
         }
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
 
     @FXML
     public void tellerInterfaceAddNewButton(){
         Parent root = null;
-
-
         try {
             root = FXMLLoader.load(getClass().getResource("AddNewUser.fxml"));
             Main.primaryStage.setTitle("Add a new user Account");
@@ -2185,16 +2188,12 @@ public class Controller implements Initializable{
             e.printStackTrace();
             Main.activeStage=null;
         }
-
-
     }
 
     @FXML
     public void tellerInterfaceManageLookupButton(){
-
         String ssn = manageUserSSNField.getText();
         String ssnStripped = DataEntryDriver.stripSSN(ssn);
-
         CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ssnStripped);
         // pass current customer account back to main
         Main.customerAccount = ca;
@@ -2237,27 +2236,17 @@ public class Controller implements Initializable{
             e.printStackTrace();
             Main.activeStage=null;
         }
-
-
-
     }
-
 
     @FXML
     public void tellerInterfaceUpdateDataPreviousButton(){
         Parent root = null;
-
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
-
             Main.primaryStage.setTitle("Customer Account Data Management Interface");
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            // add code to pull the data for the currentSSN data
-
-            // use placeholder object if needed to display data.
-
         } catch (Exception e) {
             e.printStackTrace();
             Main.activeStage=null;
@@ -2268,9 +2257,6 @@ public class Controller implements Initializable{
     @FXML
     public void tellerInterfaceUpdateDataSaveButton(){
         Parent root = null;
-        // to do record the new customer account in log file and pull data fields here.
-        // add code to pull the data for the currentSSN data
-
         String ssn = Main.currentCustomerID;
         CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ssn);
 
@@ -2291,9 +2277,7 @@ public class Controller implements Initializable{
         ca.setState(state);
         //ca.setState(updateDataState.getText().trim().toUpperCase());
         ca.setZip(updateDataZip.getText().trim());
-
-        DataEntryDriver.updateCustomerAccount(ca,ssn);
-
+        DataEntryDriver.updateCustomerAccount(ca,ssn); // auto writes changes
 
 
         try {
@@ -2323,6 +2307,7 @@ public class Controller implements Initializable{
         double startingBalanceDouble = DataEntryDriver.getDoubleFromTextField(startingBalance);
         CheckingAccount checkingAccount = new CheckingAccount(customerAccount,isGoldAccountSelected,backupSavingSelected,startingBalanceDouble);
         customerAccount.addCheckingAccount(checkingAccount);
+        DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
         goToAddFinanceAcc(); // then go back to last screen.
     }
 
@@ -2338,22 +2323,11 @@ public class Controller implements Initializable{
         if(cdCheckBox.isSelected()){ // cd box selected
             termInYears= DataEntryDriver.getIntFromTextField(savingCDTerm);
         }
-
         // convert interest rate to decimal.
         interestRate = interestRate/100.00;
-
         SavingsAccount newSavings = new SavingsAccount(customerAccount,isCdAccount,startingBalanceDouble,interestRate,termInYears);
-
-
-        // TESTING
-        if(customerAccount.getCustID().equals("111-11-1111")){
-            if(isCdAccount){
-                newSavings.setDateOpened("05/05/2005"); // for testing
-            }
-        }
-        // TESTING
-
         customerAccount.addSavingsAccount(newSavings);
+        DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
         goToAddFinanceAcc();
 
 
@@ -2390,11 +2364,8 @@ public class Controller implements Initializable{
         // now create a loan account object using the second constructor
         LoanAccount loanAccount = new LoanAccount(customerAccount,initialLoanAmt,interestRate,loanType,loanTermString);
         customerAccount.addLoanAccountObject(loanAccount);
+        DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
         goToAddFinanceAcc();
-
-
-
-
     }
 
 
@@ -2402,17 +2373,15 @@ public class Controller implements Initializable{
     public void manageCheckingAccountSaveButton(){
         // value set to 30,000,000 bucks
         CustomerAccount customerAccount = Main.customerAccount;
-
         boolean goldSelected = goldCheckBox.isSelected();
         boolean backupSelected = backupSavingsCheckBox.isSelected();
         double balance = DataEntryDriver.getDoubleFromTextField(startingBalance);
 
         CheckingAccount ca = customerAccount.getCheckingAccount();
-
         ca.setGoldAccount(goldSelected);
         ca.setBackupSavingsEnabled(backupSelected);
         ca.setAccountBalance(balance);
-
+        DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
         goToManageFinanceAcc();
     }
 
@@ -2421,7 +2390,6 @@ public class Controller implements Initializable{
         CustomerAccount customerAccount = Main.customerAccount;
         SavingsAccount savingsAccount = customerAccount.getSavingsAccountByFixedID(
                 manageSavingsAccountsList.getSelectionModel().getSelectedItem());
-        boolean isCd = cdCheckBox.isSelected();
         double balance = DataEntryDriver.round(DataEntryDriver.getDoubleFromTextField(startingBalance),2);
         double interest = DataEntryDriver.round(DataEntryDriver.getDoubleFromTextField(savingInterestRate)/100.0,5); // 5 decimal places
 
@@ -2443,24 +2411,11 @@ public class Controller implements Initializable{
             // data should be validated already
             // figue current value figure fee take that minus the withdrawal amount
             double withdrawalAmt = DataEntryDriver.getDoubleFromTextField(tempBalance);
-
-            double savingsCDCurrentValue = savingsAccount.getCurrentCDValue();
-            double feeForWithdrawalNow = savingsAccount.getFeeForWithdrawalOfCDonThisDay();
-            double savingsCDBalanceAfterFee = savingsCDCurrentValue - feeForWithdrawalNow;
-            double savingsBalAfterWithdrawal = savingsCDBalanceAfterFee - withdrawalAmt;
-
-
-            // should be a transaction object here and should be using a method in FinanceDriver But I'm not coding that
-            // right now
             FinanceDriver.debitSavingsCDAccount(customerAccount,savingsAccount,withdrawalAmt,false,"Saving CD Withdrawal");
-            //savingsAccount.setAccountBalance(savingsBalAfterWithdrawal);
+            DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
             goToManageFinanceAcc();
 
         }
-
-
-        //
-
     }
 
     public void manageLoanAccountsSaveButton(){ // also the manage loan make payment method
@@ -2486,6 +2441,7 @@ public class Controller implements Initializable{
                 if(!selectedLoanAccount.getLoanAccountType().equals("CCL")){
                     int index = ca.getLoanAccountIndexByFixedID(loanAccountFixedID);
                     ca.deleteLoanAccountByIndex(index); // delete the loan account
+                    DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
                     goToDisplayDataScene(); // return to the display screen
                 }else{
                     manageLoanAccountTypeEvent();
@@ -2493,37 +2449,23 @@ public class Controller implements Initializable{
             }else{
                 manageLoanAccountTypeEvent();
             }
-
-
-
-
-
-
         }else{ // updating the data
             String loanTermString = "";
             if(loanTypeShort.equals("LTL") || loanTypeShort.equals("STL")){
                 loanTermString = DataEntryDriver.fixDateString(loanTermYears.getText());
             }
-
             selectedLoanAccount.setLoanAccountType(loanTypeShort);
             selectedLoanAccount.setCurrentBalance(balance);
             selectedLoanAccount.setInterestRate(interestRate);
             selectedLoanAccount.setLoanTerm(loanTermString);
+            DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
             manageLoanAccountTypeEvent();
         }
-
-
-
-
-        //goToManageFinanceAcc();
-
-
     }
 
 
     @FXML
     public void viewRecentActivityButton(){
-
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserDispActivity.fxml"));
@@ -2541,7 +2483,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void addFinanceAccountButton(){
-
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserAddFinanceAcc.fxml"));
@@ -2559,7 +2500,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void addCheckingAccountButton(){
-
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("AddChecking.fxml"));
@@ -2577,7 +2517,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void addSavingsAccountButton(){
-
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("AddSavings.fxml"));
@@ -2595,7 +2534,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void addLoanAccountButton(){
-
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("AddLoan.fxml"));
@@ -2603,7 +2541,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-
         } catch (IOException e) {
             e.printStackTrace();
             Main.activeStage=null;
@@ -2614,7 +2551,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void manageFinancialAccountsButton(){
-
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUserManageFinanceAcc.fxml"));
@@ -2632,7 +2568,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void manageCheckingAccountsButton(){
-
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageCheckingAcct.fxml"));
@@ -2649,7 +2584,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void manageSavingsAccountsButton(){
-
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageSavingsAcct.fxml"));
@@ -2668,7 +2602,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void manageLoanAccountsButton(){
-
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageLoanAcct.fxml"));
@@ -2683,16 +2616,10 @@ public class Controller implements Initializable{
 
     }
 
-
-
-
-    //Test so that I can commit merge.
-
     public void deleteFinancialAccountsButton(){
         CustomerAccount customerAccount=Main.customerAccount;
         if(deleteAllCheckingAcctCheckBox.isSelected()){
             customerAccount.deleteCheckingAccount();
-            // disable buttons
         }
         if(deleteAllSavingsAcctCheckBox.isSelected()){
             customerAccount.deleteAllSavingsAccounts();
@@ -2700,24 +2627,13 @@ public class Controller implements Initializable{
         if(deleteAllLoanAcctCheckBox.isSelected()){
             customerAccount.deleteLoanAccounts();
         }
-
-
-
+        DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
     }
-
-
-
-
-
-
-
-
-
 
     //CUSTOMER INTERFACE METHODS
 
     public void customerDispData(){
-        CustomerAccount ca = Main.loggedInCustomer;
+        CustomerAccount ca = Main.customerAccount;
         String balanceFormatted = "null";
         if(ca.hasCheckingAccount()){
             balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
@@ -2732,7 +2648,7 @@ public class Controller implements Initializable{
     }
 
     public void customerAtmDispData(){
-        CustomerAccount ca = Main.loggedInCustomer;
+        CustomerAccount ca = Main.customerAccount; // just use the one that is already made for a customer account
         LoanAccount creditCardLoanAccount = ca.getCreditCardLoanAccount();
 
         if(creditCardLoanAccount==null){
@@ -2779,21 +2695,18 @@ public class Controller implements Initializable{
         String purchaseDesc = customerInterCCpurchaseDesc.getText();
         LoanAccount creditCardLoanAccount = Main.customerAccount.getCreditCardLoanAccount();
 
-        // make this work for debit or credit
-
         if(customerInterCCMakePaymentCheckBox.isSelected()){ // making a payment so make amount positive with validation
             // it is always positive
             FinanceDriver.creditDebitLoanAccount(creditCardLoanAccount,transactionAmt,"Credit Card Payment");
-
+            DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
         }else{ // making a purchase so make amount negative
             double debitAmt = 0.0-transactionAmt;
-
             if(purchaseDesc.length()>0){
                 FinanceDriver.creditDebitLoanAccount(creditCardLoanAccount,debitAmt,purchaseDesc);
             }else{
                 FinanceDriver.creditDebitLoanAccount(creditCardLoanAccount,debitAmt,"Credit Card Purchase");
             }
-
+            DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
         }
 
         customerInterCCPurchaseAmt.setText("");
@@ -3049,9 +2962,9 @@ public class Controller implements Initializable{
                        returnVal = true;
                    }
 
-               } else {// if search was null
-                   Main.customerAccount = Main.customerAccounts.get(0);// statically set the first account
-                   returnVal = true;
+               }else{// if search was null
+                   //Main.customerAccount = Main.customerAccounts.get(0);// statically set the first account
+                   //returnVal = true;
 
                    // DELETE ALL ABOVE THIS LINE AND CHANGE BACK TO BELOW THIS TO REMOVE THE STATIC SET ACCOUNT FOR ANY LOGIN
                    //returnVal=false;
@@ -3150,6 +3063,7 @@ public class Controller implements Initializable{
 
         FinanceDriver.applyFeeOnAccount(ca,"stop"); // puts stop payment on account
         selectedCheck.stopCheckPayment(); // stop the payment
+        DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
         closeStage(Main.activeStage);
         goToDisplayDataScene();
 
@@ -3218,7 +3132,7 @@ public class Controller implements Initializable{
             closeStage(Main.activeStage); // close active stage which is the warning window
             goToLoggedInEmployeeScene();// return to the logged in employee scene
         }
-
+        DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
     }
 
     // GENERAL NAVIGATION AND GOTO METHODS
@@ -3267,14 +3181,14 @@ public class Controller implements Initializable{
             if(Main.loggedInEmployee!=null){
                 long loggedInTime = Main.loggedInEmployee.getTimeLoggedIn(); // session log in time in seconds
 
-                if(loggedInTime<=300){ // been logged in for less than 5 minutes
+                if(loggedInTime<=sessionLogInTimeOutInSeconds){ // been logged in for less than 5 minutes
                     System.out.println(Main.loggedInEmployee.getUserName()+" has been logged in for  "+loggedInTime+" seconds");
                 }else{
                     tellerLogIn = false; // if returning to the main screen log out all logged in accounts
                     managerLogIn = false;
-                    customerLogIn = false;
                 }
             }
+            customerLogIn = false; // log out the customer regardless
         } catch (IOException e) {
             e.printStackTrace();
             Main.activeStage=null;
@@ -3339,22 +3253,13 @@ public class Controller implements Initializable{
     }
 
 
-
     public void goToAddFinanceAcc(){
         addFinanceAccountButton();// just simulate the button press
     }
 
-
-
     public void goToManageFinanceAcc(){
         manageFinancialAccountsButton();
     }
-
-
-
-
-
-
 
     @FXML
     public void loadHelpWindowAccountIDSystem(){ // loads a simple help window
@@ -3409,11 +3314,6 @@ public class Controller implements Initializable{
         }
     }
 
-
-    public void gotoCustomerInterface(){
-        // should already be logged in so no need to go to main interface
-        mainInterfaceCustomerButton();
-    }
 
 
     public void exportDataToCSVFiles(){

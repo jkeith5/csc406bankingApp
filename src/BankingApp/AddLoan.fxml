@@ -35,8 +35,8 @@
             <TextField fx:id="startingBalance" layoutX="301.0" layoutY="173.0" onKeyReleased="#addFinanceAccountEvent" />
             <TextField fx:id="loanInterestRate" layoutX="301.0" layoutY="214.0" onKeyReleased="#addFinanceAccountEvent" />
             <TextField fx:id="loanTermYears" layoutX="302.0" layoutY="256.0" onKeyReleased="#addFinanceAccountEvent" />
-            <Button fx:id="addLoanAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#addLoanAccountSaveButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
-            <Button fx:id="addLoanAccPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToAddFinanceAcc" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+            <Button fx:id="addLoanAccSaveB" layoutX="603.0" layoutY="461.0" mnemonicParsing="false" onAction="#addLoanAccountSaveButton" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Save" />
+            <Button fx:id="addLoanAccPrevB" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToAddFinanceAcc" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
          </children>
       </Pane>
    </children>

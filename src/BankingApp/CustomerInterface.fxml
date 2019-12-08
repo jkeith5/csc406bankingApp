@@ -17,13 +17,13 @@
                 <Label layoutX="300.0" layoutY="120.0" prefHeight="17.0" prefWidth="97.0" text="Balance: " />
                 <Label fx:id="customerDispDataAccountBalance" layoutX="360.0" layoutY="120.0" prefHeight="17.0" prefWidth="97.0" text="Label" />
                 <TextField fx:id="customerInterAtmWithdrawalAmt" layoutX="400.0" layoutY="170.0" onKeyReleased="#customerInterWithdrawalAmountEvent" prefWidth="150.0" promptText="Enter Amount" />
-                <Button fx:id="customerInterAtmWithdrawalButton" layoutX="200.0" layoutY="170.0" mnemonicParsing="false" onAction="#customerInterAtmWithdrawalButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="150.0" text="Withdrawal" />
+                <Button fx:id="customerInterAtmWithdrawalButton" layoutX="200.0" layoutY="170.0" mnemonicParsing="false" onAction="#customerInterAtmWithdrawalButton" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="150.0" text="Withdrawal" />
                 <TextField fx:id="customerInterAtmCheckNum" layoutX="400.0" layoutY="250.0" onKeyReleased="#checkNumberFieldEvent" prefWidth="150.0" promptText="Enter Check Num" />
                 <TextField fx:id="customerInterAtmCheckAmt" layoutX="400.0" layoutY="290.0" onKeyReleased="#checkNumberFieldEvent" prefWidth="150.0" promptText="Enter Amount" />
-                <Button fx:id="customerInterAtmDepositButton" layoutX="200.0" layoutY="250.0" mnemonicParsing="false" onAction="#customerInterAtmDepositButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="150.0" text="Deposit" />
+                <Button fx:id="customerInterAtmDepositButton" layoutX="200.0" layoutY="250.0" mnemonicParsing="false" onAction="#customerInterAtmDepositButton" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="150.0" text="Deposit" />
                 <Label fx:id="tempLabel" layoutX="195.0" layoutY="350.0" prefHeight="17.0" prefWidth="350.0" text="A fee of 50 cents will be applied to all transactions" />
-                <Button fx:id="customerInterCCButton" layoutX="535.0" layoutY="461.0" mnemonicParsing="false" onAction="#customerInterCCButton" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="150.0" text="Credit Card" />
-                <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToMainScene" onKeyPressed="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
+                <Button fx:id="customerInterCCButton" layoutX="535.0" layoutY="461.0" mnemonicParsing="false" onAction="#customerInterCCButton" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="150.0" text="Credit Card" />
+                <Button fx:id="bankManagerPrevButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#goToMainScene" onKeyReleased="#enterKeyDefaultEvent" prefHeight="25.0" prefWidth="83.0" text="Previous" />
 
                 <Label fx:id="customerInterErrLabel" layoutX="175.0" layoutY="383.0" prefHeight="37.0" prefWidth="390.0" text="ERROR Messages somewhere eventually???" textFill="RED" wrapText="true" />
             </children>

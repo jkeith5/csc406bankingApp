@@ -30,7 +30,7 @@ public class Main extends Application {
     public static ArrayList<CustomerAccount> customerAccounts; //= DataEntryDriver.readFileToCustomerAccountsArrayList();
     public static String currentCustomerID;
     public static EmployeeAccount loggedInEmployee;
-    public static CustomerAccount loggedInCustomer;
+    //public static CustomerAccount loggedInCustomer;
     public static ArrayList<String> accountIDs=new ArrayList<String>(); // couldn't get Integer to work so using String
     private static int retry =0;
 
@@ -43,14 +43,12 @@ public class Main extends Application {
         Main.primaryStage.setScene(new Scene(root, 700, 500));
         Main.primaryStage.show();
         activeStage=Main.primaryStage;
-        System.out.println("active set to primary in Main Start");
 
     }
 
 
     public static void main(String[] args) {
         launch(args);
-        System.out.println("end");
 
 
         // here we will condense the arraylist of objects back into a text file
@@ -64,6 +62,7 @@ public class Main extends Application {
 
         out.close();
         outEmployee.close();
+        System.out.println("END");
     }
 
     public static void initialize() {
@@ -118,6 +117,9 @@ public class Main extends Application {
         }
         FinanceDriver.processChecks(customerAccounts); // sets check to processed if check date is greater than 3 days
 
+        for(CustomerAccount ca:customerAccounts){
+            ca.getAtmWithdrawalsToday();
+        }
 
 
     }
