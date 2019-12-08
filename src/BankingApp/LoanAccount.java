@@ -102,6 +102,8 @@ public class LoanAccount implements Serializable {
             calculateInitialPaymentPlan();
         }
 
+        Transaction transaction = new Transaction("D",initialLoanAmt,"Open Loan Account",getFixedID());
+        customerAccount.addTransactionObject(transaction);
 
 
 
@@ -369,19 +371,13 @@ public class LoanAccount implements Serializable {
     }
 
     public void setLoanAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end and sub id
-        String loanAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
         String loanAccountIdFix = "";
+        String fixedID = getFixedID();
 
-        if(this.loanAccountType.equals("STL")){ // 03 short term loan
-            String subId = customerAccount.generateNextLoanAcctSubId("STL");
-            loanAccountIdFix = loanAcctIDString+"-03"+"-"+subId;
-        }
-        if(this.loanAccountType.equals("LTL")){ // 04 long term loan
-            String subId = customerAccount.generateNextLoanAcctSubId("LTL");
-            loanAccountIdFix = loanAcctIDString+"-04"+"-"+subId;
-        }
-        if(this.loanAccountType.equals("CCL")){ // 05 Credit Card loan
-            loanAccountIdFix = loanAcctIDString+"-05";
+        if(!fixedID.contains("-")){
+            loanAccountIdFix = getLoanAccountIDAuto(customerAccount);
+        }else{
+            loanAccountIdFix = fixedID;
         }
 
         this.loanAccountID=loanAccountIdFix;
@@ -392,17 +388,22 @@ public class LoanAccount implements Serializable {
     public String getLoanAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end and sub id
         String loanAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
         String loanAccountIdFix = "";
+        String fixedID = getFixedID();
 
-        if(this.loanAccountType.equals("STL")){ // 03 short term loan
-            String subId = customerAccount.generateNextLoanAcctSubId("STL");
-            loanAccountIdFix = loanAcctIDString+"-03"+"-"+subId;
-        }
-        if(this.loanAccountType.equals("LTL")){ // 04 long term loan
-            String subId = customerAccount.generateNextLoanAcctSubId("LTL");
-            loanAccountIdFix = loanAcctIDString+"-04"+"-"+subId;
-        }
-        if(this.loanAccountType.equals("CCL")){ // 05 Credit Card loan
-            loanAccountIdFix = loanAcctIDString+"-05";
+        if(!fixedID.contains("-")){
+            if(this.loanAccountType.equals("STL")){ // 03 short term loan
+                String subId = customerAccount.generateNextLoanAcctSubId("STL");
+                loanAccountIdFix = loanAcctIDString+"-03"+"-"+subId;
+            }
+            if(this.loanAccountType.equals("LTL")){ // 04 long term loan
+                String subId = customerAccount.generateNextLoanAcctSubId("LTL");
+                loanAccountIdFix = loanAcctIDString+"-04"+"-"+subId;
+            }
+            if(this.loanAccountType.equals("CCL")){ // 05 Credit Card loan
+                loanAccountIdFix = loanAcctIDString+"-05";
+            }
+        }else{
+            loanAccountIdFix = fixedID;
         }
 
         return loanAccountIdFix;

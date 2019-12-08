@@ -157,6 +157,7 @@ public class DataEntryDriver {
 
         //System.out.println("Reading in CustomerBase.csv");
         Main.printToConsoleAndLog("Reading in CustomersBase.csv");
+        int id = 1;
         try {
             BufferedReader br = new BufferedReader(new FileReader(customerBase));
             String line;
@@ -167,7 +168,9 @@ public class DataEntryDriver {
                         lineSplit[5],lineSplit[6],lineSplit[7]);
 
                 if(!readExport){ // not reading export data readExport = false
-                    ca.setFinancialAccountID(Main.generateCustomerId());
+                    //ca.setFinancialAccountID(Main.generateCustomerId());
+                    ca.setFinancialAccountID(id);
+                    id++;
                 }
 
 
@@ -446,7 +449,6 @@ public class DataEntryDriver {
 
 
     public static CustomerAccount getCustomerAccountFromCustomerID(String customerID){
-        System.out.println("start of get customer acct from id");
         ArrayList<CustomerAccount> accountsList = Main.customerAccounts;
 
         CustomerAccount result = new CustomerAccount("null");
@@ -507,7 +509,6 @@ public class DataEntryDriver {
     }
 
     public static CustomerAccount getCustomerAccountFromCustomerAtmCardNum(String cardNum){
-        System.out.println("start of get customer acct from id");
         ArrayList<CustomerAccount> accountsList = Main.customerAccounts;
 
         CustomerAccount result = new CustomerAccount("null");
@@ -541,13 +542,10 @@ public class DataEntryDriver {
     public static boolean addCustomerAccountToArrayList(CustomerAccount ca){
         try {
             Main.customerAccounts.add(ca);
-            System.out.println("adding customer account to array");
-            System.out.println(ca.toString());
             Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+" added: "+ca.toString());
             // might run a serialize to file here
             return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
             Main.out.println(Main.getDateTimeString()+"Error in add customerToArray.");
             return false;
         }
@@ -555,13 +553,10 @@ public class DataEntryDriver {
 
     public static boolean removeCustomerAccount(String ssn){
         try {
-            if(ssnInDatabase(stripSSN(ssn))){
+            if(ssnInDatabase(ssn)){
                 int index = getIndexOfCustomerAccountInArray(ssn);
                 Main.outEmployee.println(Main.getDateTimeString()+Main.loggedInEmployee.getUserName()+" deleted: "+Main.customerAccounts.get(index).toString());
                 Main.customerAccounts.remove(index);
-                System.out.println("Removed customer account");
-
-
                 return true;
             }else{
                 return false;
@@ -591,11 +586,66 @@ public class DataEntryDriver {
         return returnVal;
     }
 
+    public static void fixIdSystemForCustomerAccounts(){
+        fixAllCustomerAccountsFinancialID(); // sets the financial id first
+
+        // then set the financialAccount id
+        if(Main.customerAccounts.size()>0){
+            for(CustomerAccount ca:Main.customerAccounts){
+                ca.fixIDforCustomerAccounts(); // fixes the id on the financial accounts after the customer financial id is set
+            }
+        }
+    }
+
+    public static void fixAllCustomerAccountsFinancialID(){
+        for(CustomerAccount ca:Main.customerAccounts){
+            boolean hasChecking = ca.hasCheckingAccount();
+            boolean hasSavings = ca.hasSavingsAccount();
+            boolean hasLoanAccounts = ca.hasLoanAccount();
+
+            if(ca.getFinancialAccountID()==0){ // run if id is not set
+                if(hasChecking){ // if they have checking accounts try to get the financial id from those
+                    String financialId = ca.getCheckingAccount().getCheckingAcctID();
+                    String[] split = financialId.split("-");
+                    ca.setFinancialAccountID(DataEntryDriver.getIntFromString(split[0]));
+                }else if(hasSavings){ // same but with savings
+                    ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
+                    String finId = savingsAccounts.get(0).getSavingsAcctID();
+                    String[] split = finId.split("-");
+                    ca.setFinancialAccountID(DataEntryDriver.getIntFromString(split[0]));
+                }else if(hasLoanAccounts){ // same but with loans
+                    ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
+                    String finId = loanAccounts.get(0).getLoanAccountID();
+                    String[] split = finId.split("-");
+                    ca.setFinancialAccountID(DataEntryDriver.getIntFromString(split[0]));
+                }
+            }
+
+
+        }
+
+        // loop again because we have to read and figure all the customer IDs first before we can start
+        // generating any id for the ones that don't have accounts or we will get duplicated ids.
+        // this is needed to catch any accounts that do not have financial accounts with the embedded customer ID
+        // so we can just generate one that does not exist yet.
+        for(CustomerAccount ca:Main.customerAccounts){
+            boolean hasChecking = ca.hasCheckingAccount();
+            boolean hasSavings = ca.hasSavingsAccount();
+            boolean hasLoanAccounts = ca.hasLoanAccount();
+
+            if(ca.getFinancialAccountID()==0){
+                if(!hasChecking && !hasSavings && !hasLoanAccounts){
+                    ca.setFinancialAccountID(Main.generateCustomerId());
+                }
+            }
+        }
+    }
+
 
     public static int getIndexOfCustomerAccountInArray(String ssn){
         int returnVal = -1;
 
-        if(ssnInDatabase(stripSSN(ssn))){
+        if(ssnInDatabase(ssn)){
             for(int i=0;i<Main.customerAccounts.size();i++){
                 CustomerAccount ca = Main.customerAccounts.get(i);
                 if(stripSSN(ssn).equals(stripSSN(ca.getCustID()))){
@@ -785,7 +835,6 @@ public class DataEntryDriver {
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     if (!newValue.matches("(-?\\d{0,7}([\\.]\\d{0,2})?)?")) {
                         textField.setText(oldValue);
-                        System.out.println("n "+newValue);
                     }
                 }
             });
@@ -795,8 +844,6 @@ public class DataEntryDriver {
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     if (!newValue.matches("(\\d{0,7}([\\.]\\d{0,2})?)?")) {
                         textField.setText(oldValue);
-                        System.out.println("new: "+newValue);
-                        System.out.println("old "+oldValue);
                     }
                 }
             });
@@ -806,31 +853,21 @@ public class DataEntryDriver {
     // USE TO VALIDATE INTEREST RATE AS DECIMAL OR WHOLE PERCENT OR AN INTEGER VALUE ONLY
     // if interest rate type is false then its a cd type . if interest wholePercent true then 50 = .50. if false then input is in decimal 0.50
     public static void validateInterestField(TextField textField, boolean interestRateType, boolean interestWholePercent) {
-        //System.out.println("\nvalidate input field.");
-        //System.out.println("interestRateType: "+interestRateType);
-        //System.out.println("interestWholePercent: "+interestWholePercent);
-
         if(interestRateType){ // if true then we are validating an interest rate field
-            //System.out.println("interest rate type");
             if(interestWholePercent){ // validate for whole percent like 85.568 = 0.85568
-                //System.out.println("interest rate WP");
                 textField.textProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                         if (!newValue.matches("([123456789][0123456789]?([\\.]\\d{0,3})?)?")) {
-                            //System.out.println("interest WP old: "+oldValue+" new: "+newValue);
-                            //System.out.println("setting value to: "+oldValue);
                             textField.setText(oldValue);
                         }
                     }
                 });
             }else{ // validate for decimal form like 0.85568
-                //System.out.println("interest rate DP");
                 textField.textProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                         if (!newValue.matches("([0]?([\\.]\\d{0,5})?)?")) {
-                            //System.out.println("interest DP old: "+oldValue+" new: "+newValue);
                             textField.setText(oldValue);
                         }
                     }

@@ -27,6 +27,7 @@ public class CustomerAccount implements Serializable {
     // for this system you can only have ONE checking, simple saving account, and one credit card loan. Multiple of other accounts
 
 
+    // will be 0 if not set
     public int financialAccountID; // checking= x-00  simple saving= x-01  savingCD=x-02-00  ShortTermLoan= x-03-00 LongTermLoan= x-04-00 CreditCardLoan= x-05
     // so we can split the string by "-" if len = 2 then we can only have one of that type.
     // in the id string for the accounts split [0] will be this financialID. split[1] will be the identifier of the sub type
@@ -96,7 +97,6 @@ public class CustomerAccount implements Serializable {
     }
 
     public CustomerAccount(String custID,String firstName,String lastName,String streetAddr,String city,String state,String zip,boolean generateAtmAndFinAccountID){
-        //System.out.println("construct 4");
         setCustID(custID);
         setFirstName(firstName);
         setLastName(lastName);
@@ -104,14 +104,12 @@ public class CustomerAccount implements Serializable {
         setCity(city);
         setState(state);
         setZip(zip);
-        //setAtmCardNumber(atmCardNumber);
         setDateCreatedAuto();
 
         if(generateAtmAndFinAccountID){
             setFinancialAccountIDAuto();
             setAtmCardNumber(Main.generateAtmCardNumber());
             setPinAuto();
-            //generateAtmFinIDAndPin();
         }
 
 
@@ -122,7 +120,6 @@ public class CustomerAccount implements Serializable {
         return custID;
     }
     public void setCustID(String custID) {
-        //this.custID = custID;
         this.custID = DataEntryDriver.fixSSN(custID);
         this.isNull=false;
     }
@@ -617,24 +614,25 @@ public class CustomerAccount implements Serializable {
     // used to fix the old IDs to the new format
     // this takes the financial ID and sets the FixedID value for each financial account based on the
     // financial id. Also fixes all check objects to use the new account ID
-    public void fixIDforCustomerAccounts(CustomerAccount customerAccountIn){
+    // call this after all data has already been read in.
+    public void fixIDforCustomerAccounts(){
         if(hasCheckingAccount()){
             if(checkingAccount.getCheckingAcctIDFixed()==null){ // only set if null
-                this.checkingAccount.setCheckingAcctIDFixed(customerAccountIn);
+                this.checkingAccount.setCheckingAccountIDAuto(this);
             }
 
         }
         if(hasSavingsAccount()){ // if has savings of any type
             for(SavingsAccount sa:savingsAccounts){ // for each savings account in arraylist
                 if(sa.getSavingsAcctIDFixed() == null){ // only run if the fixedID is not set
-                    sa.setSavingsAcctIDFixed(customerAccountIn);
+                    sa.setSavingsAccountIDAuto(this);
                 }
             }
         }
         if(hasLoanAccount()){
             for(LoanAccount la:loanAccounts){
                 if(la.getLoanAccountIDFixed() == null){
-                    la.setLoanAccountIDFixed(customerAccountIn);
+                    la.setLoanAccountIDAuto(this);
                 }
             }
         }
@@ -658,29 +656,6 @@ public class CustomerAccount implements Serializable {
     }
 
 
-    public void generateAtmFinIDAndPin(){
-        setFinancialAccountIDAuto();
-        setAtmCardNumber(Main.generateAtmCardNumber());
-        setPinAuto();
-    }
-
-
-    // some void methods to print the specific customer Account data
-
-
-    public void printBasicDataShort(){// prints the customer first last name and acc id
-        printLineBreak();
-        System.out.println("Customer Account: "+getFirstName()+" "+getLastName()+" CustId: "+getCustID());
-    }
-
-    public String getBasicDataShort(){
-        String result = "Customer Account: "+getFirstName()+" "+getLastName()+" CustId: "+getCustID();
-        return result;
-    }
-
-    public void printLineBreak(){
-        System.out.println("\n\n");
-    }
 
 
     public String generateNextLoanAcctSubId(String loanAcctType){ // loanAccount type of the account to generate sub number for
@@ -799,6 +774,70 @@ public class CustomerAccount implements Serializable {
         return returnVal;
     }
 
+    public String toStringAllData(){
+        String result = toStringPrettyPrint();
+        result=result+getCheckingAccountString();
+        result=result+getSavingsAccountString();
+        result=result+getLoanAccountsString();
+        result=result+getChecksString();
+        result=result+getTransactionsString();
+        return result;
+    }
+
+
+    public String getTransactionsString(){
+        String result = "\nTransactions";
+        for(Transaction t:this.transactions){
+            result = result+"\n"+t.toString();
+        }
+
+        return result;
+    }
+
+
+    public String getChecksString(){
+        String result = "\nChecks";
+        for(Check c:this.checks){
+            result = result+"\n"+c.toString();
+        }
+        return result;
+    }
+
+
+    public String getLoanAccountsString(){
+        String result = "\nLoan Accounts";
+        if(hasLoanAccount()){
+            for(LoanAccount la:this.loanAccounts){
+                result = result+"\n"+la.toString();
+            }
+        }
+
+        return result;
+    }
+
+    public String getCheckingAccountString(){
+        String result = "\nChecking Accounts";
+        if(hasCheckingAccount()){
+            result = result+"\n"+this.checkingAccount.toString();
+        }else{
+            result = result+"\n";
+        }
+
+        return result;
+    }
+
+    public String getSavingsAccountString(){
+        String result = "\nSavings Accounts";
+        if(hasSavingsAccount()){
+            for(SavingsAccount sa:this.savingsAccounts){
+                result = result+"\n"+sa.toString();
+            }
+        }else{
+            result=result+"\n";
+        }
+        return result;
+    }
+
 
     @Override
     public String toString() {
@@ -841,7 +880,9 @@ public class CustomerAccount implements Serializable {
     // to print the data as it would appear in the CustomersBase.csv file without the csv formatting
     public String toStringBaseDataTableFormat(){
         String result = String.format("SSN: %-12s First: %-10.10s Last: %-10.10s Address: %-20.20s City: %-13.13s" +
-                " State: %-4s Zip: %-5s ATM: %-18s",custID,firstName,lastName,streetAddr,city,state,zip,atmCardNumber);
+                " State: %-4s Zip: %-5s ATM: %-18s FinancialID: %-2d hasChecking: %-5.5b hasSavings: %-5.5b hasLoan: %-5.5b",
+                custID,firstName,lastName,streetAddr,city,state,zip,
+                atmCardNumber,financialAccountID,hasCheckingAccount,hasSavingsAccount,hasLoanAccount);
         return result;
     }
 
@@ -854,6 +895,11 @@ public class CustomerAccount implements Serializable {
         String result = "custID,firstName,lastName,streetAddr,city,state,zip,atmCardNumber";
         return result;
     }
+
+
+
+
+    //
 
 
 }

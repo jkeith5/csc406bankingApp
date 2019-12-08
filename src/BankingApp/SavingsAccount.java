@@ -49,6 +49,10 @@ public class SavingsAccount implements Serializable {
         }else{
             setCdCloseDate(DataEntryDriver.addMonthsToDateString(getDateOpened(),(termInYears*12)));
         }
+
+        Transaction transaction = new Transaction("D",startingBalance,"Open Savings Account",getFixedID());
+        customerAccount.addTransactionObject(transaction);
+
     }
 
 
@@ -259,31 +263,40 @@ public class SavingsAccount implements Serializable {
 
     public void setSavingsAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end and index number
         // sets the savingsAcctID and savingsAcctIDFixed id to the proper numbering system
-        String savingsAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
         String savingsAccountIdFix = "";
+        String fixedIDString = getFixedID(); // will return NULL if FixedId is not in the regular or fixed Id variable.
 
-        if(this.isCdAccount){// savings cd
-            String subId = customerAccount.generateNextSavingsCDSubID();
 
-            savingsAccountIdFix = savingsAcctIDString+"-02"+"-"+subId;
-        }else{ // simple savings
-            savingsAccountIdFix = savingsAcctIDString+"-01";
+        if(!fixedIDString.contains("-")){ // if it doesn't have a "-" for a fixed ID, so NULL would still be false
+            savingsAccountIdFix = getSavingsAccountIDAuto(customerAccount); // will generate an ID
+        }else{
+            savingsAccountIdFix = fixedIDString; // else set to the already fixed ID
         }
-        this.savingsAcctID = savingsAccountIdFix;
-        this.savingsAcctIDFixed=savingsAccountIdFix;
+        this.savingsAcctID = savingsAccountIdFix; // set both values
+        this.savingsAcctIDFixed=savingsAccountIdFix; // set both values
 
     }
 
     // returns a string of what the correct saving id should be by my system from the customers financial id
+    // will return the savingsAcctID if it contains a "-" which would indicate that the ID is fixed for the new system
+    // will return the savingsAcctIDFixed if it is not null
+    // if there is no fixed ID then it returns a generated Fixed ID based on the financial ID of the customer object
     public String getSavingsAccountIDAuto(CustomerAccount customerAccount){
         String savingsAcctIDString = String.valueOf(customerAccount.getFinancialAccountID());
         String savingsAccountIdFix = "";
-        if(this.isCdAccount){// savings cd
-            String subId = customerAccount.generateNextSavingsCDSubID();
-            savingsAccountIdFix = savingsAcctIDString+"-02"+"-"+subId;
-        }else{ // simple savings
-            savingsAccountIdFix = savingsAcctIDString+"-01";
+        String fixedIDString = getFixedID();// will return any ID that is fixed
+
+        if(!fixedIDString.contains("-")){ // if we don't already have a fixed ID or if it was NULL
+            if(this.isCdAccount){// savings cd
+                String subId = customerAccount.generateNextSavingsCDSubID(); // generate the last two digits
+                savingsAccountIdFix = savingsAcctIDString+"-02"+"-"+subId; // fixes the first two parts xx-xx
+            }else{ // simple savings
+                savingsAccountIdFix = savingsAcctIDString+"-01"; // fixes the simple savings ID. Can only have one so no sub ID
+            }
+        }else{ // else there is already a fixed ID in this system so just return that so we don't make a new sub id
+            savingsAccountIdFix = fixedIDString;
         }
+
         return savingsAccountIdFix;
     }
 
@@ -296,17 +309,6 @@ public class SavingsAccount implements Serializable {
     }
 
     public String getSavingsAcctIDFixed(){
-        if(savingsAcctIDFixed!=null){
-            //return this.savingsAcctIDFixed;
-        }else{
-            if(savingsAcctID.contains("-")){
-                //savingsAcctIDFixed = savingsAcctID;// set them both to equal.
-                //return savingsAcctID;
-            }else{
-                //return "null";
-            }
-            //return "NULL";
-        }
         return this.savingsAcctIDFixed;
 
     }

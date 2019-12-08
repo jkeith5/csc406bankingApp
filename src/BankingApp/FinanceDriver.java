@@ -99,7 +99,7 @@ public class FinanceDriver {
                 double checkingBalance = ca.getCheckingAccount().getAccountBalance();
                 double newBal = checkingBalance+transferAmtDouble;
                 double savingsBalance = 0.0;
-                if(ca.hasSavingsAccount()){
+                if(ca.hasSimpleSavings()){
                     savingsBalance = ca.getSimpleSavingsAccount().getAccountBalance();
                 }
 
@@ -339,9 +339,6 @@ public class FinanceDriver {
 
         }
 
-//        // some debug data
-//        ca.printChecks();
-//        ca.printTransactions();
 
     }
 

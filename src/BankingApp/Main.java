@@ -16,27 +16,6 @@ import java.util.Random;
 
 
 public class Main extends Application {
-
-    /*
-    * My notes go here
-    *
-    *
-    *
-    * SAVINGS ACCOUNTS cd and simple
-    * find and set interest for the savings accounts
-    * methods to credit debit savings CD
-    * add fee for early withdrawal
-    * add methods to do the roll over
-    *
-    * validate the manage financial accounts window disable buttons for account types that are not there
-    *
-    *
-    *
-    *
-    * */
-
-
-
     public static File outputFile;
     public static PrintWriter out;
     public static File outputEmployeeRecord;
@@ -52,7 +31,7 @@ public class Main extends Application {
     public static String currentCustomerID;
     public static EmployeeAccount loggedInEmployee;
     public static CustomerAccount loggedInCustomer;
-    public static int lastAccId=1;
+    public static ArrayList<String> accountIDs=new ArrayList<String>(); // couldn't get Integer to work so using String
     private static int retry =0;
 
     @Override
@@ -122,11 +101,11 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        // fixes id for the financial accounts so I can more easily access them in the interface
-        for(CustomerAccount ca: customerAccounts){
-            ca.fixIDforCustomerAccounts(ca); // sets the fixed id for the customer account objects
-        }
 
+        // now fix the id system
+
+        DataEntryDriver.fixIdSystemForCustomerAccounts();
+        setAccountIDS(); // reads the customer array and sets all the ids to the arraylist of accountIDS
 
         // loops and figures any late payments and applies that to the next payment amount
         for(CustomerAccount ca: customerAccounts){
@@ -136,13 +115,8 @@ public class Main extends Application {
                     FinanceDriver.applyLateFeeOnLoanAccount(ca,la);// should apply the late fee to the next payment if late
                 }
             }
-            lastAccId = ca.getFinancialAccountID(); // figure the id for when we don't read the csv data
         }
-        lastAccId ++; // increment by one so that it is ready for the next account
         FinanceDriver.processChecks(customerAccounts); // sets check to processed if check date is greater than 3 days
-
-
-
 
 
 
@@ -155,15 +129,6 @@ public class Main extends Application {
         result = ldt.toString()+" ";
         return result;
     }
-
-    // just adding this so I don't have to remember what class I put these methods in
-
-
-
-
-
-
-
 
     public static void printToConsoleAndLog(String message){
         String result = getDateTimeString()+message;
@@ -181,23 +146,37 @@ public class Main extends Application {
 
 
     public static int generateCustomerId(){
-        int returnVal= lastAccId;
-        lastAccId = lastAccId+1; // should increment it so that its ready for the next id
+        int newID = 1;
 
-        if(customerAccounts!=null){
+        // add any new id to the list
+        setAccountIDS();
+
+        String newIDString = String.valueOf(newID);
+        while(accountIDs.contains(newIDString)){ // if it contains the new id generate another one
+            newID++;
+            newIDString = String.valueOf(newID); // get a new String of the int value.
+            // because I was unable, for some reason, to get the ArrayList<Integer> to work.
+        }
+
+        return newID;
+    }
+
+    public static void setAccountIDS(){
+        accountIDs.clear(); // clear list and start over
+        if(customerAccounts.size()>0){
             for(CustomerAccount ca:customerAccounts){
-                if(ca.getFinancialAccountID()== returnVal){
-                    // somehow the id was already in the database so increment it and start again.
-                    lastAccId++;
-                    returnVal=lastAccId;
+                if(ca.getFinancialAccountID()>0){
+                    String caID = String.valueOf(ca.getFinancialAccountID());
+                    if(!accountIDs.contains(caID)){
+                        accountIDs.add(caID);
+                    }
                 }
             }
         }
-
-
-
-        return returnVal;
     }
+
+
+
 
 
     public static String generateNumber(int length){

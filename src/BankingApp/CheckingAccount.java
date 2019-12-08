@@ -45,6 +45,9 @@ public class CheckingAccount implements Serializable {
         setBackupSavingsEnabled(backupSavingsEnabled);
         setOverdraftsOnAcct(0);
         this.isNull=false;
+        // log a transaction for opening the account
+        Transaction transaction = new Transaction("D",startingBalance,"Open Checking Account",getFixedID());
+        customerAccount.addTransactionObject(transaction);
     }
 
 
@@ -62,19 +65,6 @@ public class CheckingAccount implements Serializable {
         return checkingAcctID;
     }
 
-    public int getCheckingAcctIDInt(){
-        int returnVal = -1;
-
-        if(this.checkingAcctID!=null){
-            if(this.checkingAcctID.contains("-")){ // for the new and improved id system
-                String[] split = this.checkingAcctID.split("-");
-                returnVal = Integer.parseInt(split[0]);
-            }else{// for the old account id numbering system
-                returnVal = Integer.parseInt(this.checkingAcctID);
-            }
-        }
-        return returnVal;
-    }
 
 
     public void setCheckingAcctID(String checkingAcctID) {
@@ -84,10 +74,17 @@ public class CheckingAccount implements Serializable {
 
     // ID should come from the CustomerAccount Object financialAccountID.
     public void setCheckingAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end
+        String fixedID = getFixedID();
         String checkingAccIDString = String.valueOf(customerAccount.getFinancialAccountID());
-        String checkingAccountIdFix = checkingAccIDString+"-00";
-        this.checkingAcctID = checkingAccountIdFix;
-        this.checkingAcctIDFixed=checkingAccountIdFix;
+        String tempID = "NULL";
+
+        if(!fixedID.contains("-")){
+            tempID = checkingAccIDString+"-00";
+        }else{
+            tempID = fixedID;
+        }
+        this.checkingAcctID = tempID;
+        this.checkingAcctIDFixed=tempID;
     }
 
     public String getCheckingAccountIDAuto(CustomerAccount customerAccount){// adds 01 to end
@@ -105,23 +102,7 @@ public class CheckingAccount implements Serializable {
 
 
     public String getCheckingAcctIDFixed(){
-        //System.out.println("Get checking ID fixed: curr ID: "+checkingAcctID+"  "+checkingAcctIDFixed);
-//        if(checkingAcctIDFixed!=null){ // then checking ID fixed was not set
-//            return this.checkingAcctIDFixed;
-//        }else{ // so now try the regular checking account ID for if it was imported as already fixed
-//            if(this.checkingAcctID.contains("-")){ // go ahead and set both IDs if one is correct
-//                //checkingAcctIDFixed = checkingAcctID;
-//                //return  this.checkingAcctID;
-//
-//            }else{
-//                System.out.println("NULL");
-//                //return "null";
-//            }
-//            return "NULL";
-//        }
-
         return this.checkingAcctIDFixed;
-
     }
 
     // attempts to find a fixed ID from either of the two ID variables

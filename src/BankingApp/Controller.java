@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import javafx.fxml.FXMLLoader;
@@ -246,6 +247,7 @@ public class Controller implements Initializable{
 
 
 
+
     String fName, lName, socialSec, streetAddress, city, zipCode, state;
 
 
@@ -341,46 +343,42 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("ManageExistingUserDisplayData.fxml")){
-            System.out.println(Main.loggedInEmployee.getType());
             CustomerAccount ca = Main.customerAccount;
 
             accTypeToggleGroup = manageExistingCheckingAccount.getToggleGroup();
             manageExistingTransferFunds.setSelected(false);
             manageExistingTransferFunds.setDisable(true);
 
+
             // disable checking readio button if no checking account if it exists then set as default selected
             if(ca.hasCheckingAccount()){
                 manageExistingCheckingAccount.setSelected(true);
-            }else{
+            }else{ // has no checking
                 manageExistingCheckingAccount.setSelected(false);
                 manageExistingCheckingAccount.setDisable(true);
             }
 
             // teller can credit any account but savings CD
             // same as above but with savings account
-            if(!ca.hasSavingsAccount()){// if no savings account
-                manageExistingSavingsAccount.setSelected(false);
-                manageExistingSavingsAccount.setDisable(true);
-            }else{// if they do have a savings account
+            if(ca.hasSimpleSavings()){// if they do have a savings account
                 manageExistingSavingsAccount.setDisable(false);
                 if(!ca.hasCheckingAccount()){// if they have a savings but not a checking account
                     manageExistingSavingsAccount.setSelected(true);
                 }
+            }else{// if no savings account
+                manageExistingSavingsAccount.setSelected(false);
+                manageExistingSavingsAccount.setDisable(true);
             }
 
+            manageExistingCheckingLabel.setText("");
+            manageExistingSavingsLabel.setText("");
 
-            if(ca.hasSavingsAccount() && ca.hasCheckingAccount()){ // if they have a savings and checking account
+            if(ca.hasSimpleSavings() && ca.hasCheckingAccount()){ // if they have a savings and checking account
                 manageExistingTransferFunds.setDisable(false);
-                manageExistingCheckingLabel.setText("");
-                manageExistingSavingsLabel.setText("");
             }else{// else they have NO savings or checking account disable all features related
-
-                if(!ca.hasSavingsAccount() && !ca.hasCheckingAccount()){
+                if(!ca.hasSimpleSavings() && !ca.hasCheckingAccount()){
                     manageExistingFundsTransferAmount.setDisable(true);
                     manageExistingDebitCreditAccountButton.setDisable(true);
-                    manageExistingViewRecentActivityButton.setDisable(true);
-                    manageExistingCheckingLabel.setText("");
-                    manageExistingSavingsLabel.setText("");
                     manageDispDataAcctType.setText("");
                     manageDispDataAcctStatus.setText("");
                 }
@@ -413,7 +411,7 @@ public class Controller implements Initializable{
         }
 
         if(locationString.equals("ManageExistingUserUpdateData.fxml")){
-
+            unsuccessfulEntryLabel.setText("");
             stateComboBox.setTooltip(new Tooltip());
             stateComboBox.getItems().clear();
             stateComboBox.getItems().addAll(states);
@@ -538,23 +536,12 @@ public class Controller implements Initializable{
             DataEntryDriver.validateInterestField(savingInterestRate,true,true);
             DataEntryDriver.validateInterestField(savingCDTerm,false,false);
 
-            if(customerAccount.hasSavingsAccount()){ // if they have a savings account see if it's a simple saving
-                ArrayList<SavingsAccount> savingsAccounts = customerAccount.getSavingsAccounts();
-                boolean hasSimple = false;
-                for(SavingsAccount savingsAccount:savingsAccounts){
-                    if(!savingsAccount.isCdAccount()){// they have a simple saving already
-                        hasSimple=true;
-                    }
-                }
-                // so check the cd account box and lock it so they can only add a cd type
-                if(hasSimple){
-                    cdCheckBox.setSelected(true);
-                    cdCheckBox.setDisable(true);
-                    addSavingsAcctErrLabel.setText("User already has a simple savings account");
-                    //DataEntryDriver.validateInterestField(savingCDTerm,false,false);
-                }
+            if(customerAccount.hasSimpleSavings()){ // if they have a simple saving
+                cdCheckBox.setSelected(true);
+                cdCheckBox.setDisable(true);
+                addSavingsAcctErrLabel.setText("User already has a simple savings account");
 
-            }else{// have no savings account
+            }else{// have no simple savings account
                 // set these to false until they check the cd box
                 savingCDTerm.setVisible(false);
                 savingsCDTermLabel.setVisible(false);
@@ -592,6 +579,7 @@ public class Controller implements Initializable{
 
         }
         if(locationString.equals("ManageCheckingAcct.fxml")){
+            addCheckingAcctErrLabel.setText("");
             dispDataUpper();
             DataEntryDriver.validateBalanceAmountField(startingBalance,false);
             displayDataManageFinancialAccounts();
@@ -632,6 +620,7 @@ public class Controller implements Initializable{
                 DataEntryDriver.validateBalanceAmountField(manageLoanPaymentAmount,false);
 
 
+                manageLoanMakePaymentCheckBox.setDisable(true);
 
                 manageLoanAccountsList.valueProperty().addListener(new ChangeListener<String>() {
                     @Override public void changed(ObservableValue ov, String t, String t1) {
@@ -697,9 +686,6 @@ public class Controller implements Initializable{
                                 savingCdCloseDatePicker.setValue(today);
                             }
                         }
-
-                        //System.out.println("old: "+oldValue.toString());
-                        //System.out.println("new: "+newValue.toString());
                     }
                 });
 
@@ -764,18 +750,18 @@ public class Controller implements Initializable{
 
             if(hasChecking){
                 if(ca.getCheckingAccount().getAccountBalance()>0.001 || ca.getCheckingAccount().getAccountBalance()<0.001){
-                    financialAccountIDS.add(ca.getCheckingAccount().getCheckingAcctIDFixed());
+                    financialAccountIDS.add(ca.getCheckingAccount().getFixedID());
                 }
             }
             if(hasSavings){
                 for(SavingsAccount sa:ca.getSavingsAccounts()){
                     if(sa.isCdAccount()){
                         if(sa.getCurrentCDValue()>0.001){
-                            financialAccountIDS.add(sa.getSavingsAcctIDFixed());
+                            financialAccountIDS.add(sa.getFixedID());
                         }
                     }else{
                         if(sa.getAccountBalance()>0.001){
-                            financialAccountIDS.add(sa.getSavingsAcctIDFixed());
+                            financialAccountIDS.add(sa.getFixedID());
                         }
                     }
                 }
@@ -783,7 +769,7 @@ public class Controller implements Initializable{
             if(hasLoan){
                 for(LoanAccount la:ca.getLoanAccounts()){
                     if(la.getCurrentBalance()>0.001){
-                        financialAccountIDS.add(la.getLoanAccountIDFixed());
+                        financialAccountIDS.add(la.getFixedID());
                     }
                 }
             }
@@ -872,7 +858,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void addNewUserKeyEvent(){
-        System.out.println("event");
 
         DataEntryDriver.validateZipField(zipCodeTextField);
         ArrayList<String[]> itemsValid = getNewUserInfoValidArrayList();
@@ -888,26 +873,13 @@ public class Controller implements Initializable{
 
     @FXML
     public void updateUserKeyEvent(){
-        System.out.println("update user key event");
         DataEntryDriver.validateZipField(updateDataZip);
-
         ArrayList<String[]> itemsValid = getNewUserInfoValidArrayList();
-
-//        for(String[] el:itemsValid){
-//            System.out.println(Arrays.toString(el));
-//        }
-
-
         if(addNewUserInfoValid(itemsValid)){
-            //System.out.println("valid");
             Main.defaultSceneButton.setDisable(false);
-            //updateDataSaveButton.setDisable(false);
         }else{
-            //System.out.println("notvalid");
             Main.defaultSceneButton.setDisable(true);
-            //updateDataSaveButton.setDisable(true);
         }
-
     }
 
 
@@ -929,9 +901,6 @@ public class Controller implements Initializable{
         CustomerAccount ca = Main.customerAccount;
         Check selectedCheck = unprocessedChecksComboBox.getValue();
 
-        System.out.println(ca.toStringPrettyPrint());
-        System.out.println(selectedCheck.toStringPrettyPrint());
-
         checkNumber.setText(selectedCheck.getCheckNumber());
         checkDate.setText(selectedCheck.getCheckDate());
         checkAmount.setText(DataEntryDriver.getStringFromDouble(DataEntryDriver.round(selectedCheck.getCheckAmount(),2)));
@@ -947,6 +916,7 @@ public class Controller implements Initializable{
         }
 
     }
+
 
     public void openAccountsComboBoxEvent(){
         CustomerAccount ca = Main.customerAccount;
@@ -978,7 +948,6 @@ public class Controller implements Initializable{
             }
             if(selectedFinancialAccountObject instanceof LoanAccount){
                 LoanAccount loanAccount = (LoanAccount) selectedFinancialAccountObject;
-                System.out.println(loanAccount.getLoanAccountType());
                 tempLabel.setText(loanAccount.getTypeFullName());
 
                 double loanBal = DataEntryDriver.round(loanAccount.getCurrentBalance(),2);
@@ -1048,7 +1017,6 @@ public class Controller implements Initializable{
         }
 
         double checkAmt = DataEntryDriver.getDoubleFromTextField(customerInterAtmCheckAmt);
-        System.out.println("check amount: "+checkAmt);
 
         if(!checkNumEmpty){
             if(!disableButton){ // check number does not exist
@@ -1167,7 +1135,6 @@ public class Controller implements Initializable{
     }
 
     public void loanAccountTypeEvent(){
-        System.out.println("loan account type key event");
         String selectedItem = loanAccountTypeComboBox.getValue();
         if(selectedItem.equals("Short Term Loan")){
             loanTermLabel.setVisible(true);
@@ -1187,14 +1154,12 @@ public class Controller implements Initializable{
 
     // used to change the display of the savings account in the manage interface
     public void manageSavingsAccountTypeEvent(){
-        System.out.println("manage savings account type event");
         CustomerAccount customerAccount = Main.customerAccount;
         String selectedFixedId = manageSavingsAccountsList.getSelectionModel().getSelectedItem();
         SavingsAccount selectedSavingAccount = customerAccount.getSavingsAccountByFixedID(selectedFixedId);
         boolean isCd = selectedSavingAccount.isCdAccount();
         double balance = selectedSavingAccount.getAccountBalance();
         double interest = selectedSavingAccount.getInterestRate()*100.00;
-        System.out.println("interest is: "+interest);
         String cdCloseDate = selectedSavingAccount.getCdCloseDate();
         cdCheckBox.setSelected(isCd);
 
@@ -1203,7 +1168,6 @@ public class Controller implements Initializable{
         startingBalance.setOpacity(1.0);
         savingInterestRate.setDisable(false);
         savingInterestRate.setOpacity(1.0);
-        System.out.println("test: "+DataEntryDriver.getStringFromDouble(interest));
         savingInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
 
 
@@ -1233,7 +1197,6 @@ public class Controller implements Initializable{
         startingBalance.setText(DataEntryDriver.getStringFromDouble(balance));
 
         int selIndex = manageSavingsAccountsList.getSelectionModel().getSelectedIndex();
-        System.out.println("sel index: "+selIndex);
         if(selIndex<0){
             manageSavingsAccSaveB.setDisable(true);
         }else{
@@ -1260,8 +1223,6 @@ public class Controller implements Initializable{
     }
 
     public void manageSavingsAccountCDWithdrawalKeyEvent(KeyEvent e){
-        System.out.println("manage savings key event");
-
         String keyCodeName = e.getCode().getName();
         double opacityDisabled = 0.60;
         double opacityEnabled = 1.00;
@@ -1290,19 +1251,10 @@ public class Controller implements Initializable{
             double savingsCDBalanceAfterFee = currentSavingsCDBalance - feeForWithdrawalNow;
             double balanceAfterFeeAndWithdrawal = savingsCDBalanceAfterFee - withdrawalAmount;
 
-            System.out.println("\n");
-            System.out.println(selectedSavingAccount.toStringPrettyPrint());
-            System.out.println("savingsOriginalBalance: "+selectedSavingAccount.getAccountBalance());
-            System.out.println("cd years owned: "+selectedSavingAccount.getCurrentYearsOfCD());
-            System.out.println("Saving Curr Value: "+selectedSavingAccount.getCurrentCDValue());
-            System.out.println("savings open date: "+selectedSavingAccount.getDateOpened());
-            System.out.println("Fee for wd: "+feeForWithdrawalNow);
-            System.out.println("saving bal after fee: "+savingsCDBalanceAfterFee);
 
             if(balanceAfterFeeAndWithdrawal>=0.0){ // enough in cd to make withdrawal
                 String message = String.format("This would Bring your CD account to $%.2f including a fee of $%.2f.",
                         balanceAfterFeeAndWithdrawal,feeForWithdrawalNow);
-                System.out.println(message);
                 errLabel.setText(message);
                 manageSavingsAccSaveB.setDisable(false);
             }else{ // not enough for withdrawal
@@ -1337,8 +1289,16 @@ public class Controller implements Initializable{
 
     public void manageLoanAccountTypeEvent(){
         CustomerAccount customerAccount = Main.customerAccount;
+        int selIndex = manageLoanAccountsList.getSelectionModel().getSelectedIndex();
+
+        if(selIndex!=-1){
+            manageLoanMakePaymentCheckBox.setDisable(false);
+        }
+
+
         String selectedFixedId = manageLoanAccountsList.getSelectionModel().getSelectedItem();
         LoanAccount selectedLoanAccount = customerAccount.getLoanAccountByFixedID(selectedFixedId);
+
 
         String loanAccountType = selectedLoanAccount.getLoanAccountType(); // short name
 
@@ -1353,7 +1313,6 @@ public class Controller implements Initializable{
 
 
         double monthlyPayment = selectedLoanAccount.getAmountDue();
-        System.out.println(monthlyPayment);
         startingBalance.setText(DataEntryDriver.getStringFromDouble(balance));
         loanInterestRate.setText(DataEntryDriver.getStringFromDouble(interest));
 
@@ -1361,8 +1320,6 @@ public class Controller implements Initializable{
             loanTermYears.setText("");
             String paymentString = DataEntryDriver.getStringFromDouble(monthlyPayment);
             loanTermYears.setText(paymentString);
-            System.out.println("MONTHLY PAYMENT: "+monthlyPayment);
-            System.out.println("MONTHLY PAYMENT DED: "+DataEntryDriver.getStringFromDouble(monthlyPayment));
         }else{ // else its a credit card make the label a payment due amount
             loanTermLabel.setText("Payment Due:");
             double creditPmtDue = DataEntryDriver.round(selectedLoanAccount.getAmountDue(),2);
@@ -1370,7 +1327,7 @@ public class Controller implements Initializable{
 
         }
 
-        int selIndex = manageLoanAccountsList.getSelectionModel().getSelectedIndex();
+
         if(selIndex>=0){
             manageLoanAccSaveB.setDisable(false);
         }else{
@@ -1454,8 +1411,6 @@ public class Controller implements Initializable{
         // if no account of each type disable radio button for that account
         tellerManageDispData();
 
-        //System.out.println(accTypeToggleGroup.toString());
-
         if(manageExistingTransferFunds.isSelected()){ // if box is selected
 
             if(manageExistingCheckingAccount.isSelected()){
@@ -1480,15 +1435,11 @@ public class Controller implements Initializable{
 
 
     public void transferFundsCheckBoxEvent(){
-        System.out.println("transfer funds block event");
-
         if(!manageExistingTransferFunds.isDisabled()){
             if(manageExistingTransferFunds.isSelected()){
-                System.out.println("selected");
                 manageExistingFundsTransferAmount.setText("");
                 displayDataRadioButtonEvent();
             }else{
-                System.out.println("not selected");
                 manageExistingFundsTransferAmount.setText("");
                 manageExistingCheckingLabel.setText("");
                 manageExistingSavingsLabel.setText("");
@@ -1500,14 +1451,6 @@ public class Controller implements Initializable{
 
 
     public void transferFundsKeyEvent(){
-        // THINGS THIS NEEDS TO DO
-        // READ IF WE ARE CONDUCTING AN ACTION ON A CHECKING OR SAVINGS ACCOUNT
-        // CHECK AND DISABLE TRANSFER BUTTON IF THERE ISN'T ENOUGH MONEY TO COMPLETE THE DEBIT
-        // ^^^^^^^ UNLESS THERE IS A BACKUP SAVING ACCOUNT ENABLED. IF SO TAKE REMAINDER FROM SAVING ACCOUNT
-        // CREATE A TRANSACTION OBJECT FOR EACH ACTION AND RECORD IN ACCOUNT
-        // GENERATE FINAL ALERT WINDOW TO CONFIRM TRANSACTION
-
-        System.out.println("\n\n");
         manageExistingDebitCreditAccountButton.setDisable(true);
 
         if(manageExistingTransferFunds.isSelected()){
@@ -1520,6 +1463,7 @@ public class Controller implements Initializable{
 
         if(manageExistingFundsTransferAmount.getText().length()<1){
             manageExistingDebitCreditAccountButton.setDisable(true);
+            manageDispDataErrLabel.setText("");
         }else{
             // hand it the label as well.
             boolean isValid = FinanceDriver.isTransferAmtValid(manageExistingFundsTransferAmount, manageExistingTransferFunds,
@@ -1531,34 +1475,16 @@ public class Controller implements Initializable{
             // set to value from method in FinanceDriver
             manageExistingDebitCreditAccountButton.setDisable(!isValid); // !isValid because is valid returns True for
             // meaning it is valid and we want to set disable to false if isValid is true
-
-
-
-
-            System.out.println("is valid: "+isValid);
-
-
-
         }
     }
 
     public void completeTransaction(){ // ONLY USE THIS METHOD FOR A TELLER OR MANAGER ACCOUNT because I can refresh those
-        System.out.println("Complete Transaction");
-
         FinanceDriver.completeTransaction(manageExistingFundsTransferAmount, manageExistingTransferFunds, manageExistingCheckingAccount,
                 manageExistingSavingsAccount,manageDispDataErrLabel);
         manageExistingFundsTransferAmount.setText("");
         tellerManageDispData();
         transferFundsKeyEvent();
 
-//        if(Main.loggedInEmployee.getTypeFullName().equalsIgnoreCase("T")){
-//
-//        }
-//
-//        if(Main.loggedInEmployee.getTypeFullName().equalsIgnoreCase("M")){
-//            // DISPLAY DATA METHOD FOR MANAGER DISPLAY
-//        }
-        //
     }
 
 
@@ -1578,13 +1504,8 @@ public class Controller implements Initializable{
                         fireButton.fire();
                     }
                 }else if(activeStage.getScene().getFocusOwner() instanceof TextField){
-                    //System.out.println(activeStage.getScene().getFocusOwner().getId());
-
                     TextField fireTextField = (TextField) activeStage.getScene().focusOwnerProperty().get();
-                    //System.out.println(fireTextField.getId());
                     if(fireTextField.getId().equals("manageUserSSNField")){
-                        //tellerInterfaceManageLookupButton();
-
                     }
                 }
             }
@@ -1603,11 +1524,9 @@ public class Controller implements Initializable{
         // going to use if statements for all the validation on the add accounts
         // mainly to disable the add button unless it's valid.
         //sort and figure out what scene is active and run validation on that
-        System.out.println(activeFXMLFileName);
 
         if(activeFXMLFileName.equals("AddChecking.fxml")){
             double bal = DataEntryDriver.getDoubleFromTextField(startingBalance);
-            System.out.println(bal);
             if(bal<=0.001){
                 addCheckingAccSaveB.setDisable(true);
             }else{
@@ -1624,7 +1543,6 @@ public class Controller implements Initializable{
             int term = -1;
             boolean itemIsSelected =false;
             boolean cclSelected = false;
-            System.out.println("sel item: "+selectedItem);
 
             if(selectedItem!=null){
                 if(selectedItem.equals("Short Term Loan")){
@@ -1730,15 +1648,6 @@ public class Controller implements Initializable{
         return returnVal;
     }
 
-    @FXML
-    public void testWindowExitButtonAction(){
-        System.out.println("testwindowtest");
-        //Stage activeStage = Main.activeStage;
-        //System.out.println(activeStage.isFocused());
-
-        closeWindow();
-
-    }
 
 
     public Node getFocusedNode(){ // of active stage
@@ -1757,12 +1666,8 @@ public class Controller implements Initializable{
 
     @FXML
     public void ssnFieldKeyEvent(KeyEvent e){ // a generic and multi use method to validate any ssn textfield hopefully
-        //System.out.println("Start SSN field key event");
         EventType<KeyEvent> keyEventType = e.getEventType();
         String keyCodeName = e.getCode().getName();
-        String keyEventTypeName = keyEventType.getName();
-        //System.out.println(e.getCode().getName());
-
         TextField focusedTextField = getFocusedObject();
 
         if(keyCodeName.equals("Up") || keyCodeName.equals("Down") || keyCodeName.equals("Left")
@@ -1787,22 +1692,16 @@ public class Controller implements Initializable{
 
     @FXML
     public void manageUserKeyEvent(KeyEvent e){
-        //System.out.println("Start Manage User Key Event");
         EventType<KeyEvent> keyEventType = e.getEventType();
         String keyCodeName = e.getCode().getName();
         String keyEventTypeName = keyEventType.getName();
 
-        //System.out.println(e.getCode().getName());
         String ssn = DataEntryDriver.stripSSN(manageUserSSNField.getText());
         manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
 
         if(keyCodeName.equals("Enter")){ // allows enter button to fire main event
-            //System.out.println("Keycode was enter");
-            //System.out.println(keyEventType.toString());
             if(keyEventTypeName.equals("KEY_PRESSED")){
-                //System.out.println("Key Event Type Key Pressed");
                 if(!manageUserLookupButton.isDisabled()){
-                    //System.out.println("Enter key pressed button not disabled");
                     if(Main.loggedInEmployee.getType().equals("T")){
                         tellerInterfaceManageLookupButton();
                     }
@@ -1826,20 +1725,15 @@ public class Controller implements Initializable{
     // sets the err label in manage user accordingly
     public void setManageUserErrLabel(String ssn){
         ssn = DataEntryDriver.stripSSN(ssn);
-
         if(!DataEntryDriver.ssnValid(ssn)){// if not 9 digits
-            //System.out.println("enter valid number "+ssn);
             lookupInterErrLabel.setText("Please Enter a Valid 9 digit SSN number");
         }else{ // if ssn is 9 digits
             if(!DataEntryDriver.ssnInDatabase(ssn)) {
-                //System.out.println("ssn not in database please go to add account");
                 lookupInterErrLabel.setText("The SSN you Entered Is not In the Database.\nGo to Add new Customer or enter" +
                         " a valid 9 Digit SSN number.");
             }else{
                 CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(manageUserSSNField.getText());
                 lookupInterErrLabel.setText("Found a Matching account with Last Name: "+ca.getLastName());
-                //Main.outEmployee.println("Employee UserName: "+Main.loggedInEmployee.getUserName()+" Looked Up account: "+ ca.toString());
-                //System.out.println("LAST SSN: "+ssn);
                 manageUserLookupButton.setDisable(!DataEntryDriver.ssnValidAndInDatabase(ssn));
 
             }
@@ -1910,20 +1804,10 @@ public class Controller implements Initializable{
             goToLoggedInEmployeeScene();
         }
 
-
-
-
-
-
-
-
-
     }
 
 
     public void customerInterAtmWithdrawalButton() {
-        System.out.println("Complete ATM Transaction");
-
         if(DataEntryDriver.getDoubleFromString(customerInterAtmWithdrawalAmt.getText()) >0.001){
             FinanceDriver.completeAtmTransaction(customerInterAtmWithdrawalAmt,"null");
             customerDispData();
@@ -1936,8 +1820,6 @@ public class Controller implements Initializable{
     }
 
     public void customerInterAtmDepositButton() {
-        System.out.println("Complete ATM Transaction");
-
         double checkDepositAmount = DataEntryDriver.getDoubleFromString(customerInterAtmCheckAmt.getText());
         String checkNumber = customerInterAtmCheckNum.getText();
 
@@ -1954,19 +1836,15 @@ public class Controller implements Initializable{
 
 
     public void customerInterCCButton(){
-
         try {
         Parent root = FXMLLoader.load(getClass().getResource("CustomerCreditCard.fxml"));
         Main.primaryStage.setTitle("Customer Credit Card Interface");
         Main.primaryStage.setScene(new Scene(root, 700, 500));
         Main.primaryStage.show();
         Main.activeStage=Main.primaryStage;
-        System.out.println("set active stage to primary in Customer Credit Card Button");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println(Main.loggedInCustomer.toString());
     }
 
 
@@ -1982,10 +1860,8 @@ public class Controller implements Initializable{
                     Main.primaryStage.setScene(new Scene(root, 700, 500));
                     Main.primaryStage.show();
                     Main.activeStage=Main.primaryStage;
-                    System.out.println("set active stage to primary in Customer button");
                 }else{// if method called and customer isn't logged in. THIS WILL ALWAYS RUN ON FIRST CALL
                     customerPendingLogin =true; // set pending login to true because the login interface is launched
-                    System.out.println("checking in");
                     login = FXMLLoader.load(getClass().getResource("CustomerLogin.fxml"));
                     Stage stage = new Stage();
                     stage.setTitle("Customer Login");
@@ -1996,7 +1872,6 @@ public class Controller implements Initializable{
                     stage.setOnCloseRequest(event -> loginInterfaceExitButton());
 
                     Main.activeStage=stage;
-                    System.out.println("set active stage to Customer login");
                 }
             }else{
                 System.out.println("login already pending");
@@ -2018,6 +1893,7 @@ public class Controller implements Initializable{
         try {
             if(!tellerPendingLogin){ // if login window is not already active
                 if(tellerLogIn){// if teller is logged in after login window closes and it recalls this method
+                    managerLogIn = false; // log out the manager
                     root = FXMLLoader.load(getClass().getResource("TellerInterface.fxml"));
                     Main.primaryStage.setTitle("Teller Interface");
                     Main.primaryStage.setScene(new Scene(root,700,500));
@@ -2025,6 +1901,7 @@ public class Controller implements Initializable{
                     Main.activeStage=Main.primaryStage;
                 }else{
                     tellerPendingLogin=true;
+                    managerLogIn=false; // log out the manager
                     login = FXMLLoader.load(getClass().getResource("TellerLogin.fxml"));
                     Stage stage = new Stage();
                     stage.setTitle("Teller Login");
@@ -2034,8 +1911,6 @@ public class Controller implements Initializable{
 
                     stage.setOnCloseRequest(event -> loginInterfaceExitButton());// set to exit buton if user clicks x on window
                     Main.activeStage = stage;
-                    System.out.println("set active stage in tellerbutton: "+stage.getTitle());
-                    System.out.println("main active stage title is: "+Main.activeStage.getTitle());
                 }
             }else{
                 System.out.println("teller already pending login");
@@ -2052,28 +1927,33 @@ public class Controller implements Initializable{
         Parent root = null;
         Parent login = null;
         try {
-            if(managerLogIn){ // if manager is still logged in
-                managerPendingLogin = false; // make sure pending is false
-                root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
-                Main.primaryStage.setTitle("Bank Manager Interface");
-                Main.primaryStage.setScene(new Scene(root, 700, 500));
-                Main.primaryStage.show();
-                Main.activeStage=Main.primaryStage;
-                System.out.println("set active stage to primary in manager button");
+            if(!managerPendingLogin){ // if manager login window is not already open and pending
+                if(managerLogIn){ // if manager is still logged in
+                    tellerLogIn=false; // if log in as Manager log out the teller
+                    managerPendingLogin = false; // make sure pending is false
+                    root = FXMLLoader.load(getClass().getResource("BankManagerInterface.fxml"));
+                    Main.primaryStage.setTitle("Bank Manager Interface");
+                    Main.primaryStage.setScene(new Scene(root, 700, 500));
+                    Main.primaryStage.show();
+                    Main.activeStage=Main.primaryStage;
+                }else{
+                    managerPendingLogin =true;
+                    tellerLogIn=false; // log out the teller if attempting a login as a manager
+                    login = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
+                    Stage stage = new Stage();
+                    stage.setTitle("Bank Manager Login");
+                    stage.setScene(new Scene(login,382,420));
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.show();
+
+                    stage.setOnCloseRequest(event -> loginInterfaceExitButton());
+
+                    Main.activeStage=stage;
+                }
             }else{
-                managerPendingLogin =true;
-                login = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Bank Manager Login");
-                stage.setScene(new Scene(login,382,420));
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.show();
-
-                stage.setOnCloseRequest(event -> loginInterfaceExitButton());
-
-                Main.activeStage=stage;
-                System.out.println("set active stage to manager login");
+                System.out.println("Login is pending");
             }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -2119,11 +1999,10 @@ public class Controller implements Initializable{
         }
 
         if(customerPendingLogin){ // customer pending login is true
-
+            managerLogIn=false;
+            tellerLogIn=false;
             customerLogIn = validateLoginCreds("Customer"); // validate and determine if they are logged in or not
-            System.out.println("in verify");
 
-            System.out.println("Customer logged in after validate method called is: "+customerLogIn);
             if(customerLogIn){ // if validate was true and they are now logged in then call the main login button again
                 customerPendingLogin=false;
                 Main.outEmployee.println(Main.getDateTimeString()+"Customer Account UserName: Customer logged into account.");
@@ -2200,7 +2079,6 @@ public class Controller implements Initializable{
 
     public void tellerManageDispData(){
         CustomerAccount ca = Main.customerAccount;
-        System.out.println("display data");
         String loggedInEmployeeType = Main.loggedInEmployee.getType();
 
         manageDispDataSSN.setText(DataEntryDriver.fixSSN(Main.customerAccount.getCustID()));
@@ -2210,6 +2088,7 @@ public class Controller implements Initializable{
         manageDispDataCity.setText(ca.getCity());
         manageDispDataState.setText(ca.getState());
         manageDispDataZip.setText(ca.getZip());
+        manageDispDataErrLabel.setText("");
 
         if(manageExistingCheckingAccount.isSelected() && manageExistingCheckingAccount != null){
             if(ca.hasCheckingAccount()){
@@ -2277,7 +2156,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void tellerInterfaceAddNewButton(){
-        System.out.println("tellerInterfaceAddNewButton");
         Parent root = null;
 
 
@@ -2287,7 +2165,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root, 700, 500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("set active to primary in teller add new");
         } catch (IOException e) {
             e.printStackTrace();
             Main.activeStage=null;
@@ -2297,7 +2174,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void tellerInterfaceManageButton(){
-        System.out.println("tellerInterfaceManageButton");
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("ManageExistingUser.fxml"));
@@ -2305,7 +2181,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root, 700, 500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("set active to pri teller int manage");
         } catch (IOException e) {
             e.printStackTrace();
             Main.activeStage=null;
@@ -2316,7 +2191,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void tellerInterfaceManageLookupButton(){
-        System.out.println("tellerInterfaceManageLookupButton");
 
         String ssn = manageUserSSNField.getText();
         String ssnStripped = DataEntryDriver.stripSSN(ssn);
@@ -2331,11 +2205,6 @@ public class Controller implements Initializable{
 
         // NOTE SSN IS STATICALLY SET IN THE INITIALIZE METHOD ON LINE NUMBER 153
 
-        System.out.println("Main customer ID is: "+Main.currentCustomerID);
-
-        System.out.println("001001001 found user "+ ssnStripped +" launching interface");
-
-
 
         Parent root = null;
         try {
@@ -2345,8 +2214,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("set active stage to primary in lookup ssn button");
-
         } catch (IOException e) {
             e.printStackTrace();
             Main.activeStage=null;
@@ -2357,7 +2224,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void tellerInterfaceManageUpdateDataButton(){
-        System.out.println("start tell int update button method");
         Parent root = null;
 
         try {
@@ -2366,8 +2232,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("active to primary in teller update data button");
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -2390,9 +2254,7 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("active to primary in teller update data prev");
             // add code to pull the data for the currentSSN data
-            System.out.println("current ssn is: "+Main.currentCustomerID);
 
             // use placeholder object if needed to display data.
 
@@ -2409,11 +2271,8 @@ public class Controller implements Initializable{
         // to do record the new customer account in log file and pull data fields here.
         // add code to pull the data for the currentSSN data
 
-        System.out.println("current ssn is: "+Main.currentCustomerID);
         String ssn = Main.currentCustomerID;
         CustomerAccount ca = DataEntryDriver.getCustomerAccountFromCustomerID(ssn);
-
-        System.out.println(ca.toString());
 
         ca.setCustID(DataEntryDriver.fixSSN(updateDataSSN.getText()));
         ca.setFirstName(updateDataFirstName.getText().trim());
@@ -2443,7 +2302,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("active to primary in teller update save");
         } catch (Exception e) {
             e.printStackTrace();
             Main.activeStage=null;
@@ -2471,7 +2329,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void addSavingsAccountSaveButton(){
-        System.out.println("savings save button");
         CustomerAccount customerAccount=Main.customerAccount;
         boolean isCdAccount = cdCheckBox.isSelected();
         double startingBalanceDouble = DataEntryDriver.getDoubleFromTextField(startingBalance);
@@ -2479,11 +2336,7 @@ public class Controller implements Initializable{
         int termInYears=-1;
 
         if(cdCheckBox.isSelected()){ // cd box selected
-            System.out.println("selected");
             termInYears= DataEntryDriver.getIntFromTextField(savingCDTerm);
-        }else{ // cd box not selected
-            System.out.println("not selected");
-            //termInYears=-1;
         }
 
         // convert interest rate to decimal.
@@ -2508,7 +2361,6 @@ public class Controller implements Initializable{
 
     @FXML
     public void addLoanAccountSaveButton(){
-        System.out.println("Add a loan account save button click.");
         CustomerAccount customerAccount = Main.customerAccount;
         double initialLoanAmt = DataEntryDriver.getDoubleFromTextField(startingBalance);
         double interestRate = DataEntryDriver.getDoubleFromTextField(loanInterestRate);
@@ -2549,8 +2401,6 @@ public class Controller implements Initializable{
 
     public void manageCheckingAccountSaveButton(){
         // value set to 30,000,000 bucks
-
-        System.out.println("save button on checking");
         CustomerAccount customerAccount = Main.customerAccount;
 
         boolean goldSelected = goldCheckBox.isSelected();
@@ -2671,38 +2521,6 @@ public class Controller implements Initializable{
     }
 
 
-
-
-    // BANK MANAGER INTERFACES
-
-    // will need this one because teller and bank manager can both see different items on user accounts
-    @FXML
-    public void bankManagerInterfaceManageLookupButton(){
-        System.out.println("001001001 found user launching interface");
-        // put code here to find user to display data on the screen that is about to be launched.
-
-        // put if statement if ssn did not match user display error on the ManageExistingUser.fxml screen
-        // else continue to launch window and display data
-
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("ManageExistingUserDisplayData.fxml"));
-            Main.primaryStage.setTitle("Customer Account Data Management Interface");
-            Main.primaryStage.setScene(new Scene(root,700,500));
-            Main.primaryStage.show();
-            Main.activeStage=Main.primaryStage;
-            System.out.println("active to primary in manager lookup");
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            Main.activeStage=null;
-        }
-
-    }
-
-
-
     @FXML
     public void viewRecentActivityButton(){
 
@@ -2713,8 +2531,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("active to primary in manager lookup");
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -2733,8 +2549,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("active to primary in manager lookup");
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -2753,8 +2567,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("active to primary in manager lookup");
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -2773,8 +2585,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("active to primary in manager lookup");
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -2793,8 +2603,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("active to primary in manager lookup");
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -2881,7 +2689,6 @@ public class Controller implements Initializable{
     //Test so that I can commit merge.
 
     public void deleteFinancialAccountsButton(){
-        System.out.println("deleting accounts");
         CustomerAccount customerAccount=Main.customerAccount;
         if(deleteAllCheckingAcctCheckBox.isSelected()){
             customerAccount.deleteCheckingAccount();
@@ -2911,16 +2718,10 @@ public class Controller implements Initializable{
 
     public void customerDispData(){
         CustomerAccount ca = Main.loggedInCustomer;
-        System.out.println("customer disp data ca: "+Main.customerAccount.getCustID());
-
         String balanceFormatted = "null";
-        //System.out.println(ca.toString());
         if(ca.hasCheckingAccount()){
             balanceFormatted = DataEntryDriver.formatAccountBalance(ca.getCheckingAccount().getAccountBalance());
-
-
         }
-
 
         customerDispDataFirst.setText(ca.getFirstName());
         customerDispDataLast.setText(ca.getLastName());
@@ -2932,7 +2733,6 @@ public class Controller implements Initializable{
 
     public void customerAtmDispData(){
         CustomerAccount ca = Main.loggedInCustomer;
-        System.out.println("customer disp data ca: "+Main.customerAccount.getCustID());
         LoanAccount creditCardLoanAccount = ca.getCreditCardLoanAccount();
 
         if(creditCardLoanAccount==null){
@@ -2966,8 +2766,6 @@ public class Controller implements Initializable{
         ArrayList<Transaction> allCustomerTransactions = ca.getTransactions();
         for(Transaction transaction: allCustomerTransactions){ // loop through all transactions
             // and find only the ones that are the Credit Card Transactions using Transaction Account
-            System.out.println(transaction.toStringPrettyPrintFormattedForInterface());
-
             if(transaction.getTransactionAccount().equals("CCL")){ // if the transaction was on a Credit Card Loan
                 customerInterCCHistory.appendText("\n"+transaction.toStringPrettyPrintFormattedForInterface());
             }
@@ -2985,12 +2783,9 @@ public class Controller implements Initializable{
 
         if(customerInterCCMakePaymentCheckBox.isSelected()){ // making a payment so make amount positive with validation
             // it is always positive
-            System.out.println("Credit Card Payment Amount: "+transactionAmt);
             FinanceDriver.creditDebitLoanAccount(creditCardLoanAccount,transactionAmt,"Credit Card Payment");
 
         }else{ // making a purchase so make amount negative
-            System.out.println("Credit Card Purchase Amount: "+transactionAmt);
-            System.out.println("Credit Card Purchase Description: "+purchaseDesc);
             double debitAmt = 0.0-transactionAmt;
 
             if(purchaseDesc.length()>0){
@@ -3022,8 +2817,6 @@ public class Controller implements Initializable{
 
 
         if(!customerInterCCMakePaymentCheckBox.isSelected()){ // making a purchase
-            System.out.println("Transaction Amt: "+transactionAmt);
-            System.out.println("Remaining credit: "+remainingCredit);
 
             if(remainingCredit>0.0){ // make sure account is not over limit
                 if(transactionAmt<0.001){ // don't process a 0.00 debit
@@ -3063,16 +2856,6 @@ public class Controller implements Initializable{
 
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3150,10 +2933,8 @@ public class Controller implements Initializable{
         String zipCode="";
         String state = "";
 
-        //System.out.println("MAIN ACTIVE TITLE IS: "+Main.activeStage.getTitle());
         if(Main.activeStage.getTitle().contains("new")){
             interfaceID = "add";
-            //System.out.println("new");
             fName = fNameTextField.getText();
             lName = lNameTextField.getText();
             ssn = socialSecTextField.getText();
@@ -3163,7 +2944,6 @@ public class Controller implements Initializable{
         }
         if(Main.activeStage.getTitle().contains("Update")){
             interfaceID = "update";
-            //System.out.println("update");
             fName = updateDataFirstName.getText();
             lName = updateDataLastName.getText();
             ssn = Main.customerAccount.getCustID();
@@ -3172,23 +2952,13 @@ public class Controller implements Initializable{
             zipCode = updateDataZip.getText();
         }
 
-        //String state = autoCombo.getSelectionModel().getSelectedItem().toString();
-
-
-
         try {
             state = stateComboBox.getValue().toString();
         } catch (Exception e) {
             state = "";
         }
 
-
         state = DataEntryDriver.fullStateToAbb(state);
-
-
-
-
-
         String[] items = {fName,lName,streetAddress,city};
 
         for(int i=0;i<items.length;i++){
@@ -3245,8 +3015,6 @@ public class Controller implements Initializable{
     public boolean validateLoginCreds(String userType){// userType is either Teller or Manager
         boolean returnVal = false;
 
-
-        //printAllData();//testing
         if(userType == "Teller"){
             if(loginInterUser.getText().matches("[a-zA-Z0-9]*")) {
                 // here we would validate the credintials but They're always good for now
@@ -3278,7 +3046,6 @@ public class Controller implements Initializable{
 
                    if (loginInterPass.getText().equals(caPin)) {
                        Main.customerAccount = ca;
-                       System.out.println("Selected ca from atm card is: " + ca.toString());
                        returnVal = true;
                    }
 
@@ -3311,8 +3078,6 @@ public class Controller implements Initializable{
         }
 
         for(int i=0;i<itemsArray.size();i++){
-            //System.out.println(Arrays.toString(itemsArray.get(i)));
-
             if(itemsArray.get(i)[2].equals("false")){// if any other field shows false
                 //addNewUserInterfaceEnterButton.setDisable(true);
                 Main.defaultSceneButton.setDisable(true);
@@ -3321,19 +3086,16 @@ public class Controller implements Initializable{
 
                 // explain why it's false
                 if(falseItem[0].equals("ssn")){// display error for invalid ssn number
-                    System.out.println("The ssn you entered was not valid please enter 9 numbers");
                     unsuccessfulEntryLabel.setText("Please enter a Valid 9 digit SSN!");
                     //addNewUserInterfaceEnterButton.setDisable(true);
                     Main.defaultSceneButton.setDisable(true);
                 }
                 if(falseItem[0].equals("zip")){
-                    System.out.println("The zip you entered was not valid please enter a 5 digit zip");
                     unsuccessfulEntryLabel.setText("Please enter a 5 digit Zip");
                     //addNewUserInterfaceEnterButton.setDisable(true);
                     Main.defaultSceneButton.setDisable(true);
                 }
                 if(falseItem[0].equals("state")){
-                    System.out.println("Please enter a 2 character State such as MO or AK");
                     unsuccessfulEntryLabel.setText("Please enter a 2 character State Abbreviation");
                     //addNewUserInterfaceEnterButton.setDisable(true);
                     Main.defaultSceneButton.setDisable(true);
@@ -3342,14 +3104,8 @@ public class Controller implements Initializable{
                     unsuccessfulEntryLabel.setText("This Customer Already Exist. Go To Manage User Interface to manage this user" +
                             " or enter another SSN!");
                 }
-
-
-
-
             }
-
         }
-
         return returnVal;
     }
 
@@ -3375,16 +3131,10 @@ public class Controller implements Initializable{
         updateDataLastName.setText(Main.customerAccount.getLastName());
         updateDataAddress.setText(Main.customerAccount.getStreetAddr());
         updateDataCity.setText(Main.customerAccount.getCity());
-
         String stateAbb = Main.customerAccount.getState();
         String stateFull = DataEntryDriver.stateAbbToFullName(stateAbb);
-
         stateComboBox.getEditor().setText(stateFull);
         stateComboBox.getSelectionModel().select(stateFull);
-
-        //updateDataState.setText(Main.customerAccount.getState());
-
-
         updateDataZip.setText(Main.customerAccount.getZip());
     }
 
@@ -3410,8 +3160,6 @@ public class Controller implements Initializable{
         String selectedFinancialAccountID = openFinancialAccountsComboBox.getValue();
 
         Object financialAccount = DataEntryDriver.getFinancialAccountObjectFromFixedID(selectedFinancialAccountID);
-
-
 
         if(financialAccount instanceof CheckingAccount){
             CheckingAccount checkingAccount = (CheckingAccount) financialAccount;
@@ -3458,10 +3206,11 @@ public class Controller implements Initializable{
         String idOfSelectedAcc = openFinancialAccountsComboBox.getValue();
         openFinancialAccountsComboBox.getItems().remove(idOfSelectedAcc);// remove this id
 
-        if(openFinancialAccountsComboBox.getItems().size()!=0){
-            openFinancialAccountsComboBox.getSelectionModel().select(0);
-            openAccountsComboBoxEvent();
-        }else{
+
+        if(openFinancialAccountsComboBox.getItems().size()!=0){ // if more accounts left to close
+            openFinancialAccountsComboBox.getSelectionModel().select(0); // select the first one
+            openAccountsComboBoxEvent(); // then trigger an action so it populates the balance field.
+        }else{ // if upon clicking close, we now deleted the last open account
             // close window and account
             String customerID = ca.getCustID();
             Main.printToEmployeeLogFile(" DELETED CUSTOMER ACCOUNT: "+ca.toString());
@@ -3470,16 +3219,7 @@ public class Controller implements Initializable{
             goToLoggedInEmployeeScene();// return to the logged in employee scene
         }
 
-        goToDisplayDataScene();
-
-
-
-
     }
-
-
-    // test commit
-    // test again to be sure
 
     // GENERAL NAVIGATION AND GOTO METHODS
 
@@ -3499,8 +3239,8 @@ public class Controller implements Initializable{
 
     }
 
-    public void closeDeleteCustomerAccountWarningWindow(){
-        closeStage(Main.activeStage);
+    public void closeDeleteCustomerAccountWarningWindow(){ // pressing previous or exit button
+        closeStage(Main.activeStage); // close the active stage "the warning window"
         goToDisplayDataScene();
     }
 
@@ -3524,12 +3264,17 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("active to pri in goToMainScene");
+            if(Main.loggedInEmployee!=null){
+                long loggedInTime = Main.loggedInEmployee.getTimeLoggedIn(); // session log in time in seconds
 
-            tellerLogIn = false; // if returning to the main screen log out all logged in accounts
-            managerLogIn = false;
-            customerLogIn = false;
-
+                if(loggedInTime<=300){ // been logged in for less than 5 minutes
+                    System.out.println(Main.loggedInEmployee.getUserName()+" has been logged in for  "+loggedInTime+" seconds");
+                }else{
+                    tellerLogIn = false; // if returning to the main screen log out all logged in accounts
+                    managerLogIn = false;
+                    customerLogIn = false;
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
             Main.activeStage=null;
@@ -3568,8 +3313,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("active to prim in goToManageLookupScene");
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -3588,8 +3331,6 @@ public class Controller implements Initializable{
             Main.primaryStage.setScene(new Scene(root,700,500));
             Main.primaryStage.show();
             Main.activeStage=Main.primaryStage;
-            System.out.println("set active stage to primary in lookup ssn button");
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -3660,6 +3401,7 @@ public class Controller implements Initializable{
             stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
+            stage.setOnCloseRequest(event -> closeDeleteCustomerAccountWarningWindow());
             Main.activeStage = stage;
         } catch (IOException e) {
             e.printStackTrace();
@@ -3855,57 +3597,10 @@ public class Controller implements Initializable{
 
 
         DataEntryDriver.createCustomerDatabaseFileFromCSVBaseData(true,prefixString); // read csv files and make database file
+        Main.customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList(); // then reads the database file
 
-        Main.customerAccounts = DataEntryDriver.readFileToCustomerAccountsArrayList(); // then reads the file
-        int lastIdInt = 1;
-        for(CustomerAccount ca:Main.customerAccounts){
-            boolean hasChecking = ca.hasCheckingAccount();
-            boolean hasSavings = ca.hasSavingsAccount();
-            boolean hasLoanAccounts = ca.hasLoanAccount();
-
-            if(hasChecking){
-                String financialId = ca.getCheckingAccount().getCheckingAcctID();
-                String[] split = financialId.split("-");
-                ca.setFinancialAccountID(DataEntryDriver.getIntFromString(split[0]));
-            }else if(hasSavings){
-                ArrayList<SavingsAccount> savingsAccounts = ca.getSavingsAccounts();
-                String finId = savingsAccounts.get(0).getSavingsAcctID();
-                String[] split = finId.split("-");
-                ca.setFinancialAccountID(DataEntryDriver.getIntFromString(split[0]));
-            }else if(hasLoanAccounts){
-                ArrayList<LoanAccount> loanAccounts = ca.getLoanAccounts();
-                String finId = loanAccounts.get(0).getLoanAccountID();
-                String[] split = finId.split("-");
-                ca.setFinancialAccountID(DataEntryDriver.getIntFromString(split[0]));
-            }
-
-            int thisIdInt = ca.getFinancialAccountID();
-            if(thisIdInt>lastIdInt){
-                lastIdInt = thisIdInt; // finds the new highest financial id after import
-            }
-
-        }
-
-        // now be sure to set the last financial id in main plus one so its ready for the next account
-        Main.lastAccId=lastIdInt+1; // now set the new last id plus one
-
-        // now loop again to catch any accounts that some very very mean person decided to make null in the base data
-        // when making the databases, and made it worse by sticking the data in the middle of the file.
-
-        for(CustomerAccount ca:Main.customerAccounts){
-            boolean hasChecking = ca.hasCheckingAccount();
-            boolean hasSavings = ca.hasSavingsAccount();
-            boolean hasLoanAccounts = ca.hasLoanAccount();
-
-            if(!hasChecking && !hasSavings && !hasLoanAccounts){
-                ca.setFinancialAccountID(Main.generateCustomerId());
-            }
-
-        }
-
-
-
-
+        // then fix the id system and customerAccount financial Id if needed
+        DataEntryDriver.fixIdSystemForCustomerAccounts();
 
 
     }
@@ -3928,117 +3623,6 @@ public class Controller implements Initializable{
     }
 
     // EVERYTHING BELOW THIS LINE TO END COMMENT IS TESTING PURPOSES ONLY
-
-
-
-    public void mainInterfaceTestButton(){
-        System.out.println("Test Button");
-
-        String today = DataEntryDriver.getDateString();
-        String cTime = Main.getDateTimeString();
-        System.out.println("today Date: "+today);
-        System.out.println("current Time: "+cTime);
-
-        LocalDateTime localDateTime = LocalDateTime.now();
-        System.out.println(localDateTime.toString());
-
-        String localDateTimeString = localDateTime.toString();
-        String dateString = localDateTimeString.substring(0,10); // 10 is exclusive so it keeps 9
-        System.out.println("Date String: "+dateString);
-        String timeString = localDateTimeString.substring(11);
-        System.out.println("Time String: "+timeString);
-        String[] timeStringSplit = timeString.split("\\.");
-
-        System.out.println("TimeStringSplit: "+Arrays.toString(timeStringSplit));
-
-        String timeHMSStringFixed = timeStringSplit[0].replaceAll(":","");
-        String timeMS = timeStringSplit[1];
-
-
-        String timeStringFixed = timeHMSStringFixed+timeMS;
-
-        System.out.println("timeStringFixed: "+timeStringFixed);
-
-        String dateStringFixed = dateString.replaceAll("-","");
-        System.out.println("Date String Fixed: "+dateStringFixed);
-
-        String dateTimeStringFixed = dateStringFixed+"-"+timeStringFixed+"_";
-        System.out.println("dateTimeStringFixed: "+dateTimeStringFixed);
-
-
-        System.out.println("initital Directory:");
-        boolean exportDirExists = false;
-
-        File initialDir = new File(System.getProperty("user.dir")+"/src/Resources/export");
-        if(initialDir!=null){
-            if(initialDir.exists()){
-                System.out.println("init dir: "+initialDir.getPath());
-                exportDirExists = true;
-            }
-        }
-
-
-
-        // got the prefix for the exported file names now.
-
-        FileChooser fileChooser = new FileChooser();
-
-
-        if(exportDirExists){
-            fileChooser.setInitialDirectory(initialDir);
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV","*.csv"));
-
-            File testFile = fileChooser.showOpenDialog(Main.activeStage);
-
-
-            if(testFile!=null){
-                if(testFile.exists()){
-                    System.out.println("TestFile: "+testFile.getPath());
-                    System.out.println("TestFile: "+testFile.getAbsolutePath());
-                    System.out.println("FileName: "+testFile.getName());
-                    System.out.println("test2: "+testFile.getParent());
-
-                    String fileDirectoryString= testFile.getParent();
-
-                    if(fileDirectoryString.equals(initialDir.getPath())){ // makes sure the selected file is in the export folder
-                        File parentDirectory = testFile.getParentFile();
-                        System.out.println("parentDir: "+parentDirectory.getPath());
-
-                        for(File fileEntry : Objects.requireNonNull(parentDirectory.listFiles())){
-                            System.out.println(fileEntry.getPath());
-
-
-                        }
-
-
-
-                    }
-
-
-
-
-
-                }
-            }
-
-
-
-
-
-            //
-        }
-
-
-
-
-
-
-
-
-
-
-
-    }
 
 
 
@@ -4077,28 +3661,11 @@ public class Controller implements Initializable{
     }
 
 
-
-
-    public void printAllData(){
-        System.out.println("ToString:    "+toString());
-        System.out.println("ToStringVal: "+toStringValues());
-    }
-
-    public String isNullReturn(Object o){
-        if(o==null){
-            return "null";
-        }else{
-            return String.valueOf(o);
-        }
-    }
-
-
     @FXML
     public void randomSSNButton(){
         int size = Main.customerAccounts.size();
         Random random = new Random();
         int randomInt = random.nextInt(size);
-        System.out.println(randomInt);
         manageUserSSNField.setText(Main.customerAccounts.get(randomInt).getCustID());
 
     }
@@ -4110,7 +3677,7 @@ public class Controller implements Initializable{
 
         System.out.println("\nPrint all base Customer Data:");
         for(CustomerAccount ca:customerAccounts){
-            System.out.println(ca.toStringBaseDataTableFormat()+" FinID: "+ca.getFinancialAccountID());
+            System.out.println(ca.toStringBaseDataTableFormat());
         }
 
         System.out.println("\nPrint All Checking Accounts:");
@@ -4185,99 +3752,10 @@ public class Controller implements Initializable{
         }
 
 
+
+
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public String toStringValues(){
-        try {
-            return "Controller{" +
-                    "tellerLogIn=" + tellerLogIn +
-                    ", managerLogIn=" + managerLogIn +
-                    ", customerLogIn=" + customerLogIn +
-                    ", customerPendingLogin=" + customerPendingLogin +
-                    ", tellerPendingLogin=" + tellerPendingLogin +
-                    ", managerPendingLogin=" + managerPendingLogin +
-                    ", fName=" + fName + ", lName=" + lName + ", socialSec='" + socialSec + '\'' +
-                    ", streetAddress=" + streetAddress + ", city=" + city +
-                    ", zipCode=" + zipCode +
-                    ", state=" + state + " MainSSN: "+Main.currentCustomerID+
-                    "Main.CustomerAccount={ "+ Main.customerAccount.toString()+ " }" +
-                    '}';
-        } catch (NullPointerException e) {
-            return "null";
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Controller{" +
-                "tellerLogIn=" + tellerLogIn +
-                ", CustomerInterAtmDepositButton=" + customerInterAtmDepositButton +
-                ", CustomerInterAtmWithdrawalButton=" + customerInterAtmWithdrawalButton +
-                ", managerLogIn=" + managerLogIn +
-                ", tellerPendingLogin=" + tellerPendingLogin +
-                ", managerPendingLogin=" + managerPendingLogin +
-                ", fNameTextField=" + fNameTextField +
-                ", lNameTextField=" + lNameTextField +
-                ", socialSecTextField=" + socialSecTextField +
-                ", streetAddressTextField=" + streetAddressTextField +
-                ", cityTextField=" + cityTextField +
-                ", zipCodeTextField=" + zipCodeTextField +
-                ", stateTextField=" + stateTextField +
-                ", successfulEntryLabel=" + successfulEntryLabel +
-                ", loginInterUser=" + loginInterUser +
-                ", loginInterPass=" + loginInterPass +
-                ", loginInterLoginButton=" + loginInterLoginButton +
-                ", loginInterExitButton=" + loginInterExitButton +
-                ", addNewUserInterfaceEnterButton=" + addNewUserInterfaceEnterButton +
-                ", tellerScreen=" + tellerScreen +
-                ", bankManagerScreen=" + bankManagerScreen +
-                ", tellerInterAddNew=" + tellerInterAddNew +
-                ", tellerInterManage=" + tellerInterManage +
-                ", tellerInterPrev=" + tellerInterPrev +
-                ", manageUserSSNField=" + manageUserSSNField +
-                ", manageUserLookupButton=" + manageUserLookupButton +
-                ", manageUserPrevButton=" + manageUserPrevButton +
-                ", addNewUserPreviousButton=" + addNewUserPreviousButton +
-                ", bankManagerPrevButton=" + bankManagerPrevButton +
-                ", manageExistingDispDataPrevButton=" + manageExistingDispDataPrevButton +
-                ", manageExistingUpdateDataButton=" + manageExistingUpdateDataButton +
-                ", manageExistingViewRecentActivityButton=" + manageExistingViewRecentActivityButton +
-                ", manageExistingDebitCreditAccountButton=" + manageExistingDebitCreditAccountButton +
-                ", manageExistingCheckingAccount=" + manageExistingCheckingAccount +
-                ", manageExistingSavingsAccount=" + manageExistingSavingsAccount +
-                ", manageExistingFundsTransferAmount=" + manageExistingFundsTransferAmount +
-                ", updateDataPreviousButton=" + updateDataPreviousButton +
-                ", updateDataSaveButton=" + updateDataSaveButton +
-                ", updateDataSSN=" + updateDataSSN +
-                ", tellerUpdateDataFirstName=" + updateDataFirstName +
-                ", updateDataLastName=" + updateDataLastName +
-                ", updateDataAddress=" + updateDataAddress +
-                ", updateDataCity=" + updateDataCity +
-                ", updateDataState=" + updateDataState +
-                ", updateDataZip=" + updateDataZip +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", socialSec='" + socialSec + '\'' +
-                ", streetAddress='" + streetAddress + '\'' +
-                ", city='" + city + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", state='" + state + '\'' +
-                '}';
-    }
-
 
 
 
