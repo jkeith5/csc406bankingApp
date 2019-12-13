@@ -201,6 +201,7 @@ public class Controller implements Initializable{
     @FXML Button manageLoanAccSaveB;
     @FXML TextField manageLoanPaymentAmount;
     @FXML CheckBox manageLoanMakePaymentCheckBox;
+    @FXML Label manageSavingsCurrentBalanceLabel;
 
 
     @FXML ComboBox<String> manageSavingsAccountsList;
@@ -919,11 +920,16 @@ public class Controller implements Initializable{
 
         CheckingAccount checkingAccount = ca.getCheckingAccount();
 
-        if(checkingAccount.getAccountBalance()>15.00){
-            stopPaymentButton.setDisable(false);
-        }else{
-            stopPaymentButton.setDisable(true);
+
+        if(ca.hasCheckingAccount()){
+            if(checkingAccount.getAccountBalance()>15.00){ // for the fee
+                stopPaymentButton.setDisable(false);
+            }else{
+                stopPaymentButton.setDisable(true);
+            }
         }
+
+
 
     }
 
@@ -2628,6 +2634,15 @@ public class Controller implements Initializable{
             customerAccount.deleteLoanAccounts();
         }
         DataEntryDriver.serializeCustomerDatabaseToFile();// writes changes
+
+
+        if(customerAccount.hasSavingsAccount() || customerAccount.hasCheckingAccount() || customerAccount.hasLoanAccount()){
+            goToManageFinanceAcc();
+        }else{
+            goToDisplayDataScene();
+        }
+
+
     }
 
     //CUSTOMER INTERFACE METHODS
